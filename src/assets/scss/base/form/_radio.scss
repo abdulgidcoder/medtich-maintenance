@@ -1,0 +1,61 @@
+.app-radio {
+	display: flex;
+	align-items: center;
+	position: relative;
+	margin-bottom: 0;
+	cursor: pointer;
+	font-weight: 400;
+	font-size: 0.75rem;
+	min-height: 18px;
+	padding-left: 26px;
+	line-height: 18px;
+	margin-bottom: 14px;
+	color: var(--text-color);
+	input {
+		position: absolute;
+		opacity: 0;
+		cursor: pointer;
+		&:checked {
+			~ {
+				.checkmark {
+					border-color: var(--primary);
+					&:after {
+						display: block;
+					}
+				}
+			}
+		}
+	}
+	.checkmark {
+		position: absolute;
+		top: 0;
+		left: 0;
+		border-radius: 50%;
+		border: 1px solid var(--primary);
+		background-color: var(--white);
+		width: 18px;
+		height: 18px;
+		&:after {
+			content: "";
+			position: absolute;
+			display: none;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			width: 8px;
+			height: 8px;
+			border-radius: 50%;
+			background-color: var(--primary);
+		}
+	}
+	&:hover {
+		input {
+			~ {
+				.checkmark {
+					border-color: var(--primary);
+				}
+			}
+		}
+	}
+}
+ 
