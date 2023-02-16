@@ -49,10 +49,10 @@ export default {
             class="app-section-head"
             v-if="!this.ordersStore.list == 0 || this.ordersStore.list !== null"
           >
-            <h2 class="h1">Laseted Orders</h2>
+            <h2 class="h1">Last Orders</h2>
             <RouterLink to="/orders">See all</RouterLink>
           </div>
-          <OrdersList per_page="6" />
+          <OrdersList :per_page="5" :pagination="false" />
         </section>
       </div>
     </div>

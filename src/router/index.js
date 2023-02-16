@@ -65,6 +65,12 @@ const router = createRouter({
         }
       },
     },
+    {
+      path: "/order/:id" ,
+      name: "single-order",
+      component: () => import("@/views/SingleOrder.vue"),
+      props: true,
+    },
   ],
 });
 

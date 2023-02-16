@@ -18,6 +18,7 @@ export default {
 <style lang="scss" >
 .v-enter-active,
 .v-leave-active {
+  transition-delay: .4s;
   transition: opacity 0.4s ease;
 }
 
@@ -38,6 +39,8 @@ export default {
   justify-content: center;
   &.fixed {
     position: fixed;
+    width: 100vw;
+    height: 100vh;
   }
 }
 .loader {

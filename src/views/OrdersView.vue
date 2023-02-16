@@ -13,13 +13,16 @@ export default {
       auth_user: this.$auth,
     };
   },
+    mounted() {
+    document.title = "Orders";  
+  },
 };
 </script>
 <template>
   <div class="app-page app-orders-page">
     <Head title="Orders" route="home" />
     <div class="app-content">
-      <OrdersList per_page="10" />
+      <OrdersList :per_page="6" :pagination="true" paginClass="app-fixed-bottom"/> 
     </div>
   </div>
 </template>

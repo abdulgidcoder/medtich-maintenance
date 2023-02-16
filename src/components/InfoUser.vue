@@ -9,11 +9,15 @@ export default {
 };
 </script>
 <template>
+   <Info
+    mode="warning"
+    msg="Complate your profile to active account"
+    :show="auth_user.user_data?.acf['status'] == null" 
+  />
   <Info
     mode="warning"
     msg="Your account is under review by the administration."
-    :show="auth_user.user_data?.acf['status'] == 'pending' ||
-      auth_user.user_data?.acf['status'] == null" 
+    :show="auth_user.user_data?.acf['status'] == 'pending'"
   />
   <Info
     mode="danger"

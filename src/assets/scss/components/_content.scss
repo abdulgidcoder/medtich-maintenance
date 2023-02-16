@@ -17,9 +17,9 @@
 }
 
 .app-fixed-bottom {
+  position: fixed;
   padding: 15px;
-  background-color: var(--bg-white);
-  position: absolute;
+  background-color: var(--bg-white); 
   right: 0;
   bottom: 0;
   left: 0;

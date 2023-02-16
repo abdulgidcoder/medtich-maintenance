@@ -15,8 +15,7 @@ export default {
       required: true,
     },
     currentPage: {
-      type: Number,
-      required: true,
+      type: Number, 
     },
   },
   setup() {},
@@ -76,7 +75,7 @@ export default {
 </script>
 
 <template>
-  <nav class="p-1" v-if="totalPages >= 2">
+  <nav v-if="totalPages >= 2">
     <ul class="pagination justify-content-end">
       <li class="page-item" :class="{ disabled: isInFirstPage }">
         <a
@@ -115,9 +114,9 @@ export default {
 </template>
 
 <style>
-.pagination {
-  display: -ms-flexbox;
+.pagination { 
   display: flex;
+  justify-content: center;
   padding-left: 0;
   list-style: none;
 }
@@ -128,17 +127,11 @@ export default {
   margin-left: -1px;
   color: var(--primary);
   background-color: #fff;
-  border: 1px solid var(--light);
+  border: 1px solid var(--grey);
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
   line-height: 1.5;
-}
-
-.page-link:focus {
-  z-index: 3;
-  outline: 0;
-  box-shadow: 0 0 0 0.2rem var(--primary-shade);
-}
+} 
 
 .page-item:first-child .page-link {
   margin-left: 0;

@@ -1,6 +1,6 @@
 <script>
 import { useOrdesStore } from "@/stores/useOrders.js";
-import Item from "./Item.vue";
+import MyItem from "./MyItem.vue";
 export default {
   props: {
     currentPage: Number,
@@ -23,12 +23,12 @@ export default {
     this.getOrders(); 
   },
   methods: {},
-  components: { Item },
+  components: { MyItem },
   methods: {
     getOrders() {
       this.loader = false;
-      this.ordersStore.ftechOrders(
-        this.$auth.user_data?.acf["area"],
+      this.ordersStore.ftechMyOrders(
+        this.$auth.user_data?.id,
         this.currPage,
         this.per_page
       );
@@ -43,22 +43,18 @@ export default {
 </script>
 
 <template>
-  <div class="orders-list">
+  <div class="my-orders-list">
      <ul>
-        <Item
-        v-for="order in this.ordersStore.list"
+        <MyItem
+        v-for="order in this.ordersStore.myList"
         :key="order.id"
-        :id_items="order.id"
-        :title="order.title.rendered"
-        :date="order.date"
-        :name="order.acf['name']"
-        :area="order.acf['area']"
-        ></Item>
+        :order="order" 
+        ></MyItem>
       </ul>
     <Loader :loaded="loader" class="fixed" />
     <div v-if="this.pagination" :class="this.paginClass">
       <Pagination
-        :totalPages="this.ordersStore.total"
+        :totalPages="this.ordersStore.myTotal"
         :perPage="this.per_page"
         :currentPage="this.currPage"
         @pagechanged="onPageChange"
@@ -68,7 +64,7 @@ export default {
   </div>
 </template>
 <style lang="scss">
-.orders-list {
+.my-orders-list {
   position: relative;
 } 
 </style>
