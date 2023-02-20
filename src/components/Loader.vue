@@ -9,7 +9,7 @@ export default {
 
 <template>
   <Transition>
-    <div class="preloader" v-if="!loaded" :class="class">
+    <div class="preloader" v-if="loaded" :class="class">
       <span class="loader"></span>
     </div>
   </Transition>
@@ -17,8 +17,7 @@ export default {
 
 <style lang="scss" >
 .v-enter-active,
-.v-leave-active {
-  transition-delay: .4s;
+.v-leave-active { 
   transition: opacity 0.4s ease;
 }
 

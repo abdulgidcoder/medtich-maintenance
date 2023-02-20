@@ -9,10 +9,8 @@ export default {
   props: { show: Boolean },
   components: {
     Tab,
-    OrdersList: defineAsyncComponent({
-      loader: () => import("../orders/List.vue"),
-      delay: 200,
-      timeout: 3000,
+    LastOrders: defineAsyncComponent({
+      loader: () => import("../orders/LastOrders.vue"),
     }),
     InfoUser,
     TopbarHome,
@@ -35,7 +33,10 @@ export default {
       <div class="app-content">
         <div
           class="app-section"
-          v-if="!this.ordersStore.list == 0 || !this.ordersStore.list == null"
+          v-if="
+            !this.ordersStore.lastList == 0 ||
+            !this.ordersStore.lastList == null
+          "
           v-show="false"
         >
           <button class="app-search-toggle">
@@ -46,13 +47,12 @@ export default {
         <InfoUser />
         <section class="app-section app-last-orders">
           <div
-            class="app-section-head"
-            v-if="!this.ordersStore.list == 0 || this.ordersStore.list !== null"
+            class="app-section-head" 
           >
             <h2 class="h1">Last Orders</h2>
             <RouterLink to="/orders">See all</RouterLink>
           </div>
-          <OrdersList :per_page="5" :pagination="false" />
+          <LastOrders :per_page="6" />
         </section>
       </div>
     </div>

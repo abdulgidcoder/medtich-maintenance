@@ -1,55 +1,63 @@
 <script>
 import { useOrdesStore } from "@/stores/useOrders.js";
-
+import Details from "../components/orders/single/Details.vue";
+import DetailsLoader from "../components/orders/single/DetailsLoader.vue";
 export default {
-  components: {},
   data() {
     return {
       orderID: this.$route.params.id,
       order_data: {},
-      loader: false,
+      loader: true,
     };
   },
   setup() {
     const ordersStore = useOrdesStore();
     return { ordersStore };
   },
+  created() {},
   mounted() {
+    document.title = "Order";
     if (this.ordersStore.myList == null) {
-      this.ordersStore
-        .ftechMyOrders(this.$auth.user_data?.id, 1, 5)
-        .then(() => {
-          this.ordersStore.myList.find((item) => {
-            if (item.id == this.orderID) {
-              this.order_data = item;
-              this.loader= true;
-            }
-          });
-        });
+      this.getData();
     } else {
       this.ordersStore.myList.find((item) => {
         if (item.id == this.orderID) {
-          this.order_data = item;
-           this.loader= true;
+          this.order_data = item; 
+           this.loader = false;
+        } else {
+          this.getData();
         }
       });
     }
   },
-  methods: {},
+  methods: {
+    getData() {
+      this.ordersStore.getOrder(this.orderID).then(() => {
+        this.order_data = this.ordersStore.singleOrder;
+        setTimeout(() => {
+          this.loader = false;
+        }, 1000);
+      });
+    },
+    getArea(name) {},
+  },
+  components: { Details, DetailsLoader },
 };
 </script>
 <template>
-  <main class="single-order">
-    <div class="container">
-      <h1 v-html="order_data.title?.rendered"></h1>
-          <Loader :loaded="loader" class="fixed" />
+  <div class="app-page app-order-page">
+    <Head title="Order Details" route="home" />
+    <div class="app-content">
+      <DetailsLoader v-if="loader" />
+      <Details v-else="!loader" :details="order_data"></Details>
     </div>
-  </main>
+  </div>
 </template>
 
-<style scoped>
-.single-order .list-group p {
-  font-size: 17px;
-  margin-left: 10px;
+<style lang="scss">
+.app-order-page {
+  .app-content {
+    background-color: var(--bg-grey-2);
+  }
 }
 </style>

@@ -1,40 +1,39 @@
 import axios from "axios";
-import { useRouter } from "vue-router";
-
+import router from "../router";
 axios.defaults.baseURL = "https://maintenance.medtich.com";
 
-let refresh = false;
+// Add a response interceptor
+axios.interceptors.response.use(
+  function (response) {
+    // Any status code that lie within the range of 2xx cause this function to trigger
+    // Do something with response data
+    return response;
+  },
+  function (error) {
+    // Any status codes that falls outside the range of 2xx cause this function to trigger
+    // Do something with response error
+    if (error.response) {
+      switch (error.response.status) {
+        case 401:
+        case 403:
+          localStorage.removeItem("token");
+          localStorage.removeItem("userData");
+          window.location.reload();
+          router.push({
+            name: "login",
+          });
+        default:
+          console.log(error.response.data);
+      }
+    }
+    if (error.code == "ERR_NETWORK" || error.code == "ERR_NAME_NOT_RESOLVED") {
+      router.push({
+        name: "orders",
+      });
+    } 
 
-// axios.interceptors.response.use(
-//   (resp) => resp,
-//   (error) => {
-//     console.log(error.code === "ERR_NETWORK");
-//       console.log(error);
-//     // const router = use  console.log(error.code === "ERR_NETWORK");Router();
-//     if(error.code === "ERR_NETWORK"){
-//       // this.$router.push('/');
-//       // this.router.push("/");
-//       // router.push("/"); 
-//     }
-//     // if (error.response.status === 401 && !refresh) {
-//     //   refresh = true;
-//     //   const { status, response } = await axios({
-//     //     method: "post",
-//     //     url: "",
-//     //     params: {
-//     //       rest_route: "/auth/auth/refresh",
-//     //       AUTH_KEY: "xjKnJXXB(ML`3B!V4Me/R5F=GEp0cKAt!",
-//     //       JWT: localStorage.getItem("token"),
-//     //     },
-//     //   });
-//     //   if (status === 200) {
-//     //     const token = `${response.data.data.jwt}`;
-//     //     localStorage.setItem("token", token);
-//     //     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-//     //     return axios(error.config);
-//     //   }
-//     // }
-//     // refresh = false;
-//     // return error;
-//   }
-// );
+    return Promise.reject(error);
+  }
+);
+
+export default axios;

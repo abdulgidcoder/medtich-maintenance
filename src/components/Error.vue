@@ -11,7 +11,7 @@ watch(
       error.show = false;
       error.style = "";
       error.masg = "";
-    }, 3000);
+    }, 4000);
   }
 );
 </script>

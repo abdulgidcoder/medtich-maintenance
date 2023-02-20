@@ -45,8 +45,8 @@ export default {
         <Icon name="location" />
         <div class="contant">
           <div>Your Area</div>
-          <strong v-if="auth_user.user_data?.acf['area'] !== null">{{
-            auth_user.user_data?.acf["area"].toUpperCase()
+          <strong v-if="auth_user.user_data?.acf['area'] !== null">{{ 
+            $nameArea( auth_user.user_data?.acf["area"])
           }}</strong>
           <Select
             :data="cities"

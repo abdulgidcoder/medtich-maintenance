@@ -1,17 +1,18 @@
 <script>
 import { useOrdesStore } from "@/stores/useOrders.js";
 import MyItem from "./MyItem.vue";
+import MyItemLoader from "./MyItemLoader.vue";
+
 export default {
   props: {
     currentPage: Number,
     per_page: Number,
     pagination: Boolean,
-    paginClass: String
+    paginClass: String,
   },
   data() {
     return {
-      // user_area: ,
-      loader: false,
+      loader: true,
       currPage: this.currentPage ? this.currentPage : 1,
     };
   },
@@ -19,20 +20,22 @@ export default {
     const ordersStore = useOrdesStore();
     return { ordersStore };
   },
-  mounted() { 
-    this.getOrders(); 
+  mounted() {
+    this.getOrders();
   },
   methods: {},
-  components: { MyItem },
+  components: { MyItem, MyItemLoader },
   methods: {
     getOrders() {
-      this.loader = false;
       this.ordersStore.ftechMyOrders(
         this.$auth.user_data?.id,
         this.currPage,
         this.per_page
-      );
-      this.loader = true;
+      ).then(()=>{
+          setTimeout(() => {
+        this.loader = false;
+      }, 1000);
+      })
     },
     onPageChange(page) {
       this.currPage = page;
@@ -44,27 +47,28 @@ export default {
 
 <template>
   <div class="my-orders-list">
-     <ul>
-        <MyItem
+    <ul>
+      <MyItemLoader v-if="loader" v-for="i in this.per_page" :key="i" />
+      <MyItem
+        v-else="loader"
         v-for="order in this.ordersStore.myList"
         :key="order.id"
-        :order="order" 
-        ></MyItem>
-      </ul>
-    <Loader :loaded="loader" class="fixed" />
-    <div v-if="this.pagination" :class="this.paginClass">
-      <Pagination
-        :totalPages="this.ordersStore.myTotal"
-        :perPage="this.per_page"
-        :currentPage="this.currPage"
-        @pagechanged="onPageChange"
-    
+        :order="order"
+      ></MyItem>
+          <Info
+        mode="warning"
+        msg="Not have any orders in this area"
+        :show="this.ordersStore.myList == 0"
+        v-if="!loader"
       />
-    </div>
+    </ul>
   </div>
-</template>
-<style lang="scss">
-.my-orders-list {
-  position: relative;
-} 
-</style>
+  <div v-if="this.pagination" :class="this.paginClass">
+    <Pagination
+      :totalPages="this.ordersStore.myTotal"
+      :perPage="this.per_page"
+      :currentPage="this.currPage"
+      @pagechanged="onPageChange"
+    />
+  </div>
+</template> 

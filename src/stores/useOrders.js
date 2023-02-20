@@ -5,12 +5,34 @@ const error = useError();
 
 export const useOrdesStore = defineStore("orders", {
   state: () => ({
+    lastList: null,
     list: null,
     total: "",
     myList: null,
     myTotal: "",
+    singleOrder: null,
   }),
   actions: {
+    async ftechLast(area, per_page) {
+      if (area) {
+        const response = await axios({
+          method: "get",
+          url: "/wp-json/wp/v2/orders",
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+          params: {
+            _fields: "id,date,title,content,acf",
+            orderby: "modified",
+            area_only: area,
+            per_page: per_page ? per_page : 5,
+          },
+        });
+        if (response.data) {
+          this.lastList = response.data;
+        }
+      }
+    },
     async ftechOrders(area, currentPage, per_page) {
       if (area) {
         const response = await axios({
@@ -55,14 +77,24 @@ export const useOrdesStore = defineStore("orders", {
         }
       }
     },
-    async acceptOrders(id, technician) {
+    async acceptOrders(order, technician) {
+      console.log();
       const responseOrder = await axios({
         method: "get",
-        url: "/wp-json/wp/v2/orders/" + id,
+        url: "/wp-json/wp/v2/orders/" + order.id,
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
         params: {
+          email: order.acf?.email,
+          mobile: order.acf?.mobile,
+          area: order.acf?.area,
+          date: order.acf?.date,
+          serial_number: order.acf?.serial_number,
+          company: order.acf?.company,
+          latitude: order.acf?.latitude,
+          longitude: order.acf?.longitude,
+          name: order.acf?.name,
           technician: technician,
         },
       });
@@ -88,6 +120,21 @@ export const useOrdesStore = defineStore("orders", {
           error.style = "success";
           error.show = true;
         }
+      }
+    },
+    async getOrder(id) {
+      const response = await axios({
+        method: "get",
+        url: "/wp-json/wp/v2/orders/" + id,
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        params: {
+          _fields: "id,date,title,content,acf",
+        },
+      });
+      if (response.data) {
+        this.singleOrder = response.data;
       }
     },
   },
