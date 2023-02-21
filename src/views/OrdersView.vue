@@ -19,22 +19,21 @@ export default {
 };
 </script>
 <template>
-  <div class="app-page app-orders-page">
+  <Page class="app-orders-page">
     <Head title="Orders" route="home" />
-    <div class="app-content">
+    <Content :isBoxed="true">
       <OrdersList
-        :per_page="6"
+        :per_page="7"
         :pagination="true"
         paginClass="app-fixed-bottom"
       />
-    </div>
-  </div>
+    </Content>
+  </Page>
 </template>
 
 <style lang="scss">
 .app-orders-page {
-  .orders-list {
-    margin-top: 10px;
+  .orders-list { 
   }
 }
 </style>

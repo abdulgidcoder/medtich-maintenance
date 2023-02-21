@@ -38,7 +38,7 @@ export default {
             <span class="order-name" v-if="order.acf['name']"
               ><Icon name="user" />{{ order.acf["name"] }}</span
             >
-            <!-- <span class="order-area"><Icon name="location" />{{ order.acf["area"] }}</span> -->
+            <span class="order-area"><Icon name="location" />{{ $nameArea(order.acf["area"]) }}</span>
           </div>
         </div>
         <Icon name="angle-right" />

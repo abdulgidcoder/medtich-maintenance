@@ -22,13 +22,13 @@ export default {
   <Tab :show="show">
     <div class="app-tab-view app-my-orders-page">
       <Head title="My Orders" />
-      <div class="app-content">
+      <Content :isBoxed="true">
         <MyOrdersList
-          :per_page="6"
+          :per_page="7"
           :pagination="true"
           paginClass="app-fixed-bottom"
         />
-      </div>
+      </Content>
     </div>
   </Tab>
 </template>

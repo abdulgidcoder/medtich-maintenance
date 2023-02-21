@@ -1,24 +1,27 @@
-.app-page-auth .app-page__offcanvas{
-  .app-logo{
-    text-align: center;
-    padding: 30px 0 0;
-    margin-bottom: 15px;
-    img{
-      max-width: 80px;
-    }
-  }
-  h1{
-    text-align: center;
-    margin-bottom: 25px;
-  }
-  .app-topbar,.app-content{
+.app-page-auth {
+  .app-topbar,
+  .app-content {
     background-color: var(--bg-grey);
   }
-  p{
-    text-align: center;
-    margin-top: 25px;
-    a{
-      color: var(--primary);
+  .app-content {
+    padding-bottom: 20px;
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    p {
+      text-align: center;
+      margin-top: 25px;
+      a {
+        color: var(--primary);
+      }
+    }
+  }
+  .app-logo {
+    text-align: center; 
+    margin-bottom: 15px;
+    img {
+      max-width: 80px;
     }
   }
 }

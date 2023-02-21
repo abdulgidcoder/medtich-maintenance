@@ -196,103 +196,82 @@ export default {
 </script>
 
 <template>
-  <div class="app-page app-page-auth">
+  <Page class="app-page-auth">
+    <!-- <TopBar /> -->
+    <Content>
+      <AppLogo />
+      <h1>Register</h1>
+      <form @submit.prevent="handleSubmit($event.target)">
+        <Field
+          v-model="name"
+          type="text"
+          placeholder="Ahmed Ali"
+          label="Name"
+          icon="user"
+          @keyup="validName($event.target)"
+        />
+        <Field
+          v-model="mobile"
+          type="number"
+          placeholder="+996xxxxxxx"
+          label="Mobile"
+          icon="mobile"
+          @keyup="validMobile($event.target)"
+        />
+        <Field
+          v-model="password"
+          type="password"
+          placeholder="*********"
+          label="Password"
+          icon="password"
+          @keyup="passwordValid($event.target)"
+        />
+        <Field
+          v-model="password_confirm"
+          type="password"
+          placeholder="*********"
+          label="Password Confirm"
+          icon="password"
+          @keyup="passwordConfirmValid($event.target)"
+        />
+        <div class="app-field-submit">
+          <button class="btn btn-primary btn-block btn-lg" id="submit-btn">
+            Contiune
+          </button>
+        </div>
+        <div id="recaptcha-container"></div>
+      </form>
+      <p>
+        Already have an account ? <RouterLink to="/login">Login</RouterLink>
+      </p>
+    </Content>
     <Teleport to="body">
       <Alert :show="hasFeedback" :mode="feedbackStyle" :msg="feedback" />
     </Teleport>
-    <Teleport to="body">
-      <Modal v-if="modalOtp" class="modal-otp" :class="{ active: modalOtp }">
-        <div class="modal-otp_content">
-          <h2>Confirm your number</h2>
-          <p>Enter the 6 digit code send to<br />{{ countryCode + mobile }}</p>
-          <otp :digit-count="6" @update:otp="otpCode = $event"></otp>
-          <button
-            id="verify-btn"
-            class="btn btn-primary btn-block btn-lg"
-            @click="verifyOtp($event.target)"
-          >
-            Verify number
-          </button>
-        </div>
-      </Modal>
-    </Teleport>
-    <div class="app-page__offcanvas">
-      <TopBar />
-      <div class="app-content">
-        <AppLogo />
-        <h1>Register</h1>
-        <form @submit.prevent="handleSubmit($event.target)">
-          <Field
-            v-model="name"
-            type="text"
-            placeholder="Ahmed Ali"
-            label="Name"
-            icon="user"
-            @keyup="validName($event.target)"
-          />
-          <Field
-            v-model="mobile"
-            type="number"
-            placeholder="+996xxxxxxx"
-            label="Mobile"
-            icon="mobile"
-            @keyup="validMobile($event.target)"
-          />
-          <Field
-            v-model="password"
-            type="password"
-            placeholder="*********"
-            label="Password"
-            icon="password"
-            @keyup="passwordValid($event.target)"
-          />
-          <Field
-            v-model="password_confirm"
-            type="password"
-            placeholder="*********"
-            label="Password Confirm"
-            icon="password"
-            @keyup="passwordConfirmValid($event.target)"
-          />
-          <div id="recaptcha-container" sytle="margin-bottom:15px;"></div>
-          <div class="app-field-submit">
-            <button class="btn btn-primary btn-block btn-lg" id="submit-btn">
-              Contiune
-            </button>
-          </div>
-        </form>
-        <p>
-          Already have an account ? <RouterLink to="/login">Login</RouterLink>
-        </p>
-      </div>
-    </div>
-  </div>
+    <Modal classes="modal-otp bottom" :show="modalOtp">
+      <h2>Confirm your number</h2>
+      <p>
+        Enter the 6 digit code send to<br /><strong>{{
+          countryCode + mobile
+        }}</strong>
+      </p>
+      <otp :digit-count="6" @update:otp="otpCode = $event"></otp>
+      <button
+        id="verify-btn"
+        class="btn btn-primary btn-block btn-lg"
+        @click="verifyOtp($event.target)"
+      >
+        Verify number
+      </button>
+    </Modal>
+  </Page>
 </template>
 <style lang="scss">
 .modal-otp {
-  &.active {
-    .app-modal__container {
-      transform: translateY(0);
-    }
-  }
-  .app-modal__container {
-    position: absolute;
-    border-radius: 30px 30px 0 0;
-    width: 100%;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    padding: 20px 20px 80px;
-    background-color: var(--white);
-    transform: translateY(100%);
-    transition: transform 0.3s ease-in-out;
-  }
-  .modal-otp_content {
-    text-align: center;
-    p {
-      font-size: 14px;
-      margin-bottom: 25px;
-    }
+  text-align: center;
+  p {
+    font-size: 14px;
+    margin-bottom: 25px;
   }
 }
 #recaptcha-container {

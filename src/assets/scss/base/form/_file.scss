@@ -1,0 +1,28 @@
+.app-file {
+  position: relative;
+  input {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: 5;
+    cursor: pointer;
+  }
+  label {
+    background-color: var(--grey);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    height: 45px;
+    padding: 15px;
+    svg {
+      width: auto;
+      height: 16px;
+      margin-right: 15px;
+    }
+  }
+  .spinner-border{
+    margin-right: 5px;
+  }
+}

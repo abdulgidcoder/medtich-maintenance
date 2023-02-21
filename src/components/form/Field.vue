@@ -32,10 +32,11 @@ export default {
 </script>
 
 <template>
-  <div class="app-field">
+  <div class="app-field" :class="{ 'field-icon': icon }">
     <label class="app-field_label">{{ label }}</label>
     <div class="app-field_input">
       <input
+        v-if="type != 'textarea'"
         class="app-field_input"
         :type="type"
         :placeholder="placeholder"
@@ -45,8 +46,18 @@ export default {
         :pattern="pattern"
         ref="input"
       />
-      <div class="app-field_icon" :class="type">
-     <Icon :name="icon"/>
+      <textarea
+        v-if="type == 'textarea'"
+        class="app-field_textarea"
+        :placeholder="placeholder"
+        :value="modelValue"
+        @input="updateValue"
+        :required="required"
+        :pattern="pattern"
+        ref="input"
+      ></textarea>
+      <div class="app-field_icon" :class="type" v-if="icon">
+        <Icon :name="icon" />
       </div>
     </div>
   </div>

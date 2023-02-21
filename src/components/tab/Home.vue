@@ -30,7 +30,7 @@ export default {
   <Tab :show="show">
     <div class="app-tab-view app-home-page">
       <TopbarHome />
-      <div class="app-content">
+      <Content>
         <div
           class="app-section"
           v-if="
@@ -46,21 +46,22 @@ export default {
         </div>
         <InfoUser />
         <section class="app-section app-last-orders">
-          <div
-            class="app-section-head" 
-          >
+          <div class="app-section-head">
             <h2 class="h1">Last Orders</h2>
             <RouterLink to="/orders">See all</RouterLink>
           </div>
           <LastOrders :per_page="6" />
         </section>
-      </div>
+      </Content>
     </div>
   </Tab>
 </template>
 
 <style lang="scss">
 .app-home-page {
+  .app-content {
+    background-color: var(--white);
+  }
   .user-area {
     display: flex;
     align-items: center;

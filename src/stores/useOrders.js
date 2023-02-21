@@ -22,8 +22,7 @@ export const useOrdesStore = defineStore("orders", {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
           params: {
-            _fields: "id,date,title,content,acf",
-            orderby: "modified",
+            _fields: "id,date,title,content,acf", 
             area_only: area,
             per_page: per_page ? per_page : 5,
           },
@@ -42,8 +41,7 @@ export const useOrdesStore = defineStore("orders", {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
           params: {
-            _fields: "id,date,title,content,acf",
-            orderby: "modified",
+            _fields: "id,date,title,content,acf", 
             area_only: area,
             page: currentPage ? currentPage : 1,
             per_page: per_page ? per_page : 5,
@@ -64,8 +62,7 @@ export const useOrdesStore = defineStore("orders", {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
           params: {
-            _fields: "id,date,title,content,acf",
-            orderby: "modified",
+            _fields: "id,date,title,content,acf", 
             technician: technician,
             page: currentPage ? currentPage : 1,
             per_page: per_page ? per_page : 5,
@@ -77,24 +74,14 @@ export const useOrdesStore = defineStore("orders", {
         }
       }
     },
-    async acceptOrders(order, technician) {
-      console.log();
+    async acceptOrders(order, technician) {  
       const responseOrder = await axios({
         method: "get",
         url: "/wp-json/wp/v2/orders/" + order.id,
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
-        params: {
-          email: order.acf?.email,
-          mobile: order.acf?.mobile,
-          area: order.acf?.area,
-          date: order.acf?.date,
-          serial_number: order.acf?.serial_number,
-          company: order.acf?.company,
-          latitude: order.acf?.latitude,
-          longitude: order.acf?.longitude,
-          name: order.acf?.name,
+        params: {          
           technician: technician,
         },
       });
@@ -105,12 +92,21 @@ export const useOrdesStore = defineStore("orders", {
       } else {
         const responseAcc = await axios({
           method: "post",
-          url: "/wp-json/wp/v2/orders/" + id,
+          url: "/wp-json/wp/v2/orders/" + order.id,
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
           data: {
             fields: {
+              email: order.acf?.email,
+              mobile: order.acf?.mobile,
+              area: order.acf?.area,
+              date: order.acf?.date,
+              serial_number: order.acf?.serial_number,
+              company: order.acf?.company,
+              latitude: order.acf?.latitude,
+              longitude: order.acf?.longitude,
+              name: order.acf?.name,
               technician: technician,
             },
           },

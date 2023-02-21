@@ -5,7 +5,7 @@ export const useReportsStore = defineStore("reports", {
     allReports: [],
     totalPages: "",
   }),
-  actions: {
+  actions: { 
     async ftechallReports(userID, currentPage, per_page, fillter_status) {
       const response = await axios({
         method: "get",

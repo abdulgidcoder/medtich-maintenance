@@ -76,44 +76,42 @@ export default {
 </script>
 
 <template>
-  <div class="app-page app-page-auth">
+  <Page class="app-page-auth">
+    <!-- <TopBar /> -->
+    <Content>
+      <AppLogo />
+      <h1>Welcome back</h1>
+      <form @submit.prevent="handleSubmit($event.target)">
+        <Field
+          v-model="mobile"
+          type="number"
+          placeholder="+996xxxxxxx"
+          label="Mobile"
+          icon="mobile"
+        />
+        <Field
+          v-model="password"
+          type="password"
+          placeholder="*********"
+          label="Password"
+          icon="password"
+        />
+        <!-- <div class="app-forget-password">
+            <RouterLink to="/resetpassword">Forget Password ?</RouterLink>
+          </div> -->
+        <div class="app-field-submit">
+          <button class="btn btn-primary btn-block btn-lg submit-btn">
+            Login
+          </button>
+        </div>
+      </form>
+      <p>
+        Don't have an account yet?
+        <RouterLink to="/register">Register</RouterLink>
+      </p>
+    </Content>
     <Teleport to="body">
       <Alert :show="hasFeedback" :mode="feedbackStyle" :msg="feedback" />
     </Teleport>
-    <div class="app-page__offcanvas">
-      <TopBar />
-      <div class="app-content">
-        <AppLogo />
-        <h1>Welcome back</h1>
-        <form @submit.prevent="handleSubmit($event.target)">
-          <Field
-            v-model="mobile"
-            type="number"
-            placeholder="+996xxxxxxx"
-            label="Mobile"
-            icon="mobile"
-          />
-          <Field
-            v-model="password"
-            type="password"
-            placeholder="*********"
-            label="Password"
-            icon="password"
-          />
-          <!-- <div class="app-forget-password">
-            <RouterLink to="/resetpassword">Forget Password ?</RouterLink>
-          </div> -->
-          <div class="app-field-submit">
-            <button class="btn btn-primary btn-block btn-lg submit-btn">
-              Login
-            </button>
-          </div>
-        </form>
-        <p>
-          Don't have an account yet?
-          <RouterLink to="/register">Register</RouterLink>
-        </p>
-      </div>
-    </div>
-  </div>
+  </Page>
 </template>

@@ -1,7 +1,7 @@
 <script>
 import Tab from "./Tab.vue";
 export default {
-    props: { show: Boolean },
+  props: { show: Boolean },
   components: { Tab },
   data() {
     return {
@@ -11,8 +11,7 @@ export default {
 };
 </script>
 <template>
-
- <Tab :show="show">
+  <Tab :show="show">
     <div class="app-tab-view app-reports-page">
       <Head title="My Reports" />
       <div class="app-content"></div>

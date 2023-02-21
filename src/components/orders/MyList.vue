@@ -63,7 +63,7 @@ export default {
       />
     </ul>
   </div>
-  <div v-if="this.pagination" :class="this.paginClass">
+  <div v-if="this.pagination && this.ordersStore.myTotal >= 2" :class="this.paginClass">
     <Pagination
       :totalPages="this.ordersStore.myTotal"
       :perPage="this.per_page"

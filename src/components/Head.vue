@@ -9,10 +9,13 @@ export default {
 <template>
   <header class="app-header">
     <div class="app-header_left">
-      <RouterLink :to="{name:route}" class="app-btn-back" v-show="route">
+      <RouterLink :to="{ name: route }" class="app-btn-back" v-show="route">
         <Icon name="arrow-left" />
       </RouterLink>
       <h2>{{ title }}</h2>
+    </div>
+    <div class="app-header_right">
+      <slot name="right"></slot>
     </div>
   </header>
 </template>
@@ -25,7 +28,7 @@ export default {
   width: 100%;
   z-index: 99;
   padding: 20px 15px 15px;
-  background-color: var(--bg-grey-2);
+  background-color: var(--primary);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -47,6 +50,7 @@ export default {
   }
   h2 {
     margin-bottom: 0;
+    color: var(--white);
   }
 }
 </style>

@@ -61,8 +61,8 @@ export default {
         v-if="!loader"
       />
     </ul>
-  </div>
-  <div v-if="this.pagination" :class="this.paginClass">
+  </div> 
+  <div v-if="this.pagination && this.ordersStore.total >= 2" :class="this.paginClass">
     <Pagination
       :totalPages="this.ordersStore.total"
       :perPage="this.per_page"

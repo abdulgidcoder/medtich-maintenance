@@ -3,11 +3,12 @@
   height: calc(100vh - 65px);
   .app-content {
     height: 100%;
-    padding-bottom: 0;
+    padding-bottom: 0; 
     .app-fixed-bottom{
-      position: sticky;
-      margin: 0 -15px;
-      padding: 10px;
+      position: sticky; 
+    padding: 10px;
+    bottom: 0;
+    margin: 0 -15px;
     }
   }
 }

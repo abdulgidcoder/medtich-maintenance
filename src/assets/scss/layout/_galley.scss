@@ -1,0 +1,40 @@
+.app-gallery {
+  display: flex;
+  margin: 15px -7px;
+  .col {
+    position: relative;
+    width: calc(100% / 3);
+    flex: 0 0 calc(100% / 3);
+    padding: 0 7px;
+  }
+  .image {
+    position: relative;
+    img {
+      object-fit: cover; 
+          padding: 0.25rem;
+    background-color: #fff;
+    border: 1px solid var(--grey);
+    border-radius: 0.25rem;
+    max-width: 100%;
+    }
+    .badge {
+      top: 3px;
+      right: 5px;
+      position: absolute;
+      background-color: var(--success);
+      display: inline-block;
+      padding: 0.25em 0.4em;
+      font-size: 75%;
+      line-height: 1;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: baseline;
+      border-radius: 0.25rem;
+      svg {
+        width: auto;
+        height: 13px;
+        fill: #fff;
+      }
+    }
+  }
+}

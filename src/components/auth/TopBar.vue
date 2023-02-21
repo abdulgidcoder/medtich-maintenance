@@ -2,7 +2,7 @@
   <header class="app-topbar">
     <div class="app-topbar__wrapper">
       <div class="app-topbar__wrapper-left">
-        <button class="app-lang-toggle">
+        <!-- <button class="app-lang-toggle">
           English <svg xmlns="http://www.w3.org/2000/svg" width="20.371" height="11.216" viewBox="0 0 20.371 11.216">
             <g id="angle" transform="translate(-0.001 65.329) rotate(-90)">
               <path id="Chevron_Right"
@@ -10,7 +10,7 @@
                 transform="translate(0 0)"></path>
             </g>
           </svg>
-        </button>
+        </button> -->
       </div>
       <div class="app-topbar__wrapper-right">
 

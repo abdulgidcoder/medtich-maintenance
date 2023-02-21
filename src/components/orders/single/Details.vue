@@ -11,7 +11,7 @@ export default {
 };
 </script>
 <template>
-  <div class="app-content-box app-order-details">
+  <div class="app-order-details">
     <h2 v-html="details.title?.rendered" class="order-title"></h2>
     <div class="order-meta">
       <span>
@@ -36,7 +36,6 @@ export default {
         <strong>Area</strong>
         <p>{{ $nameArea(details.acf?.area) }}</p>
       </li>
-
       <li>
         <strong>Date</strong>
         <p>{{ details.acf?.date }}</p>

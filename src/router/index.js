@@ -1,6 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
-
 import { useAuthStore } from "@/stores/useAuth";
+
+const redirectToLoginOnLoggedOUt = (to, from, next) => {
+   if (!useAuthStore().loggedIn) {
+     next({ name: "login" });
+   } else {
+     next();
+   }
+};
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,13 +28,7 @@ const router = createRouter({
       path: "/home",
       name: "home",
       component: () => import("@/views/HomeView.vue"),
-      beforeEnter: (to, from, next) => {
-        if (!useAuthStore().loggedIn) {
-          next({ name: "login" });
-        } else {
-          next();
-        }
-      },
+      beforeEnter: redirectToLoginOnLoggedOUt,
     },
     {
       path: "/login",
@@ -57,19 +58,21 @@ const router = createRouter({
       path: "/orders",
       name: "orders",
       component: () => import("@/views/OrdersView.vue"),
-      beforeEnter: (to, from, next) => {
-        if (!useAuthStore().loggedIn) {
-          next({ name: "login" });
-        } else {
-          next();
-        }
-      },
+      beforeEnter: redirectToLoginOnLoggedOUt,
     },
     {
-      path: "/order/:id" ,
+      path: "/order/:id",
       name: "single-order",
       component: () => import("@/views/SingleOrder.vue"),
       props: true,
+      beforeEnter: redirectToLoginOnLoggedOUt,
+    },
+    {
+      path: "/order/:orderId/add-report",
+      name: "add-report",
+      component: () => import("@/views/AddReport.vue"),
+      props: true,
+      beforeEnter: redirectToLoginOnLoggedOUt,
     },
   ],
 });
