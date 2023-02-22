@@ -85,7 +85,7 @@ export default {
     },
     async uploadFiles(input) {
       input.target.nextSibling.children[1].innerHTML =
-        "<span class='spinner-border spinner-border-sm'></span>Uploading ...";
+        "<span class='spinner-border spinner-border-sm'></span>تحديث ...";
       const files = input.target.files;
       const formData = new FormData();
       for (let i = 0; i < files.length; i++) {
@@ -104,13 +104,13 @@ export default {
           for (let i = 0; i < response.data.length; i++) { 
             this.user.cv=response.data[i].id;
           }
-          input.target.nextSibling.children[1].innerHTML = "Update CV";
-          this.error.masg = "CV Uploaded";
+          input.target.nextSibling.children[1].innerHTML = "تحديث السيرة الذاتية";
+          this.error.masg = "تم رفع السيرة الذاتية";
           this.error.style = "success";
           this.error.show = true;
         })
         .catch((error) => {
-          input.target.nextSibling.children[1].innerHTML = "Upload CV";
+          input.target.nextSibling.children[1].innerHTML = "'رفع السيرة الذاتية";
              this.error.style = "danger";
           this.error.show = true;
           if (error.response) {
@@ -126,7 +126,7 @@ export default {
       const btnSubmit = document.getElementById("updata-user");
       btnSubmit.disabled = true;
       btnSubmit.innerHTML =
-        "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Updating...";
+        "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>تحديث...";
       this.authStore
         .updateUser({
           name: this.user.name,
@@ -138,14 +138,14 @@ export default {
           },
         })
         .then(() => {
-          this.error.masg = "Success Updata Profile";
+          this.error.masg = "نجاح تحديث الملف الشخصي";
           this.error.style = "success";
           this.error.show = true;
-          btnSubmit.innerHTML = "Update";
+          btnSubmit.innerHTML = "تحديث";
         })
         .catch((error) => {
           btnSubmit.disabled = false;
-          btnSubmit.innerHTML = "Update";
+          btnSubmit.innerHTML = "تحديث";
           this.error.style = "danger";
           this.error.show = true;
           if (error.response) {
@@ -161,39 +161,39 @@ export default {
 </script>
 <template>
   <Page class="app-profile-page">
-    <Head title="My Profile" route="home"></Head>
+    <Head title="حسابى" route="home"></Head>
     <Content :isBoxed="true">
       <UserInfo />
       <form @submit.prevent="edit_user($event.target)">
         <Field
           type="text"
-          label="Username / Mobile"
+          label="الهاتف"
           :modelValue="this.$auth.user_data?.username"
           :readonly="true"
             icon="mobile"
         />
         <Field
           type="text"
-          label="Name"
+          label="الاسم"
           :modelValue="this.$auth.user_data?.name"
           v-model="user.name"
             icon="user"
         />
-        <label>Area</label>
+        <label>المنطقة</label>
         <Select :onChange="chooseArea" :data="cities" class="app-select">{{
           $nameArea(this.user.area)
         }}</Select>
-        <label>Specialization</label>
+        <label>التخصص</label>
         <Select
           :onChange="chooseSpac"
           :data="specialization"
           class="app-select"
           >{{ $nameSpac(this.user.specialization) }}</Select
         >
-        <File :label="this.$auth.user_data?.acf['cv'] ? 'Update Your CV' : 'Upload CV'" accept=".pdf" @change="uploadFiles" />
+        <File :label="this.$auth.user_data?.acf['cv'] ? 'قم بتحديث سيرتك الذاتية' : 'رفع السيرة الذاتية'" accept=".pdf" @change="uploadFiles" />
         <div class="app-fixed-bottom">
           <button class="btn btn-primary btn-lg btn-block" id="updata-user">
-            Update
+            تحديث
           </button>
         </div>
       </form>

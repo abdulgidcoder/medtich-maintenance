@@ -1,14 +1,8 @@
-<script>
-import moment from "moment";
+<script> 
 import { useOrdesStore } from "@/stores/useOrders.js";
 export default {
   props: {
     order: Object,
-  },
-  data() {
-    return {
-      moment: moment,
-    };
   },
   setup() {
     const ordersStore = useOrdesStore();
@@ -23,7 +17,7 @@ export default {
         ele.innerHTML = "Accept";
         ele.disabled = false;
       });
-    },
+    }, 
   },
 };
 </script>
@@ -35,20 +29,18 @@ export default {
         <div class="order-meta">
           <span class="order-date">
             <Icon name="calendar" />
-            {{
-              moment.parseZone(order.date).local().startOf("second").fromNow()
-            }}
+            <span>{{ $dateTime(order.date) }}</span>
           </span>
           <span class="order-name" v-if="order.acf['name']"
-            ><Icon name="user" />{{ order.acf["name"] }}</span
-          > 
+            ><Icon name="user" /> <span>{{ order.acf["name"] }}</span></span
+          >
         </div>
         <button
           @click="accept(order, $event.target)"
           class="btn btn-sm btn-primary"
           v-if="$auth.user_data.acf['status'] == 'active'"
         >
-          Accept
+          قبول
         </button>
       </div>
     </li>

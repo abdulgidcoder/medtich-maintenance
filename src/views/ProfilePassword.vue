@@ -33,23 +33,23 @@ export default {
           const btnSubmit = document.getElementById("updata-user");
           btnSubmit.disabled = true;
           btnSubmit.innerHTML =
-            "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Updating...";
+            "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> تغير...";
           this.authStore
             .updateUser({
               password: this.password,
             })
             .then(() => {
-              this.error.masg = "Success Updata Password";
+              this.error.masg = "نجاح تغير كلمة المرور";
               this.error.style = "success";
               this.error.show = true;
               btnSubmit.disabled = false;
-              btnSubmit.innerHTML = "Update";
+              btnSubmit.innerHTML = "تغير";
                    ele.reset(); 
             })
             .catch((error) => {
               console.log(error);
               btnSubmit.disabled = false;
-              btnSubmit.innerHTML = "Update";
+              btnSubmit.innerHTML = "تغير";
               this.error.style = "danger";
               this.error.show = true;
               if (error.response) {
@@ -61,13 +61,13 @@ export default {
             });
         } else {
           this.error.show = true;
-          this.error.masg = "Password does not match";
+          this.error.masg = "كلمة السر غير متطابقة";
           this.error.style = "warning";
         }
       } else {
         this.error.show = true;
         this.error.style = "warning";
-        this.error.masg = "Password not vaild";
+        this.error.masg = "كلمة المرور غير صالحة";
       }
     },
     passwordValid(ele) {
@@ -75,7 +75,7 @@ export default {
         this.isValid = false;
         this.error.show = true;
         this.error.style = "warning";
-        this.error.masg = "Password more less 8";
+        this.error.masg = "كلمة مرور أكثر من 8";
         ele.classList.remove("is-valid");
         ele.classList.add("is-invalid");
       } else {
@@ -89,7 +89,7 @@ export default {
       if (this.password != this.password_confirm) {
         this.isValid = false;
         this.error.show = true;
-        this.error.masg = "Password does not match";
+        this.error.masg = "كلمة السر غير متطابقة";
         this.error.style = "warning";
         ele.classList.remove("is-valid");
         ele.classList.add("is-invalid");
@@ -105,7 +105,7 @@ export default {
 </script>
 <template>
   <Page class="app-profile-page">
-    <Head title="Change Password" route="home"></Head>
+    <Head title="تغيير كلمة المرور" route="home"></Head>
     <Content :isBoxed="true">
       <UserInfo />
       <form @submit.prevent="edit_password($event.target)">
@@ -113,7 +113,7 @@ export default {
           v-model="password"
           type="password"
           placeholder="*********"
-          label="Password"
+          label="كلمة المرور"
           icon="password"
           @keyup="passwordValid($event.target)"
         />
@@ -121,13 +121,13 @@ export default {
           v-model="password_confirm"
           type="password"
           placeholder="*********"
-          label="Password Confirm"
+          label="تأكيد كلمة المرور"
           icon="password"
           @keyup="passwordConfirmValid($event.target)"
         />
         <div class="app-fixed-bottom">
           <button class="btn btn-primary btn-lg btn-block" id="updata-user">
-            Update
+            تغير
           </button>
         </div>
       </form>

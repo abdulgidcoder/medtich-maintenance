@@ -1,14 +1,8 @@
 <script>
-import moment from "moment";
 import { useOrdesStore } from "@/stores/useOrders.js";
 export default {
   props: {
     order: Object,
-  },
-  data() {
-    return {
-      moment: moment,
-    };
   },
   setup() {
     const ordersStore = useOrdesStore();
@@ -18,7 +12,7 @@ export default {
 };
 </script>
 <template>
-   <Transition name="fade">
+  <Transition name="fade">
     <li class="my-order-item">
       <RouterLink
         :to="{
@@ -31,18 +25,20 @@ export default {
           <div class="order-meta">
             <span class="order-date">
               <Icon name="calendar" />
-              {{
-                moment.parseZone(order.date).local().startOf("second").fromNow()
-              }}
+              <span> {{ $dateTime(order.date) }}</span>
             </span>
             <span class="order-name" v-if="order.acf['name']"
-              ><Icon name="user" />{{ order.acf["name"] }}</span
+              ><Icon name="user" /><span>{{ order.acf["name"] }}</span></span
             >
-            <span class="order-area"><Icon name="location" />{{ $nameArea(order.acf["area"]) }}</span>
+            <span class="order-area"
+              ><Icon name="location" /><span>{{
+                $nameArea(order.acf["area"])
+              }}</span></span
+            >
           </div>
         </div>
         <Icon name="angle-right" />
       </RouterLink>
     </li>
   </Transition>
-</template> 
+</template>

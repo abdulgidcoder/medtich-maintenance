@@ -18,14 +18,14 @@ export default {
         <Icon name="clock" />
         <span>
           {{
-            moment.parseZone(details.date).local().startOf("second").fromNow()
+           $dateTime(details.date)
           }}</span
         >
       </span>
     </div>
     <ul class="report-details">
       <li>
-        <strong>Status</strong>
+        <strong>الحالة</strong>
         <p>
           <span
             class="app-badge"
@@ -34,12 +34,14 @@ export default {
               pending: details.acf?.status == 'pending',
               cancelled: details.acf?.status == 'block',
             }"
-            >{{ details.acf?.status.toUpperCase() }}</span
+            >{{  details.acf?.status == 'active' ? 'نشط' :
+              details.acf?.status == 'pending' ? 'قيد الانتظار' :
+              details.acf?.status == 'block' ? 'مرفوض' : '' }}</span
           >
         </p>
       </li>
       <li>
-        <strong>Needs replacement parts</strong>
+        <strong>يحتاج إلى قطع غيار</strong>
         <p>
           <span
             class="app-badge"
@@ -47,20 +49,20 @@ export default {
               completed: details.acf?.replacement_parts == true,
               cancelled: details.acf?.replacement_parts == false,
             }"
-            >{{ details.acf?.replacement_parts == true ? 'Yes' : 'No' }}</span
+            >{{ details.acf?.replacement_parts == true ? 'نعم' : 'لا' }}</span
           >
         </p>
       </li>
       <li>
-        <strong>Expected Cost</strong>
-        <p>{{ details.acf?.expected_cost + " SAR" }}</p>
+        <strong>التكلفة المتوقعة</strong>
+        <p>{{ details.acf?.expected_cost + " ريال" }}</p>
       </li>
       <li>
-        <strong>Expected time to resolve the issue</strong>
-        <p>{{ details.acf?.expected_time + " Day" }}</p>
+        <strong>الوقت المتوقع لحل المشكلة</strong>
+        <p>{{ details.acf?.expected_time + " يوم" }}</p>
       </li>
       <li v-if="details.acf?.order">
-        <strong>Order</strong>
+        <strong>الطلب</strong>
         <p>
           <RouterLink
             :to="{
@@ -74,7 +76,7 @@ export default {
       </li>
     </ul>
     <div class="report-content">
-      <strong>Details</strong>
+      <strong>التفاصيل</strong>
       <div v-html="details.content?.rendered"></div>
     </div> 
           <div class="app-gallery" v-if="details.acf?.image">

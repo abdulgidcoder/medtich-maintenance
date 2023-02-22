@@ -55,7 +55,7 @@ export default {
       }
     },
     validMobile(ele) {
-      if (ele.value.length === 11) {
+      if (ele.value.length === 10) {
         this.isValid = true;
         ele.classList.remove("is-invalid");
         ele.classList.add("is-valid");
@@ -70,7 +70,7 @@ export default {
         this.isValid = false;
         this.hasFeedback = true;
         this.feedbackStyle = "warning";
-        this.feedback = "Password more less 8";
+        this.feedback = "كلمة مرور أقل من 8";
         ele.classList.remove("is-valid");
         ele.classList.add("is-invalid");
       } else {
@@ -84,7 +84,7 @@ export default {
       if (this.password != this.password_confirm) {
         this.isValid = false;
         this.hasFeedback = true;
-        this.feedback = "Password does not match";
+        this.feedback = "كلمة السر غير متطابقة";
         this.feedbackStyle = "warning";
         ele.classList.remove("is-valid");
         ele.classList.add("is-invalid");
@@ -97,6 +97,7 @@ export default {
     },
     initReCaptcha() {
       const authFirebase = getAuth();
+      authFirebase.languageCode = 'ar';
       window.recaptchaVerifier = new RecaptchaVerifier(
         "recaptcha-container",
         {
@@ -123,7 +124,7 @@ export default {
           this.feedback = error;
           let btnSubmit = document.getElementById("submit-btn");
           btnSubmit.disabled = false;
-          btnSubmit.innerHTML = "Contiune";
+          btnSubmit.innerHTML = "متابعه";
         });
     },
     handleSubmit(ele) {
@@ -138,12 +139,12 @@ export default {
         let btnSubmit = document.getElementById("submit-btn");
         btnSubmit.disabled = true;
         btnSubmit.innerHTML =
-          "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Contiune...";
+          "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> متابعه...";
         this.sendOtp();
       } else {
         this.hasFeedback = true;
         this.feedbackStyle = "warning";
-        this.feedback = "Some fields are not valid";
+        this.feedback = "بعض الحقول غير صالحة";
       }
     },
     signUp() {
@@ -153,7 +154,7 @@ export default {
           this.modalOtp = false;
           this.hasFeedback = true;
           this.feedbackStyle = "success";
-          this.feedback = "Register Success";
+          this.feedback = "سجل بنجاح";
           setTimeout(() => {
             this.$router.push({ name: "home" });
           }, 2000);
@@ -161,7 +162,7 @@ export default {
         .catch((error) => {
           let btnSubmit = document.getElementById("submit-btn");
           btnSubmit.disabled = false;
-          btnSubmit.innerHTML = "Contiune";
+          btnSubmit.innerHTML = "متابعه";
           this.modalOtp = false;
           this.hasFeedback = true;
           this.feedbackStyle = "danger";
@@ -176,7 +177,7 @@ export default {
     verifyOtp(ele) {
       ele.disabled = true;
       ele.innerHTML =
-        "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Verify...";
+        "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> تاكيد...";
       const code = this.otpCode;
       confirmationResult
         .confirm(code)
@@ -186,9 +187,9 @@ export default {
         .catch((error) => {
           this.hasFeedback = true;
           this.feedbackStyle = "danger";
-          this.feedback = "Invalid Verification Code";
+          this.feedback = "رمز التحقق غير صالح";
           ele.disabled = false;
-          ele.innerHTML = "Verify number";
+          ele.innerHTML = "تحقق من الرقم";
         });
     },
   },
@@ -200,13 +201,13 @@ export default {
     <!-- <TopBar /> -->
     <Content>
       <AppLogo />
-      <h1>Register</h1>
+      <h1>تسجيل</h1>
       <form @submit.prevent="handleSubmit($event.target)">
         <Field
           v-model="name"
           type="text"
-          placeholder="Ahmed Ali"
-          label="Name"
+          placeholder="احمد محمد"
+          label="الاسم"
           icon="user"
           @keyup="validName($event.target)"
         />
@@ -214,7 +215,7 @@ export default {
           v-model="mobile"
           type="number"
           placeholder="050 XXX XXXX"
-          label="Mobile"
+          label="الهاتف"
           icon="mobile"
           @keyup="validMobile($event.target)"
         />
@@ -222,7 +223,7 @@ export default {
           v-model="password"
           type="password"
           placeholder="*********"
-          label="Password"
+          label="كلمة المرور"
           icon="password"
           @keyup="passwordValid($event.target)"
         />
@@ -230,28 +231,28 @@ export default {
           v-model="password_confirm"
           type="password"
           placeholder="*********"
-          label="Password Confirm"
+          label="تأكيد كلمة المرور"
           icon="password"
           @keyup="passwordConfirmValid($event.target)"
         />
         <div id="recaptcha-container"></div>
         <div class="app-field-submit">
           <button class="btn btn-primary btn-block btn-lg" id="submit-btn">
-            Contiune
+            متابعه
           </button>
         </div>
       </form>
       <p>
-        Already have an account ? <RouterLink to="/login">Login</RouterLink>
+        هل لديك حساب ؟ <RouterLink to="/login">دخول</RouterLink>
       </p>
     </Content>
     <Teleport to="body">
       <Alert :show="hasFeedback" :mode="feedbackStyle" :msg="feedback" />
     </Teleport>
     <Modal classes="modal-otp bottom" :show="modalOtp">
-      <h2>Confirm your number</h2>
+      <h2>قم بتاكيد رقمك</h2>
       <p>
-        Enter the 6 digit code send to<br /><strong>{{
+       أدخل الرمز المكون من 6 أرقام المرسل إليه<br /><strong>{{
           countryCode + mobile
         }}</strong>
       </p>
@@ -261,8 +262,7 @@ export default {
         class="btn btn-primary btn-block btn-lg"
         @click="verifyOtp($event.target)"
       >
-        Verify number
-      </button>
+تحقق من الرقم      </button>
     </Modal>
   </Page>
 </template>

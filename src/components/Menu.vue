@@ -4,21 +4,21 @@
       <li>
         <RouterLink :to="{name:'edit'}"
           ><span class="item-text"
-            ><Icon name="user" class="item-icon" />My Profile</span
+            ><Icon name="user" class="item-icon" />حسابى</span
           ><Icon name="angle-right" class="item-arrow"
         /></RouterLink>
       </li>
       <li>
         <RouterLink :to="{name:'password'}"
           ><span class="item-text"
-            ><Icon name="password" class="item-icon" />Change Password</span
+            ><Icon name="password" class="item-icon" />تغيير كلمة المرور</span
           ><Icon name="angle-right" class="item-arrow"
         /></RouterLink>
       </li>
       <li>
         <RouterLink :to="{name:'logout'}"
           ><span class="item-text"
-            ><Icon name="sign-out" class="item-icon" />Logout</span
+            ><Icon name="sign-out" class="item-icon" />تسجيل خروج</span
           >
         </RouterLink>
       </li>

@@ -45,12 +45,12 @@ export default {
 </script>
 <template>
   <Page class="app-order-page">
-    <Head title="Order Details" route="home">
+    <Head title="تفاصيل الطلب" route="home">
       <template #right>
         <RouterLink class="btn btn-light btn-sm" :to="{
           name: 'add-report',
           params: { orderId: orderID },
-        }">Add Report</RouterLink>
+        }">إضافة تقرير</RouterLink>
       </template>
     </Head>
     <Content :isBoxed="true">

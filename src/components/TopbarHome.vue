@@ -44,7 +44,7 @@ export default {
       <div class="user-area">
         <Icon name="location" />
         <div class="contant">
-          <div>Your Area</div>
+          <div>منطقتك</div>
           <strong v-if="this.$auth.user_data?.acf['area'] !== null">{{ 
             $nameArea( this.$auth.user_data?.acf["area"])
           }}</strong>
@@ -53,7 +53,7 @@ export default {
             :data="cities"
             :onChange="chooseArea"
             v-if="this.$auth.user_data?.acf['area'] == null"
-            >Choose Area</Select
+            >اختر منطقتك</Select
           >
         </div>
       </div>

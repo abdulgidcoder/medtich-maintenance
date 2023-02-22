@@ -47,8 +47,8 @@ export default {
         <InfoUser />
         <section class="app-section app-last-orders">
           <div class="app-section-head">
-            <h2 class="h1">Last Orders</h2>
-            <RouterLink to="/orders">See all</RouterLink>
+            <h2 class="h1">اخر الطلبات</h2>
+            <RouterLink to="/orders">عرض الكل</RouterLink>
           </div>
           <LastOrders :per_page="6" />
         </section>

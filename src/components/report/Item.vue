@@ -1,14 +1,8 @@
-<script>
-import moment from "moment";
+<script> 
 export default {
   props: {
     report: Object,
-  },
-  data() {
-    return {
-      moment: moment,
-    };
-  },
+  }, 
 };
 </script>
 <template>
@@ -26,14 +20,14 @@ export default {
         <span class="report-date"
           ><Icon name="calendar" />
           {{
-            moment.parseZone(report.date).local().startOf("second").fromNow()
+            $dateTime(report.date)
           }}</span
         >
         <span class="report-cost"
-          ><Icon name="dollar" />{{ report.acf["expected_cost"] }} Sar</span
+          ><Icon name="dollar" />{{ report.acf["expected_cost"] }}ريال</span
         >
         <span class="report-cost"
-          ><Icon name="clock" />{{ report.acf["expected_time"] }} day</span
+          ><Icon name="clock" />{{ report.acf["expected_time"] }} يوم</span
         >
         <span class="report-status">
           <span
@@ -43,7 +37,11 @@ export default {
               pending: report.acf['status'] == 'pending',
               cancelled: report.acf['status'] == 'block',
             }"
-            >{{ report.acf["status"] }}</span
+            >{{
+              report.acf['status'] == 'active' ? 'نشط' :
+              report.acf['status'] == 'pending' ? 'قيد الانتظار' :
+              report.acf['status'] == 'block' ? 'مرفوض' : ''
+            }}</span
           >
         </span>
       </div> 

@@ -51,7 +51,7 @@ export default {
     },
     async uploadFiles(input) {
       input.target.nextSibling.children[1].innerHTML =
-        "<span class='spinner-border spinner-border-sm'></span>Uploading ...";
+        "<span class='spinner-border spinner-border-sm'></span>تحميل ...";
       const files = input.target.files;
       const formData = new FormData();
       for (let i = 0; i < files.length; i++) {
@@ -71,10 +71,10 @@ export default {
             this.gallery.push(response.data[i].src);
             this.report.images.push(response.data[i].id);
           }
-          input.target.nextSibling.children[1].innerHTML = "Upload Images";
+          input.target.nextSibling.children[1].innerHTML = "رفع صور";
         })
         .catch((error) => {
-          input.target.nextSibling.children[1].innerHTML = "Upload Images";
+          input.target.nextSibling.children[1].innerHTML = "رفع صور";
         });
     },
     handleSubmit(ele) {
@@ -87,20 +87,20 @@ export default {
         const btnSubmit = document.getElementById("submit-report");
         btnSubmit.disabled = true;
         btnSubmit.innerHTML =
-          "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Adding...";
+          "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> اضافة ...";
         useReportsStore()
           .addReport(this.report)
           .then(() => {
-            this.error.masg = "Add Report Success";
+            this.error.masg = "إضافة تقرير بنجاح";
             this.error.style = "success";
             this.error.show = true;
-            btnSubmit.innerHTML = "Added";
+            btnSubmit.innerHTML = "مضاف";
             ele.reset();
           })
           .catch((error) => {
             ele.reset();
             btnSubmit.disabled = false;
-            btnSubmit.innerHTML = "Add New";
+            btnSubmit.innerHTML = "اضف جديد";
             this.error.style = "danger";
             this.error.show = true;
             if (error.response) {
@@ -113,7 +113,7 @@ export default {
       } else {
         this.error.style = "warning";
         this.error.show = true;
-        this.error.masg = "Some fields are not valid";
+        this.error.masg = "بعض الحقول غير صالحة";
       }
     },
   },
@@ -121,49 +121,49 @@ export default {
 </script>
 <template>
   <Page class="app-add-report">
-    <Head title="Add Report" route="home" />
+    <Head title="إضافة تقرير" route="home" />
     <Content :isBoxed="true">
       <form @submit.prevent="handleSubmit($event.target)">
         <Field
           v-model="report.title"
           type="text"
-          label="Title"
+          label="العنوان"
           @keyup="validField($event.target)"
         />
         <Field
           v-model="report.expected_time"
           type="number"
-          label="Expected time to resolve the issue (Day)"
+          label="الوقت المتوقع لحل المشكلة (اليوم)"
           @keyup="validNumber($event.target)"
         />
         <Field
           v-model="report.expected_cost"
           type="number"
-          label="Expected Cost (SAR)"
+          label="التكلفة المتوقعة (ريال سعودي)"
           @keyup="validNumber($event.target)"
         />
         <Field
           v-model="report.content"
           type="textarea"
-          label="Datails"
+          label="تفاصيل"
           @keyup="validField($event.target)"
         />
         <Checkbox
           v-model:checked="report.replacement_parts"
           name="replacement_parts"
-          label="Needs replacement parts"
+          label="يحتاج إلى قطع غيار"
            
         />
         <File
           @change="uploadFiles"
-          label="Upload Images"
+          label="رفع  صور"
           accept="image/png, image/jpeg"
            
           multiple
         />
         <div class="app-fixed-bottom">
           <button class="btn btn-primary btn-lg btn-block" id="submit-report">
-            Add Report
+          إضافة تقرير
           </button>
         </div>
       </form>

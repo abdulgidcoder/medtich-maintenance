@@ -1,6 +1,6 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
-
+import moment from "moment";
 import App from "./App.vue";
 import router from "./router";
 
@@ -20,18 +20,17 @@ import Field from "./components/form/Field.vue";
 import Select from "./components/form/Select.vue";
 import Checkbox from "./components/form/Checkbox.vue";
 import File from "./components/form/File.vue";
-
 import Skeleton from "./components/Skeleton.vue";
 
 // Plugins
 import auth from "./plugins/auth";
 import "./plugins/axios";
 import "./plugins/firebase";
-import areas from "./plugins/areas"; 
-
+import areas from "./plugins/areas";
 
 // Assets
 import "./assets/scss/app.scss";
+import "./assets/scss/themes/rtl.scss";
 
 const app = createApp(App);
 
@@ -56,6 +55,36 @@ app.component("Skeleton", Skeleton);
 app.use(createPinia());
 app.use(router);
 app.use(auth);
-app.use(areas); 
+app.use(areas);
 
+moment.updateLocale("ar", {
+  relativeTime: {
+    future: "%s فى",
+    past: "منذ %s",
+    s: "بضع ثوان",
+    ss: "ثواني %d",
+    m: "دقيقة",
+    mm: "دقائق %d",
+    h: "ساعة",
+    hh: "ساعات %d",
+    d: "يوم",
+    dd: "%d أيام",
+    w: "أسبوع",
+    ww: "أسابيع %d",
+    M: "شهر",
+    MM: "شهور %d",
+    y: "سنة",
+    yy: "سنين %d",
+  },
+});
+
+app.config.globalProperties.$moment = moment;
+app.config.globalProperties.$dateTime = (value) => {
+  return moment(value)
+    .locale("ar")
+    .parseZone()
+    .local()
+    .startOf("second")
+    .fromNow();
+};
 app.mount("#app");

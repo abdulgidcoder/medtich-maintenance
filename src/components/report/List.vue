@@ -61,25 +61,25 @@ export default {
         :class="{ active: status == '' }"
         @click="fillterbyStatus('', $event.target)"
       >
-        All
+        الكل
       </button>
       <button
         :class="{ active: status == 'active' }"
         @click="fillterbyStatus('active', $event.target)"
       >
-        Active
+        نشط
       </button>
       <button
         :class="{ active: status == 'pending' }"
         @click="fillterbyStatus('pending', $event.target)"
       >
-        Pending
+        قيد الانتظار
       </button>
       <button
         :class="{ active: status == 'block' }"
         @click="fillterbyStatus('block', $event.target)"
       >
-        Block
+        مرفوض
       </button>
     </div>
     <ul>
@@ -92,7 +92,7 @@ export default {
       ></Item>
       <Info
         mode="warning"
-        msg="Not have any reports in this area"
+        msg="Not have any reports"
         :show="this.reportStore.list == 0"
         v-if="!loader"
       />

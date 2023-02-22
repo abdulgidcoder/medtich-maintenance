@@ -45,7 +45,7 @@ export default {
 </script>
 <template>
   <Page class="app-report-page">
-    <Head title="Report Details" route="home"> </Head>
+    <Head title="تفاصيل التقرير" route="home"> </Head>
     <Content :isBoxed="true">
       <DetailsLoader v-if="loader"/>
       <Details v-else="loader" :details="report_data"></Details>

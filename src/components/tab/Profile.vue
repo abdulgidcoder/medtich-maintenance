@@ -15,7 +15,7 @@ export default {
 <template>
   <Tab :show="show">
     <div class="app-tab-view app-profile-page">
-      <Head title="My Profile" />
+      <Head title="حسابى" />
       <Content :isBoxed="true">
         <UserInfo />
         <Menu />

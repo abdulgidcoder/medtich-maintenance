@@ -1,13 +1,6 @@
 <script>
-import moment from "moment";
-
 export default {
   props: { details: Object },
-  data() {
-    return {
-      moment: moment,
-    };
-  },
 };
 </script>
 <template>
@@ -16,41 +9,37 @@ export default {
     <div class="order-meta">
       <span>
         <Icon name="clock" />
-        <span>
-          {{
-            moment.parseZone(details.date).local().startOf("second").fromNow()
-          }}</span
-        >
+        <span> {{ $dateTime(details.date) }}</span>
       </span>
     </div>
     <ul class="order-details">
       <li>
-        <strong>Name</strong>
+        <strong>الاسم</strong>
         <p>{{ details.acf?.name }}</p>
       </li>
       <li>
-        <strong>Mobile</strong>
+        <strong>الهاتف</strong>
         <p>{{ details.acf?.mobile }}</p>
       </li>
       <li>
-        <strong>Area</strong>
+        <strong>المنطقة</strong>
         <p>{{ $nameArea(details.acf?.area) }}</p>
       </li>
       <li>
-        <strong>Date</strong>
+        <strong>التاريخ</strong>
         <p>{{ details.acf?.date }}</p>
       </li>
       <li>
-        <strong>Serial Number</strong>
+        <strong>الرقم التسلسلي للجهاز</strong>
         <p>{{ details.acf?.serial_number }}</p>
       </li>
       <li>
-        <strong>Company</strong>
+        <strong>الشركة المصنعة</strong>
         <p>{{ details.acf?.company }}</p>
       </li>
     </ul>
     <div class="order-content">
-      <strong>Details</strong>
+      <strong>تفاصيل</strong>
       <div v-html="details.content?.rendered"></div>
     </div>
     <div class="app-fixed-bottom">
@@ -64,7 +53,7 @@ export default {
           details.acf?.longitude
         "
       >
-        <Icon name="location-crosshairs" />Track Location in Map
+        <Icon name="location-crosshairs" />تتبع الموقع على الخريطة
       </a>
     </div>
   </div>

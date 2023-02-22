@@ -53,7 +53,7 @@ export default {
           >
             <a>
               <Icon name="home" />
-              <span class="title">Home</span>
+              <span class="title">الرئيسية</span>
             </a>
           </button>
           <button
@@ -63,7 +63,7 @@ export default {
           >
             <a>
               <Icon name="cart" />
-              <span class="title">My Orders</span>
+              <span class="title">طلباتى</span>
             </a>
           </button>
           <button
@@ -73,7 +73,7 @@ export default {
           >
             <a>
               <Icon name="file-chart" />
-              <span class="title">My Reports</span>
+              <span class="title">تقاريرى</span>
             </a>
           </button>
           <!-- <button
@@ -93,7 +93,7 @@ export default {
           >
             <a>
               <Icon name="user" />
-              <span class="title">Profile</span>
+              <span class="title">حسابى</span>
             </a>
           </button>
         </nav>

@@ -2,9 +2,9 @@
 export default {
   data() {
     return {
-      title: "Maintenance Technical",
+      title: "تطبيق فنى الصيانة",
       content:
-        "You can see the maintenance orders with all details, true and convenient",
+        "يمكنك الاطلاع على طلبات الصيانة بكل التفاصيل ، بشكل صحيح ومريح",
     };
   },
   setup() {},
@@ -28,7 +28,7 @@ export default {
         <h1 v-html="title"></h1>
         <p v-html="content"></p>
         <button class="btn btn-primary btn-block btn-lg" @click="getStartApp">
-          Get Start!
+      ابدأ!
         </button>
       </div>
     </div>

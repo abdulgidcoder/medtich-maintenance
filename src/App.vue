@@ -3,6 +3,9 @@ import { useError } from "@/stores/useError";
 import Error from "./components/Error.vue";
 export default {
   components: { Error },
+  mounted() {
+    document.querySelector("html").setAttribute("dir", "rtl");
+  },
 };
 </script>
 

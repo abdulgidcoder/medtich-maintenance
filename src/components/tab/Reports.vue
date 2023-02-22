@@ -21,7 +21,7 @@ export default {
 <template>
   <Tab :show="show">
     <div class="app-tab-view app-reports-page">
-      <Head title="My Reports" />
+      <Head title="تقاريرى" />
       <Content :isBoxed="true">
        <MyReportsList
           :per_page="7"

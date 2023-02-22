@@ -19,7 +19,7 @@ export default {
 <template>
   <Tab :show="show">
     <div class="app-tab-view app-my-orders-page">
-      <Head title="My Orders" />
+      <Head title="طلباتى" />
       <Content :isBoxed="true">
         <MyOrdersList
           :per_page="7"

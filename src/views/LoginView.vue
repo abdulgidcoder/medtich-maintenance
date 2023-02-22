@@ -28,16 +28,16 @@ export default {
         btnSubmit.forEach((btn) => {
           btn.disabled = true;
           btn.innerHTML =
-            "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Logging...";
+            "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> دخول...";
         });
         useAuthStore()
           .login(this.mobile, this.password)
           .then((response) => {
             this.hasFeedback = true;
             this.feedbackStyle = "alert-success";
-            this.feedback = "Login Success";
+            this.feedback = "تسجيل الدخول بنجاح";
             btnSubmit.forEach((btn) => {
-              btn.innerHTML = "Logined";
+              btn.innerHTML = "تسجيل الدخول";
             });
             this.$router.push({ name: "home" });
           })
@@ -45,7 +45,7 @@ export default {
             ele.reset();
             btnSubmit.forEach((btn) => {
               btn.disabled = false;
-              btn.innerHTML = "Login";
+              btn.innerHTML = "دخول";
             });
             this.hasFeedback = true;
             this.feedbackStyle = "danger";
@@ -59,15 +59,15 @@ export default {
           });
       } else if (!this.mobile && !this.password) {
         this.hasFeedback = true;
-        this.feedback = "mobile number and password are empty!";
+        this.feedback = "رقم الجوال وكلمة المرور فارغين!";
         this.feedbackStyle = "danger";
       } else if (!this.mobile) {
         this.hasFeedback = true;
-        this.feedback = "mobile is empty!";
+        this.feedback = "الجوال فارغ!";
         this.feedbackStyle = "danger";
       } else if (!this.password) {
         this.hasFeedback = true;
-        this.feedback = "password is empty!";
+        this.feedback = "كلمة المرور فارغة!";
         this.feedbackStyle = "danger";
       }
     },
@@ -80,20 +80,20 @@ export default {
     <!-- <TopBar /> -->
     <Content>
       <AppLogo />
-      <h1>Welcome back</h1>
+      <h1>مرحبًا بعودتك</h1>
       <form @submit.prevent="handleSubmit($event.target)">
         <Field
           v-model="mobile"
           type="number"
          placeholder="050 XXX XXXX"
-          label="Mobile"
+          label="الهاتف"
           icon="mobile"
         />
         <Field
           v-model="password"
           type="password"
           placeholder="*********"
-          label="Password"
+          label="كلمة المرور"
           icon="password"
         />
         <!-- <div class="app-forget-password">
@@ -101,13 +101,13 @@ export default {
           </div> -->
         <div class="app-field-submit">
           <button class="btn btn-primary btn-block btn-lg submit-btn">
-            Login
+            دخول
           </button>
         </div>
       </form>
       <p>
-        Don't have an account yet?
-        <RouterLink to="/register">Register</RouterLink>
+  لا تملك حسابا حتى الآن؟
+        <RouterLink to="/register">تسجيل</RouterLink>
       </p>
     </Content>
     <Teleport to="body">
