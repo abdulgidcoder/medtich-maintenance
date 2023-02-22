@@ -21,7 +21,7 @@ export default {
       password: "",
       password_confirm: "",
       otpCode: "",
-      countryCode: "+2",
+      countryCode: "+966",
       mailformat: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
       hasFeedback: false,
       feedbackStyle: "",
@@ -97,16 +97,16 @@ export default {
     },
     initReCaptcha() {
       const authFirebase = getAuth();
-      setTimeout(() => {
-        window.recaptchaVerifier = new RecaptchaVerifier(
-          "recaptcha-container",
-          {
-            size: "invisible",
-          },
-          authFirebase
-        );
-        recaptchaVerifier.render();
-      }, 1000);
+      window.recaptchaVerifier = new RecaptchaVerifier(
+        "recaptcha-container",
+        {
+          size: "normal",
+        },
+        authFirebase
+      );
+      recaptchaVerifier.render().then((widgetId) => {
+        window.recaptchaWidgetId = widgetId;
+      });
     },
     sendOtp() {
       const authFirebase = getAuth();
@@ -213,7 +213,7 @@ export default {
         <Field
           v-model="mobile"
           type="number"
-          placeholder="+996xxxxxxx"
+          placeholder="050 XXX XXXX"
           label="Mobile"
           icon="mobile"
           @keyup="validMobile($event.target)"
@@ -234,12 +234,12 @@ export default {
           icon="password"
           @keyup="passwordConfirmValid($event.target)"
         />
+        <div id="recaptcha-container"></div>
         <div class="app-field-submit">
           <button class="btn btn-primary btn-block btn-lg" id="submit-btn">
             Contiune
           </button>
         </div>
-        <div id="recaptcha-container"></div>
       </form>
       <p>
         Already have an account ? <RouterLink to="/login">Login</RouterLink>
@@ -275,6 +275,7 @@ export default {
   }
 }
 #recaptcha-container {
-  opacity: 0;
+  height: 78px;
+  margin-bottom: 15px;
 }
 </style>

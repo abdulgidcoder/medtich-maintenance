@@ -1,34 +1,36 @@
 .app-badge {
   display: inline-block;
-  padding: 6px 16px;
+  padding: 6px 8px;
   font-size: 12px;
+  font-weight: 500;
   border-radius: 15px;
+  line-height: 1;
   &.pending {
-    color: var(--warning-shade);
-    background: var(--warning-tint);
+    color: var(--warning-contrast);
+    background: var(--warning);
   }
   &.completed {
     color: var(--success-contrast);
     background: var(--success);
   }
   &.processing {
-    color: var(--success-shade);
-    background: var(--success-tint);
+    color: var(--success-contrast);
+    background: var(--success);
   }
   &.on-hold {
-    color: var(--warning-shade);
-    background: var(--warning-tint);
+    color: var(--warning-contrast);
+    background: var(--warning);
   }
   &.refunded {
-    color: var(--danger-shade);
-    background: var(--danger-tint);
+    color: var(--danger-contrast);
+    background: var(--danger);
   }
   &.failed {
-    color: var(--danger-shade);
-    background: var(--danger-tint);
+    color: var(--danger-contrast);
+    background: var(--danger);
   }
   &.cancelled {
-        color: var(--danger-contrast);
-    background: var(--danger); 
+    color: var(--danger-contrast);
+    background: var(--danger);
   }
 }

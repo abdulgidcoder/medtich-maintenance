@@ -27,14 +27,18 @@ export default {
   components: { Item, ItemLoader },
   methods: {
     getOrders() {
-      this.ordersStore.ftechOrders(
-        this.$auth.user_data?.acf["area"],
-        this.currPage,
-        this.per_page
-      );
-      setTimeout(() => {
-        this.loader = false;
-      }, 1000);
+      this.loader = true;
+      this.ordersStore
+        .ftechOrders(
+          this.$auth.user_data?.acf["area"],
+          this.currPage,
+          this.per_page
+        )
+        .then(() => {
+          setTimeout(() => {
+            this.loader = false;
+          }, 400);
+        });
     },
     onPageChange(page) {
       this.currPage = page;
@@ -52,7 +56,7 @@ export default {
         v-else="!loader"
         v-for="order in this.ordersStore.list"
         :key="order.id"
-        :order="order" 
+        :order="order"
       ></Item>
       <Info
         mode="warning"
@@ -61,8 +65,11 @@ export default {
         v-if="!loader"
       />
     </ul>
-  </div> 
-  <div v-if="this.pagination && this.ordersStore.total >= 2" :class="this.paginClass">
+  </div>
+  <div
+    v-if="this.pagination && this.ordersStore.total >= 2"
+    :class="this.paginClass"
+  >
     <Pagination
       :totalPages="this.ordersStore.total"
       :perPage="this.per_page"
@@ -70,4 +77,4 @@ export default {
       @pagechanged="onPageChange"
     />
   </div>
-</template> 
+</template>

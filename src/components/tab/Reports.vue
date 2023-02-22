@@ -1,20 +1,34 @@
+ 
 <script>
 import Tab from "./Tab.vue";
+import { defineAsyncComponent } from "vue";
 export default {
   props: { show: Boolean },
-  components: { Tab },
+  components: {
+    Tab,
+    MyReportsList: defineAsyncComponent({
+      loader: () => import("../report/List.vue"),
+    }),
+  },
   data() {
     return {
       auth_user: this.$auth,
     };
   },
 };
-</script>
+</script> 
+
 <template>
   <Tab :show="show">
     <div class="app-tab-view app-reports-page">
       <Head title="My Reports" />
-      <div class="app-content"></div>
+      <Content :isBoxed="true">
+       <MyReportsList
+          :per_page="7"
+          :pagination="true"
+          paginClass="app-fixed-bottom"
+        />
+      </Content>
     </div>
   </Tab>
 </template>

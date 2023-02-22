@@ -3,7 +3,8 @@ import MobileSelect from "mobile-select";
 export default { 
   props: {
     data: Array,
-    onChange: Function
+    onChange: Function,
+    value: String, 
   },
   setup(props, context) {
     const updateValue = (event) => {
@@ -24,7 +25,7 @@ export default {
       trigger: this.$refs.tirggerRef,
       wheels: [{data: this.data,},], 
       triggerDisplayValue: this.triggerDisplayValue, 
-      onChange: this.onChange,
+      onChange: this.onChange, 
     });
   },
   unmounted() {
@@ -34,7 +35,7 @@ export default {
 };
 </script>
 <template>
-  <span class="btn-link" ref="tirggerRef">
+  <span ref="tirggerRef">
     <slot>{{ defalutPlaceholder }}</slot>
   </span>
 </template>

@@ -7,7 +7,7 @@
   .order-meta {
     display: flex;
     align-items: center;
-    font-size: 10px;
+    font-size: 12px;
     > span {
       color: var(--dark);
       vertical-align: middle;
@@ -39,9 +39,11 @@
     justify-content: space-between;
     line-height: 1;
   }
-  svg {
-    width: 20px;
-    fill: var(--medium);
+  .app-icon{
+    color: var(--medium);
+    svg {
+      width: 20px; 
+    }
   }
   .item-wrap {
     flex-grow: 1;

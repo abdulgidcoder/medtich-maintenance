@@ -32,7 +32,7 @@ export default {
   methods: {
     chooseArea(data, indexArr) {
       this.authStore.updateUser({ fields: { area: data[0].id } }).then(() => {
-        this.ordersStore.ftechOrders(data[0].id, 1, 6);
+        this.ordersStore.ftechLast(this.$auth.user_data?.acf["area"], 6);          
       });
     },
   },
@@ -45,13 +45,14 @@ export default {
         <Icon name="location" />
         <div class="contant">
           <div>Your Area</div>
-          <strong v-if="auth_user.user_data?.acf['area'] !== null">{{ 
-            $nameArea( auth_user.user_data?.acf["area"])
+          <strong v-if="this.$auth.user_data?.acf['area'] !== null">{{ 
+            $nameArea( this.$auth.user_data?.acf["area"])
           }}</strong>
           <Select
+           class="btn-link"
             :data="cities"
             :onChange="chooseArea"
-            v-if="auth_user.user_data?.acf['area'] == null"
+            v-if="this.$auth.user_data?.acf['area'] == null"
             >Choose Area</Select
           >
         </div>
@@ -60,8 +61,8 @@ export default {
     <template #right>
       <div class="app-avatar">
         <img
-          :src="auth_user.user_data?.avatar_urls['48']"
-          :alt="auth_user.user_data?.name"
+          :src="this.$auth.user_data?.avatar_urls['48']"
+          :alt="this.$auth.user_data?.name"
         />
       </div>
     </template>

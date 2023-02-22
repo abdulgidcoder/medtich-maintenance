@@ -26,7 +26,7 @@ export default {
         .then(() => {
           setTimeout(() => {
             this.loader = false;
-          }, 1000);
+          }, 400);
         });
     },
   },

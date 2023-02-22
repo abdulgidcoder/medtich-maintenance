@@ -86,6 +86,7 @@ export const useAuthStore = defineStore("auth", {
     async logout() {
       localStorage.removeItem("token");
       localStorage.removeItem("userData");
+      localStorage.removeItem("currentTab");
       this.$reset();
     },
     async updateUser(data) {
@@ -96,10 +97,9 @@ export const useAuthStore = defineStore("auth", {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
         data: data,
-      }); 
+      });
       localStorage.setItem("userData", JSON.stringify(response.data));
       this.user_data = response.data;
-      console.log(response.data);
     },
     async ftechUser() {
       let response = await axios({

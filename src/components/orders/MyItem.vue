@@ -30,7 +30,7 @@ export default {
           <h4>{{ order.title.rendered }}</h4>
           <div class="order-meta">
             <span class="order-date">
-              <Icon name="clock" />
+              <Icon name="calendar" />
               {{
                 moment.parseZone(order.date).local().startOf("second").fromNow()
               }}

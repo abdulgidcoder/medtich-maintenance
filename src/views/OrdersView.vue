@@ -3,9 +3,7 @@ import { defineAsyncComponent } from "vue";
 export default {
   components: {
     OrdersList: defineAsyncComponent({
-      loader: () => import("../components/orders/List.vue"),
-      delay: 3000,
-      timeout: 3000,
+      loader: () => import("../components/orders/List.vue"), 
     }),
   },
   data() {
@@ -33,7 +31,11 @@ export default {
 
 <style lang="scss">
 .app-orders-page {
-  .orders-list { 
+  .app-content{
+    padding-bottom: 0;
   }
+.app-content-box{
+  padding-bottom: 65px;
+}
 }
 </style>

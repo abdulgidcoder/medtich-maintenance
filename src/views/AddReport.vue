@@ -26,8 +26,7 @@ export default {
     return { reportsStore, error };
   },
   mounted() {
-    document.title = "Add Report";
-    console.log('dd' + this.report.order)
+    document.title = "Add Report"; 
   },
   watch: {},
   methods: {

@@ -7,10 +7,10 @@
       <div class="order-bottom">
         <div class="order-meta">
           <span class="order-date">
-            <Skeleton width="100px" height="14px" />
+            <Skeleton width="95px" height="14px" />
           </span>
           <span class="order-name">
-            <Skeleton width="100px" height="14px"
+            <Skeleton width="95px" height="14px"
           /></span>
         </div>
         <Skeleton width="60px" height="26px"/>

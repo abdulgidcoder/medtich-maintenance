@@ -34,15 +34,14 @@ export default {
       <div class="order-bottom">
         <div class="order-meta">
           <span class="order-date">
-            <Icon name="clock" />
+            <Icon name="calendar" />
             {{
               moment.parseZone(order.date).local().startOf("second").fromNow()
             }}
           </span>
           <span class="order-name" v-if="order.acf['name']"
             ><Icon name="user" />{{ order.acf["name"] }}</span
-          >
-          <!-- <span class="order-area"><Icon name="location" />{{ area /}}</span> -->
+          > 
         </div>
         <button
           @click="accept(order, $event.target)"

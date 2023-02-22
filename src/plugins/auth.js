@@ -7,7 +7,7 @@ export default {
     const ftechUserData = () => {
       setInterval(function () {
         useAuthStore().ftechUser();
-      }, 5000);
+      }, 10000);
     };
     if (localStorage.getItem("token") != undefined) {
       ftechUserData();

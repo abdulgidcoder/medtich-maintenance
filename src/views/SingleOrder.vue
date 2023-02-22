@@ -47,7 +47,7 @@ export default {
   <Page class="app-order-page">
     <Head title="Order Details" route="home">
       <template #right>
-        <RouterLink :to="{
+        <RouterLink class="btn btn-light btn-sm" :to="{
           name: 'add-report',
           params: { orderId: orderID },
         }">Add Report</RouterLink>

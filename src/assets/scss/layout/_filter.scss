@@ -1,0 +1,19 @@
+.app-fillter {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  button {
+    &:not(:last-child) {
+      margin-right: 15px;
+    }
+    &.active {
+      background-color: var(--primary-tint);
+      border-color: var(--primary);
+    }
+    padding: 4px 9px;
+    background-color: var(--grey);
+    border: 1px solid var(--medium);
+    border-radius: 15px;
+    font-weight: 500;
+  }
+}

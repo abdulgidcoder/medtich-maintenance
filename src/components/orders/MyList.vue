@@ -27,15 +27,14 @@ export default {
   components: { MyItem, MyItemLoader },
   methods: {
     getOrders() {
-      this.ordersStore.ftechMyOrders(
-        this.$auth.user_data?.id,
-        this.currPage,
-        this.per_page
-      ).then(()=>{
+      this.loader = true;
+      this.ordersStore
+        .ftechMyOrders(this.$auth.user_data?.id, this.currPage, this.per_page)
+        .then(() => {
           setTimeout(() => {
-        this.loader = false;
-      }, 1000);
-      })
+            this.loader = false;
+          }, 400);
+        });
     },
     onPageChange(page) {
       this.currPage = page;
@@ -55,7 +54,7 @@ export default {
         :key="order.id"
         :order="order"
       ></MyItem>
-          <Info
+      <Info
         mode="warning"
         msg="Not have any orders in this area"
         :show="this.ordersStore.myList == 0"
@@ -63,7 +62,10 @@ export default {
       />
     </ul>
   </div>
-  <div v-if="this.pagination && this.ordersStore.myTotal >= 2" :class="this.paginClass">
+  <div
+    v-if="this.pagination && this.ordersStore.myTotal >= 2"
+    :class="this.paginClass"
+  >
     <Pagination
       :totalPages="this.ordersStore.myTotal"
       :perPage="this.per_page"
@@ -71,4 +73,4 @@ export default {
       @pagechanged="onPageChange"
     />
   </div>
-</template> 
+</template>

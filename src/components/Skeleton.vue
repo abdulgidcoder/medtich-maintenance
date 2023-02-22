@@ -12,6 +12,7 @@ defineProps({
   },
   borderRadius: {
     type: String,
+    default: '5px',
   },
 });
 </script>
@@ -22,7 +23,7 @@ defineProps({
   overflow: hidden;
   height: v-bind(height);
   width: v-bind(width);
-  border-radius: 4px;
+  border-radius: v-bind(borderRadius);
   background-color: #e7e7e7;
   &::after {
     content: "";

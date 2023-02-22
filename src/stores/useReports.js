@@ -2,10 +2,11 @@ import { defineStore } from "pinia";
 import axios from "axios";
 export const useReportsStore = defineStore("reports", {
   state: () => ({
-    allReports: [],
-    totalPages: "",
+    list: null,
+    singleReport: null,
+    total: "",
   }),
-  actions: { 
+  actions: {
     async ftechallReports(userID, currentPage, per_page, fillter_status) {
       const response = await axios({
         method: "get",
@@ -22,8 +23,8 @@ export const useReportsStore = defineStore("reports", {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
       }).then((response) => {
-        this.allReports = response.data;
-        this.totalPages = response.headers["x-wp-totalpages"];
+        this.list = response.data;
+        this.total = response.headers["x-wp-totalpages"];
       });
     },
     async addReport(report) {
@@ -46,11 +47,27 @@ export const useReportsStore = defineStore("reports", {
             expected_time: report.expected_time,
             expected_cost: report.expected_cost,
             image: report.images,
+            order: report.order,
           },
         },
       }).then((response) => {
-        this.allReports.push(response.data);
+        this.list.push(response.data);
       });
+    },
+    async getReport(id) {
+      const response = await axios({
+        method: "get",
+        url: "/wp-json/wp/v2/report/" + id,
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        params: {
+          _fields: "id,date,title,content,acf",
+        },
+      });
+      if (response.data) {
+        this.singleReport = response.data;
+      }
     },
   },
 });

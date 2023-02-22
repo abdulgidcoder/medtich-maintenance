@@ -27,7 +27,8 @@ import Skeleton from "./components/Skeleton.vue";
 import auth from "./plugins/auth";
 import "./plugins/axios";
 import "./plugins/firebase";
-import areas from "./plugins/areas";
+import areas from "./plugins/areas"; 
+
 
 // Assets
 import "./assets/scss/app.scss";
@@ -55,6 +56,6 @@ app.component("Skeleton", Skeleton);
 app.use(createPinia());
 app.use(router);
 app.use(auth);
-app.use(areas);
+app.use(areas); 
 
 app.mount("#app");

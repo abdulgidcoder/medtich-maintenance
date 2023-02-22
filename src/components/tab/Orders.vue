@@ -7,8 +7,6 @@ export default {
     Tab,
     MyOrdersList: defineAsyncComponent({
       loader: () => import("../orders/MyList.vue"),
-      delay: 200,
-      timeout: 3000,
     }),
   },
   data() {

@@ -17,7 +17,7 @@ export default {
   z-index: 1;
   width: 100%;
   height: 100vh;
-  padding: 70px 15px 75px;
+  padding: 70px 15px;
   overflow-x: hidden;
   overflow-y: auto;
   background-color: var(--bg-white);
@@ -35,7 +35,7 @@ export default {
 
 .app-fixed-bottom {
   position: fixed;
-  padding: 15px;
+  padding: 10px;
   background-color: var(--bg-white);
   right: 0;
   bottom: 0;
