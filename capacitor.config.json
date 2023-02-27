@@ -1,0 +1,6 @@
+{
+  "appId": "com.arabcoderz.technicians",
+  "appName": "Medtich Technicians",
+  "webDir": "./dist",
+  "bundledWebRuntime": true
+}
