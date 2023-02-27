@@ -43,6 +43,18 @@ const router = createRouter({
       },
     },
     {
+      path: "/resetpassword",
+      name: "resetpassword",
+      component: () => import("@/views/PasswordView.vue"),
+      beforeEnter: (to, from, next) => {
+        if (useAuthStore().loggedIn) {
+          next({ name: "home" });
+        } else {
+          next();
+        }
+      },
+    },
+    {
       path: "/register",
       name: "register",
       component: () => import("@/views/RegisterView.vue"),
@@ -104,7 +116,7 @@ const router = createRouter({
     },
     {
       path: "/logout",
-      name: "logout", 
+      name: "logout",
       component: () => import("@/views/LogoutPage.vue"),
       beforeEnter: (to, from, next) => {
         if (useAuthStore().loggedIn) {

@@ -1,8 +1,10 @@
 <script>
 import TopBar from "../components/auth/TopBar.vue";
-import otp from "../components/form/OTP.vue";
+// import otp from "../components/form/OTP.vue";
 import Modal from "../components/Modal.vue";
 import { useAuthStore } from "@/stores/useAuth";
+import VOtpInput from "vue3-otp-input";
+
 import {
   getAuth,
   RecaptchaVerifier,
@@ -10,8 +12,8 @@ import {
 } from "firebase/auth";
 export default {
   components: {
-    TopBar,
-    otp,
+    TopBar, 
+    VOtpInput,
     Modal,
   },
   data() {
@@ -28,6 +30,11 @@ export default {
       feedback: "",
       modalOtp: false,
       appVerifier: "",
+      valid: {
+        name: 5,
+        mobile: 10,
+        password: 8,
+      },
     };
   },
   setup() {
@@ -44,52 +51,44 @@ export default {
   },
   methods: {
     validName(ele) {
-      if (ele.value.length >= 5) {
+      if (ele.value.length >= this.valid.name) {
         ele.classList.remove("is-invalid");
         ele.classList.add("is-valid");
-        this.isValid = true;
       } else {
-        this.isValid = false;
         ele.classList.remove("is-valid");
         ele.classList.add("is-invalid");
       }
     },
     validMobile(ele) {
-      if (ele.value.length === 10) {
-        this.isValid = true;
+      if (ele.value.length === this.valid.mobile) {
         ele.classList.remove("is-invalid");
         ele.classList.add("is-valid");
       } else {
-        this.isValid = false;
         ele.classList.remove("is-valid");
         ele.classList.add("is-invalid");
       }
     },
     passwordValid(ele) {
-      if (this.password.length <= 7 || !this.password) {
-        this.isValid = false;
+      if (this.password.length >= this.valid.password) {
+        this.hasFeedback = false;
+        ele.classList.remove("is-invalid");
+        ele.classList.add("is-valid");
+      } else {
         this.hasFeedback = true;
         this.feedbackStyle = "warning";
         this.feedback = "كلمة مرور أقل من 8";
         ele.classList.remove("is-valid");
         ele.classList.add("is-invalid");
-      } else {
-        this.isValid = true;
-        this.hasFeedback = false;
-        ele.classList.remove("is-invalid");
-        ele.classList.add("is-valid");
       }
     },
     passwordConfirmValid(ele) {
       if (this.password != this.password_confirm) {
-        this.isValid = false;
         this.hasFeedback = true;
         this.feedback = "كلمة السر غير متطابقة";
         this.feedbackStyle = "warning";
         ele.classList.remove("is-valid");
         ele.classList.add("is-invalid");
       } else {
-        this.isValid = true;
         this.hasFeedback = false;
         ele.classList.remove("is-invalid");
         ele.classList.add("is-valid");
@@ -97,7 +96,7 @@ export default {
     },
     initReCaptcha() {
       const authFirebase = getAuth();
-      authFirebase.languageCode = 'ar';
+      authFirebase.languageCode = "ar";
       window.recaptchaVerifier = new RecaptchaVerifier(
         "recaptcha-container",
         {
@@ -128,19 +127,17 @@ export default {
         });
     },
     handleSubmit(ele) {
-      if (
-        this.mobile &&
-        this.name &&
-        this.isValid &&
-        this.password_confirm &&
-        this.password
-      ) {
-        this.hasFeedback = false;
-        let btnSubmit = document.getElementById("submit-btn");
-        btnSubmit.disabled = true;
-        btnSubmit.innerHTML =
-          "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> متابعه...";
-        this.sendOtp();
+      if (this.name.length >= this.valid.name) {
+        if (this.mobile.length == this.valid.mobile) {
+          if (this.password.length >= this.valid.password) {
+            this.hasFeedback = false;
+            let btnSubmit = document.getElementById("submit-btn");
+            btnSubmit.disabled = true;
+            btnSubmit.innerHTML =
+              "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> تسجيل...";
+            this.sendOtp();
+          }
+        }
       } else {
         this.hasFeedback = true;
         this.feedbackStyle = "warning";
@@ -162,7 +159,7 @@ export default {
         .catch((error) => {
           let btnSubmit = document.getElementById("submit-btn");
           btnSubmit.disabled = false;
-          btnSubmit.innerHTML = "متابعه";
+          btnSubmit.innerHTML = "تسجيل";
           this.modalOtp = false;
           this.hasFeedback = true;
           this.feedbackStyle = "danger";
@@ -173,7 +170,7 @@ export default {
             this.feedback = error;
           }
         });
-    },
+    }, 
     verifyOtp(ele) {
       ele.disabled = true;
       ele.innerHTML =
@@ -238,13 +235,11 @@ export default {
         <div id="recaptcha-container"></div>
         <div class="app-field-submit">
           <button class="btn btn-primary btn-block btn-lg" id="submit-btn">
-            متابعه
+            تسجيل
           </button>
         </div>
       </form>
-      <p>
-        هل لديك حساب ؟ <RouterLink to="/login">دخول</RouterLink>
-      </p>
+      <p>هل لديك حساب ؟ <RouterLink to="/login">دخول</RouterLink></p>
     </Content>
     <Teleport to="body">
       <Alert :show="hasFeedback" :mode="feedbackStyle" :msg="feedback" />
@@ -252,17 +247,29 @@ export default {
     <Modal classes="modal-otp bottom" :show="modalOtp">
       <h2>قم بتاكيد رقمك</h2>
       <p>
-       أدخل الرمز المكون من 6 أرقام المرسل إليه<br /><strong>{{
+        أدخل الرمز المكون من 6 أرقام المرسل إليه<br /><strong>{{
           countryCode + mobile
         }}</strong>
       </p>
-      <otp :digit-count="6" @update:otp="otpCode = $event"></otp>
+
+      <v-otp-input
+        class="otp-box"
+        ref="otpInput"
+        input-classes="otp-input"
+        separator=""
+        :num-inputs="6"
+        :should-auto-focus="true"
+        :is-input-num="true"
+        :placeholder="['*', '*', '*', '*', '*', '*']"
+        @on-complete="otpCode = $event"
+      />
       <button
         id="verify-btn"
         class="btn btn-primary btn-block btn-lg"
         @click="verifyOtp($event.target)"
       >
-تحقق من الرقم      </button>
+        تحقق من الرقم
+      </button>
     </Modal>
   </Page>
 </template>

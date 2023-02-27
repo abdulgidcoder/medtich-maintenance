@@ -12,7 +12,7 @@ html[dir="rtl"] {
   .h5,
   h6,
   .h6 {
-    font-weight: 600;
+    font-weight: 700;
   }
 }
 
@@ -56,6 +56,11 @@ html[dir="rtl"] {
   .app-header_left {
     padding-right: 0;
     padding-left: 15px;
+  }
+  .app-topbar__wrapper-left {
+    margin-left: 8px;
+
+    margin-right: 0;
   }
   .app-btn-back {
     margin-left: 15px;
@@ -110,5 +115,14 @@ html[dir="rtl"] {
   .app-field_input textarea.is-valid,
   .app-field_input textarea.is-invalid {
     background-position: left calc(0.375em + 0.1875rem) top 8px;
+  }
+  .app-checkbox { 
+    padding-right: 24px; 
+    padding-left: 0; 
+
+}
+  .app-checkbox .checkmark {
+    right: 0;
+    left: auto;
   }
 }

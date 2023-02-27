@@ -5,9 +5,10 @@ import { useError } from "@/stores/useError";
 
 import UserInfo from "../components/auth/UserInfo.vue";
 import FileBox from "../components/FileBox.vue";
+import Info from "../components/Info.vue";
 
 export default {
-  components: { UserInfo, FileBox },
+  components: { UserInfo, FileBox, Info },
   data() {
     return {
       cities: [
@@ -163,6 +164,11 @@ export default {
   <Page class="app-profile-page">
     <Head title="حسابى" route="home"></Head>
     <Content :isBoxed="true">
+    <Info
+        mode="warning"
+        msg="قم برفع  سيرتك الذاتية"
+        :show="!this.$auth.user_data?.acf['cv']" 
+      />
       <UserInfo />
       <form @submit.prevent="edit_user($event.target)">
         <Field
@@ -181,14 +187,14 @@ export default {
         />
         <label>المنطقة</label>
         <Select :onChange="chooseArea" :data="cities" class="app-select">{{
-          $nameArea(this.user.area)
+         this.user.area ?  $nameArea(this.user.area) : 'اختار منظقتك'
         }}</Select>
         <label>التخصص</label>
         <Select
           :onChange="chooseSpac"
           :data="specialization"
           class="app-select"
-          >{{ $nameSpac(this.user.specialization) }}</Select
+          >{{ this.user.specialization ? $nameSpac(this.user.specialization): 'اختار تخصصك' }}</Select
         >
         <File :label="this.$auth.user_data?.acf['cv'] ? 'قم بتحديث سيرتك الذاتية' : 'رفع السيرة الذاتية'" accept=".pdf" @change="uploadFiles" />
         <div class="app-fixed-bottom">

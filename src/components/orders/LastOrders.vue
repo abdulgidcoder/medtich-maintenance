@@ -26,7 +26,7 @@ export default {
         .then(() => {
           setTimeout(() => {
             this.loader = false;
-          }, 400);
+          }, 100);
         });
     },
   },
@@ -45,8 +45,8 @@ export default {
       ></Item>
       <Info
         mode="warning"
-        msg="Not have any orders in this area"
-        :show="this.ordersStore.lastList == 0"
+        msg="ليس لديك اى طلبات"
+        :show="!this.ordersStore.lastList"
         v-if="!loader"
       />
     </ul>

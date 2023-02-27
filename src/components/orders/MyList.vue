@@ -33,7 +33,7 @@ export default {
         .then(() => {
           setTimeout(() => {
             this.loader = false;
-          }, 400);
+          }, 100);
         });
     },
     onPageChange(page) {
@@ -56,7 +56,7 @@ export default {
       ></MyItem>
       <Info
         mode="warning"
-        msg="Not have any orders in this area"
+        msg="ليس لديك اى طلبات"
         :show="this.ordersStore.myList == 0"
         v-if="!loader"
       />

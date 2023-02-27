@@ -10,13 +10,13 @@ export default {
 
 <template>
   <Teleport to="body">
-    <Transition name="fadeUp">
-      <div class="app-modal" :class="[{ active: show }, classes]" v-if="show">
-        <div class="app-modal__container">
+    <div class="app-modal" :class="[{ active: show }, classes]" v-if="show">
+      <Transition name="fadeUp">
+        <div class="app-modal__container" v-if="show">
           <slot></slot>
         </div>
+      </Transition>
       </div>
-    </Transition>
   </Teleport>
 </template>
 <style lang="scss">
@@ -24,7 +24,7 @@ export default {
   &.bottom {
     &.active {
       .app-modal__container {
-        transition-delay: 0.8s;
+        // transition-delay: 0.8s;
         transform: translateY(0);
       }
     }
@@ -38,7 +38,7 @@ export default {
       padding: 20px 20px 80px;
       background-color: var(--white);
       transform: translateY(100%);
-      transition: transform 0.4s ease-in-out;
+      transition: all 0.4s ease-in-out;
     }
   }
 }

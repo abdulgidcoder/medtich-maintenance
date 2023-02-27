@@ -82,6 +82,7 @@ const handleKeyDown = function (event, index) {
   margin-bottom: 15px;
   display: flex;
   justify-content: space-between;
+  direction: ltr;
 }
 .digit-box_input {
   height: 40px;
@@ -90,6 +91,7 @@ const handleKeyDown = function (event, index) {
   text-align: center;
   font-size: 16px;
   color: var(--primary);
+
 }
 
 .digit-box_input:focus {

@@ -46,8 +46,7 @@ export default {
               btnSubmit.innerHTML = "تغير";
                    ele.reset(); 
             })
-            .catch((error) => {
-              console.log(error);
+            .catch((error) => { 
               btnSubmit.disabled = false;
               btnSubmit.innerHTML = "تغير";
               this.error.style = "danger";

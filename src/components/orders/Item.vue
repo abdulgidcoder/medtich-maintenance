@@ -12,9 +12,9 @@ export default {
     accept(order, ele) {
       ele.disabled = true;
       ele.innerHTML =
-        "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Accepting...";
+        "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> قبول...";
       this.ordersStore.acceptOrders(order, this.$auth.user_data.id).then(() => {
-        ele.innerHTML = "Accept";
+        ele.innerHTML = "قبول";
         ele.disabled = false;
       });
     }, 

@@ -51,7 +51,7 @@ export const useReportsStore = defineStore("reports", {
           },
         },
       }).then((response) => {
-        this.list.push(response.data);
+        // this.list.push(response.data);
       });
     },
     async getReport(id) {

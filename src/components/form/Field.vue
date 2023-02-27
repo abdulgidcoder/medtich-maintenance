@@ -15,7 +15,6 @@ export default {
     pattern: { type: String },
     readonly: Boolean,
     modelValue: "",
-
   },
   setup(props, context) {
     const updateValue = (event) => {
@@ -23,13 +22,7 @@ export default {
     };
     return { updateValue };
   },
-  methods: {
-    togglePassword(ele) {
-      if (this.type === "password") {
-        console.log(ele);
-      }
-    },
-  },
+  methods: {},
 };
 </script>
 
@@ -38,7 +31,7 @@ export default {
     <label class="app-field_label">{{ label }}</label>
     <div class="app-field_input">
       <input
-        v-if="type != 'textarea'" 
+        v-if="type != 'textarea'"
         :type="type"
         :placeholder="placeholder"
         :value="modelValue"

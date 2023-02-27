@@ -18,7 +18,7 @@ export default {
 </script>
 <template>
   <Page class="app-orders-page">
-    <Head title="Orders" route="home" />
+    <Head title="الطلبات" route="home" />
     <Content :isBoxed="true">
       <OrdersList
         :per_page="7"

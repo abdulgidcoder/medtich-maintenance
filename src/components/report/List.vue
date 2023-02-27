@@ -92,7 +92,7 @@ export default {
       ></Item>
       <Info
         mode="warning"
-        msg="Not have any reports"
+        msg="ليس لديك اى تقارير"
         :show="this.reportStore.list == 0"
         v-if="!loader"
       />

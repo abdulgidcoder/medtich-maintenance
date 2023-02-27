@@ -1,10 +1,11 @@
 <script>
 import UserInfo from "../auth/UserInfo.vue";
+import InfoUser from "../InfoUser.vue";
 import Menu from "../Menu.vue";
 import Tab from "./Tab.vue";
 export default {
   props: { show: Boolean },
-  components: { Tab, Menu, UserInfo },
+  components: { Tab, Menu, UserInfo, InfoUser },
   data() {
     return {
       auth_user: this.$auth,
@@ -16,7 +17,8 @@ export default {
   <Tab :show="show">
     <div class="app-tab-view app-profile-page">
       <Head title="حسابى" />
-      <Content :isBoxed="true">
+      <Content :isBoxed="true"> 
+        <InfoUser/>
         <UserInfo />
         <Menu />
       </Content>

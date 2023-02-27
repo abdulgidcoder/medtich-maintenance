@@ -86,7 +86,7 @@ export const useOrdesStore = defineStore("orders", {
         },
       });
       if (responseOrder.data.acf["technician"]) {
-        error.masg = "have user Accepted";
+        error.masg = "تم قبول العرض من فنى اخر";
         error.style = "warning";
         error.show = true;
       } else {
@@ -112,7 +112,7 @@ export const useOrdesStore = defineStore("orders", {
           },
         });
         if (responseAcc.data.acf["technician"]) {
-          error.masg = "Order Accept Success";
+          error.masg = "تم قبول العرض بنجاح";
           error.style = "success";
           error.show = true;
         }

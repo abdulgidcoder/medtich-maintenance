@@ -11,17 +11,17 @@ export default {
 <template>
    <Info
     mode="warning"
-    msg="Complate your profile to active account"
+    msg="اكمل بياناتك لكى يتم تفعيل حسابك"
     :show="auth_user.user_data?.acf['status'] == null" 
   />
   <Info
     mode="warning"
-    msg="Your account is under review by the administration."
+    msg="حسابك قيد المراجعة من قبل الإدارة."
     :show="auth_user.user_data?.acf['status'] == 'pending'"
   />
   <Info
     mode="danger"
-    msg="Your Account is Blocked."
+    msg="حسابك محظور."
     :show="auth_user.user_data?.acf['status'] == 'block'" 
   />
 </template>

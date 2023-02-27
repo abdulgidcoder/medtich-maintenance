@@ -20,8 +20,8 @@ export default {
   mounted() {
     this.triggerDisplayValue = !this.$slots.default;
     this.msInstance = new MobileSelect({
-      cancelBtnText: "Cancel",
-      ensureBtnText: "OK",
+      cancelBtnText: "إلغاء",
+      ensureBtnText: "اختيار",
       trigger: this.$refs.tirggerRef,
       wheels: [{data: this.data,},], 
       triggerDisplayValue: this.triggerDisplayValue, 

@@ -45,14 +45,14 @@ export default {
         <Icon name="location" />
         <div class="contant">
           <div>منطقتك</div>
-          <strong v-if="this.$auth.user_data?.acf['area'] !== null">{{ 
+          <strong v-if="this.$auth.user_data?.acf['area']">{{ 
             $nameArea( this.$auth.user_data?.acf["area"])
           }}</strong>
           <Select
            class="btn-link"
             :data="cities"
             :onChange="chooseArea"
-            v-if="this.$auth.user_data?.acf['area'] == null"
+            v-else="this.$auth.user_data?.acf['area']"
             >اختر منطقتك</Select
           >
         </div>

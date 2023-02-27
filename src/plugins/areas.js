@@ -45,8 +45,7 @@ export default {
            spacLable = spac.label;
          }
        });
-       return spacLable;
-       console.log()
+       return spacLable; 
      };
   },
 };

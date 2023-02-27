@@ -47,13 +47,11 @@ export const useAuthStore = defineStore("auth", {
           });
           let token = `${response.data.data.jwt}`;
           localStorage.setItem("token", token);
-          await this.ftechUser();
-          console.log(token);
+          await this.ftechUser(); 
         } catch (error) {
           localStorage.removeItem("token");
           localStorage.removeItem("userData");
-          this.loggedIn = false;
-          console.log(error);
+          this.loggedIn = false; 
           router.push("/login");
         }
       } else {

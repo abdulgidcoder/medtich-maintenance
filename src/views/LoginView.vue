@@ -96,9 +96,9 @@ export default {
           label="كلمة المرور"
           icon="password"
         />
-        <!-- <div class="app-forget-password">
-            <RouterLink to="/resetpassword">Forget Password ?</RouterLink>
-          </div> -->
+        <div class="app-forget-password">
+            <RouterLink to="/resetpassword">نسيت كلمة المرور ؟</RouterLink>
+          </div>
         <div class="app-field-submit">
           <button class="btn btn-primary btn-block btn-lg submit-btn">
             دخول

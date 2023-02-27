@@ -96,6 +96,7 @@ export default {
             this.error.show = true;
             btnSubmit.innerHTML = "مضاف";
             ele.reset();
+            this.$router.go(-1)
           })
           .catch((error) => {
             ele.reset();
