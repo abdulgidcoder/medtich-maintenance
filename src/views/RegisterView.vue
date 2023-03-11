@@ -12,7 +12,7 @@ import {
 } from "firebase/auth";
 export default {
   components: {
-    TopBar, 
+    TopBar,
     VOtpInput,
     Modal,
   },
@@ -104,9 +104,7 @@ export default {
         },
         authFirebase
       );
-      recaptchaVerifier.render().then((widgetId) => {
-        window.recaptchaWidgetId = widgetId;
-      });
+      recaptchaVerifier.render();
     },
     sendOtp() {
       const authFirebase = getAuth();
@@ -170,7 +168,7 @@ export default {
             this.feedback = error;
           }
         });
-    }, 
+    },
     verifyOtp(ele) {
       ele.disabled = true;
       ele.innerHTML =

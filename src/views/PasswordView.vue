@@ -98,9 +98,7 @@ export default {
         },
         authFirebase
       );
-      recaptchaVerifier.render().then((widgetId) => {
-        window.recaptchaWidgetId = widgetId;
-      });
+      recaptchaVerifier.render();
     },
     async handleSubmit(ele) {
       if (this.mobile.length == this.valid.mobile) {
@@ -123,7 +121,7 @@ export default {
           this.error.show = false;
           this.$refs.submitBtn.disabled = false;
           this.$refs.submitBtn.innerHTML = "إعادة تعيين كلمة المرور";
-          this.sendOtp(); 
+          this.sendOtp();
         } else {
           ele.reset();
           this.$refs.submitBtn.disabled = false;
@@ -263,7 +261,7 @@ export default {
           countryCode + mobile
         }}</strong>
       </p>
-     <v-otp-input
+      <v-otp-input
         class="otp-box"
         ref="otpInput"
         input-classes="otp-input"
@@ -274,7 +272,7 @@ export default {
         :placeholder="['*', '*', '*', '*', '*', '*']"
         @on-complete="otpCode = $event"
       />
-      
+
       <button
         id="verify-btn"
         class="btn btn-primary btn-block btn-lg"
@@ -330,7 +328,7 @@ export default {
   </Page>
 </template>
 <style lang="scss">
-  .modal-otp {
+.modal-otp {
   text-align: center;
   p {
     font-size: 14px;
@@ -341,7 +339,6 @@ export default {
   .app-content {
     padding-bottom: 0;
   }
-
 }
 #recaptcha-container {
   height: 78px;
