@@ -43,6 +43,11 @@ button {
   box-shadow: 0 5px 8px var(--primary-tint);
 }
 
+.btn-danger {
+  color: #fff;
+  background-color: var(--danger);
+  box-shadow: 0 5px 8px var(--danger-tint);
+}
 .btn-light {
   background-color: var(--white);
 }

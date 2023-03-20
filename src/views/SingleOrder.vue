@@ -47,7 +47,7 @@ export default {
   <Page class="app-order-page">
     <Head title="تفاصيل الطلب" route="home">
       <template #right>
-        <RouterLink class="btn btn-light btn-sm" :to="{
+        <RouterLink  v-if="this.$auth.user_data?.id ===  order_data.acf?.technician" class="btn btn-light btn-sm" :to="{
           name: 'add-report',
           params: { orderId: orderID },
         }">إضافة تقرير</RouterLink>

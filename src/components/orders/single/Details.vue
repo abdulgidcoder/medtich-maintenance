@@ -1,11 +1,56 @@
 <script>
+import { useOrdesStore } from "@/stores/useOrders.js";
+
 export default {
   props: { details: Object },
+  setup() {
+    const ordersStore = useOrdesStore();
+    return { ordersStore };
+  },
+  methods: {
+     accept(order, ele) {
+      ele.disabled = true;
+      ele.innerHTML =
+        "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> قبول...";
+      this.ordersStore.acceptOrders(order, this.$auth.user_data.id).then(() => {
+        ele.innerHTML = "قبول";
+        ele.disabled = false;
+        window.location.reload();
+      });
+    },
+    cancel(order, ele) {
+      ele.disabled = true;
+      ele.innerHTML =
+        "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> إلغاء...";
+      this.ordersStore.cancelOrders(order).then(() => {
+        ele.innerHTML = "إلغاء";
+        ele.disabled = false;
+        this.$router.push({name:"home"})
+      });
+    },
+  },
 };
 </script>
 <template>
   <div class="app-order-details">
-    <h2 v-html="details.title?.rendered" class="order-title"></h2>
+    <div class="app-order-details_head">
+      <h3 v-html="details.title?.rendered" class="order-title"></h3>
+      <button
+        @click="cancel(this.details, $event.target)"
+        class="btn btn-sm btn-danger"
+        v-if="$auth.user_data.acf['status'] == 'active' && this.$auth.user_data?.id === details.acf?.technician"
+         
+      >
+        إلغاء
+      </button>
+     <button
+          @click="accept(this.details, $event.target)"
+          class="btn btn-sm btn-primary"
+          v-if="$auth.user_data.acf['status'] == 'active' && !details.acf?.technician"
+        >
+          قبول
+        </button>
+    </div>
     <div class="order-meta">
       <span>
         <Icon name="clock" />
@@ -13,13 +58,17 @@ export default {
       </span>
     </div>
     <ul class="order-details">
-      <li>
+      <li v-if="this.$auth.user_data?.id === details.acf?.technician">
         <strong>الاسم</strong>
         <p>{{ details.acf?.name }}</p>
       </li>
-      <li>
+      <li v-if="this.$auth.user_data?.id === details.acf?.technician">
         <strong>الهاتف</strong>
         <p>{{ details.acf?.mobile }}</p>
+      </li>
+      <li v-if="this.$auth.user_data?.id === details.acf?.technician">
+        <strong>البريد الالكترونى</strong>
+        <p>{{ details.acf?.email }}</p>
       </li>
       <li>
         <strong>المنطقة</strong>
@@ -62,6 +111,13 @@ export default {
 .app-order-details {
   .order-title {
     margin-bottom: 3px;
+  }
+  &_head {
+    display: flex;
+    justify-content: space-between;
+    .order-title {
+      padding-left: 15px;
+    }
   }
   .order-meta {
     font-size: 14px;

@@ -3,14 +3,13 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBKcl5vHPhMf5zxU9q6LR0hp9XT7DnToyQ",
-  authDomain: "medtich-d43bc.firebaseapp.com",
-  databaseURL: "https://medtich-d43bc-default-rtdb.firebaseio.com",
-  projectId: "medtich-d43bc",
-  storageBucket: "medtich-d43bc.appspot.com",
-  messagingSenderId: "358451749330",
-  appId: "1:358451749330:web:c7a3b1207156fe812d680b",
-  measurementId: "G-XX429S1JND",
+  apiKey: "AIzaSyCwjd0vvUxdZ11QdniioAty1LeQggfYQPI",
+  authDomain: "maintenance-1cd31.firebaseapp.com",
+  projectId: "maintenance-1cd31",
+  storageBucket: "maintenance-1cd31.appspot.com",
+  messagingSenderId: "435664530667",
+  appId: "1:435664530667:web:6965bb4ee12d0c52e462ae",
+  measurementId: "G-JMKXMQ37XS",
 };
 
 // Initialize Firebase
