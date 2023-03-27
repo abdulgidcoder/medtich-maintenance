@@ -3,14 +3,15 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCwjd0vvUxdZ11QdniioAty1LeQggfYQPI",
-  authDomain: "maintenance-1cd31.firebaseapp.com",
-  projectId: "maintenance-1cd31",
-  storageBucket: "maintenance-1cd31.appspot.com",
-  messagingSenderId: "435664530667",
-  appId: "1:435664530667:web:6965bb4ee12d0c52e462ae",
-  measurementId: "G-JMKXMQ37XS",
+  apiKey: "AIzaSyDRotttJFaVYbr7pnFRLJ7I0ARnM3qFNww",
+  authDomain: "maintenance-eg.firebaseapp.com",
+  projectId: "maintenance-eg",
+  storageBucket: "maintenance-eg.appspot.com",
+  messagingSenderId: "936215758445",
+  appId: "1:936215758445:web:e9450dd2f85de7b98f6164",
+  measurementId: "G-66C4MJ24FV",
 };
+
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

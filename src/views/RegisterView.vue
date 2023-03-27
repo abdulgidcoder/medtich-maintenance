@@ -23,7 +23,7 @@ export default {
       password: "",
       password_confirm: "",
       otpCode: "",
-      countryCode: "+966",
+      countryCode: "+2",
       mailformat: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
       hasFeedback: false,
       feedbackStyle: "",
@@ -32,7 +32,7 @@ export default {
       appVerifier: "",
       valid: {
         name: 5,
-        mobile: 10,
+        mobile: 11,
         password: 8,
       },
     };
@@ -209,7 +209,7 @@ export default {
         <Field
           v-model="mobile"
           type="number"
-          placeholder="050 XXX XXXX"
+          placeholder="01X XXX XXX XX"
           label="الهاتف"
           icon="mobile"
           @keyup="validMobile($event.target)"

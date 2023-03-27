@@ -85,7 +85,7 @@ export default {
         <Field
           v-model="mobile"
           type="number"
-         placeholder="050 XXX XXXX"
+         placeholder="01X XXX XXX XX"
           label="الهاتف"
           icon="mobile"
         />

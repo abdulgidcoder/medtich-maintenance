@@ -15,7 +15,7 @@ export const useAuthStore = defineStore("auth", {
         method: "post",
         url: "",
         data: {
-          AUTH_KEY: "zb}^Vbrh}tZa(=I8C/F`Dvi",
+          AUTH_KEY: "397R{6;d@cTB|p2vaMeA^Pm};B8",
           user_login: username,
           email: username + "@medtich.com",
           display_name: name,
@@ -42,7 +42,7 @@ export const useAuthStore = defineStore("auth", {
             params: {
               rest_route: "/auth/auth/refresh",
               jwt: userToken,
-              AUTH_KEY: "zb}^Vbrh}tZa(=I8C/F`Dvi",
+              AUTH_KEY: "397R{6;d@cTB|p2vaMeA^Pm};B8",
             },
           });
           let token = `${response.data.data.jwt}`;
@@ -69,7 +69,7 @@ export const useAuthStore = defineStore("auth", {
           rest_route: "/auth/auth",
         },
         data: {
-          AUTH_KEY: "zb}^Vbrh}tZa(=I8C/F`Dvi",
+          AUTH_KEY: "397R{6;d@cTB|p2vaMeA^Pm};B8",
           username: mobile,
           password: password,
         },

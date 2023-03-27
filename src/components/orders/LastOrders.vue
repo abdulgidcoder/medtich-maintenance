@@ -46,7 +46,7 @@ export default {
       <Info
         mode="warning"
         msg="ليس لديك اى طلبات"
-        :show="!this.ordersStore.lastList"
+        :show="!this.ordersStore.lastList || this.ordersStore.lastList.length ==0"
         v-if="!loader"
       />
     </ul>

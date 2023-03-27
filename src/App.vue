@@ -1,8 +1,10 @@
 <script>
-import { useError } from "@/stores/useError";
 import Error from "./components/Error.vue";
 export default {
   components: { Error },
+  data() {
+    return {};
+  }, 
   mounted() {
     document.querySelector("html").setAttribute("dir", "rtl");
   },
