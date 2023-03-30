@@ -6,7 +6,7 @@ import { useAuthStore } from "@/stores/useAuth";
 const auth = useAuthStore();
 const router = useRouter();
 
-document.title = `Please wait...`;
+document.title = `تسجيل خروج...`;
 
 onMounted(() =>
   auth.logout().then(() => {
@@ -37,7 +37,7 @@ onMounted(() =>
     <Content>
       <div class="logout">
         <div class="spinner-border" role="status"></div>
-        <div class="lead">Please wait...</div>
+        <div class="lead">`تسجيل خروج...</div>
       </div>
     </Content>
   </Page>

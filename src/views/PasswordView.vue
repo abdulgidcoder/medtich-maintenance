@@ -35,7 +35,7 @@ export default {
         mobile: 11,
         password: 8,
       },
-      app_pass: "XtHY EKmA eCQs 9ZgZ okwl DdIQ",
+      app_pass: "gD1T vo8s srrE rzJx Bt7N 4IFF",
     };
   },
   setup() {

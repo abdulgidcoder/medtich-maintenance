@@ -45,8 +45,10 @@ export default {
       ></Item>
       <Info
         mode="warning"
-        msg="ليس لديك اى طلبات"
-        :show="!this.ordersStore.lastList || this.ordersStore.lastList.length ==0"
+       msg="لا يوجد اى طلبات فى هذا المنطقه"
+        :show="
+          !this.ordersStore.lastList || this.ordersStore.lastList.length == 0
+        "
         v-if="!loader"
       />
     </ul>

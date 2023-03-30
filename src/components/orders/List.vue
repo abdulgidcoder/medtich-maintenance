@@ -60,7 +60,7 @@ export default {
       ></Item>
       <Info
         mode="warning"
-         msg="ليس لديك اى طلبات"
+            msg="لا يوجد اى طلبات"
         :show="this.ordersStore.list == 0"
         v-if="!loader"
       />

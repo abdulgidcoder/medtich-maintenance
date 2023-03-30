@@ -18,18 +18,7 @@ export default {
   created() {},
   mounted() {
     document.title = "Order";
-    if (this.ordersStore.myList == null) {
-      this.getData();
-    } else {
-      this.ordersStore.myList.find((item) => {
-        if (item.id == this.orderID) {
-          this.order_data = item;
-          this.loader = false;
-        } else {
-          this.getData();
-        }
-      });
-    }
+    this.getData();
   },
   methods: {
     getData() {
@@ -37,7 +26,7 @@ export default {
         this.order_data = this.ordersStore.singleOrder;
         setTimeout(() => {
           this.loader = false;
-        }, 1000);
+        }, 200);
       });
     },
   },

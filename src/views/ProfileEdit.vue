@@ -2,43 +2,43 @@
 import axios from "axios";
 import { useAuthStore } from "@/stores/useAuth";
 import { useError } from "@/stores/useError";
-
+import Modal from "../components/Modal.vue";
 import UserInfo from "../components/auth/UserInfo.vue";
 import FileBox from "../components/FileBox.vue";
 import Info from "../components/Info.vue";
 
 export default {
-  components: { UserInfo, FileBox, Info },
+  components: { UserInfo, FileBox, Modal, Info },
   data() {
     return {
       cities: [
-       	{ id: "cairo", value: "القاهرة" },
-		{ id: "giza", value: "الجيزة" },
-		{ id: "alexandria", value: "الأسكندرية" },
-		{ id: "dakahlia", value: "الدقهلية" },
-		{ id: "red-sea", value: "البحر الأحمر" },
-		{ id: "beheira", value: "البحيرة" },
-		{ id: "fayoum", value: "الفيوم" },
-		{ id: "gharbiya", value: "الغربية" },
-		{ id: "ismailia", value: "الإسماعلية" },
-		{ id: "menofia", value: "المنوفية" },
-		{ id: "minya", value: "المنيا" },
-		{ id: "qaliubiya", value: "القليوبية" },
-		{ id: "new-valley", value: "الوادي الجديد" },
-		{ id: "suez", value: "السويس" },
-		{ id: "aswan", value: "اسوان" },
-		{ id: "assiut", value: "اسيوط" },
-		{ id: "beni-suef", value: "بني سويف" },
-		{ id: "port-said", value: "بورسعيد" },
-		{ id: "damietta", value: "دمياط" },
-		{ id: "sharkia", value: "الشرقية" },
-		{ id: "south-sinai", value: "جنوب سيناء" },
-		{ id: "kafr-al-sheikh", value: "كفر الشيخ" },
-		{ id: "matrouh", value: "مطروح" },
-		{ id: "luxor", value: "الأقصر" },
-		{ id: "qena", value: "قنا" },
-		{ id: "nort-sinai", value: "شمال سيناء" },
-		{ id: "sohag", value: "سوهاج" }
+        { id: "cairo", value: "القاهرة" },
+        { id: "giza", value: "الجيزة" },
+        { id: "alexandria", value: "الأسكندرية" },
+        { id: "dakahlia", value: "الدقهلية" },
+        { id: "red-sea", value: "البحر الأحمر" },
+        { id: "beheira", value: "البحيرة" },
+        { id: "fayoum", value: "الفيوم" },
+        { id: "gharbiya", value: "الغربية" },
+        { id: "ismailia", value: "الإسماعلية" },
+        { id: "menofia", value: "المنوفية" },
+        { id: "minya", value: "المنيا" },
+        { id: "qaliubiya", value: "القليوبية" },
+        { id: "new-valley", value: "الوادي الجديد" },
+        { id: "suez", value: "السويس" },
+        { id: "aswan", value: "اسوان" },
+        { id: "assiut", value: "اسيوط" },
+        { id: "beni-suef", value: "بني سويف" },
+        { id: "port-said", value: "بورسعيد" },
+        { id: "damietta", value: "دمياط" },
+        { id: "sharkia", value: "الشرقية" },
+        { id: "south-sinai", value: "جنوب سيناء" },
+        { id: "kafr-al-sheikh", value: "كفر الشيخ" },
+        { id: "matrouh", value: "مطروح" },
+        { id: "luxor", value: "الأقصر" },
+        { id: "qena", value: "قنا" },
+        { id: "nort-sinai", value: "شمال سيناء" },
+        { id: "sohag", value: "سوهاج" },
       ],
       specialization: [
         { id: "dental", value: "طب الأسنان" },
@@ -63,6 +63,7 @@ export default {
       },
       areaSelected: "",
       spacSelected: "",
+      deleteModal: false,
     };
   },
   setup() {
@@ -73,7 +74,6 @@ export default {
       error,
     };
   },
-
   mounted() {
     document.title = `Edit Profile`;
     this.user.username = this.$auth.user_data?.username;
@@ -116,17 +116,19 @@ export default {
         data: formData,
       })
         .then((response) => {
-          for (let i = 0; i < response.data.length; i++) { 
-            this.user.cv=response.data[i].id;
+          for (let i = 0; i < response.data.length; i++) {
+            this.user.cv = response.data[i].id;
           }
-          input.target.nextSibling.children[1].innerHTML = "تحديث السيرة الذاتية";
+          input.target.nextSibling.children[1].innerHTML =
+            "تحديث السيرة الذاتية";
           this.error.masg = "تم رفع السيرة الذاتية";
           this.error.style = "success";
           this.error.show = true;
         })
         .catch((error) => {
-          input.target.nextSibling.children[1].innerHTML = "'رفع السيرة الذاتية";
-             this.error.style = "danger";
+          input.target.nextSibling.children[1].innerHTML =
+            "'رفع السيرة الذاتية";
+          this.error.style = "danger";
           this.error.show = true;
           if (error.response) {
             let mesg = JSON.stringify(error.response.data.message);
@@ -136,7 +138,6 @@ export default {
           }
         });
     },
-
     edit_user() {
       const btnSubmit = document.getElementById("updata-user");
       btnSubmit.disabled = true;
@@ -171,6 +172,23 @@ export default {
           }
         });
     },
+    delete_account() {
+      this.authStore
+        .deleteUser()
+        .then(() => {
+          this.error.style = "success";
+          this.error.show = true;
+          this.error.masg = "تم حذف حسابك";
+          this.deleteModal = false;
+          this.$router.push({name:"logout"})
+        })
+        .catch((error) => {
+          this.error.style = "danger";
+          this.error.show = true;
+          this.error.masg = "لم يتم حذف حسابك";
+          this.deleteModal = false;
+        }); 
+    },
   },
 };
 </script>
@@ -178,10 +196,10 @@ export default {
   <Page class="app-profile-page">
     <Head title="حسابى" route="home"></Head>
     <Content :isBoxed="true">
-    <Info
+      <Info
         mode="warning"
         msg="قم برفع  سيرتك الذاتية"
-        :show="!this.$auth.user_data?.acf['cv']" 
+        :show="!this.$auth.user_data?.acf['cv']"
       />
       <UserInfo />
       <form @submit.prevent="edit_user($event.target)">
@@ -190,39 +208,92 @@ export default {
           label="الهاتف"
           :modelValue="this.$auth.user_data?.username"
           :readonly="true"
-            icon="mobile"
+          icon="mobile"
         />
         <Field
           type="text"
           label="الاسم"
           :modelValue="this.$auth.user_data?.name"
           v-model="user.name"
-            icon="user"
+          icon="user"
         />
         <label>المنطقة</label>
         <Select :onChange="chooseArea" :data="cities" class="app-select">{{
-         this.user.area ?  $nameArea(this.user.area) : 'اختار منظقتك'
+          this.user.area ? $nameArea(this.user.area) : "اختار منظقتك"
         }}</Select>
         <label>التخصص</label>
         <Select
           :onChange="chooseSpac"
           :data="specialization"
           class="app-select"
-          >{{ this.user.specialization ? $nameSpac(this.user.specialization): 'اختار تخصصك' }}</Select
+          >{{
+            this.user.specialization
+              ? $nameSpac(this.user.specialization)
+              : "اختار تخصصك"
+          }}</Select
         >
-        <File :label="this.$auth.user_data?.acf['cv'] ? 'قم بتحديث سيرتك الذاتية' : 'رفع السيرة الذاتية'" accept=".pdf" @change="uploadFiles" />
-        <div class="app-fixed-bottom">
-          <button class="btn btn-primary btn-lg btn-block" id="updata-user">
-            تحديث
-          </button>
-        </div>
-      </form>
-      <FileBox
+        <File
+          :label="
+            this.$auth.user_data?.acf['cv']
+              ? 'قم بتحديث سيرتك الذاتية'
+              : 'رفع السيرة الذاتية'
+          "
+          accept=".pdf"
+          @change="uploadFiles"
+        />
+           <FileBox
         v-if="this.$auth.user_data?.acf['cv']"
         :icon="this.$auth.user_data?.acf['cv'].icon"
         :name="this.$auth.user_data?.acf['cv'].filename"
         :size="returnFileSize(this.$auth.user_data?.acf['cv'].filesize)"
       />
+        <button
+          class="btn btn-outline-danger btn-lg btn-block delete-modal"
+          @click="() => (this.deleteModal = true)"
+          type="button"
+        >
+          حذف الحساب
+        </button>
+        <div class="app-fixed-bottom">
+ <button
+            class="btn btn-primary btn-lg btn-block"
+            id="updata-user"
+            type="submit"
+          >            تحديث
+          </button>
+        </div>
+      </form>   
     </Content>
+       <Modal
+      classes="modal-delete-account app-modal-center opened"
+      :show="deleteModal"
+    >
+      <h2>هل تريد حقاََ حذف حساب؟</h2>
+      <p><strong>تحذير:</strong> سوف يتم حذف جميع بياناتك</p>
+      <button class="btn btn-danger" @click="delete_account">حذف الحساب</button>
+      <button
+        class="btn btn-secondary"
+        @click="() => (this.deleteModal = false)"
+      >
+        الغاء
+      </button>
+    </Modal>
   </Page>
 </template>
+<style lang="scss">
+.btn.delete-modal {
+  margin: 35px 0 20px;
+}
+.modal-delete-account {
+  .app-modal__container {
+    text-align: center;
+    padding: 35px 20px;
+    p {
+      margin-bottom: 25px;
+    }
+    .btn-secondary {
+      margin-right: 30px;
+    }
+  }
+}
+</style>

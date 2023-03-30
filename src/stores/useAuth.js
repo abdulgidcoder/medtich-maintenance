@@ -47,11 +47,11 @@ export const useAuthStore = defineStore("auth", {
           });
           let token = `${response.data.data.jwt}`;
           localStorage.setItem("token", token);
-          await this.ftechUser(); 
+          await this.ftechUser();
         } catch (error) {
           localStorage.removeItem("token");
           localStorage.removeItem("userData");
-          this.loggedIn = false; 
+          this.loggedIn = false;
           router.push("/login");
         }
       } else {
@@ -98,6 +98,21 @@ export const useAuthStore = defineStore("auth", {
       });
       localStorage.setItem("userData", JSON.stringify(response.data));
       this.user_data = response.data;
+    },
+    async deleteUser() {
+      const response = await axios({
+        method: "delete",
+        url: "",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        data: {
+          AUTH_KEY: "397R{6;d@cTB|p2vaMeA^Pm};B8",
+        },
+        params: {
+          rest_route: "/auth/users",
+        },
+      });
     },
     async ftechUser() {
       let response = await axios({
