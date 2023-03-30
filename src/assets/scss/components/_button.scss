@@ -48,6 +48,11 @@ button {
   background-color: var(--danger);
   box-shadow: 0 5px 8px var(--danger-tint);
 }
+.btn-outline-danger {
+  color: var(--danger);
+  background: #fff;
+  border: 1px solid var(--danger);
+}
 .btn-light {
   background-color: var(--white);
 }

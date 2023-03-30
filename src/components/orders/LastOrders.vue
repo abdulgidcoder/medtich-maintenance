@@ -41,12 +41,14 @@ export default {
         v-else="!loader"
         v-for="order in this.ordersStore.lastList"
         :key="order.id"
-        :order="order" 
+        :order="order"
       ></Item>
       <Info
         mode="warning"
-        msg="ليس لديك اى طلبات"
-        :show="!this.ordersStore.lastList"
+        msg="لا يوجد اى طلبات فى هذا المنطقه"
+        :show="
+          !this.ordersStore.lastList || this.ordersStore.lastList.length == 0
+        "
         v-if="!loader"
       />
     </ul>

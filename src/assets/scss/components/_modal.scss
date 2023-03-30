@@ -7,7 +7,7 @@
   width: 100%;
   height: 100%;
   background-color: rgba(17, 24, 39, 0.502);
-  z-index: 99; 
+  z-index: 99;
   &-bottom {
     &.opened {
       .app-modal__container {
@@ -24,6 +24,25 @@
       padding: 0px 15px 112px;
       background-color: var(--white);
       transform: translateY(100%);
+      transition: transform 0.3s ease-in-out;
+    }
+  }
+  &-center {
+    &.opened {
+      .app-modal__container {
+              transform: translate(-50%, -50%) scale(1)!important;
+      }
+    }
+    .app-modal__container {
+      position: absolute;
+      border-radius: 30px;
+      width: 100%;
+      max-width: 85vw;
+      padding: 15px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.5);
+      background-color: var(--white);
       transition: transform 0.3s ease-in-out;
     }
   }
