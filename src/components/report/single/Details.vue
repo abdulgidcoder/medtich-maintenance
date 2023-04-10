@@ -55,7 +55,7 @@ export default {
       </li>
       <li>
         <strong>التكلفة المتوقعة</strong>
-        <p>{{ details.acf?.expected_cost + " ريال" }}</p>
+        <p>{{ details.acf?.expected_cost + " جنية" }}</p>
       </li>
       <li>
         <strong>الوقت المتوقع لحل المشكلة</strong>

@@ -3,6 +3,7 @@ import axios from "axios";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({
+    connection: true,
     loggedIn: localStorage.getItem("token") ? true : false,
     user_data: localStorage.getItem("userData")
       ? JSON.parse(localStorage.getItem("userData"))
@@ -10,14 +11,19 @@ export const useAuthStore = defineStore("auth", {
   }),
   getters: {},
   actions: {
-    async register(name, username, password) {
+    async register(name, username, password, roleUser) {
       const response = await axios({
         method: "post",
         url: "",
         data: {
-          AUTH_KEY: "397R{6;d@cTB|p2vaMeA^Pm};B8",
+          AUTH_KEY:
+            roleUser == "technician"
+              ? "397R{6;d@cTB|p2vaMeA^Pm};B8"
+              : roleUser == "customer"
+              ? "NQhJr6{~K9=/TXeh(QXEdA8Yp|lz"
+              : "397R{6;d@cTB|p2vaMeA^Pm};B8",
           user_login: username,
-          email: username + "@medtich.com",
+          email: username + "@medtich-eg.com",
           display_name: name,
           password: password,
         },
@@ -128,6 +134,20 @@ export const useAuthStore = defineStore("auth", {
       this.loggedIn = true;
       localStorage.setItem("userData", JSON.stringify(response.data));
       this.user_data = response.data;
+    },
+    async connectionStatus() {
+      const response = await axios({
+        method: "get",
+        url: "wp-json/api/v1/connection",
+      })
+        .then(() => {
+          this.connection = true;
+        })
+        .catch((e) => {
+          if (e.code === "ERR_NETWORK" || e.code === "ERR_NAME_NOT_RESOLVED") {
+            this.connection = false;
+          }
+        });
     },
   },
 });

@@ -1,5 +1,4 @@
-<script>
-import Tab from "./Tab.vue";
+<script> 
 export default {
   props: { show: Boolean },
   components: { Tab },
@@ -11,12 +10,10 @@ export default {
 };
 </script>
 <template>
-  <Tab :show="show">
-    <div class="app-tab-view app-notify-page">
-      <Head title="My Notification" />
-      <div class="app-content"></div>
-    </div>
-  </Tab>
+  <div class="app-tab-view app-notify-page">
+    <Head title="My Notification" />
+    <div class="app-content"></div>
+  </div> 
 </template>
 
 <style lang="scss"></style>

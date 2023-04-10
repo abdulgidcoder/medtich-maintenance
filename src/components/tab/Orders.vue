@@ -1,13 +1,9 @@
-<script>
-import Tab from "./Tab.vue";
+<script> 
 import { defineAsyncComponent } from "vue";
 export default {
   props: { show: Boolean },
-  components: {
-    Tab,
-    MyOrdersList: defineAsyncComponent({
-      loader: () => import("../orders/MyList.vue"),
-    }),
+  components: { 
+    MyOrdersList: defineAsyncComponent(() => import("../orders/MyList.vue")),
   },
   data() {
     return {
@@ -16,17 +12,15 @@ export default {
   },
 };
 </script>
-<template>
-  <Tab :show="show">
-    <div class="app-tab-view app-my-orders-page">
-      <Head title="طلباتى" />
-      <Content :isBoxed="true">
-        <MyOrdersList
-          :per_page="7"
-          :pagination="true"
-          paginClass="app-fixed-bottom"
-        />
-      </Content>
-    </div>
-  </Tab>
+<template> 
+  <div class="app-tab-view app-my-orders-page">
+    <Head title="طلباتى" />
+    <Content :isBoxed="true">
+      <MyOrdersList
+        :per_page="8"
+        :pagination="true"
+        paginClass="app-fixed-bottom"
+      />
+    </Content>
+  </div>
 </template>

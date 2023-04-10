@@ -2,16 +2,18 @@
 export default {
   props: {
     title: String,
-    route: String,
+    goBack: String,
   },
 };
 </script>
 <template>
   <header class="app-header">
-    <div class="app-header_left">
-      <RouterLink :to="{ name: route }" class="app-btn-back" v-show="route">
+    <div class="app-header_left" v-if="goBack">
+      <button @click="$router.go(-1)" class="app-btn-back">
         <Icon name="arrow-left" />
-      </RouterLink>
+      </button>
+    </div>
+    <div class="app-header_center">
       <h2>{{ title }}</h2>
     </div>
     <div class="app-header_right">
@@ -32,15 +34,24 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 68px;
   &_left {
+    position: relative;
+    z-index: 5;
+  }
+  &_center {
     flex: 1;
-    display: flex;
-    align-items: center;
-    padding-right: 15px;
+    text-align: center;
+    padding: 0 90px;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1;
   }
   &_right {
-    display: flex;
-    align-items: center;
+    position: relative;
+    z-index: 5;
   }
   &_link {
     background-color: transparent;

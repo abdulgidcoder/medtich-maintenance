@@ -5,18 +5,30 @@ export default {
     show: Boolean,
     classes: String,
   },
+    emits: ["closeModal"], // <--- add this line
+
+  methods: {
+    closeModal() {
+      this.$emit("closeModal");
+    },
+  },
 };
 </script>
 
 <template>
   <Teleport to="body">
-    <div class="app-modal" :class="[{ active: show }, classes]" v-if="show">
+    <div
+      class="app-modal"
+      :class="[{ active: show }, classes]"
+      v-if="show"
+      @click="closeModal"
+    >
       <Transition name="fadeUp">
-        <div class="app-modal__container" v-if="show">
+        <div class="app-modal__container" v-if="show" @click.stop>
           <slot></slot>
         </div>
       </Transition>
-      </div>
+    </div>
   </Teleport>
 </template>
 <style lang="scss">

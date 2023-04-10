@@ -194,14 +194,14 @@ export default {
 </script>
 <template>
   <Page class="app-profile-page">
-    <Head title="حسابى" route="home"></Head>
+    <Head title="حسابى" goBack="true"></Head>
     <Content :isBoxed="true">
       <Info
         mode="warning"
         msg="قم برفع  سيرتك الذاتية"
         :show="!this.$auth.user_data?.acf['cv']"
       />
-      <UserInfo />
+      <UserInfo class="center"/>
       <form @submit.prevent="edit_user($event.target)">
         <Field
           type="text"
@@ -282,7 +282,7 @@ export default {
 </template>
 <style lang="scss">
 .btn.delete-modal {
-  margin: 35px 0 20px;
+  margin: 25px 0 20px;
 }
 .modal-delete-account {
   .app-modal__container {

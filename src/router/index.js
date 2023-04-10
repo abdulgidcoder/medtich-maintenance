@@ -2,11 +2,11 @@ import { createRouter, createWebHistory } from "vue-router";
 import { useAuthStore } from "@/stores/useAuth";
 
 const redirectToLoginOnLoggedOut = (to, from, next) => {
-   if (!useAuthStore().loggedIn) {
-     next({ name: "login" });
-   } else {
-     next();
-   }
+  if (!useAuthStore().loggedIn) {
+    next({ name: "login" });
+  } else {
+    next();
+  }
 };
 
 const router = createRouter({
@@ -27,8 +27,31 @@ const router = createRouter({
     {
       path: "/home",
       name: "home",
+      redirect: '/home/main',
       component: () => import("@/views/HomeView.vue"),
       beforeEnter: redirectToLoginOnLoggedOut,
+      children: [
+        {
+          path: "main",
+          name: "main",
+          component: () => import("@/components/tab/Main.vue"),
+        },
+        {
+          path: "my-orders",
+          name: "my-orders",
+          component: () => import("@/components/tab/Orders.vue"),
+        },
+        {
+          path: "my-reports",
+          name: "my-reports",
+          component: () => import("@/components/tab/Reports.vue"),
+        },
+        {
+          path: "my-profile",
+          name: "my-profile",
+          component: () => import("@/components/tab/Profile.vue"),
+        },
+      ],
     },
     {
       path: "/login",

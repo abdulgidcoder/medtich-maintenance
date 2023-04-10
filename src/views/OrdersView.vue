@@ -2,14 +2,12 @@
 import { defineAsyncComponent } from "vue";
 export default {
   components: {
-    OrdersList: defineAsyncComponent({
-      loader: () => import("../components/orders/List.vue"), 
-    }),
+    OrdersList: defineAsyncComponent(() =>
+      import("../components/orders/List.vue")
+    ),
   },
   data() {
-    return {
-      auth_user: this.$auth,
-    };
+    return {};
   },
   mounted() {
     document.title = "Orders";
@@ -18,10 +16,10 @@ export default {
 </script>
 <template>
   <Page class="app-orders-page">
-    <Head title="الطلبات" route="home" />
+    <Head title="الطلبات" goBack="true" />
     <Content :isBoxed="true">
       <OrdersList
-        :per_page="7"
+        :per_page="8"
         :pagination="true"
         paginClass="app-fixed-bottom"
       />
@@ -31,11 +29,11 @@ export default {
 
 <style lang="scss">
 .app-orders-page {
-  .app-content{
+  .app-content {
     padding-bottom: 0;
   }
-.app-content-box{
-  padding-bottom: 65px;
-}
+  .app-content-box {
+    padding-bottom: 65px;
+  }
 }
 </style>

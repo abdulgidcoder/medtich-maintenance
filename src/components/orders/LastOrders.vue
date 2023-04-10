@@ -10,17 +10,26 @@ export default {
   data() {
     return {
       loader: true,
+      polling: null,
     };
   },
   setup() {
     const ordersStore = useOrdesStore();
     return { ordersStore };
   },
-  mounted() {
-    this.getOrders();
+  created() {
+    if (!this.ordersStore.lastList) {
+      this.fetchOrders();
+    } else {
+      this.loader = false;
+    }
+    this.pollingOrders();
+  },
+  beforeUnmount() {
+    clearInterval(this.polling);
   },
   methods: {
-    getOrders() {
+    fetchOrders() {
       this.ordersStore
         .ftechLast(this.$auth.user_data?.acf["area"], this.per_page)
         .then(() => {
@@ -29,28 +38,37 @@ export default {
           }, 100);
         });
     },
+    pollingOrders() {
+      this.polling = setInterval(() => {
+        this.ordersStore.ftechLast(
+          this.$auth.user_data?.acf["area"],
+          this.per_page
+        );
+      }, this.pollTimer);
+    },
   },
 };
 </script>
 
 <template>
   <div class="orders-list">
-    <ul>
-      <ItemLoader v-if="loader" v-for="n in this.per_page" :key="n" />
+    <ul v-if="loader">
+      <ItemLoader v-for="n in this.per_page" :key="n" />
+    </ul>
+    <ul v-else>
       <Item
-        v-else="!loader"
         v-for="order in this.ordersStore.lastList"
         :key="order.id"
-        :order="order" 
+        :order="order"
       ></Item>
-      <Info
-        mode="warning"
-       msg="لا يوجد اى طلبات فى هذا المنطقه"
-        :show="
-          !this.ordersStore.lastList || this.ordersStore.lastList.length == 0
-        "
-        v-if="!loader"
-      />
     </ul>
+    <Info
+      mode="warning"
+      msg="لا يوجد اى طلبات فى هذا المنطقه"
+      :show="
+        !this.ordersStore.lastList || this.ordersStore.lastList.length == 0
+      "
+      v-if="!loader"
+    />
   </div>
 </template>

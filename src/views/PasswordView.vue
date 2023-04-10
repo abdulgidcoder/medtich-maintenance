@@ -1,5 +1,4 @@
-<script>
-// import otp from "../components/form/OTP.vue";
+<script> 
 import Modal from "../components/Modal.vue";
 import VOtpInput from "vue3-otp-input";
 import { useAuthStore } from "@/stores/useAuth";

@@ -122,7 +122,7 @@ export default {
 </script>
 <template>
   <Page class="app-add-report">
-    <Head title="إضافة تقرير" route="home" />
+    <Head title="إضافة تقرير" goBack="true" />
     <Content :isBoxed="true">
       <form @submit.prevent="handleSubmit($event.target)">
         <Field
@@ -140,7 +140,7 @@ export default {
         <Field
           v-model="report.expected_cost"
           type="number"
-          label="التكلفة المتوقعة (ريال سعودي)"
+          label="التكلفة المتوقعة (جنية)"
           @keyup="validNumber($event.target)"
         />
         <Field

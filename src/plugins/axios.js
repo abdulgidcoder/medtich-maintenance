@@ -21,6 +21,9 @@ axios.interceptors.response.use(
       }
     }
     // if (error.code == "ERR_NETWORK" || error.code == "ERR_NAME_NOT_RESOLVED") {
+    //  router.push({
+    //    name: "offline",
+    //  });
     // }
     return Promise.reject(error);
   }

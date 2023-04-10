@@ -66,19 +66,21 @@ export default {
            class="btn-link"
             :data="cities"
             :onChange="chooseArea"
-            v-else="this.$auth.user_data?.acf['area']"
+            v-else
             >اختر منطقتك</Select
           >
         </div>
       </div>
     </template>
     <template #right>
-      <div class="app-avatar">
-        <img
+      <RouterLink to="/home/my-profile">
+        <div class="app-avatar">
+          <img
           :src="this.$auth.user_data?.avatar_urls['48']"
           :alt="this.$auth.user_data?.name"
-        />
-      </div>
+          />
+        </div>
+      </RouterLink>
     </template>
   </TopBar>
 </template>

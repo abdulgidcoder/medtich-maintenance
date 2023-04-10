@@ -24,9 +24,9 @@ import Skeleton from "./components/Skeleton.vue";
 
 // Plugins
 import auth from "./plugins/auth";
+import areas from "./plugins/areas";
 import "./plugins/axios";
 import "./plugins/firebase";
-import areas from "./plugins/areas";
 
 // Assets
 import "./assets/scss/app.scss";
@@ -54,8 +54,8 @@ app.component("Skeleton", Skeleton);
 
 app.use(createPinia());
 app.use(router);
-app.use(auth);
 app.use(areas);
+app.use(auth);
 
 moment.updateLocale("ar", {
   relativeTime: {
@@ -64,9 +64,9 @@ moment.updateLocale("ar", {
     s: "بضع ثوان",
     ss: "ثواني %d",
     m: "دقيقة",
-    mm: "دقائق %d",
+    mm: "%d دقيقة",
     h: "ساعة",
-    hh: "ساعات %d",
+    hh: "%d ساعة",
     d: "يوم",
     dd: "%d أيام",
     w: "أسبوع",
@@ -87,4 +87,7 @@ app.config.globalProperties.$dateTime = (value) => {
     .startOf("second")
     .fromNow();
 };
+app.config.globalProperties.pollTimer= 1000;
+app.config.globalProperties.Auth_tach = "cT!z+m%qM2xH+k}D9XtqHUT^K7VCVj-Rw8:";
+
 app.mount("#app");

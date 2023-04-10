@@ -4,23 +4,23 @@
     <Skeleton width="100px" height="16px" style="margin-bottom: 20px" />
     <ul class="report-details">
       <li>
-        <Skeleton width="43px" height="21px" />
+        <Skeleton width="43px" height="20px" />
         <Skeleton width="50px" height="24px" borderRadius="15px" />
       </li>
       <li>
-        <Skeleton width="168px" height="21px" />
+        <Skeleton width="168px" height="20px" />
         <Skeleton width="31px" height="24px" borderRadius="15px" />
       </li>
       <li>
-        <Skeleton width="95px" height="21px" />
+        <Skeleton width="95px" height="20px" />
         <Skeleton width="31px" height="18px" />
       </li>
       <li>
-        <Skeleton width="220px" height="21px" />
+        <Skeleton width="220px" height="20px" />
         <Skeleton width="31px" height="18px" />
       </li>
       <li>
-        <Skeleton width="38px" height="21px" />
+        <Skeleton width="38px" height="20px" />
         <Skeleton width="130px" height="18px" />
       </li>
     </ul>

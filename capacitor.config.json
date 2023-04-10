@@ -1,5 +1,5 @@
 {
-  "appId": "com.arabcoderz.techniciansegeg",
+  "appId": "com.arabcoderz.technicianseg",
   "appName": "Medtich Technicians EG",
   "webDir": "./dist",
   "bundledWebRuntime": false,

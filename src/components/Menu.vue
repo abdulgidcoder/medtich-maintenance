@@ -28,8 +28,8 @@
 <style lang="scss">
 .app-menu-profile {
   li {
-    padding-bottom: 15px;
-    margin-bottom: 15px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
     border-bottom: 1px solid var(--grey);
     a {
       display: flex;
@@ -39,7 +39,7 @@
     .item-text {
       display: flex;
       align-items: center;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 500;
     }
     .item-icon {
@@ -47,20 +47,20 @@
       color: var(--primary);
       margin-right: 15px;
       border-radius: 5px;
-      width: 40px;
-      height: 40px;
+      width: 35px;
+      height: 35px;
       display: inline-flex;
       justify-content: center;
       align-items: center;
       svg {
-        width: 20px;
-        height: 20px;
+        width: 16px;
+        height: 16px;
       }
     }
     .item-arrow {
       color: var(--primary);
       svg {
-        width: 15px;
+        width: 12px;
       }
     }
   }

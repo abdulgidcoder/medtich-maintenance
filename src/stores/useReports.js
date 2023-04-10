@@ -12,7 +12,7 @@ export const useReportsStore = defineStore("reports", {
         method: "get",
         url: "wp-json/wp/v2/report",
         params: {
-          _fields: "id,date,title,content,acf,author",
+          _fields: "id,date,modified,title,content,acf,author",
           author: userID,
           page: currentPage,
           orderby: "modified",
@@ -32,7 +32,7 @@ export const useReportsStore = defineStore("reports", {
         method: "post",
         url: "wp-json/wp/v2/report",
         params: {
-          _fields: "id,date,title,content,acf,author",
+          _fields: "id,date,modified,title,content,acf,author",
         },
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
@@ -62,7 +62,7 @@ export const useReportsStore = defineStore("reports", {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
         params: {
-          _fields: "id,date,title,content,acf",
+          _fields: "id,date,modified,title,content,acf",
         },
       });
       if (response.data) {

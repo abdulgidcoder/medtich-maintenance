@@ -1,6 +1,7 @@
+/* Fade in */
 .fade-enter-active,
 .fade-leave-active {
-  transition: all 0.3s ease;
+  transition: opacity 0.15s ease-in;
 }
 
 .fade-enter-from,
@@ -8,18 +9,21 @@
   opacity: 0;
 }
 
-.fadeLeft-enter-active,
+.fadeLeft-enter-active {
+  transition: all 0.3s ease-out;
+}
+
 .fadeLeft-leave-active {
-  transition: all 0.4s ease-in-out;
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
 .fadeLeft-enter-from,
 .fadeLeft-leave-to {
+  transform: translatex(-15px);
   opacity: 0;
-  transform: translateX(-20px);
 }
 
-
+/* Fade in Up */
 .fadeUp-enter-active,
 .fadeUp-leave-active {
   transition: all 0.4s ease-in-out;
@@ -29,4 +33,20 @@
 .fadeUp-leave-to {
   opacity: 0;
   transform: translateY(100%);
+}
+
+/* Fade in Up Tab*/
+
+.fadeUpTab-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.fadeUpTab-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.fadeUpTab-enter-from,
+.fadeUpTab-leave-to {
+  transform: translateY(15px);
+  opacity: 0;
 }

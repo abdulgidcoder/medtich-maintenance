@@ -2,10 +2,9 @@
 import UserInfo from "../auth/UserInfo.vue";
 import InfoUser from "../InfoUser.vue";
 import Menu from "../Menu.vue";
-import Tab from "./Tab.vue";
 export default {
   props: { show: Boolean },
-  components: { Tab, Menu, UserInfo, InfoUser },
+  components: { Menu, UserInfo, InfoUser },
   data() {
     return {
       auth_user: this.$auth,
@@ -14,16 +13,14 @@ export default {
 };
 </script>
 <template>
-  <Tab :show="show">
-    <div class="app-tab-view app-profile-page">
-      <Head title="حسابى" />
-      <Content :isBoxed="true"> 
-        <InfoUser/>
-        <UserInfo />
-        <Menu />
-      </Content>
-    </div>
-  </Tab>
+  <div class="app-tab-view app-profile-page">
+    <Head title="حسابى" />
+    <Content :isBoxed="true">
+      <InfoUser />
+      <UserInfo />
+      <Menu />
+    </Content>
+  </div>
 </template>
 
 <style lang="scss"></style>

@@ -1,14 +1,9 @@
- 
 <script>
-import Tab from "./Tab.vue";
 import { defineAsyncComponent } from "vue";
 export default {
   props: { show: Boolean },
   components: {
-    Tab,
-    MyReportsList: defineAsyncComponent({
-      loader: () => import("../report/List.vue"),
-    }),
+    MyReportsList: defineAsyncComponent(() => import("../report/List.vue")),
   },
   data() {
     return {
@@ -16,21 +11,19 @@ export default {
     };
   },
 };
-</script> 
+</script>
 
 <template>
-  <Tab :show="show">
-    <div class="app-tab-view app-reports-page">
-      <Head title="تقاريرى" />
-      <Content :isBoxed="true">
-       <MyReportsList
-          :per_page="7"
-          :pagination="true"
-          paginClass="app-fixed-bottom"
-        />
-      </Content>
-    </div>
-  </Tab>
+  <div class="app-tab-view app-reports-page">
+    <Head title="تقاريرى" />
+    <Content :isBoxed="true">
+      <MyReportsList
+        :per_page="8"
+        :pagination="true"
+        paginClass="app-fixed-bottom"
+      />
+    </Content>
+  </div>
 </template>
 
 <style lang="scss"></style>

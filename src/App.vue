@@ -1,18 +1,24 @@
 <script>
-import Error from "./components/Error.vue";
+import { defineAsyncComponent } from "vue";
 export default {
-  components: { Error },
+  components: {
+    Error: defineAsyncComponent({
+      loader: () => import("./components/Error.vue"),
+    }),
+  },
   data() {
     return {};
-  }, 
+  },
   mounted() {
     document.querySelector("html").setAttribute("dir", "rtl");
   },
+  methods: {},
 };
 </script>
 
 <template>
-  <router-view v-slot="{ Component }">
+  <!-- {{ this.$auth.connection }} -->
+  <router-view v-slot="{ Component }" >
     <transition name="fadeLeft" mode="out-in">
       <component :is="Component" />
     </transition>

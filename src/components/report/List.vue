@@ -4,6 +4,7 @@ import Item from "./Item.vue";
 import ItemLoader from "./ItemLoader.vue";
 
 export default {
+  components: { Item, ItemLoader },
   props: {
     currentPage: Number,
     per_page: Number,
@@ -15,19 +16,26 @@ export default {
       loader: true,
       currPage: this.currentPage ? this.currentPage : 1,
       status: "",
+      polling: null,
     };
   },
   setup() {
     const reportStore = useReportsStore();
     return { reportStore };
   },
-  mounted() {
-    this.getreports();
+  beforeUnmount() {
+    clearInterval(this.polling);
   },
-  methods: {},
-  components: { Item, ItemLoader },
+  created() {
+    if (!this.reportStore.list) {
+      this.fetchReports();
+    } else {
+      this.loader = false;
+    }
+    this.pollingReports();
+  },
   methods: {
-    getreports() {
+    fetchReports() {
       this.loader = true;
       this.reportStore
         .ftechallReports(
@@ -39,16 +47,28 @@ export default {
         .then(() => {
           setTimeout(() => {
             this.loader = false;
-          }, 400);
+          }, 400); 
+    
         });
+    },
+    pollingReports() {
+            this.polling = setInterval(() => {
+              this.reportStore
+              .ftechallReports(
+                this.$auth.user_data.id,
+                this.currPage,
+                this.per_page,
+                this.status
+                ) 
+              }, this.pollTimer);
     },
     onPageChange(page) {
       this.currPage = page;
-      this.getreports();
+      this.fetchReports();
     },
     fillterbyStatus(status, ele) {
       this.status = status;
-      this.getreports();
+      this.fetchReports();
     },
   },
 };
@@ -82,21 +102,23 @@ export default {
         مرفوض
       </button>
     </div>
-    <ul>
-      <ItemLoader v-if="loader" v-for="n in this.per_page" :key="n" />
+    <ul v-if="loader">
+      <ItemLoader v-for="n in this.per_page" :key="n" />
+    </ul>
+    <ul v-else>
       <Item
-        v-else="!loader"
         v-for="report in this.reportStore.list"
         :key="report.id"
         :report="report"
       ></Item>
-      <Info
-        mode="warning"
-        msg="ليس لديك اى تقارير"
-        :show="this.reportStore.list == 0"
-        v-if="!loader"
-      />
     </ul>
+
+    <Info
+      mode="warning"
+      msg="ليس لديك اى تقارير"
+      :show="this.reportStore.list == 0"
+      v-if="!loader"
+    />
   </div>
   <div
     v-if="this.pagination && this.reportStore.total >= 2"

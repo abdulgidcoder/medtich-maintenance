@@ -52,20 +52,12 @@ html[dir="rtl"] {
     margin-left: 0;
     margin-right: 10px;
   }
-
-  .app-header_left {
-    padding-right: 0;
-    padding-left: 15px;
-  }
+ 
   .app-topbar__wrapper-left {
     margin-left: 8px;
 
     margin-right: 0;
-  }
-  .app-btn-back {
-    margin-left: 15px;
-    margin-right: 0;
-  }
+  } 
   .arrow-left.app-icon,
   .angle-right.app-icon {
     transform: rotate(-180deg);
@@ -116,13 +108,25 @@ html[dir="rtl"] {
   .app-field_input textarea.is-invalid {
     background-position: left calc(0.375em + 0.1875rem) top 8px;
   }
-  .app-checkbox { 
-    padding-right: 24px; 
-    padding-left: 0; 
-
-}
+  .app-checkbox {
+    padding-right: 24px;
+    padding-left: 0;
+  }
   .app-checkbox .checkmark {
     right: 0;
     left: auto;
+  }
+  .page-item:first-child .page-link {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+  }
+
+  .page-item:last-child .page-link {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
   }
 }

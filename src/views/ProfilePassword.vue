@@ -104,7 +104,7 @@ export default {
 </script>
 <template>
   <Page class="app-profile-page">
-    <Head title="تغيير كلمة المرور" route="home"></Head>
+    <Head title="تغيير كلمة المرور" goBack="true"></Head>
     <Content :isBoxed="true">
       <UserInfo />
       <form @submit.prevent="edit_password($event.target)">

@@ -6,12 +6,18 @@ export default {
     const ftechUserData = () => {
       setInterval(function () {
         useAuthStore().ftechUser();
-      }, 10000);
+      }, 9000);
     };
     if (localStorage.getItem("token") != undefined) {
       ftechUserData();
     } else {
       clearInterval(ftechUserData);
     }
+    const ftechConnecStatus = () => {
+      setInterval(function () {
+        useAuthStore().connectionStatus();
+      }, 3000);
+    };
+    // ftechConnecStatus();
   },
 };

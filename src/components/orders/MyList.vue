@@ -4,6 +4,7 @@ import MyItem from "./MyItem.vue";
 import MyItemLoader from "./MyItemLoader.vue";
 
 export default {
+  components: { MyItem, MyItemLoader },
   props: {
     currentPage: Number,
     per_page: Number,
@@ -14,19 +15,26 @@ export default {
     return {
       loader: true,
       currPage: this.currentPage ? this.currentPage : 1,
+      polling: null,
     };
   },
   setup() {
     const ordersStore = useOrdesStore();
     return { ordersStore };
   },
-  mounted() {
-    this.getOrders();
+  beforeUnmount() {
+    clearInterval(this.polling);
   },
-  methods: {},
-  components: { MyItem, MyItemLoader },
+  created() {
+    if (!this.ordersStore.myList) {
+      this.fetchOrders();
+    } else {
+      this.loader = false;
+    }
+    this.pollingOrders();
+  },
   methods: {
-    getOrders() {
+    fetchOrders() {
       this.loader = true;
       this.ordersStore
         .ftechMyOrders(this.$auth.user_data?.id, this.currPage, this.per_page)
@@ -36,9 +44,18 @@ export default {
           }, 100);
         });
     },
+    pollingOrders() {
+            this.polling = setInterval(() => {
+              this.ordersStore.ftechMyOrders(
+                this.$auth.user_data?.id,
+                this.currPage,
+                this.per_page
+                );
+              }, this.pollTimer);
+    },
     onPageChange(page) {
       this.currPage = page;
-      this.getOrders();
+      this.ftechMyOrders();
     },
   },
 };
@@ -46,21 +63,22 @@ export default {
 
 <template>
   <div class="my-orders-list">
-    <ul>
-      <MyItemLoader v-if="loader" v-for="i in this.per_page" :key="i" />
+    <ul v-if="loader">
+      <MyItemLoader v-for="i in this.per_page" :key="i" />
+    </ul>
+    <ul v-else>
       <MyItem
-        v-else="loader"
         v-for="order in this.ordersStore.myList"
         :key="order.id"
         :order="order"
       ></MyItem>
-      <Info
-        mode="warning"
-        msg="ليس لديك اى طلبات"
-        :show="this.ordersStore.myList == 0"
-        v-if="!loader"
-      />
     </ul>
+    <Info
+      mode="warning"
+      msg="ليس لديك اى طلبات"
+      :show="this.ordersStore.myList ==0"
+      v-if="!loader"
+    />
   </div>
   <div
     v-if="this.pagination && this.ordersStore.myTotal >= 2"

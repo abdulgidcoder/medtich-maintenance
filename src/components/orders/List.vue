@@ -4,6 +4,7 @@ import Item from "./Item.vue";
 import ItemLoader from "./ItemLoader.vue";
 
 export default {
+  components: { Item, ItemLoader },
   props: {
     currentPage: Number,
     per_page: Number,
@@ -14,19 +15,26 @@ export default {
     return {
       loader: true,
       currPage: this.currentPage ? this.currentPage : 1,
+      polling: null,
     };
   },
   setup() {
     const ordersStore = useOrdesStore();
     return { ordersStore };
   },
-  mounted() {
-    this.getOrders();
+  beforeUnmount() {
+    clearInterval(this.polling);
   },
-  methods: {},
-  components: { Item, ItemLoader },
+  created() {
+    if (!this.ordersStore.list) {
+      this.fetchOrders();
+    } else {
+      this.loader = false;
+    }
+    this.pollingOrders();
+  },
   methods: {
-    getOrders() {
+    fetchOrders() {
       this.loader = true;
       this.ordersStore
         .ftechOrders(
@@ -40,9 +48,18 @@ export default {
           }, 100);
         });
     },
+    pollingOrders() {
+      this.polling = setInterval(() => {
+        this.ordersStore.ftechOrders(
+          this.$auth.user_data?.acf["area"],
+          this.currPage,
+          this.per_page
+        );
+      }, this.pollTimer);
+    },
     onPageChange(page) {
       this.currPage = page;
-      this.getOrders();
+      this.fetchOrders();
     },
   },
 };
@@ -50,21 +67,22 @@ export default {
 
 <template>
   <div class="orders-list">
-    <ul>
-      <ItemLoader v-if="loader" v-for="n in this.per_page" :key="n" />
+    <ul v-if="loader">
+      <ItemLoader v-for="n in this.per_page" :key="n" />
+    </ul>
+    <ul v-else>
       <Item
-        v-else="!loader"
         v-for="order in this.ordersStore.list"
         :key="order.id"
         :order="order"
       ></Item>
-      <Info
-        mode="warning"
-            msg="لا يوجد اى طلبات"
-        :show="this.ordersStore.list == 0"
-        v-if="!loader"
-      />
     </ul>
+    <Info
+      mode="warning"
+      msg="لا يوجد اى طلبات"
+      :show="!this.ordersStore.list"
+      v-if="!loader"
+    />
   </div>
   <div
     v-if="this.pagination && this.ordersStore.total >= 2"

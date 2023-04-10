@@ -1,10 +1,6 @@
-<script>
-import TopBar from "../components/auth/TopBar.vue";
+<script> 
 import { useAuthStore } from "@/stores/useAuth";
-export default {
-  components: {
-    TopBar,
-  },
+export default { 
   data() {
     return {
       mobile: "",
@@ -76,8 +72,7 @@ export default {
 </script>
 
 <template>
-  <Page class="app-page-auth">
-    <!-- <TopBar /> -->
+  <Page class="app-page-auth"> 
     <Content>
       <AppLogo />
       <h1>مرحبًا بعودتك</h1>

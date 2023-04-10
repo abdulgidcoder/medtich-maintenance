@@ -1,5 +1,4 @@
-<script>
-import Tab from "./Tab.vue";
+<script> 
 import { defineAsyncComponent } from "vue";
 import InfoUser from "../InfoUser.vue";
 import TopbarHome from "../TopbarHome.vue";
@@ -7,8 +6,7 @@ import { useOrdesStore } from "@/stores/useOrders.js";
 
 export default {
   props: { show: Boolean },
-  components: {
-    Tab,
+  components: { 
     LastOrders: defineAsyncComponent({
       loader: () => import("../orders/LastOrders.vue"),
     }),
@@ -27,34 +25,32 @@ export default {
 };
 </script>
 <template>
-  <Tab :show="show">
-    <div class="app-tab-view app-home-page">
-      <TopbarHome />
-      <Content>
-        <div
-          class="app-section"
-          v-if="
-            !this.ordersStore.lastList == 0 ||
-            !this.ordersStore.lastList == null
-          "
-          v-show="false"
-        >
-          <button class="app-search-toggle">
-            <Icon name="search" />
-            Find your Order
-          </button>
+  <div class="app-tab-view app-home-page">
+    <TopbarHome />
+    <Content>
+      <div
+        class="app-section"
+        v-if="
+          !this.ordersStore.lastList == 0 ||
+          !this.ordersStore.lastList == null
+        "
+        v-show="false"
+      >
+        <button class="app-search-toggle">
+          <Icon name="search" />
+          Find your Order
+        </button>
+      </div>
+      <InfoUser />
+      <section class="app-section app-last-orders">
+        <div class="app-section-head">
+          <h2 class="h1">اخر الطلبات</h2>
+          <RouterLink to="/orders">عرض الكل</RouterLink>
         </div>
-        <InfoUser />
-        <section class="app-section app-last-orders">
-          <div class="app-section-head">
-            <h2 class="h1">اخر الطلبات</h2>
-            <RouterLink to="/orders">عرض الكل</RouterLink>
-          </div>
-          <LastOrders :per_page="6" />
-        </section>
-      </Content>
-    </div>
-  </Tab>
+        <LastOrders :per_page="6" />
+      </section>
+    </Content>
+  </div> 
 </template>
 
 <style lang="scss">
