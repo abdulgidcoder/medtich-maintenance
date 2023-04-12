@@ -28,10 +28,11 @@ export default {
   created() {
     if (!this.ordersStore.myList) {
       this.fetchOrders();
+      this.pollingOrders();
     } else {
       this.loader = false;
+      this.pollingOrders();
     }
-    this.pollingOrders();
   },
   methods: {
     fetchOrders() {
@@ -41,17 +42,17 @@ export default {
         .then(() => {
           setTimeout(() => {
             this.loader = false;
-          }, 100);
+          }, 100); 
         });
     },
     pollingOrders() {
-            this.polling = setInterval(() => {
-              this.ordersStore.ftechMyOrders(
-                this.$auth.user_data?.id,
-                this.currPage,
-                this.per_page
-                );
-              }, this.pollTimer);
+      this.polling = setInterval(() => {
+        this.ordersStore.ftechMyOrders(
+          this.$auth.user_data?.id,
+          this.currPage,
+          this.per_page
+        );
+      }, this.pollTimer);
     },
     onPageChange(page) {
       this.currPage = page;
@@ -73,13 +74,12 @@ export default {
         :order="order"
       ></MyItem>
     </ul>
-    <Info
-      mode="warning"
-      msg="ليس لديك اى طلبات"
-      :show="this.ordersStore.myList ==0"
-      v-if="!loader"
-    />
   </div>
+
+  <EmptyContent
+    title="ليس لديك اى طلبات"
+    v-if="!loader && this.ordersStore.myList == 0"
+  />
   <div
     v-if="this.pagination && this.ordersStore.myTotal >= 2"
     :class="this.paginClass"

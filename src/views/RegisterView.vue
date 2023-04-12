@@ -1,7 +1,7 @@
 <script>
 import TopBar from "../components/auth/TopBar.vue";
 // import otp from "../components/form/OTP.vue";
-import Modal from "../components/Modal.vue";
+// import Modal from "../components/Modal.vue";
 import { useAuthStore } from "@/stores/useAuth";
 import VOtpInput from "vue3-otp-input";
 
@@ -14,7 +14,6 @@ export default {
   components: {
     TopBar,
     VOtpInput,
-    Modal,
   },
   data() {
     return {
@@ -47,7 +46,7 @@ export default {
     };
   },
   created() {
-    document.title = "Register"; 
+    document.title = "Register";
   },
   mounted() {
     this.initReCaptcha();
@@ -157,7 +156,7 @@ export default {
     },
     signUp() {
       useAuthStore()
-        .register(this.name, this.mobile, this.password,this.roleUser)
+        .register(this.name, this.mobile, this.password, this.roleUser)
         .then((response) => {
           this.modalOtp = false;
           this.hasFeedback = true;
@@ -287,7 +286,7 @@ export default {
     <Teleport to="body">
       <Alert :show="hasFeedback" :mode="feedbackStyle" :msg="feedback" />
     </Teleport>
-    <Modal classes="modal-otp bottom" :show="modalOtp">
+    <Modal class="modal-otp bottom" :show="modalOtp" animation="fadeUp">
       <h2>قم بتاكيد رقمك</h2>
       <p>
         أدخل الرمز المكون من 6 أرقام المرسل إليه<br /><strong>{{
@@ -316,8 +315,9 @@ export default {
     </Modal>
 
     <Modal
-      classes="modal-otp bottom"
+      class="modal-otp bottom"
       :show="privacyModal"
+      animation="fadeUp"
       @closeModal="this.privacyModal = false"
     >
       <h2>الشروط والاحكام</h2>

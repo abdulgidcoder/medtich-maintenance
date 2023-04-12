@@ -20,10 +20,11 @@ export default {
   created() {
     if (!this.ordersStore.lastList) {
       this.fetchOrders();
+      this.pollingOrders();
     } else {
       this.loader = false;
+      this.pollingOrders();
     }
-    this.pollingOrders();
   },
   beforeUnmount() {
     clearInterval(this.polling);
@@ -37,6 +38,7 @@ export default {
             this.loader = false;
           }, 100);
         });
+     
     },
     pollingOrders() {
       this.polling = setInterval(() => {
@@ -44,7 +46,7 @@ export default {
           this.$auth.user_data?.acf["area"],
           this.per_page
         );
-      }, this.pollTimer);
+      }, 5000);
     },
   },
 };
@@ -62,13 +64,9 @@ export default {
         :order="order"
       ></Item>
     </ul>
-    <Info
-      mode="warning"
-      msg="لا يوجد اى طلبات فى هذا المنطقه"
-      :show="
-        !this.ordersStore.lastList || this.ordersStore.lastList.length == 0
-      "
-      v-if="!loader"
-    />
   </div>
+  <EmptyContent
+    title="لا يوجد اى طلبات فى هذا المنطقه"
+    v-if="!loader && this.ordersStore.lastList == 0"
+  />
 </template>

@@ -17,12 +17,13 @@ export const useOrdesStore = defineStore("orders", {
       if (area) {
         const response = await axios({
           method: "get",
+          timeout: 5000,
           url: "/wp-json/wp/v2/orders",
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
           params: {
-            _fields: "id,date,title,content,acf",
+            _fields: "id,date,title",
             area_only: area,
             per_page: per_page ? per_page : 5,
           },
@@ -36,6 +37,7 @@ export const useOrdesStore = defineStore("orders", {
       if (area) {
         const response = await axios({
           method: "get",
+          timeout: 5000,
           url: "/wp-json/wp/v2/orders",
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -57,6 +59,7 @@ export const useOrdesStore = defineStore("orders", {
       if (technician) {
         const response = await axios({
           method: "get",
+          timeout: 5000,
           url: "/wp-json/wp/v2/orders",
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
@@ -74,80 +77,66 @@ export const useOrdesStore = defineStore("orders", {
         }
       }
     },
-    async acceptOrders(order, technician) {
+    async addOffer(offer, orderId) {
+      let offers = [];
+      let newOffer = {
+        id: "",
+        date: offer.date,
+        technical: offer.technical,
+        price: offer.price,
+        details: offer.details,
+      };
       const responseOrder = await axios({
         method: "get",
-        url: "/wp-json/wp/v2/orders/" + order.id,
+        timeout: 5000,
+        url: "/wp-json/wp/v2/orders/" + orderId,
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
         params: {
-          technician: technician,
+          _fields: "acf.offers",
         },
       });
-      if (responseOrder.data.acf["technician"]) {
-        error.masg = "تم قبول العرض من فنى اخر";
-        error.style = "warning";
-        error.show = true;
-      } else {
-        const responseAcc = await axios({
+
+      if (responseOrder.data) {
+        let newOfferID = responseOrder.data.acf.offers.length + 1;
+        newOffer.id = newOfferID;
+        if (Array.isArray(responseOrder.data.acf.offers)) {
+          responseOrder.data.acf.offers.forEach((item) => {
+            let oldOffer = {
+              id: item.id,
+              date: item.date,
+              technical: item.technical.ID,
+              price: item.price,
+              details: item.details,
+            };
+            offers.push(oldOffer);
+          });
+          offers.push(newOffer);
+        } else {
+          offers.push(newOffer);
+        }
+        const responseAddOffer = await axios({
           method: "post",
-          url: "/wp-json/wp/v2/orders/" + order.id,
+          url: "/wp-json/wp/v2/orders/" + orderId,
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
           data: {
-            fields: {
-              email: order.acf?.email,
-              mobile: order.acf?.mobile,
-              area: order.acf?.area,
-              date: order.acf?.date,
-              serial_number: order.acf?.serial_number,
-              company: order.acf?.company,
-              latitude: order.acf?.latitude,
-              longitude: order.acf?.longitude,
-              name: order.acf?.name,
-              technician: technician,
-            },
+            fields: { offers: offers },
           },
         });
-        if (responseAcc.data.acf["technician"]) {
-          error.masg = "تم قبول الطلب بنجاح";
+        if (responseAddOffer.data.acf.offers) {
+          error.masg = "تم إضافة عرضك";
           error.style = "success";
           error.show = true;
         }
       }
     },
-    async cancelOrders(order) {
-      const respons = await axios({
-        method: "post",
-        url: "/wp-json/wp/v2/orders/" + order.id,
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-        data: {
-          fields: {
-            email: order.acf?.email,
-            mobile: order.acf?.mobile,
-            area: order.acf?.area,
-            date: order.acf?.date,
-            serial_number: order.acf?.serial_number,
-            company: order.acf?.company,
-            latitude: order.acf?.latitude,
-            longitude: order.acf?.longitude,
-            name: order.acf?.name,
-            technician: false,
-          },
-        },
-      }).then(() => {
-        error.masg = "تم إلغاء الطلب بنجاح";
-        error.style = "success";
-        error.show = true;
-      });
-    },
     async getOrder(id) {
       const response = await axios({
         method: "get",
+        timeout: 5000,
         url: "/wp-json/wp/v2/orders/" + id,
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),

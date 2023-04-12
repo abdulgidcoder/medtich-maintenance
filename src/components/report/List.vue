@@ -29,10 +29,11 @@ export default {
   created() {
     if (!this.reportStore.list) {
       this.fetchReports();
+      this.pollingReports();
     } else {
       this.loader = false;
+      this.pollingReports();
     }
-    this.pollingReports();
   },
   methods: {
     fetchReports() {
@@ -47,20 +48,18 @@ export default {
         .then(() => {
           setTimeout(() => {
             this.loader = false;
-          }, 400); 
-    
+          }, 400);
         });
     },
     pollingReports() {
-            this.polling = setInterval(() => {
-              this.reportStore
-              .ftechallReports(
-                this.$auth.user_data.id,
-                this.currPage,
-                this.per_page,
-                this.status
-                ) 
-              }, this.pollTimer);
+      this.polling = setInterval(() => {
+        this.reportStore.ftechallReports(
+          this.$auth.user_data.id,
+          this.currPage,
+          this.per_page,
+          this.status
+        );
+      }, this.pollTimer);
     },
     onPageChange(page) {
       this.currPage = page;
@@ -112,14 +111,11 @@ export default {
         :report="report"
       ></Item>
     </ul>
-
-    <Info
-      mode="warning"
-      msg="ليس لديك اى تقارير"
-      :show="this.reportStore.list == 0"
-      v-if="!loader"
-    />
   </div>
+  <EmptyContent
+    title="لايوجد اى تقارير"
+    v-if="!loader && this.reportStore.list == 0"
+  />
   <div
     v-if="this.pagination && this.reportStore.total >= 2"
     :class="this.paginClass"

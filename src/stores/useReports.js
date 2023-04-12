@@ -10,6 +10,7 @@ export const useReportsStore = defineStore("reports", {
     async ftechallReports(userID, currentPage, per_page, fillter_status) {
       const response = await axios({
         method: "get",
+        timeout: 5000,
         url: "wp-json/wp/v2/report",
         params: {
           _fields: "id,date,modified,title,content,acf,author",
@@ -57,6 +58,7 @@ export const useReportsStore = defineStore("reports", {
     async getReport(id) {
       const response = await axios({
         method: "get",
+        timeout: 5000,
         url: "/wp-json/wp/v2/report/" + id,
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),

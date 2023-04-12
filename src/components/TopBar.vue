@@ -1,13 +1,11 @@
 <script>
 export default {
-  props: {
-    class: String,
-  },
+  props: {},
 };
 </script>
 
 <template>
-  <header class="app-topbar" :class="class">
+  <header class="app-topbar">
     <div class="app-topbar__wrapper">
       <div class="app-topbar__wrapper-left"><slot name="left"></slot></div>
       <div class="app-topbar__wrapper-right"><slot name="right"></slot></div>
@@ -36,7 +34,7 @@ export default {
       display: flex;
       align-items: center;
       margin-right: 8px;
-      h4{
+      h4 {
         margin-bottom: 0;
       }
     }

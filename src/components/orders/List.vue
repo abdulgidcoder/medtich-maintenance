@@ -28,10 +28,12 @@ export default {
   created() {
     if (!this.ordersStore.list) {
       this.fetchOrders();
+      this.pollingOrders();
+
     } else {
       this.loader = false;
+      this.pollingOrders();
     }
-    this.pollingOrders();
   },
   methods: {
     fetchOrders() {
@@ -77,13 +79,11 @@ export default {
         :order="order"
       ></Item>
     </ul>
-    <Info
-      mode="warning"
-      msg="لا يوجد اى طلبات"
-      :show="!this.ordersStore.list"
-      v-if="!loader"
-    />
   </div>
+  <EmptyContent
+    title="لا يوجد اى طلبات فى هذا المنطقه"
+    v-if="!loader && this.ordersStore.list == 0"
+  />
   <div
     v-if="this.pagination && this.ordersStore.total >= 2"
     :class="this.paginClass"

@@ -8,7 +8,7 @@ export const useAuthStore = defineStore("auth", {
     user_data: localStorage.getItem("userData")
       ? JSON.parse(localStorage.getItem("userData"))
       : {},
-  }),
+  }), 
   getters: {},
   actions: {
     async register(name, username, password, roleUser) {
@@ -124,6 +124,7 @@ export const useAuthStore = defineStore("auth", {
       let response = await axios({
         method: "get",
         url: "wp-json/wp/v2/users/me",
+        timeout: 5000,
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },

@@ -223,7 +223,7 @@ export default {
         <RouterLink :to="{ name: 'login' }" class="app-btn-back">
           <Icon name="arrow-left" />
         </RouterLink>
-        <h4>إعادة تعيين كلمة المرور</h4>
+        <h4 style="margin-right: 10px;">إعادة تعيين كلمة المرور</h4>
       </template>
     </TopBar>
     <Content :isBoxed="true">

@@ -1,12 +1,12 @@
 <script>
-export default {
-  inheritAttrs: true,
-  props: {
-    show: Boolean,
-    classes: String,
-  },
-    emits: ["closeModal"], // <--- add this line
+export default { 
+    inheritAttrs: false,
 
+  props: {
+    show: Boolean, 
+    animation: String,
+  },
+  emits: ["closeModal"],
   methods: {
     closeModal() {
       this.$emit("closeModal");
@@ -17,31 +17,52 @@ export default {
 
 <template>
   <Teleport to="body">
-    <div
-      class="app-modal"
-      :class="[{ active: show }, classes]"
-      v-if="show"
-      @click="closeModal"
-    >
-      <Transition name="fadeUp">
-        <div class="app-modal__container" v-if="show" @click.stop>
+    <Transition name="fade">
+      <div v-if="show" class="app-modal_overlay"></div>
+    </Transition>
+    <Transition :name="animation">
+      <div
+        class="app-modal"
+        :class="[{ active: show },$attrs['class']]"
+   
+        v-if="show"
+        @click="closeModal"
+      >
+        <div class="app-modal__container" @click.stop>
+       
           <slot></slot>
         </div>
-      </Transition>
-    </div>
+      </div>
+    </Transition>
   </Teleport>
 </template>
 <style lang="scss">
+.app-modal_overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  background-color: rgba(17, 24, 39, 0.502);
+}
 .app-modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 101;
+  .app-modal__container {
+    position: absolute;
+    z-index: 99;
+  }
   &.bottom {
-    &.active {
-      .app-modal__container {
-        // transition-delay: 0.8s;
-        transform: translateY(0);
-      }
-    }
     .app-modal__container {
-      position: absolute;
       border-radius: 30px 30px 0 0;
       width: 100%;
       right: 0;
@@ -49,8 +70,19 @@ export default {
       bottom: 0;
       padding: 20px 20px 80px;
       background-color: var(--white);
-      transform: translateY(100%);
-      transition: all 0.4s ease-in-out;
+    }
+  }
+  &.center { 
+    .app-modal__container {
+      position: absolute;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 85vw;
+      padding: 25px 15px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: var(--white); 
     }
   }
 }

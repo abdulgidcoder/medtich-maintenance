@@ -8,7 +8,7 @@ export default {
     <div v-if="isBoxed" class="app-content-box">
       <slot></slot>
     </div>
-    <slot v-else="isBoxed"></slot>
+    <slot v-else></slot>
   </div>
 </template>
 <style lang="scss">
@@ -17,7 +17,7 @@ export default {
   z-index: 1;
   width: 100%;
   height: 100vh;
-  padding: 70px 15px;
+  padding: 70px 15px 62px;
   overflow-x: hidden;
   overflow-y: auto;
   background-color: var(--bg-white);
@@ -42,5 +42,8 @@ export default {
   left: 0;
   width: 100vw;
   z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

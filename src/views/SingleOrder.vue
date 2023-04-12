@@ -8,6 +8,8 @@ export default {
     return {
       orderID: this.$route.params.id,
       order_data: this.ordersStore.singleOrder,
+      allowCustomerData: this.$auth.user_data?.id ==
+              this.ordersStore.singleOrder?.acf?.technician,
       loader: true,
       polling: null,
     };
@@ -21,8 +23,7 @@ export default {
   },
   created() {
     document.title = "Order";
-    this.fetchOrder();
-    this.pollingOrder();
+    this.fetchOrder();   
   },
   methods: {
     fetchOrder() {
@@ -30,12 +31,13 @@ export default {
         setTimeout(() => {
           this.loader = false;
         }, 200);
+         this.pollingOrder();
       });
     },
     pollingOrder() {
       this.polling = setInterval(() => {
         this.ordersStore.getOrder(this.orderID);
-      }, this.pollTimer);
+      }, 5000);
     },
   },
 };
@@ -46,10 +48,7 @@ export default {
       <template #right>
         <div v-if="this.ordersStore.singleOrder?.acf?.technician">
           <RouterLink
-            v-if="
-              this.$auth.user_data?.id ==
-              this.ordersStore.singleOrder?.acf?.technician
-            "
+            v-if="allowCustomerData"
             class="btn btn-light btn-sm"
             :to="{
               name: 'add-report',
@@ -65,4 +64,4 @@ export default {
       <Details v-else :details="this.ordersStore.singleOrder"></Details>
     </Content>
   </Page>
-</template>
+</template> 

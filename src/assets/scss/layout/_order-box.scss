@@ -42,7 +42,7 @@
   .app-icon{
     color: var(--medium);
     svg {
-      width: 20px; 
+      width: 14px; 
     }
   }
   .item-wrap {
@@ -50,7 +50,7 @@
     margin-right: 15px;
   }
   .order-meta {
-    font-size: 10px;
+    font-size: 0.75rem;
     > span {
       color: var(--dark);
       vertical-align: middle;

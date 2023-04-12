@@ -1,7 +1,6 @@
 import axios from "axios";
 import router from "../router";
 axios.defaults.baseURL = "https://maintenance.medtich-eg.com";
-
 axios.interceptors.response.use(
   function (response) {
     return response;

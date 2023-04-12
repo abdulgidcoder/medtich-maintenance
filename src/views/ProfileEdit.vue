@@ -265,8 +265,10 @@ export default {
       </form>   
     </Content>
        <Modal
-      classes="modal-delete-account app-modal-center opened"
+      class="modal-delete-account center"
       :show="deleteModal"
+      animation="fadeIn"
+        @closeModal="this.deleteModal = false"
     >
       <h2>هل تريد حقاََ حذف حساب؟</h2>
       <p><strong>تحذير:</strong> سوف يتم حذف جميع بياناتك</p>

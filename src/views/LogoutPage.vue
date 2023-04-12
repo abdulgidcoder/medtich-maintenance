@@ -37,7 +37,7 @@ onMounted(() =>
     <Content>
       <div class="logout">
         <div class="spinner-border" role="status"></div>
-        <div class="lead">`تسجيل خروج...</div>
+        <div class="lead">تسجيل خروج ...</div>
       </div>
     </Content>
   </Page>
