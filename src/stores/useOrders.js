@@ -17,8 +17,8 @@ export const useOrdesStore = defineStore("orders", {
       if (area) {
         const response = await axios({
           method: "get",
-          timeout: 5000,
-          url: "/wp-json/wp/v2/orders",
+          timeout: 2000,
+          url: "/wp-json/acf/v3/orders",
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
@@ -37,8 +37,8 @@ export const useOrdesStore = defineStore("orders", {
       if (area) {
         const response = await axios({
           method: "get",
-          timeout: 5000,
-          url: "/wp-json/wp/v2/orders",
+          timeout: 2000,
+          url: "/wp-json/acf/v3/orders",
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
@@ -58,9 +58,8 @@ export const useOrdesStore = defineStore("orders", {
     async ftechMyOrders(technician, currentPage, per_page, fillter_status) {
       if (technician) {
         const response = await axios({
-          method: "get",
-          timeout: 5000,
-          url: "/wp-json/wp/v2/orders",
+          method: "get", 
+          url: "/wp-json/acf/v3/orders",
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
@@ -88,8 +87,7 @@ export const useOrdesStore = defineStore("orders", {
         details: offer.details,
       };
       const responseOrder = await axios({
-        method: "get",
-        timeout: 5000,
+        method: "get", 
         url: "/wp-json/wp/v2/orders/" + orderId,
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
@@ -137,7 +135,7 @@ export const useOrdesStore = defineStore("orders", {
     async getOrder(id) {
       const response = await axios({
         method: "get",
-        timeout: 5000,
+        timeout: 2000,
         url: "/wp-json/wp/v2/orders/" + id,
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),

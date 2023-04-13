@@ -1,5 +1,6 @@
 <script> 
 import { useAuthStore } from "@/stores/useAuth";
+import { StatusBar, Style } from "@capacitor/status-bar";
 export default { 
   data() {
     return {
@@ -16,6 +17,16 @@ export default {
   },
   created() {
     document.title = "Login";
+   StatusBar.setStyle({ style: Style.Light });
+    StatusBar.setBackgroundColor({
+      color: "#f4f8ff",
+    });
+  }, 
+  beforeUnmount() {
+    StatusBar.setStyle({ style: Style.Dark });
+    StatusBar.setBackgroundColor({
+      color: "#00d9c8",
+    });
   },
   methods: {
     handleSubmit(ele) {

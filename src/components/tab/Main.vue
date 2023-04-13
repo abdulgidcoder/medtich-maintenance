@@ -1,12 +1,12 @@
-<script> 
+<script>
 import { defineAsyncComponent } from "vue";
 import InfoUser from "../InfoUser.vue";
 import TopbarHome from "../TopbarHome.vue";
 import { useOrdesStore } from "@/stores/useOrders.js";
-
+import { StatusBar, Style } from "@capacitor/status-bar";
 export default {
   props: { show: Boolean },
-  components: { 
+  components: {
     LastOrders: defineAsyncComponent({
       loader: () => import("../orders/LastOrders.vue"),
     }),
@@ -22,6 +22,18 @@ export default {
       auth_user: this.$auth,
     };
   },
+  created() {
+    StatusBar.setStyle({ style: Style.Light });
+    StatusBar.setBackgroundColor({
+      color: "#ffffff",
+    });
+  },
+  beforeUnmount() {
+    StatusBar.setStyle({ style: Style.Dark });
+    StatusBar.setBackgroundColor({
+      color: "#00d9c8",
+    });
+  },
 };
 </script>
 <template>
@@ -31,8 +43,7 @@ export default {
       <div
         class="app-section"
         v-if="
-          !this.ordersStore.lastList == 0 ||
-          !this.ordersStore.lastList == null
+          !this.ordersStore.lastList == 0 || !this.ordersStore.lastList == null
         "
         v-show="false"
       >
@@ -50,30 +61,13 @@ export default {
         <LastOrders :per_page="6" />
       </section>
     </Content>
-  </div> 
+  </div>
 </template>
 
 <style lang="scss">
 .app-home-page {
   .app-content {
     background-color: var(--white);
-  }
-  .user-area {
-    display: flex;
-    align-items: center;
-    .contant {
-      font-size: 13px;
-      div {
-        font-size: 10px;
-        color: var(--medium);
-        margin-bottom: 2px;
-      }
-    }
-    svg {
-      width: 22px;
-      fill: var(--primary);
-      margin-right: 10px;
-    }
   }
 }
 </style>

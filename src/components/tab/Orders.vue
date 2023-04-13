@@ -1,5 +1,5 @@
 <script> 
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent } from "vue"; 
 export default {
   props: { show: Boolean },
   components: { 
@@ -10,6 +10,9 @@ export default {
       auth_user: this.$auth,
     };
   },
+  created(){
+  
+  }
 };
 </script>
 <template> 

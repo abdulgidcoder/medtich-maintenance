@@ -4,7 +4,7 @@ import TopBar from "../components/auth/TopBar.vue";
 // import Modal from "../components/Modal.vue";
 import { useAuthStore } from "@/stores/useAuth";
 import VOtpInput from "vue3-otp-input";
-
+import { StatusBar, Style } from "@capacitor/status-bar";
 import {
   getAuth,
   RecaptchaVerifier,
@@ -47,6 +47,16 @@ export default {
   },
   created() {
     document.title = "Register";
+     StatusBar.setStyle({ style: Style.Light });
+    StatusBar.setBackgroundColor({
+      color: "#f4f8ff",
+    });
+  }, 
+  beforeUnmount() {
+    StatusBar.setStyle({ style: Style.Dark });
+    StatusBar.setBackgroundColor({
+      color: "#00d9c8",
+    });
   },
   mounted() {
     this.initReCaptcha();

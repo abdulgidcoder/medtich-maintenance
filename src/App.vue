@@ -1,6 +1,7 @@
 <script>
 import { useAuthStore } from "@/stores/useAuth";
 import { storeToRefs } from "pinia";
+import { StatusBar, Style } from "@capacitor/status-bar";
 
 import { defineAsyncComponent } from "vue";
 export default {
@@ -15,7 +16,6 @@ export default {
   setup() {
     const authStore = useAuthStore();
     const { connection } = storeToRefs(authStore);
-
     return { connection };
   },
   watch: {
@@ -31,8 +31,12 @@ export default {
       }
     },
   },
-  mounted() {
+  created() {
     document.querySelector("html").setAttribute("dir", "rtl");
+    StatusBar.setStyle({ style: Style.Dark });
+    StatusBar.setBackgroundColor({
+      color: "#00d9c8",
+    });
   },
   methods: {},
 };
