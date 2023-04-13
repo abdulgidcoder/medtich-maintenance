@@ -13,13 +13,13 @@ export default {
         </RouterLink>
       </button>
       <button class="app-tab-btn">
-        <RouterLink to="/home/my-orders">
+        <RouterLink to="/home/orders-tab">
           <Icon name="cart" />
           <span class="title">طلباتى</span>
         </RouterLink>
       </button>
       <button class="app-tab-btn">
-        <RouterLink to="/home/my-reports">
+        <RouterLink to="/home/reports-tab">
           <Icon name="file-chart" />
           <span class="title">تقاريرى</span>
         </RouterLink>

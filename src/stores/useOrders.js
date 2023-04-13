@@ -23,7 +23,7 @@ export const useOrdesStore = defineStore("orders", {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
           params: {
-            _fields: "id,date,title",
+            _fields: "id,date,title,acf.offers,acf.status",
             area_only: area,
             per_page: per_page ? per_page : 5,
           },
@@ -43,7 +43,7 @@ export const useOrdesStore = defineStore("orders", {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
           params: {
-            _fields: "id,date,title,content,acf",
+            _fields: "id,date,title,acf.offers,acf.status",
             area_only: area,
             page: currentPage ? currentPage : 1,
             per_page: per_page ? per_page : 5,
@@ -55,7 +55,7 @@ export const useOrdesStore = defineStore("orders", {
         }
       }
     },
-    async ftechMyOrders(technician, currentPage, per_page) {
+    async ftechMyOrders(technician, currentPage, per_page, fillter_status) {
       if (technician) {
         const response = await axios({
           method: "get",
@@ -67,6 +67,7 @@ export const useOrdesStore = defineStore("orders", {
           params: {
             _fields: "id,date,title,content,acf",
             technician: technician,
+            status_order: fillter_status,
             page: currentPage ? currentPage : 1,
             per_page: per_page ? per_page : 5,
           },

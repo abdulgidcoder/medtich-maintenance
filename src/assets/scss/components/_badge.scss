@@ -14,8 +14,8 @@
     background: var(--success);
   }
   &.processing {
-    color: var(--success-contrast);
-    background: var(--success);
+    color: var(--info-contrast);
+    background: var(--info);
   }
   &.on-hold {
     color: var(--warning-contrast);

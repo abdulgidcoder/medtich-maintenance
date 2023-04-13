@@ -30,11 +30,31 @@ export default {
             <span class="order-name" v-if="order.acf['name']"
               ><Icon name="user" /><span>{{ order.acf["name"] }}</span></span
             >
-            <span class="order-area"
+            <!-- <span class="order-area"
               ><Icon name="location" /><span>{{
                 $nameArea(order.acf["area"])
               }}</span></span
+            > -->
+                <span class="order-status">
+            <span
+              class="app-badge"
+              :class="{
+                processing: order.acf['status'] == 'processing',
+                completed: order.acf['status'] == 'completed',
+                cancelled: order.acf['status'] == 'cancelled',
+              }"
+              >{{
+                  order.acf["status"] == "completed"
+                  ? " اكتمل "
+                  : order.acf["status"] == "processing"
+                  ?  "قيد التنفيذ"
+                  : order.acf["status"] == "cancelled"
+                  ? " ملغى "
+                  : ""
+                
+              }}</span
             >
+          </span>
           </div>
         </div>
         <Icon name="angle-right" />

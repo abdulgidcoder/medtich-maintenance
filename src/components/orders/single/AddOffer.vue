@@ -78,8 +78,7 @@ export default {
     animation="fadeUp"
     @closeModal="this.addOfferModal = false"
   >
-    <h2>اضف عرضك</h2>
-    {{ orderID }}
+    <h2>اضف عرضك</h2> 
     <form @submit.prevent="handelSubmit">
       <Field
         v-model="offer.price"

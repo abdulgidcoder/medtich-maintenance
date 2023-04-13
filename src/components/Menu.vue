@@ -2,21 +2,35 @@
   <nav class="app-menu-profile">
     <ul>
       <li>
-        <RouterLink :to="{name:'edit'}"
+        <RouterLink :to="{ name: 'edit' }"
           ><span class="item-text"
-            ><Icon name="user" class="item-icon" />حسابى</span
+            ><Icon name="user" class="item-icon" />تعديل حسابى</span
           ><Icon name="angle-right" class="item-arrow"
         /></RouterLink>
       </li>
       <li>
-        <RouterLink :to="{name:'password'}"
+        <RouterLink :to="{ name: 'my-orders' }"
+          ><span class="item-text"
+            ><Icon name="cart" class="item-icon" />طلباتى</span
+          ><Icon name="angle-right" class="item-arrow"
+        /></RouterLink>
+      </li>
+      <li>
+        <RouterLink :to="{ name: 'my-reports' }"
+          ><span class="item-text"
+            ><Icon name="file-chart" class="item-icon" />تقاريرى</span
+          ><Icon name="angle-right" class="item-arrow"
+        /></RouterLink>
+      </li>
+      <li>
+        <RouterLink :to="{ name: 'password' }"
           ><span class="item-text"
             ><Icon name="password" class="item-icon" />تغيير كلمة المرور</span
           ><Icon name="angle-right" class="item-arrow"
         /></RouterLink>
       </li>
       <li>
-        <RouterLink :to="{name:'logout'}"
+        <RouterLink :to="{ name: 'logout' }"
           ><span class="item-text"
             ><Icon name="sign-out" class="item-icon" />تسجيل خروج</span
           >
@@ -28,9 +42,11 @@
 <style lang="scss">
 .app-menu-profile {
   li {
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid var(--grey);
+    &:not(:last-child) {
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid var(--grey);
+    }
     a {
       display: flex;
       align-items: center;

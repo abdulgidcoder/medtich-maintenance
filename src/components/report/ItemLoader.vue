@@ -2,9 +2,9 @@
   <Transition name="fade">
     <li class="report-item-placeholder">
       <div class="report-top">
-        <Skeleton width="98%" height="23px" />
+        <Skeleton width="100%" height="19px" />
       </div>
-         <Skeleton width="40%" height="22px" style="margin-top:6px" />
+      <Skeleton width="40%" height="14px" style="margin-top:6px" />
       <div class="report-bottom">
         <div class="report-meta">
           <span>

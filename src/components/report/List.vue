@@ -67,6 +67,7 @@ export default {
     },
     fillterbyStatus(status, ele) {
       this.status = status;
+        this.currPage= 1;
       this.fetchReports();
     },
   },

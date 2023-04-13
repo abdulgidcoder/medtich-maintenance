@@ -25,6 +25,9 @@ export default {
         <div class="order-meta">
           <span><Skeleton width="100px" height="15px" /></span>
           <span><Skeleton width="100px" height="15px" /></span>
+          <span
+            ><Skeleton width="75px" height="24px" borderRadius="25px"
+          /></span>
         </div>
       </div>
       <Skeleton width="16px" height="27px" />

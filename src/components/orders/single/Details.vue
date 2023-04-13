@@ -1,39 +1,40 @@
 <script>
 import { useOrdesStore } from "@/stores/useOrders.js";
 import AddOffer from "./AddOffer.vue";
+import OfferItem from "./OfferItem.vue";
 
 export default {
-  components: { AddOffer },
+  components: { AddOffer, OfferItem },
   props: { details: Object },
   data() {
     return {
       myOrder:
         this.$auth.user_data?.id ==
         this.ordersStore.singleOrder?.acf?.technician,
-      allowAddOffer: null,
+      acceptTechOffer: null,
     };
   },
   setup() {
     const ordersStore = useOrdesStore();
     return { ordersStore };
   },
-  watch:{
-    details(){
-          this.allowOffer(this.details.acf?.offers);
-    }
+  watch: {
+    details() {
+      this.acceptedOffer(this.details.acf?.offers);
+    },
   },
   created() {
-    this.allowOffer(this.details.acf?.offers);
+    this.acceptedOffer(this.details.acf?.offers);
   },
   methods: {
-    allowOffer(offers) {
+    acceptedOffer(offers) {
       if (offers) {
         offers.find((offer) => {
-          this.allowAddOffer =
-            offer.technical["ID"] === this.$auth.user_data.id ? false : true;
+          this.acceptTechOffer =
+            offer.technical["ID"] === this.$auth.user_data.id ? true : false;
         });
       } else {
-        this.allowAddOffer = true;
+        this.acceptTechOffer = false;
       }
     },
   },
@@ -50,6 +51,25 @@ export default {
       <span>
         <Icon name="location" />
         <span> {{ $nameArea(details.acf?.area) }}</span>
+      </span>
+      <span class="order-status">
+        <span
+          class="app-badge"
+          :class="{
+            processing: details.acf['status'] == 'processing',
+            completed: details.acf['status'] == 'completed',
+            cancelled: details.acf['status'] == 'cancelled',
+          }"
+          >{{
+            details.acf["status"] == "completed"
+              ? " اكتمل "
+              : details.acf["status"] == "processing"
+              ? "قيد التنفيذ"
+              : details.acf["status"] == "cancelled"
+              ? " ملغى "
+              : ""
+          }}</span
+        >
       </span>
     </div>
     <Card>
@@ -96,20 +116,27 @@ export default {
     <Card v-if="details.acf?.offers">
       <template #title>العروض</template>
       <template #body>
-        <ul>
-          <li v-for="(offer, index) in details.acf?.offers" :key="index">
-            <strong>{{
-              offer.technical.display_name + " --  " + offer.price
-            }}</strong>
-            <div v-html="offer.technical.user_avatar"></div>
-            <div>{{ $dateTime(offer.date) }}</div>
-            <p>{{ offer.details }}</p>
-          </li>
+        <ul class="order-offers">
+          <OfferItem
+            v-for="(offer, index) in details.acf?.offers"
+            :key="index"
+            :offer="offer"
+            :acceptTech="details.acf?.technician"
+          />
         </ul>
       </template>
     </Card>
     <div class="app-fixed-bottom">
-      <AddOffer v-if="allowAddOffer && !myOrder" :orderID="details.id" />
+      <AddOffer v-if="!acceptTechOffer && !myOrder" :orderID="details.id" />
+      <RouterLink
+        v-if="details.acf['status'] == 'completed'"
+        class="btn btn-danger"
+        :to="{
+          name: 'add-report',
+          params: { orderId: details.id },
+        }"
+        >إضافة تقرير</RouterLink
+      >
       <a
         class="btn btn-outline-primary"
         target="_blank"

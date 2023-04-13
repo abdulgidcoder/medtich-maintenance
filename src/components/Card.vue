@@ -10,13 +10,17 @@
 </template>
 <style lang="scss">
 .app-card {
-  background: var(--white); 
-  border-bottom: 1px solid var(--grey);
-  padding-bottom: 10px;
-  margin-bottom: 12px;
+    background: var(--white);
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 0px 2px #d3d3d3;
+    border-radius: 5px;
   h4 {
     margin-bottom: 10px;
     color: var(--primary);
+  }
+  p{
+    margin-bottom: 0;
   }
 }
 </style>

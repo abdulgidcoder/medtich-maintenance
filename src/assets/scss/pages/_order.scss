@@ -1,6 +1,8 @@
-.app-order-details { 
-  .order-meta { 
+.app-order-details {
+  .order-meta {
     margin-bottom: 15px;
+    display: flex;
+    align-items: center;
     > span {
       color: var(--dark);
       vertical-align: middle;
@@ -37,5 +39,50 @@
       margin-bottom: 10px;
       display: block;
     }
+  }
+  .order-offers {
+    li {
+      background: var(--bg-grey-2);
+      border-radius: 5px;
+      padding: 12px;
+      margin-bottom: 8px;
+    }
+    .offer_top {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .offer_right {
+      display: flex;
+      .app-avatar {
+        width: 35px;
+        height: 35px;
+        margin-left: 10px;
+      }
+      h4 {
+        color: var(--black);
+        margin-bottom: 2px;
+      }
+      .offer-meta {
+        .offer-date {
+          font-size: 11px;
+          color: var(--medium);
+        }
+        .offer-price {
+          color: var(--primary);
+          &::before {
+            content: " / ";
+            color: var(--medium);
+            margin-right: 6px;
+            padding-left: 6px;
+          }
+        }
+      }
+     
+    }
+     .offer-details {
+        color: var(--black);
+        margin-bottom: 0;
+      }
   }
 }

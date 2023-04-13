@@ -27,7 +27,7 @@ const router = createRouter({
     {
       path: "/home",
       name: "home",
-      redirect: '/home/main',
+      redirect: "/home/main",
       component: () => import("@/views/HomeView.vue"),
       beforeEnter: redirectToLoginOnLoggedOut,
       children: [
@@ -37,13 +37,13 @@ const router = createRouter({
           component: () => import("@/components/tab/Main.vue"),
         },
         {
-          path: "my-orders",
-          name: "my-orders",
+          path: "orders-tab",
+          name: "orders-tab",
           component: () => import("@/components/tab/Orders.vue"),
         },
         {
-          path: "my-reports",
-          name: "my-reports",
+          path: "reports-tab",
+          name: "reports-tab",
           component: () => import("@/components/tab/Reports.vue"),
         },
         {
@@ -93,6 +93,18 @@ const router = createRouter({
       path: "/orders",
       name: "orders",
       component: () => import("@/views/OrdersView.vue"),
+      beforeEnter: redirectToLoginOnLoggedOut,
+    },
+    {
+      path: "/my-orders",
+      name: "my-orders",
+      component: () => import("@/views/MyOrders.vue"),
+      beforeEnter: redirectToLoginOnLoggedOut,
+    },
+    {
+      path: "/my-reports",
+      name: "my-reports",
+      component: () => import("@/views/MyReports.vue"),
       beforeEnter: redirectToLoginOnLoggedOut,
     },
     {

@@ -15,6 +15,7 @@ export default {
     return {
       loader: true,
       currPage: this.currentPage ? this.currentPage : 1,
+      status: "",
       polling: null,
     };
   },
@@ -38,7 +39,7 @@ export default {
     fetchOrders() {
       this.loader = true;
       this.ordersStore
-        .ftechMyOrders(this.$auth.user_data?.id, this.currPage, this.per_page)
+        .ftechMyOrders(this.$auth.user_data?.id, this.currPage, this.per_page,    this.status)
         .then(() => {
           setTimeout(() => {
             this.loader = false;
@@ -50,13 +51,19 @@ export default {
         this.ordersStore.ftechMyOrders(
           this.$auth.user_data?.id,
           this.currPage,
-          this.per_page
+          this.per_page,
+          this.status
         );
       }, this.pollTimer);
     },
     onPageChange(page) {
       this.currPage = page;
-      this.ftechMyOrders();
+      this.fetchOrders();
+    },
+    fillterbyStatus(status, ele) {
+      this.status = status;
+      this.currPage= 1;
+      this.fetchOrders();
     },
   },
 };
@@ -64,6 +71,32 @@ export default {
 
 <template>
   <div class="my-orders-list">
+       <div class="app-fillter">
+      <button
+        :class="{ active: status == '' }"
+        @click="fillterbyStatus('', $event.target)"
+      >
+        الكل
+      </button>
+      <button
+        :class="{ active: status == 'processing' }"
+        @click="fillterbyStatus('processing', $event.target)"
+      >
+        قيد التنفيذ
+      </button>
+      <button
+        :class="{ active: status == 'completed' }"
+        @click="fillterbyStatus('completed', $event.target)"
+      >
+      اكتمل
+      </button>
+      <button
+        :class="{ active: status == 'cancelled' }"
+        @click="fillterbyStatus('cancelled', $event.target)"
+      >
+        ملغى
+      </button>
+    </div>
     <ul v-if="loader">
       <MyItemLoader v-for="i in this.per_page" :key="i" />
     </ul>
