@@ -3,6 +3,7 @@
   "appName": "Medtich Technicians EG",
   "webDir": "./dist",
   "bundledWebRuntime": true,
+  "hideLogs": true,
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 3000,
@@ -24,5 +25,15 @@
   "server": {
     "url": "http://192.168.1.11:5173",
     "cleartext": true
+  },
+  "android": {
+    "minWebViewVersion": 1,
+    "buildOptions": {
+      "keystorePath": "",
+      "keystorePassword": "",
+      "keystoreAlias": "",
+      "keystoreAliasPassword": "",
+      "releaseType": "AAB"
+    }
   }
 }

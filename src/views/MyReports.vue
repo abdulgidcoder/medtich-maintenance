@@ -15,7 +15,7 @@ export default {
 <template> 
    <Page class="app-reports-page">
 <Head title="تقاريرى" goBack="true"/>
-    <Content :isBoxed="true">
+    <Content :isBoxed="true" :pullToRefresh="true">
       <MyReportsList
         :per_page="8"
         :pagination="true"

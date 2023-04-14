@@ -1,9 +1,10 @@
 <script>
-import { useAuthStore } from "@/stores/useAuth";
-import { storeToRefs } from "pinia";
-import { StatusBar, Style } from "@capacitor/status-bar";
-
 import { defineAsyncComponent } from "vue";
+import { storeToRefs } from "pinia";
+import { useAuthStore } from "@/stores/useAuth";
+import { StatusBar, Style } from "@capacitor/status-bar";
+import { App as AppCap } from "@capacitor/app";
+import { Capacitor } from "@capacitor/core";
 export default {
   components: {
     Error: defineAsyncComponent({
@@ -32,11 +33,34 @@ export default {
     },
   },
   created() {
+    /* RTL */
     document.querySelector("html").setAttribute("dir", "rtl");
-    StatusBar.setStyle({ style: Style.Dark });
-    StatusBar.setBackgroundColor({
-      color: "#00d9c8",
-    });
+
+    if (Capacitor.isNativePlatform()) {
+      /* Disable Zoom */
+      document.addEventListener(
+        "gesturestart",
+        (event) => {
+          event.preventDefault();
+        },
+        false
+      );
+
+      /* StatusBar */
+      StatusBar.setStyle({ style: Style.Dark });
+      StatusBar.setBackgroundColor({
+        color: "#00d9c8",
+      });
+
+      /* Navigation Back */
+      AppCap.addListener("backButton", ({ canGoBack }) => {
+        if (canGoBack) {
+          window.history.back();
+        } else {
+          AppCap.exitApp();
+        }
+      });
+    }
   },
   methods: {},
 };

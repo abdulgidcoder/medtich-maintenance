@@ -3,12 +3,12 @@
   height: calc(100vh - 65px);
   .app-content {
     height: 100%;
-    padding-bottom: 0; 
-    .app-fixed-bottom{
-      position: sticky; 
-    padding: 10px;
-    bottom: 0;
-    margin: 0 -15px;
+    padding-bottom: 0;
+    .app-fixed-bottom {
+      position: sticky;
+      padding: 10px;
+      bottom: 0;
+      margin: 0 -15px;
     }
   }
 }
@@ -21,7 +21,7 @@
   width: 100%;
   height: 65px;
   background-color: var(--white);
-  border-top: 1px solid var(--light);
+  border-top: 1px solid var(--grey);
   z-index: 99;
   nav {
     display: flex;
@@ -34,15 +34,36 @@
     height: 100%;
     button {
       flex: 1 1 0%;
-
       height: 100%;
       outline: none;
       border: none;
       background-color: transparent;
       text-align: center;
       line-height: 1.15;
-      .router-link-active  {
-        border-color: var(--primary); 
+      position: relative;
+      overflow: hidden;
+      &:active { 
+        &::before {
+          opacity: .6;
+          transform: scale(1) translate(-50%,-50%); 
+        }
+      }
+      &::before {
+        content: "";
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        // margin: -50% 0  0 -50%;
+        border-radius: 50px;
+        background-color: var(--grey);
+        transform: scale(.9) translate(-50%,-50%);
+        opacity: 0;
+        transition: all 0.25s ease;
+      }
+      .router-link-active {
+        border-color: var(--primary);
         svg {
           fill: var(--primary) !important;
         }

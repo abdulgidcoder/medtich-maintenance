@@ -180,14 +180,14 @@ export default {
           this.error.show = true;
           this.error.masg = "تم حذف حسابك";
           this.deleteModal = false;
-          this.$router.push({name:"logout"})
+          this.$router.push({ name: "logout" });
         })
         .catch((error) => {
           this.error.style = "danger";
           this.error.show = true;
           this.error.masg = "لم يتم حذف حسابك";
           this.deleteModal = false;
-        }); 
+        });
     },
   },
 };
@@ -199,10 +199,13 @@ export default {
       <Info
         mode="warning"
         msg="قم برفع  سيرتك الذاتية"
-        :show="!this.$auth.user_data?.acf['cv']"
+        :show="
+          !this.$auth.user_data?.acf['cv'] && this.$auth.role == 'technician'
+        "
       />
-      <UserInfo class="center"/>
+      <UserInfo class="center" />
       <form @submit.prevent="edit_user($event.target)">
+        <!-- Username Field -->
         <Field
           type="text"
           label="الهاتف"
@@ -210,6 +213,7 @@ export default {
           :readonly="true"
           icon="mobile"
         />
+             <!-- Name Field -->
         <Field
           type="text"
           label="الاسم"
@@ -217,21 +221,28 @@ export default {
           v-model="user.name"
           icon="user"
         />
-        <label>المنطقة</label>
-        <Select :onChange="chooseArea" :data="cities" class="app-select">{{
-          this.user.area ? $nameArea(this.user.area) : "اختار منظقتك"
-        }}</Select>
-        <label>التخصص</label>
-        <Select
-          :onChange="chooseSpac"
-          :data="specialization"
-          class="app-select"
-          >{{
-            this.user.specialization
-              ? $nameSpac(this.user.specialization)
-              : "اختار تخصصك"
-          }}</Select
-        >
+             <!-- Area Field -->
+        <div>
+          <label>المنطقة</label>
+          <Select :onChange="chooseArea" :data="cities" class="app-select">{{
+            this.user.area ? $nameArea(this.user.area) : "اختار منظقتك"
+          }}</Select>
+        </div>
+             <!-- Specialization Field -->
+        <div v-if="this.$auth.role == 'technician'">
+          <label>التخصص</label>
+          <Select
+            :onChange="chooseSpac"
+            :data="specialization"
+            class="app-select"
+            >{{
+              this.user.specialization
+                ? $nameSpac(this.user.specialization)
+                : "اختار تخصصك"
+            }}</Select
+          >
+        </div>
+        <!-- Cv Field -->
         <File
           :label="
             this.$auth.user_data?.acf['cv']
@@ -240,13 +251,14 @@ export default {
           "
           accept=".pdf"
           @change="uploadFiles"
+          v-if="this.$auth.role == 'technician'"
         />
-           <FileBox
-        v-if="this.$auth.user_data?.acf['cv']"
-        :icon="this.$auth.user_data?.acf['cv'].icon"
-        :name="this.$auth.user_data?.acf['cv'].filename"
-        :size="returnFileSize(this.$auth.user_data?.acf['cv'].filesize)"
-      />
+        <FileBox 
+          v-if="this.$auth.user_data?.acf['cv'] && this.$auth.role == 'technician'"
+          :icon="this.$auth.user_data?.acf['cv'].icon"
+          :name="this.$auth.user_data?.acf['cv'].filename"
+          :size="returnFileSize(this.$auth.user_data?.acf['cv'].filesize)"
+        />
         <button
           class="btn btn-outline-danger btn-lg btn-block delete-modal"
           @click="() => (this.deleteModal = true)"
@@ -255,20 +267,21 @@ export default {
           حذف الحساب
         </button>
         <div class="app-fixed-bottom">
- <button
+          <button
             class="btn btn-primary btn-lg btn-block"
             id="updata-user"
             type="submit"
-          >            تحديث
+          >
+            تحديث
           </button>
         </div>
-      </form>   
+      </form>
     </Content>
-       <Modal
+    <Modal
       class="modal-delete-account center"
       :show="deleteModal"
       animation="fadeIn"
-        @closeModal="this.deleteModal = false"
+      @closeModal="this.deleteModal = false"
     >
       <h2>هل تريد حقاََ حذف حساب؟</h2>
       <p><strong>تحذير:</strong> سوف يتم حذف جميع بياناتك</p>

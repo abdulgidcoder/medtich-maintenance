@@ -67,6 +67,6 @@ export default {
   </div>
   <EmptyContent
     title="لا يوجد اى طلبات فى هذا المنطقه"
-    v-if="!loader && this.ordersStore.lastList == 0"
+    v-if="!loader && !this.ordersStore.lastList"
   />
 </template>

@@ -1,9 +1,10 @@
-<script> 
+<script>
 import Modal from "../components/Modal.vue";
 import VOtpInput from "vue3-otp-input";
 import { useAuthStore } from "@/stores/useAuth";
 import { useError } from "@/stores/useError";
 import { StatusBar, Style } from "@capacitor/status-bar";
+import { Capacitor } from "@capacitor/core";
 import {
   getAuth,
   RecaptchaVerifier,
@@ -47,16 +48,20 @@ export default {
   },
   created() {
     document.title = "Reset Password";
-  StatusBar.setStyle({ style: Style.Light });
-    StatusBar.setBackgroundColor({
-      color: "#f4f8ff",
-    });
-  }, 
+    if (Capacitor.isNativePlatform()) {
+      StatusBar.setStyle({ style: Style.Light });
+      StatusBar.setBackgroundColor({
+        color: "#f4f8ff",
+      });
+    }
+  },
   beforeUnmount() {
-    StatusBar.setStyle({ style: Style.Dark });
-    StatusBar.setBackgroundColor({
-      color: "#00d9c8",
-    });
+    if (Capacitor.isNativePlatform()) {
+      StatusBar.setStyle({ style: Style.Dark });
+      StatusBar.setBackgroundColor({
+        color: "#00d9c8",
+      });
+    }
   },
   mounted() {
     this.initReCaptcha();
@@ -233,7 +238,7 @@ export default {
         <RouterLink :to="{ name: 'login' }" class="app-btn-back">
           <Icon name="arrow-left" />
         </RouterLink>
-        <h4 style="margin-right: 10px;">إعادة تعيين كلمة المرور</h4>
+        <h4 style="margin-right: 10px">إعادة تعيين كلمة المرور</h4>
       </template>
     </TopBar>
     <Content :isBoxed="true">

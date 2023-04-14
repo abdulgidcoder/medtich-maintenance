@@ -4,6 +4,7 @@ export default {
 };
 </script>
 <template>
+  
   <div class="app-tabsbar">
     <nav class="app-tabs-bar">
       <button class="app-tab-btn">
@@ -18,7 +19,7 @@ export default {
           <span class="title">طلباتى</span>
         </RouterLink>
       </button>
-      <button class="app-tab-btn">
+      <button class="app-tab-btn" v-if="this.$auth.role == 'technician'">
         <RouterLink to="/home/reports-tab">
           <Icon name="file-chart" />
           <span class="title">تقاريرى</span>

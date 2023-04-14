@@ -48,7 +48,7 @@ export default {
     <Head title="تفاصيل الطلب" goBack="true">
       <template #right> </template>
     </Head>
-    <Content :isBoxed="true">
+    <Content :isBoxed="true" :pullToRefresh="true">
       <DetailsLoader v-if="loader" />
       <Details v-else :details="this.ordersStore.singleOrder"></Details>
     </Content>

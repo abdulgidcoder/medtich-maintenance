@@ -52,12 +52,12 @@ html[dir="rtl"] {
     margin-left: 0;
     margin-right: 10px;
   }
- 
+
   .app-topbar__wrapper-left {
     margin-left: 8px;
 
     margin-right: 0;
-  } 
+  }
   .arrow-left.app-icon,
   .angle-right.app-icon {
     transform: rotate(-180deg);
@@ -128,5 +128,10 @@ html[dir="rtl"] {
     border-bottom-left-radius: 3px;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+  }
+
+  .app-search-toggle svg {
+    margin-right: 0;
+    margin-left: 6px;
   }
 }

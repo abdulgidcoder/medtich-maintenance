@@ -5,10 +5,13 @@ export const useAuthStore = defineStore("auth", {
   state: () => ({
     connection: true,
     loggedIn: localStorage.getItem("token") ? true : false,
+    role: localStorage.getItem("userData")
+      ? JSON.parse(localStorage.getItem("userData")).roles[0]
+      : {},
     user_data: localStorage.getItem("userData")
       ? JSON.parse(localStorage.getItem("userData"))
       : {},
-  }), 
+  }),
   getters: {},
   actions: {
     async register(name, username, password, roleUser) {
@@ -92,6 +95,7 @@ export const useAuthStore = defineStore("auth", {
       localStorage.removeItem("userData");
       localStorage.removeItem("currentTab");
       this.$reset();
+      
     },
     async updateUser(data) {
       let response = await axios({
@@ -129,12 +133,14 @@ export const useAuthStore = defineStore("auth", {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
         params: {
-          _fields: "id,username,name,email,avatar_urls,acf",
+          _fields: "id,username,name,email,avatar_urls,acf,roles",
         },
       });
       this.loggedIn = true;
       localStorage.setItem("userData", JSON.stringify(response.data));
       this.user_data = response.data;
+      this.role = response.data.roles[0];
+
     },
     async connectionStatus() {
       const response = await axios({

@@ -47,7 +47,8 @@ export default {
   border: 1px solid transparent;
   border-radius: 0.25rem;
   text-align: center;
-  font-size: 11px;
+  font-size: 12px;
+      font-weight: 500;
   padding: 10px;
 }
 </style>

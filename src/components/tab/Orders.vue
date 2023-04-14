@@ -18,7 +18,7 @@ export default {
 <template> 
   <div class="app-tab-view app-my-orders-page">
     <Head title="طلباتى" />
-    <Content :isBoxed="true">
+    <Content :isBoxed="true" :pullToRefresh="true">
       <MyOrdersList
         :per_page="8"
         :pagination="true"

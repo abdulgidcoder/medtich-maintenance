@@ -111,7 +111,7 @@ export default {
 
   <EmptyContent
     title="ليس لديك اى طلبات"
-    v-if="!loader && this.ordersStore.myList == 0"
+    v-if="!loader && !this.ordersStore.myList || this.ordersStore.myList == 0"
   />
   <div
     v-if="this.pagination && this.ordersStore.myTotal >= 2"

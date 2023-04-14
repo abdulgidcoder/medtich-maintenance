@@ -16,7 +16,7 @@ export default {
 <template>
   <div class="app-tab-view app-reports-page">
     <Head title="تقاريرى" />
-    <Content :isBoxed="true">
+    <Content :isBoxed="true"  :pullToRefresh="true">
       <MyReportsList
         :per_page="8"
         :pagination="true"

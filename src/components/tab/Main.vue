@@ -4,6 +4,7 @@ import InfoUser from "../InfoUser.vue";
 import TopbarHome from "../TopbarHome.vue";
 import { useOrdesStore } from "@/stores/useOrders.js";
 import { StatusBar, Style } from "@capacitor/status-bar";
+import { Capacitor } from "@capacitor/core";
 export default {
   props: { show: Boolean },
   components: {
@@ -23,37 +24,47 @@ export default {
     };
   },
   created() {
-    StatusBar.setStyle({ style: Style.Light });
-    StatusBar.setBackgroundColor({
-      color: "#ffffff",
-    });
+     if (Capacitor.isNativePlatform()) {
+       StatusBar.setStyle({ style: Style.Light });
+       StatusBar.setBackgroundColor({
+         color: "#ffffff",
+        });
+      }
   },
-  beforeUnmount() {
+  beforeUnmount() { if (Capacitor.isNativePlatform()) {
     StatusBar.setStyle({ style: Style.Dark });
     StatusBar.setBackgroundColor({
       color: "#00d9c8",
     });
+  }
   },
 };
 </script>
 <template>
   <div class="app-tab-view app-home-page">
     <TopbarHome />
-    <Content>
-      <div
-        class="app-section"
-        v-if="
-          !this.ordersStore.lastList == 0 || !this.ordersStore.lastList == null
-        "
-        v-show="false"
-      >
+    <Content :pullToRefresh="true">
+      <InfoUser />
+      <h2 class="app-welcome-back">
+        {{ "أهلا بك, " + this.$auth.user_data.name + "!" }}
+      </h2>
+      <div class="app-section" v-if="false">
         <button class="app-search-toggle">
           <Icon name="search" />
-          Find your Order
+          ابحث عن طلبك
         </button>
       </div>
-      <InfoUser />
-      <section class="app-section app-last-orders">
+      <div class="app-section app-main-banner">
+        <img src="../../assets/images/slide.jpg" alt="Slide" />
+        <div class="content">
+          <h2>اهلا بك,</h2>
+          <h3>فى ميدتك للصيانة</h3>
+        </div>
+      </div>
+      <section
+        class="app-section app-last-orders"
+        v-if="this.$auth.role == 'technician'"
+      >
         <div class="app-section-head">
           <h2 class="h1">اخر الطلبات</h2>
           <RouterLink to="/orders">عرض الكل</RouterLink>
@@ -68,6 +79,28 @@ export default {
 .app-home-page {
   .app-content {
     background-color: var(--white);
+    padding-top: 80px;
+  }
+  .app-main-banner {
+    position: relative;
+    img {
+      border-radius: 10px;
+      max-height: 180px;
+    }
+    .content {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translateY(-50%);
+      h2 {
+        color: var(--white);
+        font-size: 22px;
+      }
+      h3 {
+        color: var(--white);
+        margin-bottom: 0;
+      }
+    }
   }
 }
 </style>

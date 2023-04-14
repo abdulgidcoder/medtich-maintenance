@@ -1,14 +1,42 @@
 <script>
+import PullToRefresh from "pulltorefreshjs";
 export default {
-  props: { isBoxed: Boolean },
+  props: { isBoxed: Boolean, pullToRefresh: Boolean },
+  mounted() {  
+    if(document.getElementsByClassName('app-pull-refresh').length){
+      PullToRefresh.init({
+        iconArrow:
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M500 8h-27.711c-6.739 0-12.157 5.548-11.997 12.286l2.347 98.568C418.075 51.834 341.788 7.73 255.207 8.001 118.82 8.428 7.787 120.009 8 256.396 8.214 393.181 119.165 504 256 504c63.926 0 122.202-24.187 166.178-63.908 5.113-4.618 5.354-12.561.482-17.433l-19.738-19.738c-4.498-4.498-11.753-4.785-16.501-.552C351.787 433.246 306.105 452 256 452c-108.322 0-196-87.662-196-196 0-108.322 87.662-196 196-196 79.545 0 147.941 47.282 178.675 115.302l-126.389-3.009c-6.737-.16-12.286 5.257-12.286 11.997V212c0 6.627 5.373 12 12 12h192c6.627 0 12-5.373 12-12V20c0-6.627-5.373-12-12-12z"/></svg>',
+        iconRefreshing:
+          '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M500 8h-27.711c-6.739 0-12.157 5.548-11.997 12.286l2.347 98.568C418.075 51.834 341.788 7.73 255.207 8.001 118.82 8.428 7.787 120.009 8 256.396 8.214 393.181 119.165 504 256 504c63.926 0 122.202-24.187 166.178-63.908 5.113-4.618 5.354-12.561.482-17.433l-19.738-19.738c-4.498-4.498-11.753-4.785-16.501-.552C351.787 433.246 306.105 452 256 452c-108.322 0-196-87.662-196-196 0-108.322 87.662-196 196-196 79.545 0 147.941 47.282 178.675 115.302l-126.389-3.009c-6.737-.16-12.286 5.257-12.286 11.997V212c0 6.627 5.373 12 12 12h192c6.627 0 12-5.373 12-12V20c0-6.627-5.373-12-12-12z"/></svg>',
+        mainElement: ".app-pull-refresh",
+        instructionsPullToRefresh: " ",
+        instructionsReleaseToRefresh: " ",
+        instructionsRefreshing: " ",
+        refreshTimeout: 2000,
+        distReload: 70,
+        // onRefresh() {
+        //   // window.location.reload();
+        // },
+      });
+    }
+  },
+  beforeUnmount() {
+    PullToRefresh.destroyAll();
+  },
 };
 </script>
 <template>
-  <div class="app-content" :class="{ boxed: isBoxed }">
-    <div v-if="isBoxed" class="app-content-box">
-      <slot></slot>
+  <div
+    class="app-content"
+    :class="{ boxed: isBoxed, 'allow-pull': pullToRefresh }"
+  >
+    <div :class="{ 'app-content-box': isBoxed }">
+      <div class="app-pull-refresh" v-if="pullToRefresh">
+        <slot></slot>
+      </div>
+      <slot v-else></slot>
     </div>
-    <slot v-else></slot>
   </div>
 </template>
 <style lang="scss">
@@ -45,5 +73,34 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.ptr--ptr {
+  box-shadow: none !important;
+  .ptr--box {
+    padding-bottom: 15px;
+  }
+  .ptr--icon {
+    box-shadow: 0 2px 4px #c5c4c4;
+    width: 33px;
+    height: 33px;
+    background-color: var(--bg-white);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    svg {
+      width: 18px;
+      fill: var(--primary);
+    }
+  }
+  &.ptr--refresh {
+    .ptr--icon {
+      svg {
+        animation: rotate-animation 0.6s infinite linear;
+      }
+    }
+  }
 }
 </style>

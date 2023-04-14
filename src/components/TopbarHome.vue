@@ -70,18 +70,19 @@ export default {
     </template>
     <template #right>
       <div class="app-avatar">
-          <RouterLink to="/home/my-profile">
+        <RouterLink to="/home/my-profile">
           <img
-            :src="this.$auth.user_data?.avatar_urls['48']"
+            :src="this.$auth.user_data?.avatar_urls['96']"
             :alt="this.$auth.user_data?.name"
           />
         </RouterLink>
-        </div>
+      </div>
     </template>
   </TopBar>
 </template>
 <style lang="scss">
 .topbar-home {
+  border-bottom: 1px solid var(--grey);
   .user-area {
     display: flex;
     align-items: center;
@@ -91,6 +92,11 @@ export default {
         font-size: 12px;
         line-height: 1;
         color: var(--medium);
+        margin-bottom: 5px;
+      }
+      strong {
+        line-height: 1;
+        display: block;
       }
     }
     svg {

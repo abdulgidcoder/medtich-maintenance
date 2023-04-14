@@ -12,7 +12,7 @@ export default {
    <Info
     mode="warning"
     msg="اكمل بياناتك لكى يتم تفعيل حسابك"
-    :show="auth_user.user_data?.acf['status'] == null" 
+    :show="auth_user.user_data?.acf['status'] == null && this.$auth.role == 'technician'" 
   />
   <Info
     mode="warning"

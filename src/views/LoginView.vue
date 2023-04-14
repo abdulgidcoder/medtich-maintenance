@@ -1,7 +1,8 @@
-<script> 
+<script>
 import { useAuthStore } from "@/stores/useAuth";
 import { StatusBar, Style } from "@capacitor/status-bar";
-export default { 
+import { Capacitor } from "@capacitor/core";
+export default {
   data() {
     return {
       mobile: "",
@@ -17,16 +18,20 @@ export default {
   },
   created() {
     document.title = "Login";
-   StatusBar.setStyle({ style: Style.Light });
-    StatusBar.setBackgroundColor({
-      color: "#f4f8ff",
-    });
-  }, 
+    if (Capacitor.isNativePlatform()) {
+      StatusBar.setStyle({ style: Style.Light });
+      StatusBar.setBackgroundColor({
+        color: "#f4f8ff",
+      });
+    }
+  },
   beforeUnmount() {
-    StatusBar.setStyle({ style: Style.Dark });
-    StatusBar.setBackgroundColor({
-      color: "#00d9c8",
-    });
+    if (Capacitor.isNativePlatform()) {
+      StatusBar.setStyle({ style: Style.Dark });
+      StatusBar.setBackgroundColor({
+        color: "#00d9c8",
+      });
+    }
   },
   methods: {
     handleSubmit(ele) {
@@ -83,7 +88,7 @@ export default {
 </script>
 
 <template>
-  <Page class="app-page-auth"> 
+  <Page class="app-page-auth">
     <Content>
       <AppLogo />
       <h1>مرحبًا بعودتك</h1>
@@ -91,7 +96,7 @@ export default {
         <Field
           v-model="mobile"
           type="number"
-         placeholder="01X XXX XXX XX"
+          placeholder="01X XXX XXX XX"
           label="الهاتف"
           icon="mobile"
         />
@@ -103,8 +108,8 @@ export default {
           icon="password"
         />
         <div class="app-forget-password">
-            <RouterLink to="/resetpassword">نسيت كلمة المرور ؟</RouterLink>
-          </div>
+          <RouterLink to="/resetpassword">نسيت كلمة المرور ؟</RouterLink>
+        </div>
         <div class="app-field-submit">
           <button class="btn btn-primary btn-block btn-lg submit-btn">
             دخول
@@ -112,7 +117,7 @@ export default {
         </div>
       </form>
       <p>
-  لا تملك حسابا حتى الآن؟
+        لا تملك حسابا حتى الآن؟
         <RouterLink to="/register">تسجيل</RouterLink>
       </p>
     </Content>

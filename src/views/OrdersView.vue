@@ -17,7 +17,7 @@ export default {
 <template>
   <Page class="app-orders-page">
     <Head title="الطلبات" goBack="true" />
-    <Content :isBoxed="true">
+    <Content :isBoxed="true" :pullToRefresh="true">
       <OrdersList
         :per_page="8"
         :pagination="true"
