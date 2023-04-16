@@ -1,6 +1,6 @@
 {
   "appId": "com.arabcoderz.technicianseg",
-  "appName": "Medtich Technicians EG",
+  "appName": "Medtich Maintenance EG",
   "webDir": "./dist",
   "bundledWebRuntime": true,
   "hideLogs": true,
@@ -29,7 +29,7 @@
   "android": {
     "minWebViewVersion": 1,
     "buildOptions": {
-      "keystorePath": "",
+      "keystorePath": "./KeyStore.jks",
       "keystorePassword": "",
       "keystoreAlias": "",
       "keystoreAliasPassword": "",

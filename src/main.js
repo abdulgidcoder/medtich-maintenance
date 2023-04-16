@@ -21,12 +21,15 @@ import Pagination from "./components/Pagination.vue";
 import Field from "./components/form/Field.vue";
 import Select from "./components/form/Select.vue";
 import Checkbox from "./components/form/Checkbox.vue";
+import Radio from "./components/form/Radio.vue";
 import File from "./components/form/File.vue";
 import Skeleton from "./components/Skeleton.vue";
 import Modal from "./components/Modal.vue";
 // Plugins
 import auth from "./plugins/auth";
 import areas from "./plugins/areas";
+import vars from "./plugins/vars";
+
 import "./plugins/axios";
 import "./plugins/firebase";
 
@@ -53,6 +56,8 @@ app.component("Pagination", Pagination);
 app.component("Field", Field);
 app.component("Select", Select);
 app.component("Checkbox", Checkbox);
+app.component("Radio", Radio);
+
 app.component("File", File);
 app.component("Skeleton", Skeleton);
 app.component("Modal", Modal);
@@ -61,6 +66,8 @@ app.use(createPinia());
 app.use(router);
 app.use(areas);
 app.use(auth);
+app.use(vars);
+
 
 moment.updateLocale("ar", {
   relativeTime: {

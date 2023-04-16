@@ -1,5 +1,11 @@
-.app-radio {
-	display: flex;
+.app-radio-group{
+	&-container{
+    margin-top: 15px;
+display: flex;
+
+	}
+	.app-radio {
+	display: inline-flex;
 	align-items: center;
 	position: relative;
 	margin-bottom: 0;
@@ -7,10 +13,12 @@
 	font-weight: 400;
 	font-size: 0.75rem;
 	min-height: 18px;
-	padding-left: 26px;
+	padding-right: 26px;
 	line-height: 18px;
-	margin-bottom: 14px;
-	color: var(--text-color);
+	color: var(--black);
+&:not(:last-child){
+	margin-left: 15px;
+}
 	input {
 		position: absolute;
 		opacity: 0;
@@ -29,7 +37,7 @@
 	.checkmark {
 		position: absolute;
 		top: 0;
-		left: 0;
+		right: 0;
 		border-radius: 50%;
 		border: 1px solid var(--primary);
 		background-color: var(--white);
@@ -39,9 +47,9 @@
 			content: "";
 			position: absolute;
 			display: none;
-			left: 50%;
+			right: 50%;
 			top: 50%;
-			transform: translate(-50%, -50%);
+			transform: translate(50%, -50%);
 			width: 8px;
 			height: 8px;
 			border-radius: 50%;
@@ -59,3 +67,5 @@
 	}
 }
  
+}
+

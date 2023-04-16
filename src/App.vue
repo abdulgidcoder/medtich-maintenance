@@ -47,7 +47,7 @@ export default {
       );
 
       /* StatusBar */
-      StatusBar.setStyle({ style: Style.Dark });
+      StatusBar.setStyle({ style: Style.Light });
       StatusBar.setBackgroundColor({
         color: "#00d9c8",
       });

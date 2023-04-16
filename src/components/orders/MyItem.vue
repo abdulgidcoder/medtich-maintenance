@@ -1,11 +1,11 @@
 <script>
-import { useOrdesStore } from "@/stores/useOrders.js";
+import { useOrdersStore } from "@/stores/useOrders.js";
 export default {
   props: {
     order: Object,
   },
   setup() {
-    const ordersStore = useOrdesStore();
+    const ordersStore = useOrdersStore();
     return { ordersStore };
   },
   methods: {},
@@ -39,11 +39,17 @@ export default {
             <span
               class="app-badge"
               :class="{
+                active: order.acf['status'] == 'active',
+                pending: order.acf['status'] == 'pending',
                 processing: order.acf['status'] == 'processing',
                 completed: order.acf['status'] == 'completed',
                 cancelled: order.acf['status'] == 'cancelled',
               }"
               >{{
+                 order.acf["status"] == "active"
+                  ? "تلقى العروض":
+                    order.acf["status"] == "pending"
+                  ? " فى انتظار الدفع ":
                   order.acf["status"] == "completed"
                   ? " اكتمل "
                   : order.acf["status"] == "processing"

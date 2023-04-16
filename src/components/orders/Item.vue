@@ -1,11 +1,11 @@
 <script>
-import { useOrdesStore } from "@/stores/useOrders.js";
+import { useOrdersStore } from "@/stores/useOrders.js";
 export default {
   props: {
     order: Object,
   },
   setup() {
-    const ordersStore = useOrdesStore();
+    const ordersStore = useOrdersStore();
     return { ordersStore };
   },
   methods: {},

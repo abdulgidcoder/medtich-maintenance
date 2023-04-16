@@ -2,7 +2,7 @@
 import { defineAsyncComponent } from "vue";
 import InfoUser from "../InfoUser.vue";
 import TopbarHome from "../TopbarHome.vue";
-import { useOrdesStore } from "@/stores/useOrders.js";
+import { useOrdersStore } from "@/stores/useOrders.js";
 import { StatusBar, Style } from "@capacitor/status-bar";
 import { Capacitor } from "@capacitor/core";
 export default {
@@ -15,7 +15,7 @@ export default {
     TopbarHome,
   },
   setup() {
-    const ordersStore = useOrdesStore();
+    const ordersStore = useOrdersStore();
     return { ordersStore };
   },
   data() {
@@ -24,19 +24,20 @@ export default {
     };
   },
   created() {
-     if (Capacitor.isNativePlatform()) {
-       StatusBar.setStyle({ style: Style.Light });
-       StatusBar.setBackgroundColor({
-         color: "#ffffff",
-        });
-      }
+    if (Capacitor.isNativePlatform()) {
+      StatusBar.setStyle({ style: Style.Light });
+      StatusBar.setBackgroundColor({
+        color: "#ffffff",
+      });
+    }
   },
-  beforeUnmount() { if (Capacitor.isNativePlatform()) {
-    StatusBar.setStyle({ style: Style.Dark });
-    StatusBar.setBackgroundColor({
-      color: "#00d9c8",
-    });
-  }
+  beforeUnmount() {
+    if (Capacitor.isNativePlatform()) {
+      StatusBar.setStyle({ style: Style.Dark });
+      StatusBar.setBackgroundColor({
+        color: "#00d9c8",
+      });
+    }
   },
 };
 </script>

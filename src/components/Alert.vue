@@ -1,5 +1,7 @@
 <script>
+import Icon from "./Icon.vue";
 export default {
+  components: { Icon },
   props: {
     mode: {
       type: String,
@@ -14,55 +16,112 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      color:
+        this.mode == "success"
+          ? "var(--success)"
+          : this.mode == "warning"
+          ? "var(--warning)"
+          : this.mode == "danger"
+          ? "var(--danger)"
+          : this.mode == "info"
+          ? "var(--info)"
+          : null,
+    };
+  },
 };
 </script>
 <template>
-  <Transition name="fadeUp">
-    <div
-      v-show="show"
-      class="app-alert alert"
-      :class="{
-        warning: mode == 'warning',
-        success: mode == 'success',
-        danger: mode == 'danger',
-      }"
-    >
-      {{ msg }}
-    </div>
-  </Transition>
+  <div class="app-alert-container">
+    <Transition name="fadeUp">
+      <div
+        v-if="show"
+        class="app-alert"
+        :class="{
+          warning: mode == 'warning',
+          info: mode == 'info',
+          success: mode == 'success',
+          danger: mode == 'danger',
+        }"
+      >
+        <icon
+          :name="
+            this.mode == 'success'
+              ? 'check-circle'
+              : this.mode == 'warning'
+              ? 'exclamation-circle'
+              : this.mode == 'danger'
+              ? 'exclamation-triangle'
+              : this.mode == 'info'
+              ? 'password'
+              : null
+          "
+        />
+        {{ msg }}
+      </div>
+    </Transition>
+  </div>
 </template>
 
-<style lang="scss" scoped>
-.fadeUp-enter-active,
-.fadeUp-leave-active {
-  animation: 0.3s ease-in fadeInUp;
-  @keyframes fadeInUp {
-    0% {
-      opacity: 0;
-      -webkit-transform: translate3d(0, 100%, 0);
-      transform: translate3d(0, 100%, 0);
-    }
-    100% {
-      opacity: 1;
-      -webkit-transform: translateZ(0);
-      transform: translateZ(0);
-    }
-  }
-}
-.fadeUp-enter-from,
-.fadeUp-leave-to {
-  opacity: 0;
+<style lang="scss">
+.app-alert-container {
+  position: fixed;
+  bottom: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
 }
 .app-alert {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  color: var(--white);
+  width: 95vw;
+  // max-width: 320px;
+  background: var(--white) !important;
   padding: 10px;
-  z-index: 999;
-  text-align: center;  
+  text-align: center;
   font-size: 0.875rem;
- 
+  box-shadow: 0 0px 6px #8f8686;
+  border-radius: 6px;
+  &.success {
+    color: var(--success);
+    svg {
+      fill: var(--success);
+    }
+    a,
+    mark {
+      color: var(--success-shade);
+    }
+  }
+  &.warning {
+    color: var(--warning);
+    svg {
+      fill: var(--warning);
+    }
+    a,
+    mark {
+      color: var(--warning-shade);
+    }
+  }
+  &.info {
+    color: var(--info);
+    svg {
+      fill: var(--info);
+    }
+  }
+  &.danger {
+    color: var(--danger);
+    svg {
+      fill: var(--danger);
+    }
+    a,
+    mark {
+      color: var(--danger-shade);
+    }
+  }
+  .app-icon {
+    margin-left: 5px;
+    svg {
+      width: 15px;
+    }
+  }
 }
 </style>

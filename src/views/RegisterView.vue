@@ -30,7 +30,7 @@ export default {
       privacyModal: false,
       privacyPolicy: false,
       appVerifier: "",
-      roleUser: "",
+      roleUser: "technician",
       valid: {
         name: 5,
         mobile: 11,
@@ -256,27 +256,15 @@ export default {
           icon="password"
           @keyup="passwordConfirmValid($event.target)"
         />
-        <div class="app-field">
-          <label class="app-field_label">نوع الحساب</label>
-          <div class="radio_group">
-            <input
-              type="radio"
-              id="customer"
-              value="customer"
-              v-model="roleUser"
-            />
-            <label for="customer">مستشفى</label>
-
-            <input
-              type="radio"
-              id="technician"
-              value="technician"
-              v-model="roleUser"
-            />
-            <label for="technician">فنى صيانة</label>
-          </div>
-        </div>
-
+        <Radio
+          label="نوع الحساب"
+          name="roleUser" 
+          v-model="roleUser"
+          :data="[
+            { label: 'مستشفى', value: 'customer' },
+            { label: 'فنى صيانة', value: 'technician' },
+          ]"
+        />
         <div style="display: flex; align-items: center">
           <Checkbox
             v-model:checked="privacyPolicy"

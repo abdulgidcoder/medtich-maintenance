@@ -1,5 +1,5 @@
 <script>
-import { useOrdesStore } from "@/stores/useOrders.js";
+import { useOrdersStore } from "@/stores/useOrders.js";
 import AddOffer from "./AddOffer.vue";
 import OfferItem from "./OfferItem.vue";
 
@@ -15,7 +15,7 @@ export default {
     };
   },
   setup() {
-    const ordersStore = useOrdesStore();
+    const ordersStore = useOrdersStore();
     return { ordersStore };
   },
   watch: {
@@ -127,9 +127,10 @@ export default {
       </template>
     </Card>
     <div class="app-fixed-bottom">
-      <AddOffer v-if="!acceptTechOffer && !myOrder" :orderID="details.id" />
+      <AddOffer v-if="!acceptTechOffer && !myOrder && this.$auth.role == 'technician'" :orderID="details.id" />
       <RouterLink
-        v-if="details.acf['status'] == 'completed'"
+        v-if="details.acf['status'] == 'completed' && this.$auth.role == 'technician'"
+        style="margin-left: 15px;"
         class="btn btn-danger"
         :to="{
           name: 'add-report',

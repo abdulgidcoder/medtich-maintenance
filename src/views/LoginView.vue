@@ -2,6 +2,7 @@
 import { useAuthStore } from "@/stores/useAuth";
 import { StatusBar, Style } from "@capacitor/status-bar";
 import { Capacitor } from "@capacitor/core";
+import { useError } from "@/stores/useError";
 export default {
   data() {
     return {
@@ -13,8 +14,9 @@ export default {
     };
   },
   setup() {
-    const auth = useAuthStore();
-    return { auth };
+    const auth = useAuthStore(),
+      errorStore = useError();
+    return { auth, errorStore };
   },
   created() {
     document.title = "Login";
@@ -45,9 +47,9 @@ export default {
         useAuthStore()
           .login(this.mobile, this.password)
           .then((response) => {
-            this.hasFeedback = true;
-            this.feedbackStyle = "alert-success";
-            this.feedback = "تسجيل الدخول بنجاح";
+            this.errorStore.show = true;
+            this.errorStore.style = "success";
+            this.errorStore.masg = "تسجيل الدخول بنجاح";
             btnSubmit.forEach((btn) => {
               btn.innerHTML = "تسجيل الدخول";
             });
@@ -55,32 +57,34 @@ export default {
           })
           .catch((error) => {
             ele.reset();
-            btnSubmit.forEach((btn) => {
-              btn.disabled = false;
-              btn.innerHTML = "دخول";
-            });
-            this.hasFeedback = true;
-            this.feedbackStyle = "danger";
+            (this.mobile = ""),
+              (this.password = ""),
+              btnSubmit.forEach((btn) => {
+                btn.disabled = false;
+                btn.innerHTML = "دخول";
+              });
+            this.errorStore.show = true;
+            this.errorStore.style = "danger";
             let mesg1 = error.response.data.message;
             let mesg2 = error.response.data.data.message;
             if (mesg1) {
-              this.feedback = mesg1;
+              this.errorStore.masg = mesg1;
             } else if (mesg2) {
-              this.feedback = mesg2;
+              this.errorStore.masg = mesg2;
             }
           });
       } else if (!this.mobile && !this.password) {
-        this.hasFeedback = true;
-        this.feedback = "رقم الجوال وكلمة المرور فارغين!";
-        this.feedbackStyle = "danger";
+        this.errorStore.show = true;
+        this.errorStore.masg = "رقم الجوال وكلمة المرور فارغين!";
+        this.errorStore.style = "danger";
       } else if (!this.mobile) {
-        this.hasFeedback = true;
-        this.feedback = "الجوال فارغ!";
-        this.feedbackStyle = "danger";
+        this.errorStore.show = true;
+        this.errorStore.masg = "الجوال فارغ!";
+        this.errorStore.style = "danger";
       } else if (!this.password) {
-        this.hasFeedback = true;
-        this.feedback = "كلمة المرور فارغة!";
-        this.feedbackStyle = "danger";
+        this.errorStore.show = true;
+        this.errorStore.masg = "كلمة المرور فارغة!";
+        this.errorStore.style = "danger";
       }
     },
   },

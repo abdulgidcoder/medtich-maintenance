@@ -3,7 +3,7 @@ import axios from "axios";
 import { useError } from "@/stores/useError";
 const error = useError();
 
-export const useOrdesStore = defineStore("orders", {
+export const useOrdersStore = defineStore("orders", {
   state: () => ({
     lastList: null,
     list: null,
@@ -55,27 +55,48 @@ export const useOrdesStore = defineStore("orders", {
         }
       }
     },
-    async ftechMyOrders(technician, currentPage, per_page, fillter_status) {
-      if (technician) {
+    async ftechMyOrders(user, currentPage, per_page, fillter_status) {
+    
+      if ( user.role == "customer") { 
         const response = await axios({
-          method: "get", 
+          method: "get",
           url: "/wp-json/acf/v3/orders",
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
           params: {
             _fields: "id,date,title,content,acf",
-            technician: technician,
             status_order: fillter_status,
             page: currentPage ? currentPage : 1,
             per_page: per_page ? per_page : 5,
+            author: user.user_data.id,
           },
         });
-        if (response.data) {
-          this.myList = response.data;
-          this.myTotal = response.headers["x-wp-totalpages"];
-        }
+           if (response.data) {
+             this.myList = response.data;
+             this.myTotal = response.headers["x-wp-totalpages"];
+           }
       }
+         if (user.role == "technician") {
+           const response = await axios({
+             method: "get",
+             url: "/wp-json/acf/v3/orders",
+             headers: {
+               Authorization: "Bearer " + localStorage.getItem("token"),
+             },
+             params: {
+               _fields: "id,date,title,content,acf",
+               status_order: fillter_status,
+               page: currentPage ? currentPage : 1,
+               per_page: per_page ? per_page : 5,
+               technician: user.user_data.id,
+             },
+           });
+           if (response.data) {
+             this.myList = response.data;
+             this.myTotal = response.headers["x-wp-totalpages"];
+           }
+         }
     },
     async addOffer(offer, orderId) {
       let offers = [];
@@ -87,7 +108,7 @@ export const useOrdesStore = defineStore("orders", {
         details: offer.details,
       };
       const responseOrder = await axios({
-        method: "get", 
+        method: "get",
         url: "/wp-json/wp/v2/orders/" + orderId,
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
@@ -147,6 +168,39 @@ export const useOrdesStore = defineStore("orders", {
       if (response.data) {
         this.singleOrder = response.data;
       }
+    },
+    async addOrder(order) {
+      const response = await axios({
+        method: "post",
+        url: "wp-json/wp/v2/orders",
+        params: {
+          _fields: "id,title",
+        },
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        data: {
+          status: "publish",
+          title: order.title,
+          content: order.content,
+          fields: {
+            area: order.area,
+            email: order.email,
+            date: order.date,
+            serial_number: order.serial_number,
+            company: order.company,
+            latitude: order.location.latitude,
+            longitude: order.location.longitude,
+            mobile: order.mobile,
+            name: order.name,
+            payment_gateway: order.payment_gateway,
+            status: "active",
+            technician: false,
+            set_paid: false,
+            offers: false,
+          },
+        },
+      });
     },
   },
 });

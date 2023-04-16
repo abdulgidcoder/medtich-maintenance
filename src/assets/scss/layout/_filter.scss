@@ -1,8 +1,16 @@
 .app-fillter {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
+display: flex;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    padding-left: 10px;
   button {
+        flex: none;
+    padding: 4px 9px;
+    background-color: var(--grey);
+    border: 1px solid var(--medium);
+    border-radius: 15px;
+    font-weight: 500;
     &:not(:last-child) {
       margin-right: 15px;
     }
@@ -10,10 +18,6 @@
       background-color: var(--primary-tint);
       border-color: var(--primary);
     }
-    padding: 4px 9px;
-    background-color: var(--grey);
-    border: 1px solid var(--medium);
-    border-radius: 15px;
-    font-weight: 500;
+ 
   }
 }

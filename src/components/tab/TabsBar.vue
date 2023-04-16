@@ -13,6 +13,12 @@ export default {
           <span class="title">الرئيسية</span>
         </RouterLink>
       </button>
+            <button class="app-tab-btn" v-if="this.$auth.role == 'customer'">
+      <RouterLink to="/home/add-order">
+          <Icon name="cart-pulse" />
+          <span class="title">طلب جديد</span>
+        </RouterLink>
+      </button>
       <button class="app-tab-btn">
         <RouterLink to="/home/orders-tab">
           <Icon name="cart" />

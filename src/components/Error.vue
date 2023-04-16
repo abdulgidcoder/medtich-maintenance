@@ -1,17 +1,22 @@
 <script setup>
 import { watch } from "vue";
 import { useError } from "@/stores/useError";
-
 const error = useError();
 
 watch(
   () => error.show,
   () => {
-    setTimeout(function () {
-      error.show = false;
-      error.style = "";
-      error.masg = "";
-    }, 4000);
+    let errorSettime = () => {
+      setTimeout(function () {
+        error.show = false;
+        error.style = "";
+        error.masg = "";
+      }, 5000);
+    };
+    if (error.show == true) {
+      clearTimeout(errorSettime);
+      errorSettime();
+    }
   }
 );
 </script>

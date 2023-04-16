@@ -33,8 +33,7 @@ button {
     margin-right: 10px;
     display: flex;
     align-items: center;
-    svg {
-      fill: #fff;
+    svg { 
       width: auto;
       height: 20px;
     }
@@ -48,6 +47,9 @@ button {
   color: #fff;
   background-color: var(--primary);
   box-shadow: 0 5px 8px var(--primary-tint);
+   svg {
+      fill: #fff;
+   }
 }
 .btn-outline-primary {
   color: var(--primary);

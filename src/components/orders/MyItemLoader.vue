@@ -1,6 +1,6 @@
 <script>
 import moment from "moment";
-import { useOrdesStore } from "@/stores/useOrders.js";
+import { useOrdersStore } from "@/stores/useOrders.js";
 export default {
   props: {
     order: Object,
@@ -11,7 +11,7 @@ export default {
     };
   },
   setup() {
-    const ordersStore = useOrdesStore();
+    const ordersStore = useOrdersStore();
     return { ordersStore };
   },
   methods: {},

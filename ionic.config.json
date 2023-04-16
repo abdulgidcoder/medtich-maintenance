@@ -1,7 +1,0 @@
-{
-  "name": "technical-app",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "custom"
-}

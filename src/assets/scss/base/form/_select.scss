@@ -2,7 +2,9 @@
   padding: 14px 12px;
   font-size: 0.875rem;
   background-color: var(--white);
-  border: 1px solid #d1d5db;
+  background-color: var(--white);
+  border: 1px solid #e4e4e4;
+  box-shadow: 0 1px 3px #c7c7c7;
   border-radius: 5px;
   padding: 0.75rem 1rem;
   width: 100%;
@@ -11,9 +13,9 @@
   overflow: hidden;
   margin-bottom: 15px;
   display: block;
-  &::after{
+  &::after {
     position: absolute;
-    content: '';
+    content: "";
     width: 8px;
     height: 8px;
     border-bottom: 2px solid #d1d5db;

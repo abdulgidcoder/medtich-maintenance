@@ -1,5 +1,5 @@
 <script>
-import { useOrdesStore } from "@/stores/useOrders.js";
+import { useOrdersStore } from "@/stores/useOrders.js";
 import Details from "../components/orders/single/Details.vue";
 import DetailsLoader from "../components/orders/single/DetailsLoader.vue";
 export default {
@@ -16,7 +16,7 @@ export default {
     };
   },
   setup() {
-    const ordersStore = useOrdesStore();
+    const ordersStore = useOrdersStore();
     return { ordersStore };
   },
   beforeUnmount() {

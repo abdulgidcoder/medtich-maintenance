@@ -37,6 +37,11 @@ const router = createRouter({
           component: () => import("@/components/tab/Main.vue"),
         },
         {
+          path: "add-order",
+          name: "add-order",
+          component: () => import("@/components/tab/AddOrder.vue"),
+        },
+        {
           path: "orders-tab",
           name: "orders-tab",
           component: () => import("@/components/tab/Orders.vue"),

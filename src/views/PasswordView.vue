@@ -268,7 +268,7 @@ export default {
     <Teleport to="body">
       <Alert :show="hasFeedback" :mode="feedbackStyle" :msg="feedback" />
     </Teleport>
-    <Modal classes="modal-otp bottom" :show="modalOtp">
+    <Modal class="modal-otp bottom" animation="fadeUp" :show="modalOtp">
       <h2>قم بتاكيد رقمك</h2>
       <p>
         أدخل الرمز المكون من 6 أرقام المرسل إليه<br /><strong>{{
@@ -295,7 +295,11 @@ export default {
         تحقق من الرقم
       </button>
     </Modal>
-    <Modal classes="modal-resetpassword" :show="modalSetPassword">
+    <Modal
+      class="modal-resetpassword"
+      animation="fadeUp"
+      :show="modalSetPassword"
+    >
       <Page class="app-page-auth">
         <TopBar>
           <template #left>
