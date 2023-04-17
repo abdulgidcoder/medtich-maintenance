@@ -21,19 +21,5 @@
       "layoutName": "launch_screen",
       "useDialog": true
     }
-  },
-  "server": {
-    "url": "http://192.168.1.11:5173",
-    "cleartext": true
-  },
-  "android": {
-    "minWebViewVersion": 1,
-    "buildOptions": {
-      "keystorePath": "./KeyStore.jks",
-      "keystorePassword": "",
-      "keystoreAlias": "",
-      "keystoreAliasPassword": "",
-      "releaseType": "AAB"
-    }
-  }
+  } 
 }

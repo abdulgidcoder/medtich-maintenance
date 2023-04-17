@@ -29,7 +29,6 @@ export default {
     if (!this.ordersStore.list) {
       this.fetchOrders();
       this.pollingOrders();
-
     } else {
       this.loader = false;
       this.pollingOrders();
@@ -56,7 +55,11 @@ export default {
           this.$auth.user_data?.acf["area"],
           this.currPage,
           this.per_page
-        );
+        ).then(() => {
+          setTimeout(() => {
+            this.loader = false;
+          }, 100);
+        });
       }, this.pollTimer);
     },
     onPageChange(page) {

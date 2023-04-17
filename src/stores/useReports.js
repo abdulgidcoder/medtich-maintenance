@@ -11,7 +11,7 @@ export const useReportsStore = defineStore("reports", {
       const response = await axios({
         method: "get",
         timeout: 2000,
-        url: "wp-json/acf/v3/report",
+        url: "wp-json/wp/v2/report",
         params: {
           _fields: "id,date,modified,title,content,acf,author",
           author: userID,

@@ -133,3 +133,15 @@
 .otp-input:focus {
 	outline: 1px solid var(--primary);
 }
+
+.form-actions {
+  margin-top: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .btn {
+    &:not(:last-child) {
+      margin-left: 25px;
+    }
+  }
+}

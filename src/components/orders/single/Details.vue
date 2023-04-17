@@ -1,17 +1,19 @@
 <script>
 import { useOrdersStore } from "@/stores/useOrders.js";
-import AddOffer from "./AddOffer.vue";
+import AddOffer from "./AddOffer.vue"; 
 import OfferItem from "./OfferItem.vue";
+import Chekout from './Chekout.vue';
 
 export default {
-  components: { AddOffer, OfferItem },
+  components: { AddOffer, OfferItem, Chekout },
   props: { details: Object },
   data() {
     return {
       myOrder:
         this.$auth.user_data?.id ==
         this.ordersStore.singleOrder?.acf?.technician,
-      acceptTechOffer: null,
+      allowAcceptOffer: null,
+     
     };
   },
   setup() {
@@ -30,11 +32,11 @@ export default {
     acceptedOffer(offers) {
       if (offers) {
         offers.find((offer) => {
-          this.acceptTechOffer =
+          this.allowAcceptOffer =
             offer.technical["ID"] === this.$auth.user_data.id ? true : false;
         });
       } else {
-        this.acceptTechOffer = false;
+        this.allowAcceptOffer = false;
       }
     },
   },
@@ -42,35 +44,53 @@ export default {
 </script>
 <template>
   <div class="app-order-details">
-    <h3 v-html="details.title?.rendered" class="order-title"></h3>
-    <div class="order-meta">
-      <span>
-        <Icon name="clock" />
-        <span> {{ $dateTime(details.date) }}</span>
-      </span>
-      <span>
-        <Icon name="location" />
-        <span> {{ $nameArea(details.acf?.area) }}</span>
-      </span>
-      <span class="order-status">
-        <span
-          class="app-badge"
-          :class="{
-            processing: details.acf['status'] == 'processing',
-            completed: details.acf['status'] == 'completed',
-            cancelled: details.acf['status'] == 'cancelled',
-          }"
-          >{{
-            details.acf["status"] == "completed"
-              ? " اكتمل "
-              : details.acf["status"] == "processing"
-              ? "قيد التنفيذ"
-              : details.acf["status"] == "cancelled"
-              ? " ملغى "
-              : ""
-          }}</span
-        >
-      </span>
+    <Info
+      mode="warning"
+      msg="برجاء الدفع حتى يتم تفيذ طلبك "
+      :show="this.$auth.role == 'customer' && !details.acf?.set_paid"
+    />
+    <Info
+      mode="info"
+      msg="يتم مراجعة عملية الدفع من قبل الادارة"
+      :show="(details.acf['status'] == 'active' || details.acf['status'] == 'pending') && details.acf?.set_paid"
+    />
+    <div class="app-order-details_head">
+      <h3 v-html="details.title?.rendered" class="order-title"></h3>
+      <div class="order-meta">
+        <span>
+          <Icon name="clock" />
+          <span> {{ $dateTime(details.date) }}</span>
+        </span>
+        <span>
+          <Icon name="location" />
+          <span> {{ $nameArea(details.acf?.area) }}</span>
+        </span>
+        <span class="order-status">
+          <span
+            class="app-badge"
+            :class="{
+              active: details.acf['status'] == 'active',
+              pending: details.acf['status'] == 'pending',
+              processing: details.acf['status'] == 'processing',
+              completed: details.acf['status'] == 'completed',
+              cancelled: details.acf['status'] == 'cancelled',
+            }"
+            >{{
+              details.acf["status"] == "active"
+                ? "تلقى العروض"
+                : details.acf["status"] == "pending"
+                ? "فى انتظار الدفع "
+                : details.acf["status"] == "completed"
+                ? " اكتمل "
+                : details.acf["status"] == "processing"
+                ? "قيد التنفيذ"
+                : details.acf["status"] == "cancelled"
+                ? " ملغى "
+                : ""
+            }}</span
+          >
+        </span>
+      </div>
     </div>
     <Card>
       <template #body>
@@ -122,15 +142,26 @@ export default {
             :key="index"
             :offer="offer"
             :acceptTech="details.acf?.technician"
+            :orderID="details.id"
           />
         </ul>
       </template>
     </Card>
     <div class="app-fixed-bottom">
-      <AddOffer v-if="!acceptTechOffer && !myOrder && this.$auth.role == 'technician'" :orderID="details.id" />
+      <AddOffer
+        v-if="!allowAcceptOffer && !myOrder && this.$auth.role == 'technician'"
+        :orderID="details.id"
+      />
+      <Chekout
+        v-if="this.$auth.role == 'customer' && !details.acf?.set_paid"
+      :order="details"
+      />
       <RouterLink
-        v-if="details.acf['status'] == 'completed' && this.$auth.role == 'technician'"
-        style="margin-left: 15px;"
+        v-if="
+          details.acf['status'] == 'completed' &&
+          this.$auth.role == 'technician'
+        "
+        style="margin-left: 15px"
         class="btn btn-danger"
         :to="{
           name: 'add-report',
@@ -138,6 +169,7 @@ export default {
         }"
         >إضافة تقرير</RouterLink
       >
+   
       <a
         class="btn btn-outline-primary"
         target="_blank"
@@ -152,4 +184,6 @@ export default {
       </a>
     </div>
   </div>
+
 </template>
+

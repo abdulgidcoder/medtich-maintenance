@@ -5,29 +5,21 @@
   font-weight: 500;
   border-radius: 15px;
   line-height: 1;
-  &.pending {
-    color: var(--warning-contrast);
-    background: var(--warning);
-  }
-  &.completed {
-    color: var(--success-contrast);
-    background: var(--success);
+  &.active {
+    color: var(--info);
+    background: var(--info-tint);
   }
   &.processing {
     color: var(--info-contrast);
     background: var(--info);
   }
-  &.active{
-    color: var(--warning-contrast);
-    background: var(--warning);
+  &.pending {
+    color: var(--warning);
+    background: var(--warning-tint);
   }
-  &.refunded {
-    color: var(--danger-contrast);
-    background: var(--danger);
-  }
-  &.failed {
-    color: var(--danger-contrast);
-    background: var(--danger);
+  &.completed {
+    color: var(--success-contrast);
+    background: var(--success);
   }
   &.cancelled {
     color: var(--danger-contrast);

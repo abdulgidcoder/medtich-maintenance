@@ -29,9 +29,13 @@ export default {
               <Icon name="calendar" />
               <span>{{ $dateTime(order.date) }}</span>
             </span>
-            <span class="order-name" v-if="order.acf['offers']"
+            <span class="order-name"
               ><Icon name="tag" />
-              <span>{{ order.acf["offers"].length + " عرض" }}</span></span
+              <span>{{
+                order.acf["offers"].length
+                  ? order.acf["offers"].length + " عرض"
+                  : " أضف أول عرض"
+              }}</span></span
             >
           </div>
         </div>

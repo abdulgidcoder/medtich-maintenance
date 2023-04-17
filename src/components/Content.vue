@@ -1,7 +1,7 @@
 <script>
 import PullToRefresh from "pulltorefreshjs";
 export default {
-  props: { isBoxed: Boolean, pullToRefresh: Boolean },
+  props: { isBoxed: Boolean, pullToRefresh: Boolean , notBottom:Boolean},
   mounted() {  
     if(document.getElementsByClassName('app-pull-refresh').length){
       PullToRefresh.init({
@@ -29,7 +29,7 @@ export default {
 <template>
   <div
     class="app-content"
-    :class="{ boxed: isBoxed, 'allow-pull': pullToRefresh }"
+    :class="{ boxed: isBoxed, 'allow-pull': pullToRefresh, 'not-bottom': notBottom, }"
   >
     <div :class="{ 'app-content-box': isBoxed }">
       <div class="app-pull-refresh" v-if="pullToRefresh">
@@ -49,6 +49,9 @@ export default {
   overflow-x: hidden;
   overflow-y: auto;
   background-color: var(--bg-white);
+  &.not-bottom{
+    padding-bottom: 0;
+  }
   &.boxed {
     background-color: var(--primary);
   }

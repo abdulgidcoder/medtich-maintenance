@@ -17,7 +17,7 @@ export default {
   <Info
     mode="warning"
     msg="حسابك قيد المراجعة من قبل الإدارة."
-    :show="auth_user.user_data?.acf['status'] == 'pending'"
+    :show="auth_user.user_data?.acf['status'] == 'pending' && this.$auth.role == 'technician'"
   />
   <Info
     mode="danger"

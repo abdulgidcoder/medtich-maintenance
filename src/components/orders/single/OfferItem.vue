@@ -1,13 +1,45 @@
 <script>
+import { useOrdersStore } from "@/stores/useOrders.js";
+import { useError } from "@/stores/useError";
 export default {
   props: {
     offer: {},
-    acceptTech: '',
+    acceptTech: "",
+    orderID: Number,
   },
   data() {
-    return { accepted: this.offer.technical["ID"] == this.acceptTech };
+    return {
+      accepted: this.offer.technical["ID"] == this.acceptTech,
+      acceptModal: false,
+      acceptOfferData: {},
+      accepting: false,
+    };
   },
-  setup() {},
+  watch:{
+    acceptTech(){
+      this.accepted = this.offer.technical["ID"] == this.acceptTech
+    }
+  },
+  setup() {
+    const ordersStore = useOrdersStore();
+    const errorStore = useError();
+    return { ordersStore, errorStore };
+  },
+  methods: {
+    acceptOffer(offer) {
+      this.accepting = true;
+      this.ordersStore
+        .acceptOffer(offer.technical.ID, this.orderID)
+        .then(() => {
+          this.accepting = false;
+          this.acceptModal = false;
+        })
+        .catch(() => {
+          this.accepting = false;
+          this.acceptModal = false;
+        });
+    },
+  },
 };
 </script>
 <template>
@@ -24,8 +56,18 @@ export default {
         </div>
       </div>
       <div class="offer_left">
-        <button class="btn btn-primary btn-sm" v-if="false">قبول</button>
-        <button class="btn btn-primary btn-sm" v-if="false">قبول</button>
+        <button
+          class="btn btn-primary btn-sm"
+          v-if="this.$auth.role == 'customer' && !acceptTech"
+          @click="
+            () => {
+              this.acceptModal = true;
+              this.acceptOfferData = offer;
+            }
+          "
+        >
+          قبول
+        </button>
         <span class="app-badge completed" v-if="accepted">تم قبول العرض</span>
       </div>
     </div>
@@ -33,4 +75,35 @@ export default {
       <p class="offer-details">{{ offer.details }}</p>
     </div>
   </li>
+  <Modal
+    class="center"
+    :show="acceptModal"
+    animation="fadeIn"
+    @closeModal="this.acceptModal = false"
+  >
+    <h3>
+      {{ "هل تريد قبول عرض " + acceptOfferData.technical.display_name + " ؟" }}
+    </h3>
+    <p><strong>قيم العرض: </strong>{{ acceptOfferData.price + " جنية" }}</p>
+    <button
+      class="btn btn-sm btn-primary"
+      @click="acceptOffer(acceptOfferData)"
+    >
+      <template v-if="!accepting">قبول</template>
+      <template v-else>
+        <span
+          class="spinner-border spinner-border-sm"
+          role="status"
+          aria-hidden="true"
+        ></span>
+        قبول...
+      </template>
+    </button>
+    <button
+      class="btn btn-sm btn-secondary"
+      @click="() => (this.acceptModal = false)"
+    >
+      الغاء
+    </button>
+  </Modal>
 </template>

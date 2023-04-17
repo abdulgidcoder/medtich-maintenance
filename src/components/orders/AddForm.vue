@@ -125,8 +125,7 @@ export default {
   },
 };
 </script>
-<template>
-  {{ order.date }}
+<template> 
   <form @submit.prevent="handleSubmit($event.target)">
     <Field
       v-model="order.title"

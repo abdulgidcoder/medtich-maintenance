@@ -23,6 +23,7 @@ export default {
       class="info-alert alert"
       :class="{
         warning: mode == 'warning',
+        info: mode == 'info',
         success: mode == 'success',
         danger: mode == 'danger',
       }"
@@ -32,15 +33,7 @@ export default {
   </Transition>
 </template>
 
-<style lang="scss">
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease-in-out;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
+<style lang="scss"> 
 .info-alert {
   position: relative;
   margin-bottom: 1rem;

@@ -1,9 +1,9 @@
 <script>
-export default { 
-    inheritAttrs: false,
+export default {
+  inheritAttrs: false,
 
   props: {
-    show: Boolean, 
+    show: Boolean,
     animation: String,
   },
   emits: ["closeModal"],
@@ -23,13 +23,11 @@ export default {
     <Transition :name="animation">
       <div
         class="app-modal"
-        :class="[{ active: show },$attrs['class']]"
-   
+        :class="[{ active: show }, $attrs['class']]"
         v-if="show"
         @click="closeModal"
       >
         <div class="app-modal__container" @click.stop>
-       
           <slot></slot>
         </div>
       </div>
@@ -72,17 +70,24 @@ export default {
       background-color: var(--white);
     }
   }
-  &.center { 
+  &.center {
     .app-modal__container {
       position: absolute;
       border-radius: 15px;
       width: 100%;
-      max-width: 85vw;
-      padding: 25px 15px;
+      max-width: 78vw;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background-color: var(--white); 
+      background-color: var(--white);
+      text-align: center;
+      padding: 25px 15px;
+      p {
+        margin-bottom: 25px;
+      }
+      .btn-secondary {
+        margin-right: 20px;
+      }
     }
   }
 }

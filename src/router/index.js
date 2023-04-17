@@ -113,6 +113,18 @@ const router = createRouter({
       beforeEnter: redirectToLoginOnLoggedOut,
     },
     {
+      path: "/faq",
+      name: "faq",
+      component: () => import("@/views/FaqView.vue"),
+      beforeEnter: redirectToLoginOnLoggedOut,
+    },
+    {
+      path: "/contact",
+      name: "contact",
+      component: () => import("@/views/ContactView.vue"),
+      beforeEnter: redirectToLoginOnLoggedOut,
+    },
+    {
       path: "/order/:id",
       name: "single-order",
       component: () => import("@/views/SingleOrder.vue"),

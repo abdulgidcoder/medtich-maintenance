@@ -27,14 +27,18 @@ export default {
               <Icon name="calendar" />
               <span> {{ $dateTime(order.date) }}</span>
             </span>
-            <span class="order-name" v-if="order.acf['name']"
+            <span class="order-name" v-if="order.acf['name'] &&  this.$auth.role=='technician'"
               ><Icon name="user" /><span>{{ order.acf["name"] }}</span></span
             >
-            <!-- <span class="order-area"
-              ><Icon name="location" /><span>{{
-                $nameArea(order.acf["area"])
+              <span class="order-name"
+              v-if="this.$auth.role=='customer'"
+              ><Icon name="tag" />
+              <span>{{
+                order.acf["offers"].length
+                  ? order.acf["offers"].length + " عرض"
+                  : " لايوجد عروض"
               }}</span></span
-            > -->
+            >
                 <span class="order-status">
             <span
               class="app-badge"

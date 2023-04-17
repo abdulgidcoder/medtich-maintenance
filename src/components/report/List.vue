@@ -53,12 +53,18 @@ export default {
     },
     pollingReports() {
       this.polling = setInterval(() => {
-        this.reportStore.ftechallReports(
-          this.$auth.user_data.id,
-          this.currPage,
-          this.per_page,
-          this.status
-        );
+        this.reportStore
+          .ftechallReports(
+            this.$auth.user_data.id,
+            this.currPage,
+            this.per_page,
+            this.status
+          )
+          .then(() => {
+            setTimeout(() => {
+              this.loader = false;
+            }, 100);
+          });
       }, this.pollTimer);
     },
     onPageChange(page) {
@@ -67,7 +73,7 @@ export default {
     },
     fillterbyStatus(status, ele) {
       this.status = status;
-        this.currPage= 1;
+      this.currPage = 1;
       this.fetchReports();
     },
   },

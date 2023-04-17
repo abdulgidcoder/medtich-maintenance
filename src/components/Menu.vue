@@ -23,6 +23,21 @@
         /></RouterLink>
       </li>
       <li>
+        <RouterLink :to="{ name: 'faq' }"
+          ><span class="item-text"
+            ><Icon name="exclamation-circle-alt" class="item-icon" />الأسئلة
+            الشائعة</span
+          ><Icon name="angle-right" class="item-arrow"
+        /></RouterLink>
+      </li>
+      <li>
+        <RouterLink :to="{ name: 'contact' }"
+          ><span class="item-text"
+            ><Icon name="phone-volume" class="item-icon" />تواصل معنا</span
+          ><Icon name="angle-right" class="item-arrow"
+        /></RouterLink>
+      </li>
+      <li>
         <RouterLink :to="{ name: 'password' }"
           ><span class="item-text"
             ><Icon name="password" class="item-icon" />تغيير كلمة المرور</span

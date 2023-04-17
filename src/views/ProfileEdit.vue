@@ -243,9 +243,9 @@ export default {
     >
       <h2>هل تريد حقاََ حذف حساب؟</h2>
       <p><strong>تحذير:</strong> سوف يتم حذف جميع بياناتك</p>
-      <button class="btn btn-danger" @click="delete_account">حذف الحساب</button>
+      <button class="btn btn-sm btn-danger" @click="delete_account">حذف الحساب</button>
       <button
-        class="btn btn-secondary"
+        class="btn btn-sm btn-secondary"
         @click="() => (this.deleteModal = false)"
       >
         الغاء
@@ -256,17 +256,5 @@ export default {
 <style lang="scss">
 .btn.delete-modal {
   margin: 25px 0 20px;
-}
-.modal-delete-account {
-  .app-modal__container {
-    text-align: center;
-    padding: 35px 20px;
-    p {
-      margin-bottom: 25px;
-    }
-    .btn-secondary {
-      margin-right: 30px;
-    }
-  }
-}
+} 
 </style>

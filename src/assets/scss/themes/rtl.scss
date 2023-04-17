@@ -134,4 +134,20 @@ html[dir="rtl"] {
     margin-right: 0;
     margin-left: 6px;
   }
+
+  .app-accordion ul li .head {
+    &::after {
+      left: 0;
+      right: auto;
+    }
+    a {
+      padding: 0 38px 0 18px;
+      span {
+        left: auto;
+        right: 0;
+        margin-left: 8px;
+        margin-right: 0;
+      }
+    }
+  }
 }

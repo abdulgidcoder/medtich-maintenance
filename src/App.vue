@@ -5,6 +5,8 @@ import { useAuthStore } from "@/stores/useAuth";
 import { StatusBar, Style } from "@capacitor/status-bar";
 import { App as AppCap } from "@capacitor/app";
 import { Capacitor } from "@capacitor/core";
+// import { SplashScreen } from '@capacitor/splash-screen';
+
 export default {
   components: {
     Error: defineAsyncComponent({
@@ -32,7 +34,7 @@ export default {
       }
     },
   },
-  created() {
+  async created() {
     /* RTL */
     document.querySelector("html").setAttribute("dir", "rtl");
 
@@ -60,6 +62,8 @@ export default {
           AppCap.exitApp();
         }
       });
+
+   
     }
   },
   methods: {},

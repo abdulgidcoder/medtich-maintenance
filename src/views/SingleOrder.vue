@@ -7,7 +7,7 @@ export default {
   data() {
     return {
       orderID: this.$route.params.id,
-      order_data: this.ordersStore.singleOrder,
+      order_data: {},
       allowCustomerData:
         this.$auth.user_data?.id ==
         this.ordersStore.singleOrder?.acf?.technician,
@@ -24,21 +24,34 @@ export default {
   },
   created() {
     document.title = "Order";
-    this.fetchOrder();
+    if (!this.ordersStore.myList) {
+      this.fetchOrder();
+      this.pollingOrder();
+    } else {
+      this.ordersStore.myList.find((item) => {
+        if (item.id == this.orderID) {
+          this.loader = false;
+          this.order_data = item; 
+          this.pollingOrder();
+        }
+      });
+    }
   },
   methods: {
     fetchOrder() {
       this.ordersStore.getOrder(this.orderID).then(() => {
+        this.order_data = this.ordersStore.singleOrder;
         setTimeout(() => {
           this.loader = false;
-        }, 200);
-        this.pollingOrder();
+        }, 200);       
       });
     },
     pollingOrder() {
       this.polling = setInterval(() => {
-        this.ordersStore.getOrder(this.orderID);
-      }, 5000);
+        this.ordersStore.getOrder(this.orderID).then(() => {
+          this.order_data = this.ordersStore.singleOrder;
+        });
+      }, this.pollTimer);
     },
   },
 };
@@ -50,7 +63,7 @@ export default {
     </Head>
     <Content :isBoxed="true" :pullToRefresh="true">
       <DetailsLoader v-if="loader" />
-      <Details v-else :details="this.ordersStore.singleOrder"></Details>
+      <Details v-else :details="order_data"></Details>
     </Content>
   </Page>
 </template>

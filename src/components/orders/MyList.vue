@@ -53,7 +53,11 @@ export default {
           this.currPage,
           this.per_page,
           this.status
-        );
+        ).then(() => {
+          setTimeout(() => {
+            this.loader = false;
+          }, 100);
+        });
       }, this.pollTimer);
     },
     onPageChange(page) {
@@ -79,12 +83,14 @@ export default {
         الكل
       </button>
       <button
+      v-if="this.$auth.role== 'customer'"
         :class="{ active: status == 'active' }"
         @click="fillterbyStatus('active', $event.target)"
       >
         تلقى العروض
       </button>
       <button
+      v-if="this.$auth.role == 'customer'"
         :class="{ active: status == 'pending' }"
         @click="fillterbyStatus('pending', $event.target)"
       >

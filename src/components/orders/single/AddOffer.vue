@@ -23,25 +23,7 @@ export default {
     const ordersStore = useOrdersStore();
     return { ordersStore };
   },
-  methods: {
-    validField(ele) {
-      if (ele.value.length >= 5) {
-        ele.classList.remove("is-invalid");
-        ele.classList.add("is-valid");
-      } else {
-        ele.classList.remove("is-valid");
-        ele.classList.add("is-invalid");
-      }
-    },
-    validNumber(ele) {
-      if (ele.value.length >= 2) {
-        ele.classList.remove("is-invalid");
-        ele.classList.add("is-valid");
-      } else {
-        ele.classList.remove("is-valid");
-        ele.classList.add("is-invalid");
-      }
-    },
+  methods: { 
     handelSubmit(order, ele) {
       if (this.offer.price >= 2) {
         if (this.offer.details.length >= 5) {
@@ -84,34 +66,30 @@ export default {
         v-model="offer.price"
         type="number"
         label="قيمة العرض (جنية)"
-        @keyup="validNumber($event.target)"
+        :length="1"
       />
       <Field
         v-model="offer.details"
         type="textarea"
         label="تفاصيل العرض"
-        @keyup="validField($event.target)"
+        :length="5"
       />
       <div class="form-actions">
         <button class="btn btn-primary" type="submit" :disabled="adding">
-          <span v-if="!adding">إرسال</span>
-          <span v-else>
+          <template v-if="!adding">إرسال</template>
+          <template v-else>
             <span
               class="spinner-border spinner-border-sm"
               role="status"
               aria-hidden="true"
             ></span>
             إرسال...
-          </span>
+          </template>
         </button>
         <button
           class="btn"
           type="button"
-          @closeModal="
-            () => {
-              this.addOfferModal = false;
-            }
-          "
+          @click=" this.addOfferModal = false;"
         >
           إالغاء
         </button>
@@ -130,15 +108,5 @@ export default {
     margin-bottom: 15px;
   }
 }
-.form-actions {
-  margin-top: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  .btn {
-    &:not(:last-child) {
-      margin-left: 25px;
-    }
-  }
-}
+
 </style>

@@ -45,8 +45,12 @@ export default {
         this.ordersStore.ftechLast(
           this.$auth.user_data?.acf["area"],
           this.per_page
-        );
-      }, 5000);
+        ).then(() => {
+          setTimeout(() => {
+            this.loader = false;
+          }, 100);
+        });
+      }, 3000);
     },
   },
 };
