@@ -1,18 +1,20 @@
 <script>
 import { defineAsyncComponent } from "vue";
-  
 export default {
-   components: {
+  components: {
     FaqList: defineAsyncComponent(() =>
-      import("../components/support/FaqList.vue")
+      import("@/components/support/FaqList.vue")
     ),
-  }, 
+  },
+  created() {
+    document.title = "Faq";
+  },
 };
 </script>
 <template>
-  <Page class="app-orders-page">
+  <Page class="app-faq-page">
     <Head title="الأسئلة الشائعة" goBack="true" />
-    <Content :pullToRefresh="true" :isBoxed="true" :notBottom="true">
+    <Content :pullToRefresh="false" :isBoxed="true" :notBottom="true">
       <FaqList
         :per_page="12"
         :pagination="true"
@@ -21,5 +23,3 @@ export default {
     </Content>
   </Page>
 </template>
-
-<style lang="scss"></style>

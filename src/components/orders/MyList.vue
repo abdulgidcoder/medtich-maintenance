@@ -9,8 +9,9 @@ export default {
     currentPage: Number,
     per_page: Number,
     pagination: Boolean,
-    paginClass: String,
+    paginClass: String, 
   },
+  expose: ['fetchOrders'],
   data() {
     return {
       loader: true,
@@ -34,30 +35,23 @@ export default {
       this.loader = false;
       this.pollingOrders();
     }
-  },
+  }, 
   methods: {
     fetchOrders() {
       this.loader = true;
       this.ordersStore
-        .ftechMyOrders(this.$auth, this.currPage, this.per_page, this.status)
+        .ftechMyOrders(this.$auth, this.status, this.currPage, this.per_page)
         .then(() => {
-          setTimeout(() => {
-            this.loader = false;
-          }, 100);
+          this.loader = false;
         });
     },
     pollingOrders() {
       this.polling = setInterval(() => {
-        this.ordersStore.ftechMyOrders(
-          this.$auth,
-          this.currPage,
-          this.per_page,
-          this.status
-        ).then(() => {
-          setTimeout(() => {
+        this.ordersStore
+          .ftechMyOrders(this.$auth, this.status, this.currPage, this.per_page)
+          .then(() => {
             this.loader = false;
-          }, 100);
-        });
+          });
       }, this.pollTimer);
     },
     onPageChange(page) {
@@ -83,14 +77,14 @@ export default {
         الكل
       </button>
       <button
-      v-if="this.$auth.role== 'customer'"
+        v-if="this.$auth.role == 'customer'"
         :class="{ active: status == 'active' }"
         @click="fillterbyStatus('active', $event.target)"
       >
         تلقى العروض
       </button>
       <button
-      v-if="this.$auth.role == 'customer'"
+        v-if="this.$auth.role == 'customer'"
         :class="{ active: status == 'pending' }"
         @click="fillterbyStatus('pending', $event.target)"
       >
@@ -127,7 +121,6 @@ export default {
       ></MyItem>
     </ul>
   </div>
-
   <EmptyContent
     title="ليس لديك اى طلبات"
     v-if="(!loader && !this.ordersStore.myList) || this.ordersStore.myList == 0"

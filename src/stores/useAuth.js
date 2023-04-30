@@ -7,7 +7,7 @@ export const useAuthStore = defineStore("auth", {
     loggedIn: localStorage.getItem("token") ? true : false,
     role: localStorage.getItem("userData")
       ? JSON.parse(localStorage.getItem("userData")).roles[0]
-      : {},
+      : '',
     user_data: localStorage.getItem("userData")
       ? JSON.parse(localStorage.getItem("userData"))
       : {},
@@ -94,8 +94,9 @@ export const useAuthStore = defineStore("auth", {
       localStorage.removeItem("token");
       localStorage.removeItem("userData");
       localStorage.removeItem("currentTab");
-      this.$reset();
-      
+      this.loggedIn = false;
+      this.role = {};
+      this.user_data = {};
     },
     async updateUser(data) {
       let response = await axios({
@@ -140,7 +141,6 @@ export const useAuthStore = defineStore("auth", {
       localStorage.setItem("userData", JSON.stringify(response.data));
       this.user_data = response.data;
       this.role = response.data.roles[0];
-
     },
     async connectionStatus() {
       const response = await axios({

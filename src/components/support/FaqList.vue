@@ -9,7 +9,7 @@ export default {
   },
   data() {
     return {
-      activeIteme: 1,
+      activeItem: "",
       loader: true,
       currPage: this.currentPage ? this.currentPage : 1,
       polling: null,
@@ -19,10 +19,7 @@ export default {
     const storeSupport = useSupportStore();
     return { storeSupport };
   },
-  beforeUnmount() {
-    clearInterval(this.polling);
-  },
-  created() {
+  mounted() {
     if (!this.storeSupport.list) {
       this.fetchFaq();
       this.pollingFaq();
@@ -31,21 +28,20 @@ export default {
       this.pollingFaq();
     }
   },
+  beforeUnmount() {
+    clearInterval(this.polling);
+  },
   methods: {
     fetchFaq() {
       this.loader = true;
       this.storeSupport.ftechFaq(this.currPage, this.per_page).then(() => {
-        setTimeout(() => {
-          this.loader = false;
-        }, 400);
+        this.loader = false;
       });
     },
     pollingFaq() {
       this.polling = setInterval(() => {
         this.storeSupport.ftechFaq(this.currPage, this.per_page).then(() => {
-          setTimeout(() => {
-            this.loader = false;
-          }, 400);
+          this.loader = false;
         });
       }, this.pollTimer);
     },
@@ -53,48 +49,38 @@ export default {
       this.currPage = page;
       this.fetchFaq();
     },
-    fillterbyStatus(status, ele) {
-      this.status = status;
-      this.currPage = 1;
-      this.fetchFaq();
-    },
   },
 };
 </script>
 <template>
   <div class="app-accordion">
-    <div class="app-filter-items">
-      <template v-if="loader">
-        <TransitionGroup name="list" tag="ul">
-          <li v-for="n in this.per_page" :key="n" class="item-loader">
-            <Skeleton width="100%" height="14px" />
-          </li>
-        </TransitionGroup>
-      </template>
-      <template v-else>
-        <TransitionGroup name="list" tag="ul">
-          <li
-            class="app-filter-item"
-            :class="{ active: activeIteme == faq.id }"
-            @click="this.activeIteme = faq.id"
-            v-for="(faq, index) in this.storeSupport.list"
-            :key="index"
-          >
-            <div class="head">
-              <a href="#">
-                <span>{{ index + 1 }}</span
-                >{{ faq.title.rendered }}</a
-              >
+    <template v-if="loader">
+      <TransitionGroup name="list" tag="ul">
+        <li v-for="n in this.per_page" :key="n" class="item-loader">
+          <Skeleton width="100%" height="14px" />
+        </li>
+      </TransitionGroup>
+    </template>
+    <template v-else>
+      <TransitionGroup name="list" tag="ul">
+        <li
+          class="app-filter-item"
+          :class="{ active: activeItem == faq.id }"
+          v-for="(faq, index) in this.storeSupport.list"
+          :key="index"
+        >
+          <div class="head" @click="activeItem = faq.id">
+            <span>{{ index + 1 }}</span
+            >{{ faq.title.rendered }}
+          </div>
+          <transition name="slidedown">
+            <div class="content" v-if="this.activeItem == faq.id">
+              <p v-html="faq.content.rendered"></p>
             </div>
-            <transition name="slidedown">
-              <div class="content" v-if="this.activeIteme == faq.id">
-                <p v-html="faq.title.rendered"></p>
-              </div>
-            </transition>
-          </li>
-        </TransitionGroup>
-      </template>
-    </div>
+          </transition>
+        </li>
+      </TransitionGroup>
+    </template>
   </div>
   <EmptyContent
     title="لايوجد اى أسئلة"
@@ -112,5 +98,3 @@ export default {
     />
   </div>
 </template>
-
-<style lang="scss"></style>

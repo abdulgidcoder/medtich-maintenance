@@ -1,10 +1,7 @@
 <script> 
 export default {
-  props: { show: Boolean },
-  components: { Tab },
   data() {
-    return {
-      auth_user: this.$auth,
+    return { 
     };
   },
 };

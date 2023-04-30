@@ -41,26 +41,51 @@
       text-align: center;
       line-height: 1.15;
       position: relative;
-      overflow: hidden;
-      &:active { 
-        &::before {
-          opacity: .6;
-          transform: scale(1) translate(-50%,-50%); 
+      padding: 0 5px;
+      a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        border-top: 2px solid transparent;
+        transition: all 0.4s ease-in-out;
+        position: relative;
+        max-width: 80px;
+        margin: 0 auto;
+        overflow: hidden;
+        .badge {
+          position: absolute;
+          top: 0;
+          right: 8px;
+          color: #fff;
+          background-color: var(--primary);
+          font-size: 10px;
+          height: 20px;
+          width: 20px;
+          border-radius: 8px;
         }
-      }
-      &::before {
-        content: "";
-        width: 100px;
-        height: 100px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        // margin: -50% 0  0 -50%;
-        border-radius: 50px;
-        background-color: var(--grey);
-        transform: scale(.9) translate(-50%,-50%);
-        opacity: 0;
-        transition: all 0.25s ease;
+        &:active {
+          &::before {
+            opacity: 0.9;
+            transform: scaleX(1);
+          }
+        }
+        &::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: -3px;
+          width: 80px;
+          height: 70px;
+          border-radius: 50px;
+          background-color: var(--grey);
+          transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+          transform: scaleX(0.9);
+          opacity: 0;
+          z-index: -1;
+        }
       }
       .router-link-active {
         border-color: var(--primary);
@@ -85,31 +110,6 @@
       }
       &:focus {
         color: var(--primary);
-      }
-      a {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100%;
-        padding: 5px;
-        border-top: 5px solid transparent;
-        transition: all 0.4s ease-in-out;
-        position: relative;
-        max-width: 80px;
-        margin: 0 auto;
-        .badge {
-          position: absolute;
-          top: 0;
-          right: 8px;
-          color: #fff;
-          background-color: var(--primary);
-          font-size: 10px;
-          height: 20px;
-          width: 20px;
-          border-radius: 8px;
-        }
       }
     }
   }

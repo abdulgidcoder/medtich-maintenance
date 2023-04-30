@@ -9,7 +9,7 @@ export default {
 <template>
   <header class="app-header">
     <div class="app-header_left" v-if="goBack">
-      <button @click="$router.go(-1)" class="app-btn-back">
+      <button @click="this.$router.go(-1)" class="app-btn-back">
         <Icon name="arrow-left" />
       </button>
     </div>

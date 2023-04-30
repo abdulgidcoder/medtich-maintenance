@@ -17,7 +17,7 @@ export default {
 <Head title="تقاريرى" goBack="true"/>
     <Content :isBoxed="true" :pullToRefresh="true">
       <MyReportsList
-        :per_page="8"
+        :per_page="10"
         :pagination="true"
         paginClass="app-fixed-bottom"
       />

@@ -1,26 +1,28 @@
-<script> 
-import { defineAsyncComponent } from "vue"; 
-export default {
-  props: { show: Boolean },
-  components: { 
-    MyOrdersList: defineAsyncComponent(() => import("../orders/MyList.vue")),
+<script>
+import { useOrdersStore } from "@/stores/useOrders.js";
+import MyOrdersList from "../orders/MyList.vue";
+export default { 
+  components: {
+    MyOrdersList,
   },
-  data() {
-    return {
-      auth_user: this.$auth,
-    };
+  setup() {
+    const ordersStore = useOrdersStore();
+    return { ordersStore };
   },
-  created(){
-  
-  }
+  methods: {
+    reloadMyOrders() {
+      this.$refs.MyOrdersList.fetchOrders();
+    },
+  },
 };
 </script>
-<template> 
+<template>
   <div class="app-tab-view app-my-orders-page">
     <Head title="طلباتى" />
-    <Content :isBoxed="true" :pullToRefresh="true">
+    <Content :isBoxed="true" :pullToRefresh="true" @onRefresh="reloadMyOrders">
       <MyOrdersList
-        :per_page="8"
+        ref="MyOrdersList"
+        :per_page="10"
         :pagination="true"
         paginClass="app-fixed-bottom"
       />

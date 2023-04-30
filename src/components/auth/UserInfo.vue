@@ -3,7 +3,8 @@
     <div class="app-avatar">
       <img
         :src="this.$auth.user_data?.avatar_urls['48']"
-        :alt="this.$auth.user_data?.name"
+        :alt="this.$auth.user_data?.name" 
+     
       />
       <!-- <input
         type="file"

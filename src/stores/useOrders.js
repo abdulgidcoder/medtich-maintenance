@@ -25,7 +25,7 @@ export const useOrdersStore = defineStore("orders", {
           params: {
             _fields: "id,date,title,acf.offers,acf.status",
             area_only: area,
-            per_page: per_page ? per_page : 5,
+            per_page: per_page ? per_page : 6,
           },
         });
         if (response.data) {
@@ -46,7 +46,7 @@ export const useOrdersStore = defineStore("orders", {
             _fields: "id,date,title,acf.offers,acf.status",
             area_only: area,
             page: currentPage ? currentPage : 1,
-            per_page: per_page ? per_page : 5,
+            per_page: per_page ? per_page : 10,
           },
         });
         if (response.data) {
@@ -55,12 +55,12 @@ export const useOrdersStore = defineStore("orders", {
         }
       }
     },
-    async ftechMyOrders(user, currentPage, per_page, fillter_status) {
+    async ftechMyOrders(user, fillter_status, currentPage, per_page) {
       if (user.role == "customer") {
         const response = await axios({
           method: "get",
           url: "/wp-json/wp/v2/orders",
-          timeout: 3000,
+          timeout: 2000,
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
@@ -68,7 +68,7 @@ export const useOrdersStore = defineStore("orders", {
             _fields: "id,date,title,content,acf",
             status_order: fillter_status,
             page: currentPage ? currentPage : 1,
-            per_page: per_page ? per_page : 5,
+            per_page: per_page ? per_page : 10,
             author: user.user_data.id,
           },
         });
@@ -81,7 +81,7 @@ export const useOrdersStore = defineStore("orders", {
         const response = await axios({
           method: "get",
           url: "/wp-json/wp/v2/orders",
-          timeout: 3000,
+          timeout: 2000,
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
@@ -89,7 +89,7 @@ export const useOrdersStore = defineStore("orders", {
             _fields: "id,date,title,content,acf",
             status_order: fillter_status,
             page: currentPage ? currentPage : 1,
-            per_page: per_page ? per_page : 5,
+            per_page: per_page ? per_page : 10,
             technician: user.user_data.id,
           },
         });
@@ -163,7 +163,7 @@ export const useOrdersStore = defineStore("orders", {
     async getOrder(id) {
       const response = await axios({
         method: "get",
-        timeout: 3000,
+        timeout: 2000,
         url: "/wp-json/wp/v2/orders/" + id,
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),

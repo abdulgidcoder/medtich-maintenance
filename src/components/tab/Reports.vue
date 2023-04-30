@@ -1,7 +1,6 @@
 <script>
 import { defineAsyncComponent } from "vue";
-export default {
-  props: { show: Boolean },
+export default { 
   components: {
     MyReportsList: defineAsyncComponent(() => import("../report/List.vue")),
   },
@@ -17,8 +16,8 @@ export default {
   <div class="app-tab-view app-reports-page">
     <Head title="تقاريرى" />
     <Content :isBoxed="true"  :pullToRefresh="true">
-      <MyReportsList
-        :per_page="8"
+      <MyReportsList 
+      :per_page="10"
         :pagination="true"
         paginClass="app-fixed-bottom"
       />

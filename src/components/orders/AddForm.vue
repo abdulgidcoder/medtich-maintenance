@@ -3,6 +3,10 @@ import { useOrdersStore } from "@/stores/useOrders.js";
 import { useError } from "@/stores/useError";
 import { Geolocation } from "@capacitor/geolocation";
 import { Capacitor } from "@capacitor/core";
+
+
+
+
 import Icon from "../Icon.vue";
 export default {
   components: { Icon },
@@ -29,7 +33,7 @@ export default {
     const errorStore = useError();
     return { ordersStore, errorStore };
   },
-  async mounted() {
+    mounted() {
     document.title = "Add Order";
     this.order.area = this.$auth.user_data.acf?.area;
     this.order.name = this.$auth.user_data.name;
@@ -44,9 +48,12 @@ export default {
     chooseArea(data, indexArr) {
       this.order.area = data[0].id;
     },
-    async setCurrentLocation() {
+    async setCurrentLocation() { 
       if (Capacitor.isNativePlatform()) {
         await Geolocation.requestPermissions();
+//        NativeSettings.openAndroid({
+//   option: AndroidSettings.ApplicationDetails,
+// });
       }
       await Geolocation.getCurrentPosition()
         .then((data) => {
@@ -125,12 +132,12 @@ export default {
   },
 };
 </script>
-<template> 
+<template>
   <form @submit.prevent="handleSubmit($event.target)">
     <Field
       v-model="order.title"
       type="text"
-      label="العنوان"
+      label="عنوان الطلب"
       :required="true"
       :length="5"
     />
@@ -154,7 +161,6 @@ export default {
       label="البريد الالكترونى"
       :required="true"
     />
-    <Field v-model="order.date" type="date" icon="calendar" label="التاريخ" />
     <Field
       v-model="order.serial_number"
       type="text"

@@ -38,12 +38,11 @@ export default {
     }
   },
   methods: {
-    fetchOrder() {
+    fetchOrder() { 
+      this.loader = true; 
       this.ordersStore.getOrder(this.orderID).then(() => {
-        this.order_data = this.ordersStore.singleOrder;
-        setTimeout(() => {
-          this.loader = false;
-        }, 200);       
+        this.order_data = this.ordersStore.singleOrder; 
+        this.loader = false;  
       });
     },
     pollingOrder() {
@@ -59,9 +58,9 @@ export default {
 <template>
   <Page class="app-order-page">
     <Head title="تفاصيل الطلب" goBack="true">
-      <template #right> </template>
+      <template #right></template>
     </Head>
-    <Content :isBoxed="true" :pullToRefresh="true">
+    <Content :isBoxed="true" :pullToRefresh="true" @onRefresh="fetchOrder">
       <DetailsLoader v-if="loader" />
       <Details v-else :details="order_data"></Details>
     </Content>

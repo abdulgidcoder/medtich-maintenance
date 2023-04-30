@@ -2,8 +2,7 @@
 import UserInfo from "../auth/UserInfo.vue";
 import InfoUser from "../InfoUser.vue";
 import Menu from "../Menu.vue";
-export default {
-  props: { show: Boolean },
+export default { 
   components: { Menu, UserInfo, InfoUser },
   data() {
     return {
@@ -15,7 +14,7 @@ export default {
 <template>
   <div class="app-tab-view app-profile-page">
     <Head title="حسابى" />
-    <Content :isBoxed="true">
+    <Content :isBoxed="true" :disableOffline="true">
       <InfoUser />
       <UserInfo />
       <Menu />

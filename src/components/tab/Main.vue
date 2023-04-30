@@ -1,29 +1,16 @@
 <script>
-import { defineAsyncComponent } from "vue";
-import InfoUser from "../InfoUser.vue";
-import TopbarHome from "../TopbarHome.vue";
-import { useOrdersStore } from "@/stores/useOrders.js";
 import { StatusBar, Style } from "@capacitor/status-bar";
 import { Capacitor } from "@capacitor/core";
+import InfoUser from "../InfoUser.vue";
+import TopbarHome from "../TopbarHome.vue";
+import LastOrders from "../orders/Latest.vue";
 export default {
-  props: { show: Boolean },
   components: {
-    LastOrders: defineAsyncComponent({
-      loader: () => import("../orders/LastOrders.vue"),
-    }),
+    LastOrders,
     InfoUser,
     TopbarHome,
   },
-  setup() {
-    const ordersStore = useOrdersStore();
-    return { ordersStore };
-  },
-  data() {
-    return {
-      auth_user: this.$auth,
-    };
-  },
-  created() {
+  mounted() {
     if (Capacitor.isNativePlatform()) {
       StatusBar.setStyle({ style: Style.Light });
       StatusBar.setBackgroundColor({
@@ -39,12 +26,19 @@ export default {
       });
     }
   },
+  methods: {
+    reloadOrders() {
+      if(this.$auth.role == 'technician'){
+        this.$refs.LastOrders.fetchOrders();
+      }
+    },
+  },
 };
 </script>
 <template>
   <div class="app-tab-view app-home-page">
     <TopbarHome />
-    <Content :pullToRefresh="true">
+    <Content :pullToRefresh="true" @onRefresh="reloadOrders">
       <InfoUser />
       <h2 class="app-welcome-back">
         {{ "أهلا بك, " + this.$auth.user_data.name + "!" }}
@@ -70,8 +64,8 @@ export default {
           <h2 class="h1">اخر الطلبات</h2>
           <RouterLink to="/orders">عرض الكل</RouterLink>
         </div>
-        <LastOrders :per_page="6" />
-      </section>
+        <LastOrders ref="LastOrders" :per_page="6" />
+      </section> 
     </Content>
   </div>
 </template>

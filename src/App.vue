@@ -3,6 +3,7 @@ import { defineAsyncComponent } from "vue";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/stores/useAuth";
 import { StatusBar, Style } from "@capacitor/status-bar";
+import { useError } from "@/stores/useError";
 import { App as AppCap } from "@capacitor/app";
 import { Capacitor } from "@capacitor/core";
 // import { SplashScreen } from '@capacitor/splash-screen';
@@ -18,23 +19,35 @@ export default {
   },
   setup() {
     const authStore = useAuthStore();
+    const errorStore = useError();
     const { connection } = storeToRefs(authStore);
-    return { connection };
+    return { connection, errorStore };
   },
   watch: {
     // Watch Connection if is false and Stop update App
-    connection(status) {
-      console.log("Connection: " + status);
+    connection(status) { 
+      this.errorStore.show = true;
       if (!status) {
         const interval_id = window.setInterval(function () {},
         Number.MAX_SAFE_INTEGER);
         for (let i = 1; i < interval_id; i++) {
           window.clearInterval(i);
         }
+        this.errorStore.style = "warning";
+        this.errorStore.masg = "انت غير متصل بالانترنت";
+      } else {
+        this.errorStore.style = "success";
+        this.errorStore.masg = "تم الاتصال بالانترنت";
+        this.$ftechUserData();
       }
     },
   },
   async created() {
+    // Update User data
+    if (localStorage.getItem("token") != undefined) { 
+    } else {
+      clearInterval(this.$ftechUserData);
+    }    
     /* RTL */
     document.querySelector("html").setAttribute("dir", "rtl");
 
@@ -62,8 +75,6 @@ export default {
           AppCap.exitApp();
         }
       });
-
-   
     }
   },
   methods: {},

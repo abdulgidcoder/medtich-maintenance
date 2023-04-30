@@ -7,6 +7,7 @@ export default {
   props: {
     per_page: Number,
   },
+  expose: ["fetchOrders"],
   data() {
     return {
       loader: true,
@@ -31,25 +32,20 @@ export default {
   },
   methods: {
     fetchOrders() {
+      this.loader = true;
       this.ordersStore
         .ftechLast(this.$auth.user_data?.acf["area"], this.per_page)
         .then(() => {
-          setTimeout(() => {
-            this.loader = false;
-          }, 100);
+          this.loader = false;
         });
-     
     },
     pollingOrders() {
       this.polling = setInterval(() => {
-        this.ordersStore.ftechLast(
-          this.$auth.user_data?.acf["area"],
-          this.per_page
-        ).then(() => {
-          setTimeout(() => {
+        this.ordersStore
+          .ftechLast(this.$auth.user_data?.acf["area"], this.per_page)
+          .then(() => {
             this.loader = false;
-          }, 100);
-        });
+          });
       }, 3000);
     },
   },

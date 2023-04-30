@@ -9,8 +9,9 @@ export default {
     currentPage: Number,
     per_page: Number,
     pagination: Boolean,
-    paginClass: String,
+    paginClass: String, 
   },
+  expose: ["fetchOrders"],
   data() {
     return {
       loader: true,
@@ -44,22 +45,20 @@ export default {
           this.per_page
         )
         .then(() => {
-          setTimeout(() => {
-            this.loader = false;
-          }, 100);
+          this.loader = false;
         });
     },
     pollingOrders() {
       this.polling = setInterval(() => {
-        this.ordersStore.ftechOrders(
-          this.$auth.user_data?.acf["area"],
-          this.currPage,
-          this.per_page
-        ).then(() => {
-          setTimeout(() => {
+        this.ordersStore
+          .ftechOrders(
+            this.$auth.user_data?.acf["area"],
+            this.currPage,
+            this.per_page
+          )
+          .then(() => {
             this.loader = false;
-          }, 100);
-        });
+          });
       }, this.pollTimer);
     },
     onPageChange(page) {
@@ -71,7 +70,7 @@ export default {
 </script>
 
 <template>
-  <div class="orders-list">
+  <div class="orders-list"> 
     <ul v-if="loader">
       <ItemLoader v-for="n in this.per_page" :key="n" />
     </ul>

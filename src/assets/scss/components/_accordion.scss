@@ -7,8 +7,8 @@
       margin-bottom: 10px;
       padding: 0 16px;
       box-shadow: 0 3px 7px #0000001f;
-      &.item-loader{
-      padding: 15px!important;
+      &.item-loader {
+        padding: 15px !important;
       }
       &.active {
         .head {
@@ -19,28 +19,24 @@
       }
       .head {
         position: relative;
-        padding: 12px 0;
-        margin-bottom: 0; 
-        a {
-          display: block;
-          padding: 0 18px 0 38px;
-          position: relative;
-          font-weight: 500;
-          span {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%);
-            display: inline-block;
-            width: 22px;
-            height: 22px;
-            line-height: 22px;
-            margin-right: 8px;
-            background-color: var(--bg-white);
-            border-radius: 50%;
-            box-shadow: 0 1px 5px #01556b4a;
-            text-align: center;
-          }
+        margin-bottom: 0;
+        padding: 12px 18px 12px 38px;
+        font-weight: 500;
+        span {
+          position: absolute;
+          top: 50%;
+          left: 0;
+          transform: translateY(-50%);
+          display: inline-block;
+          width: 22px;
+          height: 22px;
+          line-height: 22px;
+          margin-right: 8px;
+          background-color: var(--primary);
+              color: var(--white);
+          border-radius: 50%;
+          box-shadow: 0 1px 5px #01556b4a;
+          text-align: center;
         }
         &::after {
           content: "";
@@ -59,11 +55,11 @@
           background: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="M119.5 326.9L3.5 209.1c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0L128 287.3l100.4-102.2c4.7-4.7 12.3-4.7 17 0l7.1 7.1c4.7 4.7 4.7 12.3 0 17L136.5 327c-4.7 4.6-12.3 4.6-17-.1z"/></svg>');
         }
       }
-      .content { 
+      .content {
         padding: 12px 0;
         border-top: 1px solid var(--grey);
-        p { 
-          color: var(--black); 
+        p {
+          color: var(--black);
         }
       }
     }

@@ -7,4 +7,4 @@ export default {};
       <component :is="Component" />
     </transition>
   </router-view>
-</template> 
+</template>

@@ -6,8 +6,8 @@ import { useError } from "@/stores/useError";
 export default {
   data() {
     return {
-      mobile: "",
-      password: "",
+      mobile: "010327004",
+      password: "123456789",
       hasFeedback: false,
       feedbackStyle: "",
       feedback: "",
@@ -93,7 +93,7 @@ export default {
 
 <template>
   <Page class="app-page-auth">
-    <Content>
+    <Content :disableOffline="true">
       <AppLogo />
       <h1>مرحبًا بعودتك</h1>
       <form @submit.prevent="handleSubmit($event.target)">
