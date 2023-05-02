@@ -69,7 +69,7 @@
       </template>
     </Card>
     <div class="app-fixed-bottom">
-      <Skeleton width="120px" height="42px" style="margin-left: 15px" />
+      <Skeleton width="51px" height="42px" style="margin-left: 15px" />
       <Skeleton width="200px" height="42px" />
     </div>
   </div>

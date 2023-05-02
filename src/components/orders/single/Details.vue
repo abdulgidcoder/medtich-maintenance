@@ -1,8 +1,8 @@
 <script>
 import { useOrdersStore } from "@/stores/useOrders.js";
-import AddOffer from "./AddOffer.vue"; 
+import AddOffer from "./AddOffer.vue";
 import OfferItem from "./OfferItem.vue";
-import Chekout from './Chekout.vue';
+import Chekout from "./Chekout.vue";
 
 export default {
   components: { AddOffer, OfferItem, Chekout },
@@ -13,7 +13,6 @@ export default {
         this.$auth.user_data?.id ==
         this.ordersStore.singleOrder?.acf?.technician,
       allowAcceptOffer: null,
-     
     };
   },
   setup() {
@@ -27,6 +26,7 @@ export default {
   },
   created() {
     this.acceptedOffer(this.details.acf?.offers);
+    document.title = this.details.title?.rendered;
   },
   methods: {
     acceptedOffer(offers) {
@@ -52,10 +52,14 @@ export default {
     <Info
       mode="info"
       msg="يتم مراجعة عملية الدفع من قبل الادارة"
-      :show="(details.acf['status'] == 'active' || details.acf['status'] == 'pending') && details.acf?.set_paid"
+      :show="
+        (details.acf['status'] == 'active' ||
+          details.acf['status'] == 'pending') &&
+        details.acf?.set_paid
+      "
     />
-    <div class="app-order-details_head">
-      <h3 v-html="details.title?.rendered" class="order-title"></h3>
+    <div class="app-order-details_head"> 
+      <h3 class="order-title">{{ details.title?.rendered }}</h3>
       <div class="order-meta">
         <span>
           <Icon name="clock" />
@@ -63,7 +67,7 @@ export default {
         </span>
         <span>
           <Icon name="location" />
-          <span> {{ $nameArea(details.acf?.area) }}</span>
+          <span> {{ $nameCity(details.acf?.city) }}</span>
         </span>
         <span class="order-status">
           <span
@@ -100,10 +104,10 @@ export default {
     <Card>
       <template #title> تفاصيل الطلب </template>
       <template #body>
-        <ul class="order-details">
-          <li>
-            <strong>التاريخ</strong>
-            <p>{{ details.acf?.date }}</p>
+        <ul class="order-details"> 
+           <li>
+            <strong>المنطقة</strong>
+            <p>{{ details.acf?.region }}</p>
           </li>
           <li>
             <strong>الرقم التسلسلي للجهاز</strong>
@@ -117,7 +121,7 @@ export default {
       </template>
     </Card>
 
-    <Card v-if="myOrder">
+    <Card v-if="myOrder || this.$auth.role == 'customer'">
       <template #title>بيانات العميل</template>
       <template #body>
         <ul class="order-details">
@@ -128,6 +132,10 @@ export default {
           <li>
             <strong>الهاتف</strong>
             <p>{{ details.acf?.mobile }}</p>
+          </li>
+          <li>
+            <strong>البريد الالكترونى</strong>
+            <p>{{ details.acf?.email }}</p>
           </li>
         </ul>
       </template>
@@ -154,7 +162,7 @@ export default {
       />
       <Chekout
         v-if="this.$auth.role == 'customer' && !details.acf?.set_paid"
-      :order="details"
+        :order="details"
       />
       <RouterLink
         v-if="
@@ -169,8 +177,12 @@ export default {
         }"
         >إضافة تقرير</RouterLink
       >
-   
+
       <a
+        v-if="
+          (myOrder && this.$auth.role == 'technician') ||
+          this.$auth.role == 'customer'
+        "
         class="btn btn-outline-primary"
         target="_blank"
         :href="
@@ -184,6 +196,4 @@ export default {
       </a>
     </div>
   </div>
-
 </template>
-

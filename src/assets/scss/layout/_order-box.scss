@@ -4,6 +4,10 @@
   padding: 10px;
   margin-bottom: 12px;
   background: var(--light);
+   transition: background-color 0.25s ease-out;
+    &:active {
+      background-color: var(--bg-grey);
+    }
   .order-meta {
     display: flex;
     align-items: center;
@@ -29,42 +33,51 @@
   }
 }
 
-.my-order-item {
-  padding-bottom: 10px;
-  margin-bottom: 12px;
-  border-bottom: 1px solid var(--grey);
-  a {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    line-height: 1;
+.my-orders-list {
+  min-height: 74vh;
+  ul {
+    margin: 0 -15px;
   }
-  .app-icon{
-    color: var(--medium);
-    svg {
-      width: 14px; 
+  .my-order-item {
+    padding: 10px 15px 10px;
+    border-bottom: 1px solid var(--grey);
+    background-color: var(--white);
+    transition: background-color 0.25s ease-out;
+    &:active {
+      background-color: var(--bg-grey);
     }
-  }
-  .item-wrap {
-    flex-grow: 1;
-    margin-right: 15px;
-  }
-  .order-meta {
-    font-size: 0.75rem;
-    > span {
-      color: var(--dark);
-      vertical-align: middle;
-      &:not(:first-child) {
-        margin-left: 10px;
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      line-height: 1;
+    }
+    .app-icon {
+      color: var(--medium);
+      svg {
+        width: 14px;
       }
     }
-    svg {
-      width: auto;
-      height: 10px;
-      vertical-align: middle;
-      margin-right: 5px;
-      fill: var(--primary);
+    .item-wrap {
+      flex-grow: 1;
+      margin-right: 15px;
+    }
+    .order-meta {
+      font-size: 0.75rem;
+      > span {
+        color: var(--dark);
+        vertical-align: middle;
+        &:not(:first-child) {
+          margin-left: 10px;
+        }
+      }
+      svg {
+        width: auto;
+        height: 10px;
+        vertical-align: middle;
+        margin-right: 5px;
+        fill: var(--primary);
+      }
     }
   }
 }
-

@@ -60,7 +60,7 @@ export default {
     <Head title="تفاصيل الطلب" goBack="true">
       <template #right></template>
     </Head>
-    <Content :isBoxed="true" :pullToRefresh="true" @onRefresh="fetchOrder">
+    <Content :isBoxed="true" :pullToRefresh="true"  :notBottom="true" @onRefresh="fetchOrder">
       <DetailsLoader v-if="loader" />
       <Details v-else :details="order_data"></Details>
     </Content>

@@ -17,7 +17,8 @@ export default {
         name: "",
         mobile: "",
         email: "",
-        area: "",
+        city: "",
+        region: "",
         date: "",
         serial_number: "",
         company: "",
@@ -35,7 +36,7 @@ export default {
   },
     mounted() {
     document.title = "Add Order";
-    this.order.area = this.$auth.user_data.acf?.area;
+    this.order.city = this.$auth.user_data.acf?.area;
     this.order.name = this.$auth.user_data.name;
     this.order.mobile = this.$auth.user_data.username;
   },
@@ -45,15 +46,12 @@ export default {
       this.errorStore.show = true;
       this.errorStore.masg = " اضاف " + error + "!";
     },
-    chooseArea(data, indexArr) {
-      this.order.area = data[0].id;
+    choosecity(data, indexArr) {
+      this.order.city = data[0].id;
     },
     async setCurrentLocation() { 
       if (Capacitor.isNativePlatform()) {
-        await Geolocation.requestPermissions();
-//        NativeSettings.openAndroid({
-//   option: AndroidSettings.ApplicationDetails,
-// });
+        await Geolocation.requestPermissions(); 
       }
       await Geolocation.getCurrentPosition()
         .then((data) => {
@@ -70,7 +68,7 @@ export default {
     },
     handleSubmit(ele) {
       if (this.order.title.length <= 5) {
-        this.pushAlert("العنوان");
+        this.pushAlert("عنوان الطلب");
       } else if (this.order.content.name <= 5) {
         this.pushAlert("الاسم");
       } else if (this.order.content.mobile <= 5) {
@@ -84,7 +82,9 @@ export default {
         this.pushAlert("الرقم التسلسلي للجهاز");
       } else if (this.order.company.length <= 5) {
         this.pushAlert("الشركة المصنعة");
-      } else if (!this.order.area) {
+      } else if (!this.order.city) {
+        this.pushAlert("المدينة");
+      } if (!this.order.region) {
         this.pushAlert("المنطقة");
       } else if (!this.order.location) {
         this.pushAlert("عنوانك الحالى");
@@ -181,14 +181,14 @@ export default {
         style="flex-grow: 1; margin-bottom: 0; padding-left: 15px"
       >
         <label class="app-field_label"
-          >المنطقة<span class="required">*</span></label
+          >المدينة<span class="required">*</span></label
         >
         <Select
-          :onChange="chooseArea"
+          :onChange="choosecity"
           :data="this.$cities"
           class="app-select"
           >{{
-            this.order.area ? $nameArea(this.order.area) : "اختار منظقتك"
+            this.order.city ? $nameCity(this.order.city) : "اختار المدينة"
           }}</Select
         >
       </div>
@@ -202,6 +202,15 @@ export default {
         {{ order.location ? "تم إضافة العنوانك" : "إضافة العنوان الحالى" }}
       </button>
     </div>
+        <Field
+      v-model="order.region"
+      type="text"
+      label="المنطقة"
+       placeholder="مثل: مدينة نصر, مصر الجديدة"
+      :required="true"
+      :length="5"
+    />
+    {{ order.region }}
     <Field
       v-model="order.content"
       type="textarea"

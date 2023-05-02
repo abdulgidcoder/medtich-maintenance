@@ -1,5 +1,6 @@
 <script>
 import { useOrdersStore } from "@/stores/useOrders.js";
+import { useError } from "@/stores/useError";
 export default {
   props: {
     order: Object,
@@ -11,10 +12,11 @@ export default {
     };
   },
   setup() {
-    const ordersStore = useOrdersStore(); 
-    return { ordersStore };
+    const ordersStore = useOrdersStore();
+        const errorStore = useError();
+    return { ordersStore, errorStore }; 
   },
-   methods: {
+  methods: {
     checkoutOrder() {
       this.checkouting = true;
       this.ordersStore
@@ -26,9 +28,12 @@ export default {
         .catch(() => {
           this.checkouting = false;
           this.checkoutModal = false;
+          this.errorStore.masg = "لم يتم الدفع";
+        this.errorStore.style = "danger";
+        this.errorStore.show = true;
         });
     },
-  }
+  },
 };
 </script>
 
@@ -47,8 +52,8 @@ export default {
     @closeModal="this.checkoutModal = false"
   >
     <h2>الدفع</h2>
-    
-    <p>بعد عملية الدفع قم بالظغط على تم الدفع حتى يتم التاكد من قبل الادارة</p>
+
+    <p>بعد عملية الدفع قم بالضغط على تم الدفع حتى يتم التاكد من قبل الادارة</p>
 
     <p><b>وسيلة الدفع: </b> {{ order.acf.payment_gateway.label }}</p>
     <p>
@@ -61,7 +66,12 @@ export default {
       >
     </p>
     <div class="form-actions">
-      <button class="btn btn-primary" type="submit" :disabled="checkouting" @click="checkoutOrder">
+      <button
+        class="btn btn-primary"
+        type="submit"
+        :disabled="checkouting"
+        @click="checkoutOrder"
+      >
         <template v-if="!checkouting">تم الدفع</template>
         <template v-else>
           <span

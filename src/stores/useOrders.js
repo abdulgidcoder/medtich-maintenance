@@ -13,8 +13,8 @@ export const useOrdersStore = defineStore("orders", {
     singleOrder: null,
   }),
   actions: {
-    async ftechLast(area, per_page) {
-      if (area) {
+    async ftechLast(city, per_page) {
+      if (city) {
         const response = await axios({
           method: "get",
           timeout: 2000,
@@ -24,7 +24,7 @@ export const useOrdersStore = defineStore("orders", {
           },
           params: {
             _fields: "id,date,title,acf.offers,acf.status",
-            area_only: area,
+            city_only: city,
             per_page: per_page ? per_page : 6,
           },
         });
@@ -33,8 +33,8 @@ export const useOrdersStore = defineStore("orders", {
         }
       }
     },
-    async ftechOrders(area, currentPage, per_page) {
-      if (area) {
+    async ftechOrders(city, currentPage, per_page) {
+      if (city) {
         const response = await axios({
           method: "get",
           timeout: 2000,
@@ -44,7 +44,7 @@ export const useOrdersStore = defineStore("orders", {
           },
           params: {
             _fields: "id,date,title,acf.offers,acf.status",
-            area_only: area,
+            city_only: city,
             page: currentPage ? currentPage : 1,
             per_page: per_page ? per_page : 10,
           },
@@ -191,9 +191,9 @@ export const useOrdersStore = defineStore("orders", {
           title: order.title,
           content: order.content,
           fields: {
-            area: order.area,
+            city: order.city,
             email: order.email,
-            date: order.date,
+            region: order.region,
             serial_number: order.serial_number,
             company: order.company,
             latitude: order.location.latitude,
@@ -259,12 +259,12 @@ export const useOrdersStore = defineStore("orders", {
         data: {
           fields: { set_paid: true },
         },
-      });
+      }); 
       if (response.data.acf.set_paid) {
         error.masg = "سيتم مراجعة التحويل";
         error.style = "success";
-        error.show = true;
-      }
+        error.show = true; 
+      } 
     },
   },
 });

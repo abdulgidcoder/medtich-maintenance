@@ -1,7 +1,7 @@
 export default {
   install: ({ config }) => {
-    config.globalProperties.$nameArea = (name) => {
-      let areas = [
+    config.globalProperties.$nameCity = (name) => {
+      let cities = [
         { value: "cairo", label: "القاهرة" },
         { value: "giza", label: "الجيزة" },
         { value: "alexandria", label: "الأسكندرية" },
@@ -30,13 +30,13 @@ export default {
         { value: "nort-sinai", label: "شمال سيناء" },
         { value: "sohag", label: "سوهاج" },
       ];
-      let areaLable = "";
-      areas.map((area) => {
-        if (area.value == name) {
-          areaLable = area.label;
+      let citiyLable = "";
+      cities.map((citiy) => {
+        if (citiy.value == name) {
+          citiyLable = citiy.label;
         }
       });
-      return areaLable;
+      return citiyLable;
     };
      config.globalProperties.$nameSpac = (name) => {
        let specialization = [

@@ -27,7 +27,7 @@ import Skeleton from "./components/Skeleton.vue";
 import Modal from "./components/Modal.vue";
 // Plugins
 import auth from "./plugins/auth";
-import areas from "./plugins/areas";
+import cities from "./plugins/cities";
 import vars from "./plugins/vars";
 
 import "./plugins/axios";
@@ -64,7 +64,7 @@ app.component("Modal", Modal);
 
 app.use(createPinia());
 app.use(router);
-app.use(areas);
+app.use(cities);
 app.use(auth);
 app.use(vars);
 
@@ -98,6 +98,6 @@ app.config.globalProperties.$dateTime = (value) => {
     .startOf("minute")
     .fromNow();
 };
-app.config.globalProperties.pollTimer = 1800;
+app.config.globalProperties.pollTimer = 2200;
 app.config.globalProperties.Auth_tach = "cT!z+m%qM2xH+k}D9XtqHUT^K7VCVj-Rw8:";
 app.mount("#app");

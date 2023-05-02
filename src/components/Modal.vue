@@ -58,6 +58,18 @@ export default {
   .app-modal__container {
     position: absolute;
     z-index: 99;
+    &::after{
+          content: "";
+          position: absolute;
+          top: 10px;
+          left: 50%;
+    width: 70px;
+    height: 5px;
+    transform: translateX(-50%);
+    background: var(--grey);
+    border-radius: 10px;
+    z-index: 99;
+    }
   }
   &.bottom {
     .app-modal__container {
@@ -66,7 +78,7 @@ export default {
       right: 0;
       left: 0;
       bottom: 0;
-      padding: 20px 20px 80px;
+      padding: 30px 20px 80px;
       background-color: var(--white);
     }
   }

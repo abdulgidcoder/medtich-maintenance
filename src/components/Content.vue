@@ -59,7 +59,6 @@ export default {
       <slot v-else></slot>
     </div>
     <Offline v-if="!disableOffline" :reconnect="onRefresh" />
-    
   </div>
 </template>
 <style lang="scss">

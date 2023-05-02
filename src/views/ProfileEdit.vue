@@ -18,7 +18,7 @@ export default {
         specialization: "",
         cv: "",
       },
-      areaSelected: "",
+      citieselected: "",
       spacSelected: "",
       deleteModal: false,
     };
@@ -183,7 +183,7 @@ export default {
         <div>
           <label>المنطقة</label>
           <Select :onChange="chooseArea" :data="this.$cities" class="app-select">{{
-            this.user.area ? $nameArea(this.user.area) : "اختار منظقتك"
+            this.user.area ? $nameCity(this.user.area) : "اختار منظقتك"
           }}</Select>
         </div>
              <!-- Specialization Field -->

@@ -25,7 +25,7 @@ export default {
   },
   watch: {
     // Watch Connection if is false and Stop update App
-    connection(status) { 
+    connection(status) {
       this.errorStore.show = true;
       if (!status) {
         const interval_id = window.setInterval(function () {},
@@ -44,10 +44,11 @@ export default {
   },
   async created() {
     // Update User data
-    if (localStorage.getItem("token") != undefined) { 
+    if (localStorage.getItem("token") != undefined) {
+      this.$ftechUserData();
     } else {
       clearInterval(this.$ftechUserData);
-    }    
+    }
     /* RTL */
     document.querySelector("html").setAttribute("dir", "rtl");
 

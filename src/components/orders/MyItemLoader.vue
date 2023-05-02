@@ -21,7 +21,7 @@ export default {
   <Transition name="fade">
     <li class="my-order-item-placeholder">
       <div class="item-wrap">
-        <Skeleton width="100%" height="23px" />
+        <Skeleton width="100%" height="19px" />
         <div class="order-meta">
           <span><Skeleton width="100px" height="15px" /></span>
           <span><Skeleton width="100px" height="15px" /></span>
@@ -36,16 +36,14 @@ export default {
 </template>
 <style lang="scss">
 .my-order-item-placeholder {
-  padding-bottom: 10px;
-  margin-bottom: 12px;
+  padding: 10px 15px 10px;
   border-bottom: 1px solid var(--grey);
   display: flex;
   align-items: center;
   justify-content: space-between;
   .item-wrap {
     flex-grow: 1;
-    margin-right: 25px;
-    padding: 5px 0;
+    margin-right: 25px; 
   }
   .order-meta {
     margin-top: 0.4375rem;
