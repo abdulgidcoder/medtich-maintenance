@@ -7,7 +7,7 @@ export default {
   },
   data() {
     return {
-      checkoutModal: false,
+      Modal: false,
       checkouting: false,
     };
   },
@@ -23,11 +23,11 @@ export default {
         .checkout(this.order.id)
         .then(() => {
           this.checkouting = false;
-          this.checkoutModal = false;
+          this.Modal = false;
         })
         .catch(() => {
           this.checkouting = false;
-          this.checkoutModal = false;
+          this.Modal = false;
           this.errorStore.masg = "لم يتم الدفع";
           this.errorStore.style = "danger";
           this.errorStore.show = true;
@@ -40,7 +40,7 @@ export default {
 <template>
   <template v-if="this.$auth.role == 'customer' && !order.acf?.set_paid">
     <button
-      @click="this.checkoutModal = true"
+      @click="this.Modal = true"
       style="margin-left: 15px"
       class="btn btn-primary"
     >
@@ -48,16 +48,14 @@ export default {
     </button>
     <Modal
       class="bottom modal-chechout-order"
-      :show="checkoutModal"
+      :show="Modal"
       animation="fadeUp"
-      @closeModal="this.checkoutModal = false"
+      @closeModal="this.Modal = false"
     >
       <h2>الدفع</h2>
-
       <p>
         بعد عملية الدفع قم بالضغط على تم الدفع حتى يتم التاكد من قبل الادارة
       </p>
-
       <p><b>وسيلة الدفع: </b> {{ order.acf.payment_gateway.label }}</p>
       <p>
         <b>{{ "رقم " + order.acf.payment_gateway.label }} : </b>
@@ -85,11 +83,7 @@ export default {
             إرسال...
           </template>
         </button>
-        <button
-          class="btn btn-sm"
-          type="button"
-          @click="this.checkoutModal = false"
-        >
+        <button class="btn btn-sm" type="button" @click="this.Modal = false">
           إلغاء
         </button>
       </div>

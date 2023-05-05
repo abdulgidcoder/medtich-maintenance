@@ -67,7 +67,7 @@ export default {
         this.$auth.role == 'customer'
       "
     />
-    <div class="app-order-details_head">
+    <div class="app-order-details_head"> 
       <h3 class="order-title">{{ details.title?.rendered }}</h3>
       <div class="order-meta">
         <span>
@@ -234,7 +234,7 @@ export default {
       </template>
     </Card>
 
-    <Card v-if="details.acf?.report.date">
+    <Card v-if="details.acf?.report?.date">
       <template #title>التقرير</template>
       <template #body>
         <ul class="report-details">
@@ -245,12 +245,12 @@ export default {
                 class="app-badge"
                 :class="{
                   completed:
-                    details.acf?.report.needs_replacement_parts == true,
+                    details.acf?.report?.needs_replacement_parts == true,
                   cancelled:
-                    details.acf?.report.needs_replacement_parts == false,
+                    details.acf?.report?.needs_replacement_parts == false,
                 }"
                 >{{
-                  details.acf?.report.needs_replacement_parts == true
+                  details.acf?.report?.needs_replacement_parts == true
                     ? "نعم"
                     : "لا"
                 }}</span
@@ -281,10 +281,7 @@ export default {
       </template>
     </Card>
     <div class="app-fixed-bottom">
-      <Chekout
-      
-        :order="details"
-      />
+      <Chekout :order="details" />
       <TechArrived :order="details" />
       <ConfirmArrived :order="details" />
       <AddReport :order="details" />

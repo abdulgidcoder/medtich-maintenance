@@ -104,7 +104,7 @@ export default {
             this.adding = false;
             ele.reset();
             ele
-              .querySelectorAll(".app-field_input input")
+              .querySelectorAll(".app-field_input input,.app-field_input textarea")
               .forEach((element) => {
                 element.classList.remove("is-valid");
                 element.classList.remove("is-invalid");
@@ -113,7 +113,7 @@ export default {
           .catch((error) => {
             ele.reset();
             ele
-              .querySelectorAll(".app-field_input input")
+              .querySelectorAll(".app-field_input input,.app-field_input textarea")
               .forEach((element) => {
                 element.classList.remove("is-valid");
                 element.classList.remove("is-invalid");
@@ -186,7 +186,7 @@ export default {
         >
         <Select
           :onChange="choosecity"
-          :data="this.$nameCity"
+          :data="this.$cities"
           class="app-select"
           >{{
             this.order.city ? $nameCity(this.order.city) : "اختار المدينة"

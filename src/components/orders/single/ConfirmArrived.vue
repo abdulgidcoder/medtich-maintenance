@@ -10,7 +10,7 @@ export default {
     return {
       Modal: false,
       send: false,
-      confirm_arrived: new Date().toISOString(),
+      confirm_arrived:  new Date().toLocaleString(),
     };
   },
   setup() {

@@ -15,7 +15,7 @@ export default {
       Modal: false,
       send: false,
       arrived: {
-        date: new Date().toISOString(),
+        date:  new Date().toLocaleString(),
         location: "",
       },
     };

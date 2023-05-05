@@ -11,7 +11,7 @@ export default {
       feedback: "",
       addOfferModal: false,
       offer: {
-        date: new Date().toISOString(),
+        date:  new Date().toLocaleString(),
         technical: this.$auth.user_data.id,
         price: "",
         details: "",
