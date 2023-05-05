@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-import { useError } from "@/stores/useError";
-const error = useError();
+import { useAlert } from "@/stores/useAlert";
+const error = useAlert();
 export const useSupportStore = defineStore("support", {
   state: () => ({
     list: null,
@@ -11,7 +11,7 @@ export const useSupportStore = defineStore("support", {
     async ftechFaq(currentPage, per_page) {
       const response = await axios({
         method: "get",
-        timeout: 2000,
+        timeout: this.$timeoutRequest,
         url: "wp-json/wp/v2/faq",
         params: {
           _fields: "id,title,content",

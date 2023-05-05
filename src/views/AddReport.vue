@@ -1,6 +1,6 @@
 <script>
 import { useReportsStore } from "@/stores/useReports.js";
-import { useError } from "@/stores/useError";
+import { useAlert } from "@/stores/useAlert";
 
 import axios from "axios";
 export default {
@@ -22,7 +22,7 @@ export default {
   },
   setup() {
     const reportsStore = useReportsStore();
-    const error = useError();
+    const error = useAlert();
     return { reportsStore, error };
   },
   mounted() {

@@ -58,18 +58,6 @@ export default {
   .app-modal__container {
     position: absolute;
     z-index: 99;
-    &::after{
-          content: "";
-          position: absolute;
-          top: 10px;
-          left: 50%;
-    width: 70px;
-    height: 5px;
-    transform: translateX(-50%);
-    background: var(--grey);
-    border-radius: 10px;
-    z-index: 99;
-    }
   }
   &.bottom {
     .app-modal__container {
@@ -78,8 +66,21 @@ export default {
       right: 0;
       left: 0;
       bottom: 0;
-      padding: 30px 20px 80px;
+      padding: 30px 20px 40px;
       background-color: var(--white);
+      overflow: hidden;
+      &::after {
+        content: "";
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        width: 70px;
+        height: 5px;
+        transform: translateX(-50%);
+        background: var(--grey);
+        border-radius: 10px;
+        z-index: 99;
+      }
     }
   }
   &.center {
@@ -100,6 +101,28 @@ export default {
       .btn-secondary {
         margin-right: 20px;
       }
+    }
+  }
+  &.page {
+    .app-modal__container {
+      position: absolute;
+      border-radius: 15px;
+      width: 100%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      p {
+        margin-bottom: 25px;
+      }
+      .btn-secondary {
+        margin-right: 20px;
+      }
+    }
+  }
+
+  &.header {
+    .app-modal__container {
+      padding-top: 90px;
     }
   }
 }

@@ -1,8 +1,8 @@
 import { defineStore } from "pinia";
-export const useError = defineStore("error", {
+export const useAlert = defineStore("alert", {
   state: () => ({
     masg: "",
     style: "",
     show: false,
-  }) 
+  }),
 });

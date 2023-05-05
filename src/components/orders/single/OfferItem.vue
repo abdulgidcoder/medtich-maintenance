@@ -1,6 +1,6 @@
 <script>
 import { useOrdersStore } from "@/stores/useOrders.js";
-import { useError } from "@/stores/useError";
+import { useAlert } from "@/stores/useAlert";
 export default {
   props: {
     offer: {},
@@ -22,7 +22,7 @@ export default {
   },
   setup() {
     const ordersStore = useOrdersStore();
-    const errorStore = useError();
+    const errorStore = useAlert();
     return { ordersStore, errorStore };
   },
   methods: {
@@ -43,7 +43,7 @@ export default {
 };
 </script>
 <template>
-  <li :class="{ accepted: accepted }">
+  <li :class="{ accepted: accepted }">  
     <div class="offer_top">
       <div class="offer_right">
         <div class="app-avatar" v-html="offer.technical.user_avatar"></div>

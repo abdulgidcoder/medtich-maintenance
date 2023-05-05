@@ -1,6 +1,6 @@
 <script>
 import { useOrdersStore } from "@/stores/useOrders.js";
-import { useError } from "@/stores/useError";
+import { useAlert } from "@/stores/useAlert";
 export default {
   props: {
     order: Object,
@@ -13,8 +13,8 @@ export default {
   },
   setup() {
     const ordersStore = useOrdersStore();
-        const errorStore = useError();
-    return { ordersStore, errorStore }; 
+    const errorStore = useAlert();
+    return { ordersStore, errorStore };
   },
   methods: {
     checkoutOrder() {
@@ -29,8 +29,8 @@ export default {
           this.checkouting = false;
           this.checkoutModal = false;
           this.errorStore.masg = "لم يتم الدفع";
-        this.errorStore.style = "danger";
-        this.errorStore.show = true;
+          this.errorStore.style = "danger";
+          this.errorStore.show = true;
         });
     },
   },
@@ -38,55 +38,63 @@ export default {
 </script>
 
 <template>
-  <button
-    @click="this.checkoutModal = true"
-    style="margin-left: 15px"
-    class="btn btn-primary"
-  >
-    إدفع
-  </button>
-  <Modal
-    class="bottom modal-chechout-order"
-    :show="checkoutModal"
-    animation="fadeUp"
-    @closeModal="this.checkoutModal = false"
-  >
-    <h2>الدفع</h2>
+  <template v-if="this.$auth.role == 'customer' && !order.acf?.set_paid">
+    <button
+      @click="this.checkoutModal = true"
+      style="margin-left: 15px"
+      class="btn btn-primary"
+    >
+      إدفع
+    </button>
+    <Modal
+      class="bottom modal-chechout-order"
+      :show="checkoutModal"
+      animation="fadeUp"
+      @closeModal="this.checkoutModal = false"
+    >
+      <h2>الدفع</h2>
 
-    <p>بعد عملية الدفع قم بالضغط على تم الدفع حتى يتم التاكد من قبل الادارة</p>
+      <p>
+        بعد عملية الدفع قم بالضغط على تم الدفع حتى يتم التاكد من قبل الادارة
+      </p>
 
-    <p><b>وسيلة الدفع: </b> {{ order.acf.payment_gateway.label }}</p>
-    <p>
-      <b>{{ "رقم " + order.acf.payment_gateway.label }} : </b>
-      <template v-if="order.acf.payment_gateway.value == 'voda_cache'"
-        >010123456789</template
-      >
-      <template v-if="order.acf.payment_gateway.value == 'bank_transfer'"
-        >1001215151515</template
-      >
-    </p>
-    <div class="form-actions">
-      <button
-        class="btn btn-primary"
-        type="submit"
-        :disabled="checkouting"
-        @click="checkoutOrder"
-      >
-        <template v-if="!checkouting">تم الدفع</template>
-        <template v-else>
-          <span
-            class="spinner-border spinner-border-sm"
-            role="status"
-            aria-hidden="true"
-          ></span>
-          إرسال...
-        </template>
-      </button>
-      <button class="btn" type="button" @click="this.checkoutModal = false">
-        إالغاء
-      </button>
-    </div>
-  </Modal>
+      <p><b>وسيلة الدفع: </b> {{ order.acf.payment_gateway.label }}</p>
+      <p>
+        <b>{{ "رقم " + order.acf.payment_gateway.label }} : </b>
+        <template v-if="order.acf.payment_gateway.value == 'voda_cache'"
+          >010123456789</template
+        >
+        <template v-if="order.acf.payment_gateway.value == 'bank_transfer'"
+          >1001215151515</template
+        >
+      </p>
+      <div class="form-actions">
+        <button
+          class="btn btn-primary btn-sm"
+          type="submit"
+          :disabled="checkouting"
+          @click="checkoutOrder"
+        >
+          <template v-if="!checkouting">تم الدفع</template>
+          <template v-else>
+            <span
+              class="spinner-border spinner-border-sm"
+              role="status"
+              aria-hidden="true"
+            ></span>
+            إرسال...
+          </template>
+        </button>
+        <button
+          class="btn btn-sm"
+          type="button"
+          @click="this.checkoutModal = false"
+        >
+          إلغاء
+        </button>
+      </div>
+    </Modal>
+  </template>
 </template>
 
 <style lang="scss" scoped>

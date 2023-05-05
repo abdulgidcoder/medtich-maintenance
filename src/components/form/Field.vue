@@ -1,5 +1,5 @@
 <script>
-import { useError } from "@/stores/useError";
+import { useAlert } from "@/stores/useAlert";
 export default {
   data() {
     return {};
@@ -16,11 +16,11 @@ export default {
     length: Number,
   },
   setup(props, context) {
-    const error = useError();
+    const error = useAlert();
     const updateValue = (event) => {
       let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       if (props.length) {
-        if (props.modelValue.length >= props.length) {
+        if (props.modelValue.length + 1 >= props.length) {
           event.target.classList.remove("is-invalid");
           event.target.classList.add("is-valid");
           error.show = false;

@@ -2,7 +2,7 @@
 import Modal from "../components/Modal.vue";
 import VOtpInput from "vue3-otp-input";
 import { useAuthStore } from "@/stores/useAuth";
-import { useError } from "@/stores/useError";
+import { useAlert } from "@/stores/useAlert";
 import { StatusBar, Style } from "@capacitor/status-bar";
 import { Capacitor } from "@capacitor/core";
 import {
@@ -40,7 +40,7 @@ export default {
   },
   setup() {
     const auth = useAuthStore();
-    const error = useError();
+    const error = useAlert();
     return {
       auth,
       error,

@@ -2,64 +2,64 @@ export default {
   install: ({ config }) => {
     config.globalProperties.$nameCity = (name) => {
       let cities = [
-        { value: "cairo", label: "القاهرة" },
-        { value: "giza", label: "الجيزة" },
-        { value: "alexandria", label: "الأسكندرية" },
-        { value: "dakahlia", label: "الدقهلية" },
-        { value: "red-sea", label: "البحر الأحمر" },
-        { value: "beheira", label: "البحيرة" },
-        { value: "fayoum", label: "الفيوم" },
-        { value: "gharbiya", label: "الغربية" },
-        { value: "ismailia", label: "الإسماعلية" },
-        { value: "menofia", label: "المنوفية" },
-        { value: "minya", label: "المنيا" },
-        { value: "qaliubiya", label: "القليوبية" },
-        { value: "new-valley", label: "الوادي الجديد" },
-        { value: "suez", label: "السويس" },
-        { value: "aswan", label: "اسوان" },
-        { value: "assiut", label: "اسيوط" },
-        { value: "beni-suef", label: "بني سويف" },
-        { value: "port-said", label: "بورسعيد" },
-        { value: "damietta", label: "دمياط" },
-        { value: "sharkia", label: "الشرقية" },
-        { value: "south-sinai", label: "جنوب سيناء" },
-        { value: "kafr-al-sheikh", label: "كفر الشيخ" },
-        { value: "matrouh", label: "مطروح" },
-        { value: "luxor", label: "الأقصر" },
-        { value: "qena", label: "قنا" },
-        { value: "nort-sinai", label: "شمال سيناء" },
-        { value: "sohag", label: "سوهاج" },
+        { id: "cairo", value: "القاهرة" },
+        { id: "giza", value: "الجيزة" },
+        { id: "alexandria", value: "الأسكندرية" },
+        { id: "dakahlia", value: "الدقهلية" },
+        { id: "red-sea", value: "البحر الأحمر" },
+        { id: "beheira", value: "البحيرة" },
+        { id: "fayoum", value: "الفيوم" },
+        { id: "gharbiya", value: "الغربية" },
+        { id: "ismailia", value: "الإسماعلية" },
+        { id: "menofia", value: "المنوفية" },
+        { id: "minya", value: "المنيا" },
+        { id: "qaliubiya", value: "القليوبية" },
+        { id: "new-valley", value: "الوادي الجديد" },
+        { id: "suez", value: "السويس" },
+        { id: "aswan", value: "اسوان" },
+        { id: "assiut", value: "اسيوط" },
+        { id: "beni-suef", value: "بني سويف" },
+        { id: "port-said", value: "بورسعيد" },
+        { id: "damietta", value: "دمياط" },
+        { id: "sharkia", value: "الشرقية" },
+        { id: "south-sinai", value: "جنوب سيناء" },
+        { id: "kafr-al-sheikh", value: "كفر الشيخ" },
+        { id: "matrouh", value: "مطروح" },
+        { id: "luxor", value: "الأقصر" },
+        { id: "qena", value: "قنا" },
+        { id: "nort-sinai", value: "شمال سيناء" },
+        { id: "sohag", value: "سوهاج" },
       ];
       let citiyLable = "";
       cities.map((citiy) => {
-        if (citiy.value == name) {
-          citiyLable = citiy.label;
+        if (citiy.id == name) {
+          citiyLable = citiy.value;
         }
       });
       return citiyLable;
     };
-     config.globalProperties.$nameSpac = (name) => {
-       let specialization = [
-         { value: "dental", label: "طب الأسنان" },
-         { value: "dental-x-ray", label: "طب الأسنان والأشعة" },
-         { value: "dermatology", label: "الجلدية" },
-         { value: "endoscopy", label: "المناظير" },
-         { value: "laboratory", label: "المختبرات" },
-         { value: "ent", label: "الأنف واذن والحنجرة" },
-         { value: "or", label: "or قسم العمليات" },
-         { value: "physiotherapy", label: "العلاج الطبيعى" },
-         { value: "radiology", label: "الأشعة" },
-         { value: "sterilization-cssd", label: "قسم تعقيم" },
-         { value: "sterilization-endoscopy", label: "التعقيم - المناظير" },
-         { value: "sterilization-lab", label: "قسم التعقيم المختبرات" },
-       ];
-       let spacLable = "";
-       specialization.map((spac) => {
-         if (spac.value == name) {
-           spacLable = spac.label;
-         }
-       });
-       return spacLable; 
-     };
+    config.globalProperties.$nameSpac = (name) => {
+      let specialization = [
+        { id: "dental", value: "طب الأسنان" },
+        { id: "dental-x-ray", value: "طب الأسنان والأشعة" },
+        { id: "dermatology", value: "الجلدية" },
+        { id: "endoscopy", value: "المناظير" },
+        { id: "laboratory", value: "المختبرات" },
+        { id: "ent", value: "الأنف واذن والحنجرة" },
+        { id: "or", value: "or قسم العمليات" },
+        { id: "physiotherapy", value: "العلاج الطبيعى" },
+        { id: "radiology", value: "الأشعة" },
+        { id: "sterilization-cssd", value: "قسم تعقيم" },
+        { id: "sterilization-endoscopy", value: "التعقيم - المناظير" },
+        { id: "sterilization-lab", value: "قسم التعقيم المختبرات" },
+      ];
+      let spacLable = "";
+      specialization.map((spac) => {
+        if (spac.id == name) {
+          spacLable = spac.value;
+        }
+      });
+      return spacLable;
+    };
   },
 };

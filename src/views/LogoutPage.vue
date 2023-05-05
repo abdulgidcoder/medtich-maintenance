@@ -10,7 +10,7 @@ document.title = `تسجيل خروج...`;
 
 onMounted(() =>
   auth.logout().then(() => {
-    setTimeout(function () {      
+    setTimeout(function () {
       router.push("/login");
       const interval_id = window.setInterval(function () {},
          Number.MAX_SAFE_INTEGER);
@@ -27,11 +27,16 @@ onMounted(() =>
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
     .spinner-border {
       margin-bottom: 20px;
       width: 4rem;
       color: var(--primary);
       height: 4rem;
+    }
+    .lead {
+      font-size: 16px;
+      font-weight: 500;
     }
   }
 }

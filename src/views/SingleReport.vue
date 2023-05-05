@@ -50,7 +50,7 @@ export default {
     pollingReport() {
       this.polling = setInterval(() => {
         this.reportStore.getReport(this.reportID);
-      }, this.pollTimer);
+      }, this.$pollTimer);
     },
   },
 };

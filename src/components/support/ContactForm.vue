@@ -1,6 +1,6 @@
 <script>
 import { useSupportStore } from "@/stores/useSupport.js";
-import { useError } from "@/stores/useError";
+import { useAlert } from "@/stores/useAlert";
 
 import Field from "../form/Field.vue";
 import Icon from "../Icon.vue";
@@ -18,7 +18,7 @@ export default {
   },
   setup() {
     const storeSupport = useSupportStore();
-    const errorStore = useError();
+    const errorStore = useAlert();
     return { storeSupport, errorStore };
   },
   methods: {

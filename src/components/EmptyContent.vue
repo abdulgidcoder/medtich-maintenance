@@ -2,13 +2,14 @@
 export default {
   props: {
     title: String,
+    iconsSize:Number,
   },
 };
 </script>
 
 <template>
   <div class="app-empty-content">
-    <img src="../assets/images/empty.svg" alt="empty" />
+    <img src="../assets/images/empty.svg" alt="empty" :style="{ 'max-width': iconsSize + 'px' }" />
     <h3>{{ title }}</h3>
   </div>
 </template>

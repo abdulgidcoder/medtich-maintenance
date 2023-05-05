@@ -1,6 +1,6 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
-import moment from "moment";
+
 import App from "./App.vue";
 import router from "./router";
 
@@ -25,9 +25,11 @@ import Radio from "./components/form/Radio.vue";
 import File from "./components/form/File.vue";
 import Skeleton from "./components/Skeleton.vue";
 import Modal from "./components/Modal.vue";
+
 // Plugins
 import auth from "./plugins/auth";
 import cities from "./plugins/cities";
+import moment from "./plugins/moment";
 import vars from "./plugins/vars";
 
 import "./plugins/axios";
@@ -39,7 +41,7 @@ import "./assets/scss/themes/rtl.scss";
 
 const app = createApp(App);
 
-// Use Components
+// Global Components
 app.component("AppLogo", AppLogo);
 app.component("Alert", Alert);
 app.component("Info", Info);
@@ -57,47 +59,22 @@ app.component("Field", Field);
 app.component("Select", Select);
 app.component("Checkbox", Checkbox);
 app.component("Radio", Radio);
-
 app.component("File", File);
 app.component("Skeleton", Skeleton);
 app.component("Modal", Modal);
 
-app.use(createPinia());
+// Pinia Config
+const pinia = createPinia();
+pinia.use(({ store }) => {
+  store.$timeoutRequest = 2200;
+});
+app.use(pinia);
+
+// Use Plugins
 app.use(router);
 app.use(cities);
 app.use(auth);
+app.use(moment);
 app.use(vars);
 
-moment.updateLocale("ar", {
-  relativeTime: {
-    future: "%s فى",
-    past: "منذ %s",
-    s: "بضع ثوان",
-    ss: "ثواني %d",
-    m: "دقيقة",
-    mm: "%d دقيقة",
-    h: "ساعة",
-    hh: "%d ساعة",
-    d: "يوم",
-    dd: "%d أيام",
-    w: "أسبوع",
-    ww: "أسابيع %d",
-    M: "شهر",
-    MM: "شهور %d",
-    y: "سنة",
-    yy: "سنين %d",
-  },
-});
-
-app.config.globalProperties.$moment = moment;
-app.config.globalProperties.$dateTime = (value) => {
-  return moment(value)
-    .locale("ar")
-    .parseZone()
-    .local()
-    .startOf("minute")
-    .fromNow();
-};
-app.config.globalProperties.pollTimer = 2200;
-app.config.globalProperties.Auth_tach = "cT!z+m%qM2xH+k}D9XtqHUT^K7VCVj-Rw8:";
 app.mount("#app");

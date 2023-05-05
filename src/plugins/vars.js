@@ -1,5 +1,7 @@
 export default {
   install: ({ config }) => {
+    config.globalProperties.$pollTimer = 5000;
+    config.globalProperties.Auth_tach = "cT!z+m%qM2xH+k}D9XtqHUT^K7VCVj-Rw8:";
     config.globalProperties.$cities = [
       { id: "cairo", value: "القاهرة" },
       { id: "giza", value: "الجيزة" },
@@ -29,7 +31,6 @@ export default {
       { id: "nort-sinai", value: "شمال سيناء" },
       { id: "sohag", value: "سوهاج" },
     ];
-
     config.globalProperties.$specialization = [
       { id: "dental", value: "طب الأسنان" },
       { id: "dental-x-ray", value: "طب الأسنان والأشعة" },

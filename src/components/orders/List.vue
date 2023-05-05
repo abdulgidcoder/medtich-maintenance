@@ -59,7 +59,7 @@ export default {
           .then(() => {
             this.loader = false;
           });
-      }, this.pollTimer);
+      }, this.$pollTimer);
     },
     onPageChange(page) {
       this.currPage = page;

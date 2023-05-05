@@ -67,6 +67,7 @@ export default {
   </div>
   <EmptyContent
     title="لا يوجد اى طلبات فى هذا المنطقه"
-    v-if="!loader && !this.ordersStore.lastList"
+    :iconsSize="250"
+    v-if="!loader && this.ordersStore.lastList.length == 0"
   />
 </template>

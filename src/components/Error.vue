@@ -1,7 +1,7 @@
 <script setup>
 import { watch } from "vue";
-import { useError } from "@/stores/useError";
-const error = useError();
+import { useAlert } from "@/stores/useAlert";
+const error = useAlert();
 
 watch(
   () => error.show,

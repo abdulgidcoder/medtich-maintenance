@@ -1,7 +1,7 @@
 <script>
 import axios from "axios";
 import { useAuthStore } from "@/stores/useAuth";
-import { useError } from "@/stores/useError";
+import { useAlert } from "@/stores/useAlert";
 import Modal from "../components/Modal.vue";
 import UserInfo from "../components/auth/UserInfo.vue";
 import FileBox from "../components/FileBox.vue";
@@ -25,7 +25,7 @@ export default {
   },
   setup() {
     const authStore = useAuthStore();
-    const error = useError();
+    const error = useAlert();
     return {
       authStore,
       error,

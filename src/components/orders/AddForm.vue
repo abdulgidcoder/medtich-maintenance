@@ -1,6 +1,6 @@
 <script>
 import { useOrdersStore } from "@/stores/useOrders.js";
-import { useError } from "@/stores/useError";
+import { useAlert } from "@/stores/useAlert";
 import { Geolocation } from "@capacitor/geolocation";
 import { Capacitor } from "@capacitor/core";
 
@@ -8,8 +8,9 @@ import { Capacitor } from "@capacitor/core";
 
 
 import Icon from "../Icon.vue";
+import SetLocation from "../SetLocation.vue";
 export default {
-  components: { Icon },
+  components: { Icon, SetLocation },
   data() {
     return {
       order: {
@@ -24,14 +25,14 @@ export default {
         company: "",
         content: "",
         payment_gateway: "",
-        location: "",
+        location: {},
       },
       adding: false,
     };
   },
   setup() {
     const ordersStore = useOrdersStore();
-    const errorStore = useError();
+    const errorStore = useAlert();
     return { ordersStore, errorStore };
   },
     mounted() {
@@ -133,7 +134,7 @@ export default {
 };
 </script>
 <template>
-  <form @submit.prevent="handleSubmit($event.target)">
+  <form @submit.prevent="handleSubmit($event.target)"> 
     <Field
       v-model="order.title"
       type="text"
@@ -185,22 +186,14 @@ export default {
         >
         <Select
           :onChange="choosecity"
-          :data="this.$cities"
+          :data="this.$nameCity"
           class="app-select"
           >{{
             this.order.city ? $nameCity(this.order.city) : "اختار المدينة"
           }}</Select
         >
-      </div>
-      <button
-        class="btn"
-        :class="{ 'btn-primary': order.location }"
-        type="button"
-        @click="setCurrentLocation"
-      >
-        <Icon name="location" />
-        {{ order.location ? "تم إضافة العنوانك" : "إضافة العنوان الحالى" }}
-      </button>
+      </div> 
+    <SetLocation @setLocation="setCurrentLocation" :location="order.location"/>
     </div>
         <Field
       v-model="order.region"
@@ -209,8 +202,7 @@ export default {
        placeholder="مثل: مدينة نصر, مصر الجديدة"
       :required="true"
       :length="5"
-    />
-    {{ order.region }}
+    /> 
     <Field
       v-model="order.content"
       type="textarea"
@@ -254,5 +246,11 @@ export default {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 15px;
+  .app-select{
+    margin-bottom: 0;
+  }
+  .btn{
+    margin-top: 20px;
+  }
 }
 </style>

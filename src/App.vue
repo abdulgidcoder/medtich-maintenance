@@ -3,7 +3,7 @@ import { defineAsyncComponent } from "vue";
 import { storeToRefs } from "pinia";
 import { useAuthStore } from "@/stores/useAuth";
 import { StatusBar, Style } from "@capacitor/status-bar";
-import { useError } from "@/stores/useError";
+import { useAlert } from "@/stores/useAlert";
 import { App as AppCap } from "@capacitor/app";
 import { Capacitor } from "@capacitor/core";
 // import { SplashScreen } from '@capacitor/splash-screen';
@@ -19,7 +19,7 @@ export default {
   },
   setup() {
     const authStore = useAuthStore();
-    const errorStore = useError();
+    const errorStore = useAlert();
     const { connection } = storeToRefs(authStore);
     return { connection, errorStore };
   },

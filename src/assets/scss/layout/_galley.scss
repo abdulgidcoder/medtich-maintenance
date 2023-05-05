@@ -1,5 +1,6 @@
 .app-gallery {
   display: flex;
+ flex-wrap: wrap;
   margin: 15px -7px;
   .col {
     position: relative;

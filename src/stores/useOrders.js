@@ -1,8 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-import { useError } from "@/stores/useError";
-const error = useError();
-
+import { useAlert } from "@/stores/useAlert";
+const error = useAlert();
 export const useOrdersStore = defineStore("orders", {
   state: () => ({
     lastList: null,
@@ -17,13 +16,13 @@ export const useOrdersStore = defineStore("orders", {
       if (city) {
         const response = await axios({
           method: "get",
-          timeout: 2000,
+          timeout: this.$timeoutRequest,
           url: "/wp-json/wp/v2/orders",
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
           params: {
-            _fields: "id,date,title,acf.offers,acf.status",
+            _fields: "id,date,title,content,acf",
             city_only: city,
             per_page: per_page ? per_page : 6,
           },
@@ -37,13 +36,13 @@ export const useOrdersStore = defineStore("orders", {
       if (city) {
         const response = await axios({
           method: "get",
-          timeout: 2000,
+          timeout: this.$timeoutRequest,
           url: "/wp-json/wp/v2/orders",
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
           params: {
-            _fields: "id,date,title,acf.offers,acf.status",
+            _fields: "id,date,title,content,acf",
             city_only: city,
             page: currentPage ? currentPage : 1,
             per_page: per_page ? per_page : 10,
@@ -60,7 +59,7 @@ export const useOrdersStore = defineStore("orders", {
         const response = await axios({
           method: "get",
           url: "/wp-json/wp/v2/orders",
-          timeout: 2000,
+          timeout: this.$timeoutRequest,
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
@@ -81,7 +80,7 @@ export const useOrdersStore = defineStore("orders", {
         const response = await axios({
           method: "get",
           url: "/wp-json/wp/v2/orders",
-          timeout: 2000,
+          timeout: this.$timeoutRequest,
           headers: {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
@@ -163,7 +162,7 @@ export const useOrdersStore = defineStore("orders", {
     async getOrder(id) {
       const response = await axios({
         method: "get",
-        timeout: 2000,
+        timeout: this.$timeoutRequest,
         url: "/wp-json/wp/v2/orders/" + id,
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
@@ -209,7 +208,6 @@ export const useOrdersStore = defineStore("orders", {
         },
       });
     },
-
     async acceptOffer(userID, orderId) {
       const responseOrder = await axios({
         method: "get",
@@ -232,7 +230,7 @@ export const useOrdersStore = defineStore("orders", {
             _fields: "acf.technician",
           },
           data: {
-            fields: { technician: userID, status: "pending" },
+            fields: { technician: userID },
           },
         });
         if (response.data.acf.technician == userID) {
@@ -259,12 +257,89 @@ export const useOrdersStore = defineStore("orders", {
         data: {
           fields: { set_paid: true },
         },
-      }); 
+      });
       if (response.data.acf.set_paid) {
         error.masg = "سيتم مراجعة التحويل";
         error.style = "success";
-        error.show = true; 
-      } 
+        error.show = true;
+      }
+    },
+    async TechArrived(orderId, arrived) {
+      const response = await axios({
+        method: "post",
+        url: "/wp-json/wp/v2/orders/" + orderId,
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        params: {
+          _fields: "acf.technician_arrived",
+        },
+        data: {
+          fields: {
+            technician_arrived: {
+              date: arrived.date,
+              location: {
+                lat: arrived.location.latitude,
+                lng: arrived.location.longitude,
+              },
+            },
+          },
+        },
+      });
+      if (response.data.acf.technician_arrived) {
+        error.masg = "تم تسجيل وصولك بنجاح";
+        error.style = "success";
+        error.show = true;
+      }
+    },
+    async confirmTechArrived(orderId, confirm_arrived) {
+      const response = await axios({
+        method: "post",
+        url: "/wp-json/wp/v2/orders/" + orderId,
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        params: {
+          _fields: "acf.confirm_technician_arrived",
+        },
+        data: {
+          fields: {
+            confirm_technician_arrived: confirm_arrived,
+          },
+        },
+      });
+      if (response.data.acf.confirm_technician_arrived) {
+        error.masg = "تم تاكيد وصول الفنى";
+        error.style = "success";
+        error.show = true;
+      }
+    },
+    async addReport(orderId, report) {
+      const response = await axios({
+        method: "post",
+        url: "/wp-json/wp/v2/orders/" + orderId,
+        params: {
+          _fields: "id,date,modified,title,content,acf,author",
+        },
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        data: {
+          fields: {
+            report: {
+              needs_replacement_parts: report.replacement_parts,
+              date: report.date,
+              expected_cost: report.expected_cost,
+              expected_time: report.expected_time,
+              technical: report.technical,
+              details: report.details,
+              images: report.images,
+            },
+          },
+        },
+      }).then((response) => {
+        console.log(response);
+      });
     },
   },
 });

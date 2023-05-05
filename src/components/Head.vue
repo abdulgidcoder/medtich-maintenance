@@ -8,10 +8,11 @@ export default {
 </script>
 <template>
   <header class="app-header">
-    <div class="app-header_left" v-if="goBack">
-      <button @click="this.$router.go(-1)" class="app-btn-back">
+    <div class="app-header_left" >
+      <button @click="this.$router.go(-1)" class="app-btn-back" v-if="goBack">
         <Icon name="arrow-left" />
       </button>
+    <slot name="left"></slot>
     </div>
     <div class="app-header_center">
       <h2>{{ title }}</h2>

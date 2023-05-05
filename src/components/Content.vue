@@ -67,7 +67,7 @@ export default {
   z-index: 1;
   width: 100%;
   height: 100vh;
-  padding: 70px 15px 50px;
+  padding: 70px 15px 72px;
   overflow-x: hidden;
   overflow-y: auto;
   background-color: var(--bg-white);
@@ -98,6 +98,9 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  &:empty {
+    display: none;
+  }
 }
 
 .ptr--ptr {

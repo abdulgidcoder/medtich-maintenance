@@ -8,6 +8,7 @@ export default {
     return {
       orderID: this.$route.params.id,
       order_data: {},
+      new_object: false,
       allowCustomerData:
         this.$auth.user_data?.id ==
         this.ordersStore.singleOrder?.acf?.technician,
@@ -23,34 +24,49 @@ export default {
     clearInterval(this.polling);
   },
   created() {
-    document.title = "Order";
-    if (!this.ordersStore.myList) {
-      this.fetchOrder();
-      this.pollingOrder();
+    document.title = "Order"; 
+    if (this.searchOrderInStore(this.ordersStore.lastList,this.orderID)) {
+      this.loader = false;
+      this.order_data = this.searchOrderInStore(this.ordersStore.lastList,this.orderID);
+      this.pollingOrder(); 
+    } else if (this.searchOrderInStore(this.ordersStore.list,this.orderID)) {
+      this.loader = false;
+      this.order_data = this.searchOrderInStore(this.ordersStore.list,this.orderID);
+      this.pollingOrder(); 
+    }else if (this.searchOrderInStore(this.ordersStore.myList,this.orderID)) {
+      this.loader = false;
+      this.order_data = this.searchOrderInStore(this.ordersStore.myList,this.orderID);
+      // this.pollingOrder(); 
     } else {
-      this.ordersStore.myList.find((item) => {
-        if (item.id == this.orderID) {
-          this.loader = false;
-          this.order_data = item; 
-          this.pollingOrder();
-        }
-      });
+      this.fetchOrder();
+      // this.pollingOrder();
     }
   },
   methods: {
-    fetchOrder() { 
-      this.loader = true; 
+     searchOrderInStore (array, val){  
+      if (array) {
+        array.find((item) => { 
+          if(item.id == val){ 
+             this.new_object = item.id == val ? item : false; 
+          } 
+        })
+      } 
+      return this.new_object;
+    },
+    fetchOrder() {
+      this.loader = true;
       this.ordersStore.getOrder(this.orderID).then(() => {
-        this.order_data = this.ordersStore.singleOrder; 
-        this.loader = false;  
+        this.order_data = this.ordersStore.singleOrder;
+        this.loader = false;
       });
     },
     pollingOrder() {
       this.polling = setInterval(() => {
         this.ordersStore.getOrder(this.orderID).then(() => {
           this.order_data = this.ordersStore.singleOrder;
+            this.loader = false;
         });
-      }, this.pollTimer);
+      }, this.$pollTimer);
     },
   },
 };
@@ -60,7 +76,13 @@ export default {
     <Head title="تفاصيل الطلب" goBack="true">
       <template #right></template>
     </Head>
-    <Content :isBoxed="true" :pullToRefresh="true"  :notBottom="true" @onRefresh="fetchOrder">
+    <Content
+      :isBoxed="true"
+      :pullToRefresh="true"
+      :notBottom="true"
+      @onRefresh="fetchOrder"
+    > 
+    
       <DetailsLoader v-if="loader" />
       <Details v-else :details="order_data"></Details>
     </Content>

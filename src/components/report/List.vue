@@ -65,7 +65,7 @@ export default {
               this.loader = false;
             }, 100);
           });
-      }, this.pollTimer);
+      }, this.$pollTimer);
     },
     onPageChange(page) {
       this.currPage = page;

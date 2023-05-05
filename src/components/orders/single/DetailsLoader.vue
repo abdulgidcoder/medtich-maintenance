@@ -56,6 +56,14 @@
             <strong> <Skeleton width="80px" height="15px" /></strong>
             <p><Skeleton width="120px" height="15px" /></p>
           </li>
+           <li>
+            <strong> <Skeleton width="80px" height="15px" /></strong>
+            <p><Skeleton width="106" height="34px" /></p>
+          </li>
+           <li>
+            <strong> <Skeleton width="80px" height="15px" /></strong>
+            <p><Skeleton width="120px" height="34px" /></p>
+          </li>
         </ul>
       </template>
     </Card>
@@ -69,8 +77,7 @@
       </template>
     </Card>
     <div class="app-fixed-bottom">
-      <Skeleton width="51px" height="42px" style="margin-left: 15px" />
-      <Skeleton width="200px" height="42px" />
+      <Skeleton width="51px" height="42px" style="margin-left: 15px" /> 
     </div>
   </div>
 </template>

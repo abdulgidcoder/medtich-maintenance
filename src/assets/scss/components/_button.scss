@@ -8,7 +8,7 @@ button {
   }
 }
 .btn {
-      font-family: var(--font-family);
+  font-family: var(--font-family);
   font-weight: 400;
   font-size: 0.875rem;
   cursor: pointer;
@@ -21,8 +21,8 @@ button {
   outline: none;
   border-radius: var(--radius);
   padding: 0 12px;
-  border-radius: 4px;
-  height: 42px;
+  border-radius: 5px;
+  height: 46px;
   border: none;
   width: auto;
   cursor: pointer;
@@ -33,7 +33,7 @@ button {
     margin-right: 10px;
     display: flex;
     align-items: center;
-    svg { 
+    svg {
       width: auto;
       height: 20px;
     }
@@ -47,16 +47,25 @@ button {
   color: #fff;
   background-color: var(--primary);
   box-shadow: 0 5px 8px var(--primary-tint);
-   svg {
-      fill: #fff;
-   }
+  svg {
+    fill: #fff;
+  }
+}
+
+.btn-warning{
+ color: #fff;
+  background-color: var(--warning);
+  box-shadow: 0 5px 8px var(--warning-tint);
+  svg {
+    fill: #fff;
+  }
 }
 .btn-outline-primary {
   color: var(--primary);
   background: #fff;
   border: 1px solid var(--primary);
   svg {
-    fill: var(--primary)!important;
+    fill: var(--primary) !important;
   }
 }
 
@@ -79,6 +88,9 @@ button {
   font-size: 14px;
   padding: 9px;
   height: 34px;
+  .app-icon svg {
+    height: 16px;
+  }
 }
 
 .btn-lg {

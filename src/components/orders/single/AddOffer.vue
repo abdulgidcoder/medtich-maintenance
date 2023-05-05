@@ -48,8 +48,7 @@ export default {
 </script>
 <template>
   <button
-    class="btn btn-primary"
-    style="margin-left: 15px"
+    class="btn btn-primary btn-sm" 
     @click="this.addOfferModal = true"
   >
     <Icon name="tag" />اضف عرض
@@ -75,7 +74,7 @@ export default {
         :length="5"
       />
       <div class="form-actions">
-        <button class="btn btn-primary" type="submit" :disabled="adding">
+        <button class="btn btn-primary btn-sm" type="submit" :disabled="adding">
           <template v-if="!adding">إرسال</template>
           <template v-else>
             <span
@@ -87,9 +86,9 @@ export default {
           </template>
         </button>
         <button
-          class="btn"
+          class="btn btn-sm"
           type="button"
-          @click=" this.addOfferModal = false;"
+          @click="this.addOfferModal = false;"
         >
           إالغاء
         </button>

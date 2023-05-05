@@ -43,7 +43,7 @@ export default {
         this.storeSupport.ftechFaq(this.currPage, this.per_page).then(() => {
           this.loader = false;
         });
-      }, this.pollTimer);
+      }, this.$pollTimer);
     },
     onPageChange(page) {
       this.currPage = page;

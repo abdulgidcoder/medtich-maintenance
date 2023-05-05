@@ -93,7 +93,7 @@ The following files and folders do not follow the standard naming convention:
 - \components\TopBar.vue
 - \components\TopbarHome.vue
 - \stores\useAuth.js
-- \stores\useError.js
+- \stores\useAlert.js
 - \stores\useOrders.js
 - \stores\useReports.js
 - \views\AddReport.vue

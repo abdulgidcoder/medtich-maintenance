@@ -2,7 +2,7 @@
 import { useAuthStore } from "@/stores/useAuth";
 import { StatusBar, Style } from "@capacitor/status-bar";
 import { Capacitor } from "@capacitor/core";
-import { useError } from "@/stores/useError";
+import { useAlert } from "@/stores/useAlert";
 export default {
   data() {
     return {
@@ -15,7 +15,7 @@ export default {
   },
   setup() {
     const auth = useAuthStore(),
-      errorStore = useError();
+      errorStore = useAlert();
     return { auth, errorStore };
   },
   created() {
