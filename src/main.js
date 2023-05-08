@@ -66,7 +66,10 @@ app.component("Modal", Modal);
 // Pinia Config
 const pinia = createPinia();
 pinia.use(({ store }) => {
-  store.$timeoutRequest = 2200;
+  store.$timeoutRequest = 1800;
+  store.$authTech = "97R{6;d@cTB|p2vaMeA^Pm};B8";
+  store.$authCustomer = "NQhJr6{~K9=/TXeh(QXEdA8Yp|lz";
+  store.$Auth_Key = "NQhJr6{~K9=/TXeh(QXEdA8Yp|lz";
 });
 app.use(pinia);
 

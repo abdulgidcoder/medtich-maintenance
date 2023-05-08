@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import { useAlert } from "@/stores/useAlert";
-const error = useAlert();
+const alertStore = useAlert();
 export const useOrdersStore = defineStore("orders", {
   state: () => ({
     lastList: null,
@@ -149,13 +149,13 @@ export const useOrdersStore = defineStore("orders", {
           },
         });
         if (responseAddOffer.data.acf.offers) {
-          error.masg = "تم إضافة عرضك";
-          error.style = "success";
-          error.show = true;
+          alertStore.masg = "تم إضافة عرضك";
+          alertStore.style = "success";
+          alertStore.show = true;
         } else {
-          error.masg = "لم يتم إضافة عرضك";
-          error.style = "danger";
-          error.show = true;
+          alertStore.masg = "لم يتم إضافة عرضك";
+          alertStore.style = "danger";
+          alertStore.show = true;
         }
       }
     },
@@ -202,13 +202,13 @@ export const useOrdersStore = defineStore("orders", {
             payment_gateway: order.payment_gateway,
             status: "active",
             technician: false,
-            set_paid: false,
+            set_paid: "",
             offers: false,
           },
         },
       });
     },
-    async acceptOffer(userID, orderId) {
+    async acceptOffer(userID, orderId, status) {
       const responseOrder = await axios({
         method: "get",
         url: "/wp-json/wp/v2/orders/" + orderId,
@@ -219,7 +219,7 @@ export const useOrdersStore = defineStore("orders", {
           _fields: "acf.technician",
         },
       });
-      if (!responseOrder.data.acf.technician) {
+      if (!responseOrder.data.acf.technician.ID) {
         const response = await axios({
           method: "post",
           url: "/wp-json/wp/v2/orders/" + orderId,
@@ -230,21 +230,21 @@ export const useOrdersStore = defineStore("orders", {
             _fields: "acf.technician",
           },
           data: {
-            fields: { technician: userID },
+            fields: { technician: userID, status: "processing" },
           },
         });
-        if (response.data.acf.technician == userID) {
-          error.masg = "تم قبول العرض";
-          error.style = "success";
-          error.show = true;
+        if (response.data.acf.technician.ID == userID) {
+          alertStore.masg = "تم قبول العرض";
+          alertStore.style = "success";
+          alertStore.show = true;
         } else {
-          error.masg = "لم يتم قبول العرض";
-          error.style = "danger";
-          error.show = true;
+          alertStore.masg = "لم يتم قبول العرض";
+          alertStore.style = "danger";
+          alertStore.show = true;
         }
       }
     },
-    async checkout(orderId) {
+    async checkout(orderId, date) {
       const response = await axios({
         method: "post",
         url: "/wp-json/wp/v2/orders/" + orderId,
@@ -255,13 +255,17 @@ export const useOrdersStore = defineStore("orders", {
           _fields: "acf.set_paid",
         },
         data: {
-          fields: { set_paid: true },
+          fields: { set_paid: date },
         },
       });
-      if (response.data.acf.set_paid) {
-        error.masg = "سيتم مراجعة التحويل";
-        error.style = "success";
-        error.show = true;
+      if (response.data.acf.set_paid !== "") {
+        alertStore.masg = "سيتم مراجعة التحويل";
+        alertStore.style = "success";
+        alertStore.show = true;
+      } else {
+        alertStore.masg = "لم يتم الدفع";
+        alertStore.style = "danger";
+        alertStore.show = true;
       }
     },
     async TechArrived(orderId, arrived) {
@@ -286,13 +290,17 @@ export const useOrdersStore = defineStore("orders", {
           },
         },
       });
-      if (response.data.acf.technician_arrived) {
-        error.masg = "تم تسجيل وصولك بنجاح";
-        error.style = "success";
-        error.show = true;
+      if (response.data.acf.technician_arrived.date !== "") {
+        alertStore.masg = "تم تسجيل وصولك بنجاح";
+        alertStore.style = "success";
+        alertStore.show = true;
+      } else {
+        alertStore.masg = "لم يتم تسجيل الوصول";
+        alertStore.style = "danger";
+        alertStore.show = true;
       }
     },
-    async confirmTechArrived(orderId, confirm_arrived) {
+    async confirmTechArrived(orderId, date) {
       const response = await axios({
         method: "post",
         url: "/wp-json/wp/v2/orders/" + orderId,
@@ -300,18 +308,22 @@ export const useOrdersStore = defineStore("orders", {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
         params: {
-          _fields: "acf.confirm_technician_arrived",
+          _fields: "acf",
         },
         data: {
           fields: {
-            confirm_technician_arrived: confirm_arrived,
+            confirm_arrived: date,
           },
         },
       });
-      if (response.data.acf.confirm_technician_arrived) {
-        error.masg = "تم تاكيد وصول الفنى";
-        error.style = "success";
-        error.show = true;
+      if (response.data.acf.confirm_arrived !== "") {
+        alertStore.masg = "تم تاكيد وصول الفنى";
+        alertStore.style = "success";
+        alertStore.show = true;
+      } else {
+        alertStore.masg = "لم يتم تاكيد الوصول";
+        alertStore.style = "danger";
+        alertStore.show = true;
       }
     },
     async addReport(orderId, report) {
@@ -337,9 +349,40 @@ export const useOrdersStore = defineStore("orders", {
             },
           },
         },
-      }).then((response) => {
-        console.log(response);
       });
+      if (response.data.acf.report.date !== "") {
+        alertStore.masg = "تم إضافة التقرير بنجاح";
+        alertStore.style = "success";
+        alertStore.show = true;
+      } else {
+        alertStore.masg = "لم تم إضافة التقرير";
+        alertStore.style = "danger";
+        alertStore.show = true;
+      }
+    },
+    async changeSetting(orderId, status) {
+      const response = await axios({
+        method: "post",
+        url: "/wp-json/wp/v2/orders/" + orderId,
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        params: {
+          _fields: "acf.status",
+        },
+        data: {
+          fields: { status: status },
+        },
+      });
+      if (response.data.acf.status !== "") {
+        alertStore.masg = "تم تغير حالة الطلب بنجاح";
+        alertStore.style = "success";
+        alertStore.show = true;
+      } else {
+        alertStore.masg = "لم يتم تغير حالة الطلب";
+        alertStore.style = "danger";
+        alertStore.show = true;
+      }
     },
   },
 });

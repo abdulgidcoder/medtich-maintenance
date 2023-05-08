@@ -1,7 +1,6 @@
 export default {
   install: ({ config }) => {
-    config.globalProperties.$pollTimer = 5000;
-    config.globalProperties.Auth_tach = "cT!z+m%qM2xH+k}D9XtqHUT^K7VCVj-Rw8:";
+    config.globalProperties.$pollTimer = 2000;
     config.globalProperties.$cities = [
       { id: "cairo", value: "القاهرة" },
       { id: "giza", value: "الجيزة" },

@@ -163,7 +163,7 @@ export default {
           multiple
         />
         <div class="app-fixed-bottom">
-          <button class="btn btn-primary btn-lg btn-block" id="submit-report">
+          <button class="btn btn-primary  btn-block" id="submit-report">
           إضافة تقرير
           </button>
         </div>

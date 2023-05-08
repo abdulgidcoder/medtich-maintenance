@@ -2,8 +2,16 @@
 import { useOrdersStore } from "@/stores/useOrders.js";
 import Details from "../components/orders/single/Details.vue";
 import DetailsLoader from "../components/orders/single/DetailsLoader.vue";
+import { defineAsyncComponent } from "vue";
 export default {
-  components: { Details, DetailsLoader },
+  components: {
+    Details,
+    DetailsLoader,
+    Setting: defineAsyncComponent({
+      loader: () => import("@/components/orders/single/Setting.vue"),
+      timeout: 3000,
+    }),
+  },
   data() {
     return {
       orderID: this.$route.params.id,
@@ -11,9 +19,10 @@ export default {
       new_object: false,
       allowCustomerData:
         this.$auth.user_data?.id ==
-        this.ordersStore.singleOrder?.acf?.technician,
+        this.ordersStore.singleOrder?.acf?.technician?.ID,
       loader: true,
       polling: null,
+      showSetting: false,
     };
   },
   setup() {
@@ -24,33 +33,42 @@ export default {
     clearInterval(this.polling);
   },
   created() {
-    document.title = "Order"; 
-    if (this.searchOrderInStore(this.ordersStore.lastList,this.orderID)) {
+    document.title = "Order";
+    if (this.searchOrderInStore(this.ordersStore.lastList, this.orderID)) {
       this.loader = false;
-      this.order_data = this.searchOrderInStore(this.ordersStore.lastList,this.orderID);
-      this.pollingOrder(); 
-    } else if (this.searchOrderInStore(this.ordersStore.list,this.orderID)) {
+      this.order_data = this.searchOrderInStore(
+        this.ordersStore.lastList,
+        this.orderID
+      );
+      this.pollingOrder();
+    } else if (this.searchOrderInStore(this.ordersStore.list, this.orderID)) {
       this.loader = false;
-      this.order_data = this.searchOrderInStore(this.ordersStore.list,this.orderID);
-      this.pollingOrder(); 
-    }else if (this.searchOrderInStore(this.ordersStore.myList,this.orderID)) {
+      this.order_data = this.searchOrderInStore(
+        this.ordersStore.list,
+        this.orderID
+      );
+      this.pollingOrder();
+    } else if (this.searchOrderInStore(this.ordersStore.myList, this.orderID)) {
       this.loader = false;
-      this.order_data = this.searchOrderInStore(this.ordersStore.myList,this.orderID);
-      // this.pollingOrder(); 
+      this.order_data = this.searchOrderInStore(
+        this.ordersStore.myList,
+        this.orderID
+      );
+      this.pollingOrder();
     } else {
       this.fetchOrder();
-      // this.pollingOrder();
+      this.pollingOrder();
     }
   },
   methods: {
-     searchOrderInStore (array, val){  
+    searchOrderInStore(array, val) {
       if (array) {
-        array.find((item) => { 
-          if(item.id == val){ 
-             this.new_object = item.id == val ? item : false; 
-          } 
-        })
-      } 
+        array.find((item) => {
+          if (item.id == val) {
+            this.new_object = item.id == val ? item : false;
+          }
+        });
+      }
       return this.new_object;
     },
     fetchOrder() {
@@ -64,7 +82,7 @@ export default {
       this.polling = setInterval(() => {
         this.ordersStore.getOrder(this.orderID).then(() => {
           this.order_data = this.ordersStore.singleOrder;
-            this.loader = false;
+          this.loader = false;
         });
       }, this.$pollTimer);
     },
@@ -74,15 +92,18 @@ export default {
 <template>
   <Page class="app-order-page">
     <Head title="تفاصيل الطلب" goBack="true">
-      <template #right></template>
+      <template #right>
+        <template v-if="this.$auth.role == 'customer'"> 
+          <Setting :details="order_data" :loaded="this.loader" />
+        </template>
+      </template>
     </Head>
     <Content
       :isBoxed="true"
       :pullToRefresh="true"
       :notBottom="true"
       @onRefresh="fetchOrder"
-    > 
-    
+    >
       <DetailsLoader v-if="loader" />
       <Details v-else :details="order_data"></Details>
     </Content>

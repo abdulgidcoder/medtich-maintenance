@@ -125,7 +125,7 @@ export default {
           @keyup="passwordConfirmValid($event.target)"
         />
         <div class="app-fixed-bottom">
-          <button class="btn btn-primary btn-lg btn-block" id="updata-user">
+          <button class="btn btn-primary btn-block" id="updata-user">
             تغير
           </button>
         </div>

@@ -218,7 +218,7 @@ export default {
           :size="returnFileSize(this.$auth.user_data?.acf['cv'].filesize)"
         />
         <button
-          class="btn btn-outline-danger   btn-block delete-modal"
+          class="btn btn-outline-danger btn-block delete-modal"
           @click="() => (this.deleteModal = true)"
           type="button"
         >
@@ -226,7 +226,7 @@ export default {
         </button>
         <div class="app-fixed-bottom">
           <button
-            class="btn btn-primary btn-lg btn-block"
+            class="btn btn-primary  btn-block"
             id="updata-user"
             type="submit"
           >

@@ -7,6 +7,7 @@ export default {
   },
   data() {
     return {
+      date: new Date().toLocaleString(),
       Modal: false,
       checkouting: false,
     };
@@ -20,7 +21,7 @@ export default {
     checkoutOrder() {
       this.checkouting = true;
       this.ordersStore
-        .checkout(this.order.id)
+        .checkout(this.order.id, this.date)
         .then(() => {
           this.checkouting = false;
           this.Modal = false;
@@ -28,9 +29,6 @@ export default {
         .catch(() => {
           this.checkouting = false;
           this.Modal = false;
-          this.errorStore.masg = "لم يتم الدفع";
-          this.errorStore.style = "danger";
-          this.errorStore.show = true;
         });
     },
   },

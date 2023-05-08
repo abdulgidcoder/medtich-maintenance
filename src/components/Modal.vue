@@ -74,8 +74,8 @@ export default {
         position: absolute;
         top: 10px;
         left: 50%;
-        width: 70px;
-        height: 5px;
+        width: 45px;
+        height: 4px;
         transform: translateX(-50%);
         background: var(--grey);
         border-radius: 10px;

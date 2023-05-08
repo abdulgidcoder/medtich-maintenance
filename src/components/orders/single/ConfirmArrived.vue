@@ -10,7 +10,7 @@ export default {
     return {
       Modal: false,
       send: false,
-      confirm_arrived:  new Date().toLocaleString(),
+      date: new Date().toLocaleString(),
     };
   },
   setup() {
@@ -22,7 +22,7 @@ export default {
     async confirm() {
       this.send = true;
       this.ordersStore
-        .confirmTechArrived(this.order.id, this.confirm_arrived)
+        .confirmTechArrived(this.order.id, this.date)
         .then(() => {
           this.send = false;
           this.Modal = false;
@@ -30,9 +30,7 @@ export default {
         .catch(() => {
           this.send = false;
           this.Modal = false;
-          this.errorStore.masg = "لم يتم تاكيد الوصول";
-          this.errorStore.style = "danger";
-          this.errorStore.show = true;
+   
         });
     },
   },
@@ -44,7 +42,7 @@ export default {
     v-if="
       order.acf['status'] == 'processing' &&
       this.$auth.role == 'customer' &&
-      !order.acf?.confirm_technician_arrived &&
+      !order.acf?.confirm_arrived &&
       order.acf?.technician_arrived.date
     "
   >

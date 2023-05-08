@@ -5,7 +5,7 @@ export default {
   props: {
     offer: {},
     acceptTech: "",
-    orderID: Number,
+    order: Object,
   },
   data() {
     return {
@@ -13,12 +13,13 @@ export default {
       acceptModal: false,
       acceptOfferData: {},
       accepting: false,
+      stateOrder: "processing",
     };
   },
-  watch:{
-    acceptTech(){
-      this.accepted = this.offer.technical["ID"] == this.acceptTech
-    }
+  watch: {
+    acceptTech() {
+      this.accepted = this.offer.technical["ID"] == this.acceptTech;
+    },
   },
   setup() {
     const ordersStore = useOrdersStore();
@@ -29,7 +30,7 @@ export default {
     acceptOffer(offer) {
       this.accepting = true;
       this.ordersStore
-        .acceptOffer(offer.technical.ID, this.orderID)
+        .acceptOffer(offer.technical.ID, this.order.id, this.stateOrder)
         .then(() => {
           this.accepting = false;
           this.acceptModal = false;
@@ -42,8 +43,8 @@ export default {
   },
 };
 </script>
-<template>
-  <li :class="{ accepted: accepted }">  
+<template> 
+  <li :class="{ accepted: accepted }">
     <div class="offer_top">
       <div class="offer_right">
         <div class="app-avatar" v-html="offer.technical.user_avatar"></div>
@@ -58,7 +59,11 @@ export default {
       <div class="offer_left">
         <button
           class="btn btn-primary btn-sm"
-          v-if="this.$auth.role == 'customer' && !acceptTech"
+          v-if="
+            this.$auth.role == 'customer' &&
+            !acceptTech &&
+            order.acf?.payment_confirm
+          "
           @click="
             () => {
               this.acceptModal = true;

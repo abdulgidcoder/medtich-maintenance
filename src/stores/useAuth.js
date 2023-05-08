@@ -7,7 +7,7 @@ export const useAuthStore = defineStore("auth", {
     loggedIn: localStorage.getItem("token") ? true : false,
     role: localStorage.getItem("userData")
       ? JSON.parse(localStorage.getItem("userData")).roles[0]
-      : '',
+      : "",
     user_data: localStorage.getItem("userData")
       ? JSON.parse(localStorage.getItem("userData"))
       : {},
@@ -21,10 +21,10 @@ export const useAuthStore = defineStore("auth", {
         data: {
           AUTH_KEY:
             roleUser == "technician"
-              ? "397R{6;d@cTB|p2vaMeA^Pm};B8"
+              ? this.$authTech
               : roleUser == "customer"
-              ? "NQhJr6{~K9=/TXeh(QXEdA8Yp|lz"
-              : "397R{6;d@cTB|p2vaMeA^Pm};B8",
+              ? this.$authCustomer
+              : this.$authTech,
           user_login: username,
           email: username + "@medtich-eg.com",
           display_name: name,
@@ -41,44 +41,15 @@ export const useAuthStore = defineStore("auth", {
         await this.ftechUser();
       }
     },
-    async autoLogin() {
-      const userToken = localStorage.getItem("token");
-      if (userToken) {
-        try {
-          const response = await axios({
-            method: "POST",
-            url: "",
-            params: {
-              rest_route: "/auth/auth/refresh",
-              jwt: userToken,
-              AUTH_KEY: "397R{6;d@cTB|p2vaMeA^Pm};B8",
-            },
-          });
-          let token = `${response.data.data.jwt}`;
-          localStorage.setItem("token", token);
-          await this.ftechUser();
-        } catch (error) {
-          localStorage.removeItem("token");
-          localStorage.removeItem("userData");
-          this.loggedIn = false;
-          router.push("/login");
-        }
-      } else {
-        this.loggedIn = false;
-      }
-    },
     async login(mobile, password) {
       const response = await axios({
         method: "post",
         url: "",
-        headers: {
-          // "Content-Type": "application/json",
-        },
         params: {
           rest_route: "/auth/auth",
         },
         data: {
-          AUTH_KEY: "397R{6;d@cTB|p2vaMeA^Pm};B8",
+          AUTH_KEY: this.$Auth_Key,
           username: mobile,
           password: password,
         },
@@ -118,7 +89,7 @@ export const useAuthStore = defineStore("auth", {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
         data: {
-          AUTH_KEY: "397R{6;d@cTB|p2vaMeA^Pm};B8",
+          AUTH_KEY: this.$Auth_Key,
         },
         params: {
           rest_route: "/auth/users",
@@ -141,20 +112,6 @@ export const useAuthStore = defineStore("auth", {
       localStorage.setItem("userData", JSON.stringify(response.data));
       this.user_data = response.data;
       this.role = response.data.roles[0];
-    },
-    async connectionStatus() {
-      const response = await axios({
-        method: "get",
-        url: "wp-json/api/v1/connection",
-      })
-        .then(() => {
-          this.connection = true;
-        })
-        .catch((e) => {
-          if (e.code === "ERR_NETWORK" || e.code === "ERR_NAME_NOT_RESOLVED") {
-            this.connection = false;
-          }
-        });
     },
   },
 });

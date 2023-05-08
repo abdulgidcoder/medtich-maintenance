@@ -53,7 +53,7 @@ export default {
                  order.acf["status"] == "active"
                   ? "تلقى العروض":
                     order.acf["status"] == "pending"
-                  ? " فى انتظار الدفع ":
+                  ? " قيد الانتظار ":
                   order.acf["status"] == "completed"
                   ? " اكتمل "
                   : order.acf["status"] == "processing"

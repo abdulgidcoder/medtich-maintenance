@@ -13,7 +13,7 @@ export default {
       send: false,
       report: {
         replacement_parts: false,
-        date:  new Date().toLocaleString(),
+        date: new Date().toLocaleString(),
         expected_cost: "",
         expected_time: "",
         technical: this.$auth.user_data.id,
@@ -89,20 +89,20 @@ export default {
   },
 };
 </script>
-<template>
+<template> 
   <template
     v-if="
       order.acf['status'] == 'processing' &&
       this.$auth.role == 'technician' &&
-      order.acf?.confirm_technician_arrived &&
+      order.acf?.confirm_arrived &&
       order.acf?.technician_arrived.date &&
-      !order.acf?.report.date
+      order.acf?.report?.date !== ' '
     "
   >
     <button @click="this.Modal = true" class="btn btn-danger">
       إضافة تقرير
     </button>
-    <Modal class="bottom header" :show="Modal" animation="fadeUp">
+    <Modal class="page" :show="Modal" animation="fadeUp">
       <form @submit.prevent="addreport($event.target)">
         <Head title="إضافة تقرير">
           <template #left>
@@ -111,7 +111,7 @@ export default {
               class="app-btn-back"
               type="button"
             >
-              <Icon name="arrow-left" />
+              <Icon name="times" />
             </button>
           </template>
           <template #right>
@@ -132,6 +132,7 @@ export default {
             </button>
           </template>
         </Head>
+           <Content :isBoxed="true" :notBottom="true">
         <Checkbox
           v-model:checked="report.replacement_parts"
           name="replacement_parts"
@@ -176,6 +177,7 @@ export default {
             </div>
           </div>
         </div>
+      </Content>
       </form>
     </Modal>
   </template>

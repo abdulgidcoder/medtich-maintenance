@@ -9,9 +9,9 @@ export default {
     currentPage: Number,
     per_page: Number,
     pagination: Boolean,
-    paginClass: String, 
+    paginClass: String,
   },
-  expose: ['fetchOrders'],
+  expose: ["fetchOrders"],
   data() {
     return {
       loader: true,
@@ -35,14 +35,16 @@ export default {
       this.loader = false;
       this.pollingOrders();
     }
-  }, 
+  },
   methods: {
     fetchOrders() {
       this.loader = true;
       this.ordersStore
         .ftechMyOrders(this.$auth, this.status, this.currPage, this.per_page)
         .then(() => {
-          this.loader = false;
+          setTimeout(() => {
+            this.loader = false;
+          }, 200);
         });
     },
     pollingOrders() {
@@ -88,7 +90,7 @@ export default {
         :class="{ active: status == 'pending' }"
         @click="fillterbyStatus('pending', $event.target)"
       >
-        فى انتظار الدفع
+        قيد الانتظار
       </button>
 
       <button
@@ -120,11 +122,13 @@ export default {
         :order="order"
       ></MyItem>
     </ul>
+    <EmptyContent
+      title="ليس لديك اى طلبات"
+      v-if="
+        (!loader && !this.ordersStore.myList) || this.ordersStore.myList == 0
+      "
+    />
   </div>
-  <EmptyContent
-    title="ليس لديك اى طلبات"
-    v-if="(!loader && !this.ordersStore.myList) || this.ordersStore.myList == 0"
-  />
   <div
     v-if="this.pagination && this.ordersStore.myTotal >= 2"
     :class="this.paginClass"

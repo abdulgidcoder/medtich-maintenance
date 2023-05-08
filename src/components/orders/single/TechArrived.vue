@@ -9,13 +9,12 @@ export default {
     order: Object,
   },
   data() {
-    return { 
-      isMyOrder: this.$auth.user_data?.id ==
-        this.order.acf?.technician,
+    return {
+      isMyOrder: this.$auth.user_data?.id == this.order.acf?.technician?.ID,
       Modal: false,
       send: false,
       arrived: {
-        date:  new Date().toLocaleString(),
+        date: new Date().toLocaleString(),
         location: "",
       },
     };
@@ -43,9 +42,6 @@ export default {
             .catch(() => {
               this.send = false;
               this.Modal = false;
-              this.errorStore.masg = "لم يتم تسجيل الوصول";
-              this.errorStore.style = "danger";
-              this.errorStore.show = true;
             });
         })
         .catch(() => {
@@ -58,7 +54,7 @@ export default {
 };
 </script>
 
-<template>  
+<template>
   <template
     v-if="
       isMyOrder &&
@@ -109,7 +105,7 @@ export default {
     text-align: center;
     margin-bottom: 25px;
   }
-  p{
+  p {
     text-align: center;
   }
   .btn-close {

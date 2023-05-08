@@ -83,8 +83,8 @@ export default {
     </ul>
   </div>
   <EmptyContent
-    title="لا يوجد اى طلبات فى هذا المنطقه"
-    v-if="!loader && !this.ordersStore.list"
+    title="لا يوجد اى طلبات"
+    v-if="!loader && this.ordersStore.list.length == 0"
   />
   <div
     v-if="this.pagination && this.ordersStore.total >= 2"
