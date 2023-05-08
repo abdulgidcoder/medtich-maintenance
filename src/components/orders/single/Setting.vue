@@ -31,10 +31,10 @@ export default {
     },
   },
   created() {
+    this.setStatuses();
     setTimeout(() => {
       this.status = this.details.acf?.status;
     }, 200);
-    this.setStatuses();
   },
   methods: {
     async handleSubmit() {
@@ -51,7 +51,10 @@ export default {
         });
     },
     setStatuses() {
-      if (this.details.acf?.status == "active") {
+      if (
+        this.details.acf?.status == "active" ||
+        this.details.acf?.status == "pending"
+      ) {
         this.statuses = [
           { label: "تلقى العروض", value: "active" },
           { label: "قيد الانتظار", value: "pending" },
@@ -59,7 +62,9 @@ export default {
         ];
       }
       if (
-        this.details.acf?.status == "processing" ||
+        (this.details.acf?.status == "processing" ||
+          this.details.acf?.status == "cancelled" ||
+          this.details.acf?.status == "pending") &&
         this.details.acf?.payment_confirm
       ) {
         this.statuses = [

@@ -8,7 +8,7 @@ export default {
       orderData: this.order,
       Modal: false,
       send: false,
-      newOrder:  {
+      newOrder: {
         title: "",
         name: "",
         mobile: "",
@@ -21,7 +21,7 @@ export default {
         content: "",
         payment_gateway: "",
         location: {},
-      }
+      },
     };
   },
   setup() {
@@ -49,7 +49,13 @@ export default {
 };
 </script>
 <template>
-  <template v-if="this.$auth.role == 'customer' && order.acf?.report?.date && order.acf['status'] == 'completed' ">
+  <template
+    v-if="
+      this.$auth.role == 'customer' &&
+      order.acf?.report?.needs_replacement_parts &&
+      order.acf['status'] == 'completed'
+    "
+  >
     <Skeleton v-if="loaded" width="34px" height="34px" />
     <button v-else @click="this.Modal = true" class="btn btn-black btn-sm">
       <Icon name="plus" />طلب جديد
@@ -60,12 +66,15 @@ export default {
       animation="fadeUp"
       @closeModal="this.Modal = false"
     >
-    <div class="text-center">
-      <h2 class="text-center">انشاء طلب جديد</h2>
-      <p class="text-center">يمكنك انشاء طلب صيانة جديد مع نفس الفنى</p> 
-      <div class="app-avatar" v-html="order.acf?.technician?.user_avatar"></div>
-      <h3>{{ order.acf?.technician?.display_name }}</h3>
-    </div>
+      <div class="text-center">
+        <h2 class="text-center">انشاء طلب جديد</h2>
+        <p class="text-center">يمكنك انشاء طلب صيانة جديد مع نفس الفنى</p>
+        <div
+          class="app-avatar"
+          v-html="order.acf?.technician?.user_avatar"
+        ></div>
+        <h3>{{ order.acf?.technician?.display_name }}</h3>
+      </div>
 
       <div class="form-actions">
         <button

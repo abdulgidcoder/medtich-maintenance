@@ -1,0 +1,21 @@
+.app-list-icon {
+  margin: 0 -20px;
+  li {
+    padding: 12px 25px;
+    font-weight: 500;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.25s ease-out;
+    &:active {
+      background-color: var(--bg-grey-2);
+    }
+    &:active {
+      background-color: var(--bg-grey);
+    }
+    .app-icon {
+      margin-left: 10px;
+      width: 18px;
+    }
+  }
+}

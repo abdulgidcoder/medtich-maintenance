@@ -3,10 +3,6 @@ import { useOrdersStore } from "@/stores/useOrders.js";
 import { useAlert } from "@/stores/useAlert";
 import { Geolocation } from "@capacitor/geolocation";
 import { Capacitor } from "@capacitor/core";
-
-
-
-
 import Icon from "../Icon.vue";
 import SetLocation from "../SetLocation.vue";
 export default {
@@ -35,7 +31,7 @@ export default {
     const errorStore = useAlert();
     return { ordersStore, errorStore };
   },
-    mounted() {
+  mounted() {
     document.title = "Add Order";
     this.order.city = this.$auth.user_data.acf?.area;
     this.order.name = this.$auth.user_data.name;
@@ -50,9 +46,9 @@ export default {
     choosecity(data, indexArr) {
       this.order.city = data[0].id;
     },
-    async setCurrentLocation() { 
+    async setCurrentLocation() {
       if (Capacitor.isNativePlatform()) {
-        await Geolocation.requestPermissions(); 
+        await Geolocation.requestPermissions();
       }
       await Geolocation.getCurrentPosition()
         .then((data) => {
@@ -85,7 +81,8 @@ export default {
         this.pushAlert("الشركة المصنعة");
       } else if (!this.order.city) {
         this.pushAlert("المدينة");
-      } if (!this.order.region) {
+      }
+      if (!this.order.region) {
         this.pushAlert("المنطقة");
       } else if (!this.order.location) {
         this.pushAlert("عنوانك الحالى");
@@ -104,7 +101,9 @@ export default {
             this.adding = false;
             ele.reset();
             ele
-              .querySelectorAll(".app-field_input input,.app-field_input textarea")
+              .querySelectorAll(
+                ".app-field_input input,.app-field_input textarea"
+              )
               .forEach((element) => {
                 element.classList.remove("is-valid");
                 element.classList.remove("is-invalid");
@@ -113,7 +112,9 @@ export default {
           .catch((error) => {
             ele.reset();
             ele
-              .querySelectorAll(".app-field_input input,.app-field_input textarea")
+              .querySelectorAll(
+                ".app-field_input input,.app-field_input textarea"
+              )
               .forEach((element) => {
                 element.classList.remove("is-valid");
                 element.classList.remove("is-invalid");
@@ -134,7 +135,7 @@ export default {
 };
 </script>
 <template>
-  <form @submit.prevent="handleSubmit($event.target)"> 
+  <form @submit.prevent="handleSubmit($event.target)">
     <Field
       v-model="order.title"
       type="text"
@@ -162,20 +163,7 @@ export default {
       label="البريد الالكترونى"
       :required="true"
     />
-    <Field
-      v-model="order.serial_number"
-      type="text"
-      label="الرقم التسلسلي للجهاز"
-      :required="true"
-      :length="5"
-    />
-    <Field
-      v-model="order.company"
-      type="text"
-      label="الشركة المصنعة"
-      :required="true"
-      :length="5"
-    />
+
     <div class="field-location">
       <div
         class="app-field text"
@@ -192,21 +180,17 @@ export default {
             this.order.city ? $nameCity(this.order.city) : "اختار المدينة"
           }}</Select
         >
-      </div> 
-    <SetLocation @setLocation="setCurrentLocation" :location="order.location"/>
+      </div>
+      <SetLocation
+        @setLocation="setCurrentLocation"
+        :location="order.location"
+      />
     </div>
-        <Field
+    <Field
       v-model="order.region"
       type="text"
       label="المنطقة"
-       placeholder="مثل: مدينة نصر, مصر الجديدة"
-      :required="true"
-      :length="5"
-    /> 
-    <Field
-      v-model="order.content"
-      type="textarea"
-      label="تفاصيل"
+      placeholder="مثل: مدينة نصر, مصر الجديدة"
       :required="true"
       :length="5"
     />
@@ -220,6 +204,28 @@ export default {
         { label: 'تحويل بنكى', value: 'bank_transfer' },
       ]"
     />
+    <Field
+      v-model="order.serial_number"
+      type="text"
+      label="الرقم التسلسلي للجهاز"
+      :required="true"
+      :length="5"
+    />
+    <Field
+      v-model="order.company"
+      type="text"
+      label="الشركة المصنعة"
+      :required="true"
+      :length="5"
+    />
+    <Field
+      v-model="order.content"
+      type="textarea"
+      label="تفاصيل"
+      :required="true"
+      :length="5"
+    />
+
     <div class="app-fixed-bottom">
       <button
         class="btn btn-primary btn-block"
@@ -228,11 +234,7 @@ export default {
       >
         <template v-if="!adding"><Icon name="plus" />إضافة الطلب</template>
         <template v-else>
-          <span
-            class="spinner-border spinner-border-sm"
-            role="status"
-            aria-hidden="true"
-          ></span>
+       <Spinner />
           إضافة...
         </template>
       </button>
@@ -246,10 +248,10 @@ export default {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 15px;
-  .app-select{
+  .app-select {
     margin-bottom: 0;
   }
-  .btn{
+  .btn {
     margin-top: 20px;
   }
 }

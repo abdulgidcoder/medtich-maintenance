@@ -33,7 +33,7 @@ export default {
           <strong v-if="this.$auth.user_data?.acf['area']">{{
             $nameCity(this.$auth.user_data?.acf["area"])
           }}</strong>
-          <Select class="btn-link" :data="this.$nameCity" :onChange="chooseArea" v-else>
+          <Select class="btn-link" :data="this.$cities" :onChange="chooseArea" v-else>
             اختر منطقتك
           </Select>
         </div>

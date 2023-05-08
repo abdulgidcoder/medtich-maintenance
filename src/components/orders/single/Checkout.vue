@@ -72,14 +72,7 @@ export default {
           @click="checkoutOrder"
         >
           <template v-if="!checkouting">تم الدفع</template>
-          <template v-else>
-            <span
-              class="spinner-border spinner-border-sm"
-              role="status"
-              aria-hidden="true"
-            ></span>
-            إرسال...
-          </template>
+          <template v-else><Spinner />إرسال...</template>
         </button>
         <button class="btn btn-sm" type="button" @click="this.Modal = false">
           إلغاء

@@ -30,11 +30,7 @@ export default {
             ><Icon name="reload" />إعادة تحميل الصفحة</template
           >
           <template v-else>
-            <span
-              class="spinner-border spinner-border-sm"
-              role="status"
-              aria-hidden="true"
-            ></span>
+           <Spinner />
             إعادة تحميل...
           </template>
         </button>

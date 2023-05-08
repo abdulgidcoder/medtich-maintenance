@@ -156,9 +156,9 @@ export default {
                 style="margin-left: 10px"
                 >{{ details.acf?.confirm_arrived ? "نعم" : "لا" }}</span
               >
-              <template v-if="details.acf?.confirm_arrived"
+              <!-- <template v-if="details.acf?.confirm_arrived"
                 >{{ $dateTime(details.acf?.confirm_arrived) }}
-              </template>
+              </template> -->
             </p>
           </li>
         </ul>

@@ -1,14 +1,20 @@
 <script>
+import { defineAsyncComponent } from "vue";
 import { StatusBar, Style } from "@capacitor/status-bar";
 import { Capacitor } from "@capacitor/core";
-import InfoUser from "../InfoUser.vue";
-import TopbarHome from "../TopbarHome.vue";
-import LastOrders from "../orders/Latest.vue";
+
 export default {
   components: {
-    LastOrders,
-    InfoUser,
-    TopbarHome,
+    LastOrders: defineAsyncComponent(() =>
+      import("@/components/orders/Latest.vue")
+    ),
+    InfoUser: defineAsyncComponent(() => import("@/components/InfoUser.vue")),
+    TopbarHome: defineAsyncComponent(() =>
+      import("@/components/TopbarHome.vue")
+    ),
+    AddOrder: defineAsyncComponent(() =>
+      import("@/components/orders/AddOrder.vue")
+    ),
   },
   mounted() {
     if (Capacitor.isNativePlatform()) {
@@ -28,7 +34,7 @@ export default {
   },
   methods: {
     reloadOrders() {
-      if(this.$auth.role == 'technician'){
+      if (this.$auth.role == "technician") {
         this.$refs.LastOrders.fetchOrders();
       }
     },
@@ -65,8 +71,11 @@ export default {
           <RouterLink to="/orders">عرض الكل</RouterLink>
         </div>
         <LastOrders ref="LastOrders" :per_page="6" />
-      </section> 
+      </section>
     </Content>
+    <Teleport to="body">
+      <AddOrder />
+    </Teleport>
   </div>
 </template>
 

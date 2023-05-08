@@ -23,7 +23,7 @@
     li {
       display: flex;
       align-items: center;
- padding: 5px 0px;
+      padding: 5px 0px;
       strong {
         padding-left: 5px;
         flex: 0 0 50%;
@@ -41,15 +41,16 @@
   }
   .order-offers {
     li {
-      background: var(--bg-grey-2);
-      border-radius: 5px;
-      padding: 12px;
-      margin-bottom: 8px;
+      margin-bottom: 15px;
+      &:not(:last-child) {
+        padding-bottom: 15px;
+        border-bottom: 1px solid var(--grey);
+      }
     }
     .offer_top {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
     }
     .offer_right {
       display: flex;
@@ -60,7 +61,7 @@
       }
       h4 {
         color: var(--black);
-        margin-bottom: 2px;
+        margin-bottom: 0;
       }
       .offer-meta {
         .offer-date {
@@ -77,14 +78,13 @@
           }
         }
       }
-     
     }
-     .offer-details {
-        color: var(--black);
-        margin-bottom: 0;
-      }
+    .offer-details {
+      // color: var(--black);
+      margin-bottom: 0;
+    }
   }
-   .report-details {
+  .report-details {
     li {
       display: flex;
       align-items: center;

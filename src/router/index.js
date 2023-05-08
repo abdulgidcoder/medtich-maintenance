@@ -56,6 +56,11 @@ const router = createRouter({
           name: "my-profile",
           component: () => import("@/components/tab/Profile.vue"),
         },
+        {
+          path: "messages",
+          name: "messages",
+          component: () => import("@/components/tab/Messages.vue"),
+        },
       ],
     },
     {

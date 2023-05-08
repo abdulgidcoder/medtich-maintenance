@@ -4,7 +4,6 @@ export default {
 };
 </script>
 <template>
-  
   <div class="app-tabsbar">
     <nav class="app-tabs-bar">
       <button class="app-tab-btn">
@@ -13,34 +12,30 @@ export default {
           <span class="title">الرئيسية</span>
         </RouterLink>
       </button>
-            <button class="app-tab-btn" v-if="this.$auth.role == 'customer'">
-      <RouterLink to="/home/add-order">
+      <!-- <button class="app-tab-btn" v-if="this.$auth.role == 'customer'">
+        <RouterLink to="/home/add-order">
           <Icon name="cart-pulse" />
           <span class="title">طلب جديد</span>
         </RouterLink>
-      </button>
+      </button> -->
       <button class="app-tab-btn">
         <RouterLink to="/home/orders-tab">
           <Icon name="cart" />
           <span class="title">طلباتى</span>
         </RouterLink>
       </button>
-      <button class="app-tab-btn" v-if="this.$auth.role == 'technician'">
+      <!-- <button class="app-tab-btn" v-if="this.$auth.role == 'technician'">
         <RouterLink to="/home/reports-tab">
           <Icon name="file-chart" />
           <span class="title">تقاريرى</span>
         </RouterLink>
+      </button> -->
+      <button class="app-tab-btn">
+        <RouterLink to="/home/messages">
+          <Icon name="comments" />
+          <span class="title">الرسائل</span>
+        </RouterLink>
       </button>
-      <!-- <button
-            class="app-tab-btn"
-            @click="activeTab('notify')"
-            :class="{ active: currentTab === 'notify' }"
-          >
-            <RouterLink to="/home/">
-              <Icon name="bell" />
-              <span class="title">Notify</span>
-            </RouterLink>
-          </button> -->
       <button class="app-tab-btn">
         <RouterLink to="/home/my-profile">
           <Icon name="user" />

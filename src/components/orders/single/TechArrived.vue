@@ -82,14 +82,7 @@ export default {
           @click="TechArrived"
         >
           <template v-if="!send">تسجيل</template>
-          <template v-else>
-            <span
-              class="spinner-border spinner-border-sm"
-              role="status"
-              aria-hidden="true"
-            ></span>
-            تسجيل...
-          </template>
+          <template v-else><Spinner />تسجيل...</template>
         </button>
         <button class="btn btn-sm" type="button" @click="this.Modal = false">
           إلغاء

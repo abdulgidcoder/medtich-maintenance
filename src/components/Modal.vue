@@ -43,7 +43,7 @@ export default {
   bottom: 0;
   width: 100%;
   height: 100%;
-  z-index: 99;
+  z-index: 100;
   background-color: rgba(17, 24, 39, 0.502);
 }
 .app-modal {
@@ -54,10 +54,10 @@ export default {
   bottom: 0;
   width: 100%;
   height: 100%;
-  z-index: 101;
+  z-index: 100;
   .app-modal__container {
     position: absolute;
-    z-index: 99;
+    z-index: 101;
   }
   &.bottom {
     .app-modal__container {
@@ -66,7 +66,7 @@ export default {
       right: 0;
       left: 0;
       bottom: 0;
-      padding: 30px 20px 40px;
+      padding: 30px 20px;
       background-color: var(--white);
       overflow: hidden;
       &::after {

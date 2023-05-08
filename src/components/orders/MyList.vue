@@ -44,7 +44,7 @@ export default {
         .then(() => {
           setTimeout(() => {
             this.loader = false;
-          }, 200);
+          }, 400);
         });
     },
     pollingOrders() {

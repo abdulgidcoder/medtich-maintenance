@@ -30,7 +30,6 @@ export default {
         .catch(() => {
           this.send = false;
           this.Modal = false;
-   
         });
     },
   },
@@ -64,14 +63,7 @@ export default {
           @click="confirm"
         >
           <template v-if="!send">تاكيد</template>
-          <template v-else>
-            <span
-              class="spinner-border spinner-border-sm"
-              role="status"
-              aria-hidden="true"
-            ></span>
-            تاكيد...
-          </template>
+          <template v-else><Spinner />تاكيد...</template>
         </button>
         <button class="btn btn-sm" type="button" @click="this.Modal = false">
           إلغاء
