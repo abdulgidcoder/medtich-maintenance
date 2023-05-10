@@ -27,7 +27,7 @@ export default {
     <Content
       :isBoxed="true"
       :pullToRefresh="true"
-      :notBottom="true"
+      :bottomBar="true"
       @onRefresh="reloadAllOrders"
     >
       <OrdersList

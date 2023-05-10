@@ -14,7 +14,7 @@ export default {
 <template>
   <Page class="app-contactus-page">
     <Head title="تواصل معنا" goBack="true" />
-    <Content :isBoxed="true" :notBottom="true">
+    <Content :isBoxed="true" :bottomBar="true">
       <ContactForm />
     </Content>
   </Page>

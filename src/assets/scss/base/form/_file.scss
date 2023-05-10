@@ -11,7 +11,7 @@
   }
   label {
     background-color: var(--grey);
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     display: flex;
     align-items: center;
     height: 45px;

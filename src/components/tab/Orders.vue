@@ -25,7 +25,7 @@ export default {
         :per_page="10"
         :pagination="true"
         paginClass="app-fixed-bottom"
-      />
+      /> 
     </Content>
   </div>
 </template>

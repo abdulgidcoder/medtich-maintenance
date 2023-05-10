@@ -119,6 +119,18 @@ export default {
       }
     }
   }
+  &.modal-loader {
+    .app-modal__container {
+      position: absolute;
+      border-radius: 15px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: var(--white);
+      text-align: center;
+      padding: 25px;
+    }
+  }
 
   &.header {
     .app-modal__container {

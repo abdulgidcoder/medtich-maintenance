@@ -1,6 +1,6 @@
 <template>
   <span
-    class="spinner-border spinner-border-sm"
+    class="spinner-border"
     role="status"
     aria-hidden="true"
   ></span>

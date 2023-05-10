@@ -1,35 +1,54 @@
 <script>
 import { useOrdersStore } from "@/stores/useOrders.js";
+import { useChatStore } from "@/stores/useChat.js";
 import { useAlert } from "@/stores/useAlert";
+import Spinner from "../../Spinner.vue";
 export default {
+  components: { Spinner },
   inheritAttrs: false,
-  props: { offer: Object, orderID: Number },
+  props: { offer: Object, order: Object },
   data() {
     return {
       acceptOfferData: {},
       Modal: false,
       acceptModal: false,
-      accepting: false,
+      chatModal: false,
+      loading: false,
       stateOrder: "processing",
     };
   },
   setup() {
+    const alertStore = useAlert();
     const ordersStore = useOrdersStore();
-    const errorStore = useAlert();
-    return { ordersStore, errorStore };
+    const chatStore = useChatStore();
+    return { alertStore, ordersStore, chatStore };
   },
   methods: {
     accept(offer) {
-      this.accepting = true;
+      this.loading = true;
       this.ordersStore
-        .acceptOffer(offer.technical.ID, this.orderID, this.stateOrder)
+        .acceptOffer(offer.technical.ID, this.order.id, this.stateOrder)
         .then(() => {
-          this.accepting = false;
+          this.loading = false;
           this.acceptModal = false;
         })
         .catch(() => {
-          this.accepting = false;
+          this.loading = false;
           this.acceptModal = false;
+        });
+    },
+    openNewChat(offer) {
+      this.loading = true;
+      this.chatModal = true;
+      this.chatStore
+        .openChat(this.offer.technical.ID, this.order)
+        .then(() => {
+          this.loading = false;
+          this.chatModal = false;
+        })
+        .catch(() => {
+          this.loading = false;
+          this.chatModal = false;
         });
     },
   },
@@ -64,7 +83,9 @@ export default {
         >
           <Icon name="check-circle-alt" /> قبول عرض الفنى
         </li>
-        <li><Icon name="comment-plus" /> فتح دردشه مع الفنى</li>
+        <li @click="openNewChat()">
+          <Icon name="comment-plus" /> فتح دردشه مع الفنى
+        </li>
       </ul>
     </Modal>
   </div>
@@ -79,11 +100,15 @@ export default {
     </h3>
     <p><strong>قيم العرض: </strong>{{ acceptOfferData.price + " جنية" }}</p>
     <button class="btn btn-sm btn-primary" @click="accept(acceptOfferData)">
-      <template v-if="!accepting">قبول</template>
-      <template v-else><Spinner />قبول...</template>
+      <template v-if="!loading">قبول</template>
+      <template v-else> <Spinner class="spinner-border-sm" />قبول...</template>
     </button>
     <button class="btn btn-sm btn-secondary" @click="this.acceptModal = false">
       الغاء
     </button>
+  </Modal>
+
+  <Modal class="modal-loader" :show="chatModal" animation="fadeIn">
+    <Spinner class="spinner-border-lg" />
   </Modal>
 </template>

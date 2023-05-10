@@ -134,7 +134,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    box-shadow: 0 0 4px #71717152;
+    box-shadow: 0 0 4px #71717194;
     transition: 0.2s transform cubic-bezier(0.25, 1.11, 0.78, 1.59);
     &.active {
       background-color: var(--white);
@@ -142,7 +142,7 @@
     }
     .app-icon {
       color: var(--primary);
-      width: 24px;
+      width: 26px;
     }
   }
 }

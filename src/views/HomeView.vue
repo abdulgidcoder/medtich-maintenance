@@ -13,10 +13,10 @@ export default {
 };
 </script>
 <template>
-  <main id="app-main" class="app-main">
+  <Page class="app-home-page">
     <div class="app-tabs app-tabs-home">
       <TabsRouter />
       <TabsBar />
     </div>
-  </main>
+  </Page>
 </template>

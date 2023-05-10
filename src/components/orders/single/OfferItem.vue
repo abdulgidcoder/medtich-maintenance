@@ -42,7 +42,7 @@ export default {
             order.acf?.payment_confirm
           "
         >
-          <offer-setting :offer="offer" :orderID="order.id"
+          <offer-setting :offer="offer" :order="order"
         /></template>
 
         <span class="app-badge completed" v-if="accepted">تم قبول العرض</span>

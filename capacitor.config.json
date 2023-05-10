@@ -4,6 +4,10 @@
   "webDir": "./dist",
   "bundledWebRuntime": true,
   "hideLogs": true, 
+  "server": {
+    "url": "http://192.168.1.11:5173/",
+    "cleartext": true
+  },
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 1500,

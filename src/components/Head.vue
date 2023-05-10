@@ -8,13 +8,13 @@ export default {
 </script>
 <template>
   <header class="app-header">
-    <div class="app-header_left" >
+    <div class="app-header_left">
       <button @click="this.$router.go(-1)" class="app-btn-back" v-if="goBack">
         <Icon name="arrow-left" />
       </button>
-    <slot name="left"></slot>
+      <slot name="left"></slot>
     </div>
-    <div class="app-header_center">
+    <div class="app-header_center" v-if="title">
       <h2>{{ title }}</h2>
     </div>
     <div class="app-header_right">
@@ -35,10 +35,12 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 68px;
+  height: 70px;
   &_left {
     position: relative;
     z-index: 5;
+    display: inline-flex;
+    align-items: center;
   }
   &_center {
     flex: 1;

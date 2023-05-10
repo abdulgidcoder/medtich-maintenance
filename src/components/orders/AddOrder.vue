@@ -79,7 +79,7 @@ export default {
           </button>
         </template>
       </Head>
-      <Content :isBoxed="true" :notBottom="false">
+      <Content :isBoxed="true" :bottomBar="true">
         <add-form />
       </Content>
     </Modal>

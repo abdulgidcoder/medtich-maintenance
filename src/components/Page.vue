@@ -9,11 +9,10 @@ export default {
 <style lang="scss">
 .app-page {
   position: relative;
-  height: 100vh;
   width: 100vw;
-  overflow: hidden;
-  .app-fixed-bottom {
-    box-shadow: 0 -2px 6px var(--grey);
-  }
+  // height: 100vh;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 </style>

@@ -57,9 +57,9 @@ const router = createRouter({
           component: () => import("@/components/tab/Profile.vue"),
         },
         {
-          path: "messages",
-          name: "messages",
-          component: () => import("@/components/tab/Messages.vue"),
+          path: "chats",
+          name: "chats",
+          component: () => import("@/components/tab/Chats.vue"),
         },
       ],
     },
@@ -127,6 +127,13 @@ const router = createRouter({
       path: "/contact",
       name: "contact",
       component: () => import("@/views/ContactView.vue"),
+      beforeEnter: redirectToLoginOnLoggedOut,
+    },
+    {
+      path: "/chat/:id",
+      name: "single-chat",
+      component: () => import("@/views/SingleChat.vue"),
+      props: true,
       beforeEnter: redirectToLoginOnLoggedOut,
     },
     {

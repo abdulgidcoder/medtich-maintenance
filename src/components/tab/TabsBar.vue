@@ -31,7 +31,7 @@ export default {
         </RouterLink>
       </button> -->
       <button class="app-tab-btn">
-        <RouterLink to="/home/messages">
+        <RouterLink to="/home/chats">
           <Icon name="comments" />
           <span class="title">الرسائل</span>
         </RouterLink>

@@ -1,5 +1,5 @@
 .order-item {
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   box-shadow: 0 2px 4px var(--grey);
   padding: 10px;
   margin-bottom: 12px;

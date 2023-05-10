@@ -39,11 +39,14 @@ a:hover {
 a {
   color: var(--black);
   transition: 0.3s ease;
+  -webkit-user-drag: none;
+  user-select: none;
+
   &:hover {
     text-decoration: none;
   }
 }
-img{
+img {
   width: 100%;
 }
 ul {

@@ -5,11 +5,11 @@ export default {
   props: {
     isBoxed: Boolean,
     pullToRefresh: Boolean,
-    notBottom: Boolean,
+    bottomBar: Boolean,
     disableOffline: Boolean,
   },
-  mounted() { 
-    if (this.$refs.appContent.classList.contains('app-content-pull')) {
+  mounted() {
+    if (this.$refs.appContent.classList.contains("app-content-pull")) {
       let onRefresh = () => {
         this.onRefresh();
       };
@@ -33,10 +33,10 @@ export default {
       });
     }
   },
-  beforeUnmount() { 
-    if (this.$refs.appContent.classList.contains('app-content-pull')) {
+  beforeUnmount() {
+    if (this.$refs.appContent.classList.contains("app-content-pull")) {
       PullToRefresh.destroyAll();
-    } 
+    }
   },
   methods: {
     onRefresh() {
@@ -48,12 +48,12 @@ export default {
 </script>
 <template>
   <div
-  ref="appContent"
+    ref="appContent"
     class="app-content"
     :class="{
       boxed: isBoxed,
       'app-content-pull': pullToRefresh,
-      'not-bottom': notBottom,
+      'bottom-bar': bottomBar,
     }"
   >
     <div :class="{ 'app-content-box': isBoxed }">
@@ -71,16 +71,10 @@ export default {
   z-index: 1;
   width: 100%;
   height: 100vh;
-  padding: 70px 15px 65px;
+  padding: 70px 15px 15px;
   overflow-x: hidden;
   overflow-y: auto;
   background-color: var(--bg-white);
-  &.not-bottom {
-    padding-bottom: 0;
-  }
-  &.boxed {
-    background-color: var(--primary);
-  }
   &-box {
     margin: 0 -15px -15px;
     padding: 20px 15px;
@@ -88,11 +82,20 @@ export default {
     min-height: 100%;
     border-radius: 25px 25px 0 0;
   }
+  &.bottom-bar {
+    .app-content-box {
+      padding-bottom: 72px !important;
+    }
+  }
+  &.boxed {
+    background-color: var(--primary);
+    padding-bottom: 0;
+  }
 }
 
 .app-fixed-bottom {
   position: fixed;
-  padding: 10px;
+  padding: 10px 15px 15px;
   background-color: var(--bg-white);
   right: 0;
   bottom: 0;
@@ -102,6 +105,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 -2px 6px var(--grey);
   &:empty {
     display: none;
   }

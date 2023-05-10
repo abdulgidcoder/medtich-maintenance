@@ -29,6 +29,7 @@ export default {
     align-items: center;
     justify-content: space-between;
     padding: 15px;
+    height: 60px;
     &-left {
       flex: 1;
       display: flex;

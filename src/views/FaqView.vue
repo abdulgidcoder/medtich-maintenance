@@ -14,9 +14,9 @@ export default {
 <template>
   <Page class="app-faq-page">
     <Head title="الأسئلة الشائعة" goBack="true" />
-    <Content :pullToRefresh="false" :isBoxed="true" :notBottom="true">
+    <Content :pullToRefresh="false" :isBoxed="true" :bottomBar="true">
       <FaqList
-        :per_page="12"
+        :per_page="10"
         :pagination="true"
         paginClass="app-fixed-bottom"
       />

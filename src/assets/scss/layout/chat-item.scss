@@ -1,0 +1,30 @@
+.chat-item {
+  padding: 10px 15px 10px;
+  border-bottom: 1px solid var(--grey);
+  background-color: var(--white);
+  transition: background-color 0.25s ease-out;
+  line-height: 1;
+  &:first-child{
+    padding-top: 0;
+  }
+  &:active {
+    background-color: var(--bg-grey);
+  }
+  &_wrap {
+    display: flex;
+    align-items: center;
+    &-right {
+      margin-left: 15px;
+    }
+  }
+  &_username {
+    margin-bottom: 2px;
+  }
+  &_title {
+    margin-bottom: 0;
+  }
+  .app-avatar {
+    width: 42px;
+    height: 42px;
+  }
+}

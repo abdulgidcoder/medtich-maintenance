@@ -93,17 +93,12 @@ export default {
   <Page class="app-order-page">
     <Head title="تفاصيل الطلب" goBack="true">
       <template #right>
-        <template v-if="this.$auth.role == 'customer'"> 
+        <template v-if="this.$auth.role == 'customer'">
           <Setting :details="order_data" :loaded="this.loader" />
         </template>
       </template>
     </Head>
-    <Content
-      :isBoxed="true"
-      :pullToRefresh="true"
-      :notBottom="true"
-      @onRefresh="fetchOrder"
-    >
+    <Content :isBoxed="true" :pullToRefresh="true" @onRefresh="fetchOrder">
       <DetailsLoader v-if="loader" />
       <Details v-else :details="order_data"></Details>
     </Content>

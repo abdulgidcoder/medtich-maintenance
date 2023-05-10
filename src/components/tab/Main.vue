@@ -55,13 +55,13 @@ export default {
           ابحث عن طلبك
         </button>
       </div>
-      <div class="app-section app-main-banner">
+      <section class="app-section app-main-banner">
         <img src="../../assets/images/slide.jpg" alt="Slide" />
         <div class="content">
           <h2>اهلا بك,</h2>
           <h3>فى ميدتك للصيانة</h3>
         </div>
-      </div>
+      </section>
       <section
         class="app-section app-last-orders"
         v-if="this.$auth.role == 'technician'"
@@ -81,9 +81,9 @@ export default {
 
 <style lang="scss">
 .app-home-page {
-  .app-content {
-    background-color: var(--white);
-    padding-top: 80px;
+  .app-welcome-back {
+    padding: 10px 0;
+    margin-bottom: 0;
   }
   .app-main-banner {
     position: relative;

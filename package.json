@@ -34,6 +34,7 @@
     "vue3-otp-input": "^0.3.6"
   },
   "devDependencies": {
+    "@capacitor/assets": "^2.0.4",
     "@rushstack/eslint-patch": "^1.1.4",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vue/eslint-config-prettier": "^7.0.0",

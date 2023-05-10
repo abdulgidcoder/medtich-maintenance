@@ -152,7 +152,7 @@ export default {
 </script>
 <template>
   <Page class="app-profile-page">
-    <Head title="حسابى" goBack="true"></Head>
+    <Head title="تعديل حسابى" goBack="true"></Head>
     <Content :isBoxed="true">
       <Info
         mode="warning"

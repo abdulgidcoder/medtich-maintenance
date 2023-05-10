@@ -132,7 +132,7 @@ export default {
             </button>
           </template>
         </Head>
-           <Content :isBoxed="true" :notBottom="true">
+           <Content :isBoxed="true" >
         <Checkbox
           v-model:checked="report.replacement_parts"
           name="replacement_parts"

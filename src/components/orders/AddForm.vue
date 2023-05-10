@@ -234,7 +234,7 @@ export default {
       >
         <template v-if="!adding"><Icon name="plus" />إضافة الطلب</template>
         <template v-else>
-       <Spinner />
+        <Spinner class="spinner-border-sm" />
           إضافة...
         </template>
       </button>

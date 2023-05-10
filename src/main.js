@@ -1,4 +1,4 @@
-import { createApp } from "vue";
+import { createApp, markRaw } from "vue";
 import { createPinia } from "pinia";
 
 import App from "./App.vue";
@@ -6,6 +6,7 @@ import router from "./router";
 
 // import Components
 import AppLogo from "./components/AppLogo.vue";
+import Avatar from "./components/Avatar.vue";
 import Alert from "./components/Alert.vue";
 import Info from "./components/Info.vue";
 import Icon from "./components/Icon.vue";
@@ -46,6 +47,7 @@ const app = createApp(App);
 // Global Components
 app.component("AppLogo", AppLogo);
 app.component("Alert", Alert);
+app.component("Avatar", Avatar);
 app.component("Info", Info);
 app.component("Icon", Icon);
 app.component("TabsBar", TabsBar);
@@ -70,10 +72,14 @@ app.component("Modal", Modal);
 // Pinia Config
 const pinia = createPinia();
 pinia.use(({ store }) => {
+  /** Vars */
   store.$timeoutRequest = 2000;
   store.$authTech = "97R{6;d@cTB|p2vaMeA^Pm};B8";
   store.$authCustomer = "NQhJr6{~K9=/TXeh(QXEdA8Yp|lz";
   store.$Auth_Key = "NQhJr6{~K9=/TXeh(QXEdA8Yp|lz";
+
+  /** User router in Store */
+  store.router = markRaw(router);
 });
 app.use(pinia);
 
