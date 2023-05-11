@@ -1,102 +1,64 @@
 <script>
 import { useChatStore } from "@/stores/useChat.js";
+import HeadPage from "@/components/chat/Single/HeadPage.vue";
+import CreateMessage from "@/components/chat/message/Create.vue";
+import List from "@/components/chat/message/List.vue";
+
 export default {
+  components: { HeadPage, CreateMessage, List },
   data() {
     return {
       chatID: this.$route.params.id,
       chatData: {},
-      messages: [],
-      loader: true,
+      loading: true,
       polling: null,
+      per_page: 12,
     };
   },
   setup() {
     const chatStore = useChatStore();
     return { chatStore };
   },
-  created() {
+  mounted() {
     document.title = "Chat";
-    if (this.chatStore.list) {
-      this.loader = false;
-      this.chatStore.list.find((item) => {
-        if (item.id == this.chatID) {
-          this.chatData = item;
-        }
-      });
+    if (this.$searchInStore(this.chatStore.list, this.chatID)) {
+      this.loading = false;
+      this.chatData = this.$searchInStore(this.chatStore.list, this.chatID);
     } else {
       this.fetchChat();
     }
-    this.fetchMessage();
-  },
-  beforeUnmount() {
-    clearInterval(this.polling);
   },
   methods: {
     fetchChat() {
-      this.loader = true;
+      this.loading = true;
       this.chatStore.getChat(this.chatID).then(() => {
         this.chatData = this.chatStore.singleChat;
-        this.loader = false;
+        this.loading = false;
       });
     },
-    pollingChat() {
-      this.polling = setInterval(() => {
-        this.fetchMessage();
-      }, this.$pollTimer);
-    },
-    async fetchMessage() {
-      const respons = await this.chatStore.getMessages(this.chatID);
-      this.messages = respons.data;
+    loadOnScroll(ele) {
+      if (ele.scrollTop <= 0) {
+        this.$refs.listMeassages.handleScroll();
+      }
     },
   },
 };
 </script>
 <template>
   <Page class="app-chat-page">
-    <Head class="head-chat">
-      <template #left>
-        <button
-          @click="this.$router.push('/home/chats')"
-          class="app-btn-back"
-          type="button"
-        >
-          <Icon name="arrow-left" />
-        </button>
-        <div
-          class="app-avatar"
-          v-html="chatData.acf?.technician.user_avatar"
-        ></div>
-        <h4 class="chat-username">
-          {{ chatData.acf?.technician.display_name }}
-        </h4>
-      </template>
-    </Head>
-    <Content isBoxed pullToRefresh>
-      <h4 class="chat-order-title text-center">
-        {{ chatData.title?.rendered }}
-      </h4>
-      <ul>
-        <li v-for="message in messages" :key="message.id">
-          {{ message.content.rendered }}
-        </li>
-      </ul>
+    <head-page :userInfo="chatData.acf?.technician" :loader="loading" />
+    <Content :isBoxed="true" :bottomBar="true" @onScroll="loadOnScroll">
+      <List :chatID="chatID" ref="listMeassages" />
+      <div class="app-fixed-bottom">
+        <CreateMessage :chatID="chatID" />
+      </div>
     </Content>
   </Page>
 </template>
 <style lang="scss">
-.head-chat {
-  &.app-header_left {
-    display: flex;
-    align-items: center;
-  }
-  .app-avatar {
-    width: 35px;
-    height: 35px;
-  }
-  .app-avatar,
-  .chat-username {
-    margin-right: 15px;
-    margin-bottom: 0;
+.app-chat-page { 
+  .app-content-box {
+    background-color: var(--bg-grey-2);
   }
 }
 </style>

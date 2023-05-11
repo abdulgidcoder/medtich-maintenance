@@ -42,6 +42,9 @@ export default {
     onRefresh() {
       this.$emit("onRefresh");
     },
+    onScrollContent(event) { 
+      this.$emit("onScroll", event.target);
+    },
   },
   components: { Offline },
 };
@@ -55,8 +58,9 @@ export default {
       'app-content-pull': pullToRefresh,
       'bottom-bar': bottomBar,
     }"
+    @scroll="onScrollContent($event)"
   >
-    <div :class="{ 'app-content-box': isBoxed }">
+    <div :class="{ 'app-content-box': isBoxed }" >
       <div class="app-pull-refresh" v-if="pullToRefresh">
         <slot @click.stop></slot>
       </div>

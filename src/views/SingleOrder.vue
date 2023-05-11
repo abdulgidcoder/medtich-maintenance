@@ -8,8 +8,7 @@ export default {
     Details,
     DetailsLoader,
     Setting: defineAsyncComponent({
-      loader: () => import("@/components/orders/single/Setting.vue"),
-      timeout: 3000,
+      loader: () => import("@/components/orders/single/Setting.vue"), 
     }),
   },
   data() {

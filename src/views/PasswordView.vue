@@ -235,9 +235,9 @@ export default {
   <Page class="app-page-auth resetpassword">
     <TopBar>
       <template #left>
-        <RouterLink :to="{ name: 'login' }" class="app-btn-back">
+        <button @click="this.$router.push('/login')" class="app-btn-back">
           <Icon name="arrow-left" />
-        </RouterLink>
+        </button>
         <h4 style="margin-right: 10px">إعادة تعيين كلمة المرور</h4>
       </template>
     </TopBar>
@@ -355,6 +355,7 @@ export default {
 }
 .app-page-auth.resetpassword {
   .app-content {
+    padding-top: 60px;
     padding-bottom: 0;
   }
 }

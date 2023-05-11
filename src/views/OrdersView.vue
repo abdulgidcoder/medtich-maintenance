@@ -24,12 +24,7 @@ export default {
 <template>
   <Page class="app-orders-page">
     <Head title="الطلبات" goBack="true" />
-    <Content
-      :isBoxed="true"
-      :pullToRefresh="true"
-      :bottomBar="true"
-      @onRefresh="reloadAllOrders"
-    >
+    <Content isBoxed pullToRefresh bottomBar @onRefresh="reloadAllOrders">
       <OrdersList
         ref="OrdersList"
         :per_page="10"

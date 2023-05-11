@@ -11,8 +11,8 @@ export default {
   position: relative;
   width: 100vw;
   // height: 100vh;
-  min-height: 100vh;
-  overflow-x: hidden;
-  overflow-y: auto;
+  // min-height: 100vh;
+  // overflow-x: hidden;
+  // overflow-y: auto;
 }
 </style>

@@ -56,7 +56,7 @@ button {
 .btn-primary {
   color: #fff;
   background-color: var(--primary);
-  box-shadow: 0 5px 8px var(--primary-tint);
+  // box-shadow: 0 5px 8px var(--primary-tint);
   svg {
     fill: #fff;
   }
@@ -101,8 +101,7 @@ button {
   background-color: var(--white);
 }
 
-.btn-sm {
-  border-radius: 4px;
+.btn-sm { 
   font-size: 14px;
   padding: 9px;
   height: 34px;

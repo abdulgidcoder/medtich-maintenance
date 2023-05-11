@@ -1,6 +1,6 @@
 export default {
   install: ({ config }) => {
-    config.globalProperties.$pollTimer = 2200;
+    config.globalProperties.$pollTimer = 3000;
     config.globalProperties.$cities = [
       { id: "cairo", value: "القاهرة" },
       { id: "giza", value: "الجيزة" },
@@ -44,5 +44,16 @@ export default {
       { id: "sterilization-endoscopy", value: "التعقيم - المناظير" },
       { id: "sterilization-lab", value: "قسم التعقيم المختبرات" },
     ];
+    config.globalProperties.$searchInStore = (array, val) => {
+      let new_object = false;
+      if (array) {
+        array.find((item) => {
+          if (item.id == val) {
+            new_object = item.id == val ? item : false;
+          }
+        });
+      }
+      return new_object;
+    };
   },
 };

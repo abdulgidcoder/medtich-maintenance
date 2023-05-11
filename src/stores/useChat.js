@@ -112,17 +112,35 @@ export const useChatStore = defineStore("chat", {
         this.singleChat = response.data;
       }
     },
-    async getMessages(chat) {
+    async getMessages(chat, per_page, offset) {
       const response = await axios({
-        method: "get",
-        timeout: this.$timeoutRequest,
+        method: "get", 
         url: "/wp-json/wp/v2/comments/",
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
         params: {
-          _fields: "id,date,content,author_avatar_urls",
+          _fields: "id,date,content,author",
+          per_page: per_page,
+          offset: offset,
           post: chat,
+        },
+      });
+      return response;
+    },
+    async createMeassage(chat, message) {
+      const response = await axios({
+        method: "post",
+        url: "wp-json/wp/v2/comments",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        params: {
+          _fields: "id,date,content,author",
+        },
+        data: {
+          post: chat,
+          content: message,
         },
       });
       return response;
