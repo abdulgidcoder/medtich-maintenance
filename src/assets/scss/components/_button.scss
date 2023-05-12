@@ -47,7 +47,7 @@ button {
     margin-right: 10px;
   }
   &.only-icon {
-    .app-icon {
+    .app-icon,.spinner-border {
       margin: 0 !important;
     }
   }

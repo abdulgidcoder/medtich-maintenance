@@ -105,8 +105,8 @@ export default {
 </template>
 <style lang="scss">
 .app-order-page {
-  .app-content-box {
-    background: var(--bg-grey);
+  .app-content-container {
+    background: var(--bg-grey)!important;
   }
 }
 </style>

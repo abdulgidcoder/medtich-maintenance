@@ -37,7 +37,7 @@ export default {
     },
     async uploadFiles(input) {
       input.target.nextSibling.children[1].innerHTML =
-        "<span class='spinner-border spinner-border-sm'></span>تحميل ...";
+        "<span class='spinner-border spinner-sm'></span>تحميل ...";
       const files = input.target.files;
       const formData = new FormData();
       for (let i = 0; i < files.length; i++) {
@@ -123,7 +123,7 @@ export default {
               <template v-if="!send">إضافة</template>
               <template v-else>
                 <span
-                  class="spinner-border spinner-border-sm"
+                  class="spinner-border spinner-sm"
                   role="status"
                   aria-hidden="true"
                 ></span>

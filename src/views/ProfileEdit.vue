@@ -57,7 +57,7 @@ export default {
     },
     async uploadFiles(input) {
       input.target.nextSibling.children[1].innerHTML =
-        "<span class='spinner-border spinner-border-sm'></span>تحديث ...";
+        "<span class='spinner-border spinner-sm'></span>تحديث ...";
       const files = input.target.files;
       const formData = new FormData();
       for (let i = 0; i < files.length; i++) {
@@ -99,7 +99,7 @@ export default {
       const btnSubmit = document.getElementById("updata-user");
       btnSubmit.disabled = true;
       btnSubmit.innerHTML =
-        "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>تحديث...";
+        "<span class='spinner-border spinner-sm' role='status' aria-hidden='true'></span>تحديث...";
       this.authStore
         .updateUser({
           name: this.user.name,

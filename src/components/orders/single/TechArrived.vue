@@ -82,7 +82,7 @@ export default {
           @click="TechArrived"
         >
           <template v-if="!send">تسجيل</template>
-          <template v-else> <Spinner class="spinner-border-sm" />تسجيل...</template>
+          <template v-else> <Spinner class="spinner-sm" />تسجيل...</template>
         </button>
         <button class="btn btn-sm" type="button" @click="this.Modal = false">
           إلغاء

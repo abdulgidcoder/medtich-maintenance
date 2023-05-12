@@ -5,7 +5,7 @@ import ItemLoader from "./ItemLoader.vue";
 export default {
   components: { Item, ItemLoader },
   props: ["chatID", "scrollTo"],
-  expose: ["fetchMessages", "handleScroll"],
+  expose: ["fetchMessages", "handleScroll", "total"],
   data() {
     return {
       messages: [],
@@ -14,7 +14,7 @@ export default {
       per_page: 15,
       offset: 0,
       total: "",
-      hasMore: true,
+      hasMore: false,
     };
   },
   setup() {
@@ -36,13 +36,15 @@ export default {
           this.loading = false;
           if (response.data.length < this.per_page) {
             this.hasMore = false;
+          } else {
+            this.hasMore = true;
           }
         });
     },
     pollingMessages() {
       this.polling = setInterval(async () => {
         await this.chatStore
-          .getMessages(this.chatID, this.per_page, this.offset)
+          .getMessages(this.chatID, this.per_page, 0)
           .then((response) => {
             if (response.headers["x-wp-total"] > this.total) {
               let countMessages = response.headers["x-wp-total"] - this.total;
@@ -51,27 +53,28 @@ export default {
               newMessages.map((message) => {
                 this.messages.unshift(message);
               });
-              this.scrollToBottom();
+              this.$nextTick(() => {
+                this.scrollToBottom();
+              });
             }
           });
-      }, this.$pollTimer);
+      }, 1500);
     },
     scrollToBottom() {
-      if (this.$refs.chatMessages) {
-        document.querySelector(".app-content").scrollTo({
-          top: this.$refs.chatMessages.scrollHeight,
+      if (this.$refs.chatList) {
+        this.$refs.chatList.scrollTo({
+          top: this.$refs.chatList.scrollHeight,
           behavior: "smooth",
         });
       }
     },
-    handleScroll() {
-      if (this.hasMore) {
+    handleScroll(ele) {
+      if (ele.target.scrollTop <= 0 && this.hasMore && !this.loading) {
+        this.offset += this.per_page;
         this.loading = true;
         this.fetchMessages();
-        this.offset += this.per_page;
-          document.querySelector(".app-content").scrollTo({
+        this.$refs.chatList.scrollTo({
           top: 50,
-          behavior: "smooth",
         });
       }
     },
@@ -82,9 +85,12 @@ export default {
 };
 </script>
 <template>
-  <div class="chat-messages" ref="chatMessages">
+  <div class="chat-list" ref="chatList" @scroll="handleScroll($event)">
+    <div class="load-more" v-if="hasMore">
+      <Spinner />
+    </div>
     <ul v-if="loading">
-      <ItemLoader v-for="n in 10" :key="n" />
+      <ItemLoader v-for="n in this.per_page" :key="n" />
     </ul>
     <ul>
       <Item
@@ -100,10 +106,17 @@ export default {
   </div>
 </template>
 <style lang="scss">
-.chat-messages {
+.chat-list {
+  padding: 15px;
+  flex: 1;
+  overflow-y: auto;
   ul {
     display: flex;
     flex-direction: column-reverse;
+  }
+  .load-more {
+    text-align: center;
+    margin-bottom: 20px;
   }
 }
 </style>

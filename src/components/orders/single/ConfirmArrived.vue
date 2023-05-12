@@ -63,7 +63,7 @@ export default {
           @click="confirm"
         >
           <template v-if="!send">تاكيد</template>
-          <template v-else> <Spinner class="spinner-border-sm" />تاكيد...</template>
+          <template v-else> <Spinner class="spinner-sm" />تاكيد...</template>
         </button>
         <button class="btn btn-sm" type="button" @click="this.Modal = false">
           إلغاء

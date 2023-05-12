@@ -42,7 +42,7 @@ export default {
     onRefresh() {
       this.$emit("onRefresh");
     },
-    onScrollContent(event) { 
+    onScrollContent(event) {
       this.$emit("onScroll", event.target);
     },
   },
@@ -58,9 +58,12 @@ export default {
       'app-content-pull': pullToRefresh,
       'bottom-bar': bottomBar,
     }"
-    @scroll="onScrollContent($event)"
   >
-    <div :class="{ 'app-content-box': isBoxed }" >
+  <div
+  class="app-content-container"
+  :class="{ 'app-content-container': isBoxed }"
+  @scroll="onScrollContent($event)"
+    >
       <div class="app-pull-refresh" v-if="pullToRefresh">
         <slot @click.stop></slot>
       </div>
@@ -76,18 +79,25 @@ export default {
   width: 100%;
   height: 100vh;
   padding: 70px 15px 15px;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
   background-color: var(--bg-white);
-  &-box {
-    margin: 0 -15px -15px;
-    padding: 20px 15px;
-    background: var(--bg-white);
-    min-height: 100%;
-    border-radius: 25px 25px 0 0;
+  &-container {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+  &.boxed {
+    .app-content-container {
+      margin: 0 -15px -15px;
+      padding: 20px 15px;
+      background: var(--bg-white);
+      min-height: 100%;
+      border-radius: 25px 25px 0 0;
+    }
   }
   &.bottom-bar {
-    .app-content-box {
+    .app-content-container {
       padding-bottom: 72px !important;
     }
   }

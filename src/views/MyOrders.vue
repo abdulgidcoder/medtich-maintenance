@@ -41,7 +41,7 @@ export default {
   .app-content {
     padding-bottom: 0;
   }
-  .app-content-box {
+  .app-content-container {
     padding-bottom: 65px;
   }
 }

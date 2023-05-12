@@ -156,7 +156,7 @@ export default {
               let btnSubmit = document.getElementById("submit-btn");
               btnSubmit.disabled = true;
               btnSubmit.innerHTML =
-                "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> تسجيل...";
+                "<span class='spinner-border spinner-sm' role='status' aria-hidden='true'></span> تسجيل...";
               this.sendOtp();
             }
           }
@@ -197,7 +197,7 @@ export default {
     verifyOtp(ele) {
       ele.disabled = true;
       ele.innerHTML =
-        "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> تاكيد...";
+        "<span class='spinner-border spinner-sm' role='status' aria-hidden='true'></span> تاكيد...";
       const code = this.otpCode;
       confirmationResult
         .confirm(code)

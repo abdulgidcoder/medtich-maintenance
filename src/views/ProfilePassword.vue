@@ -33,7 +33,7 @@ export default {
           const btnSubmit = document.getElementById("updata-user");
           btnSubmit.disabled = true;
           btnSubmit.innerHTML =
-            "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> تغير...";
+            "<span class='spinner-border spinner-sm' role='status' aria-hidden='true'></span> تغير...";
           this.authStore
             .updateUser({
               password: this.password,

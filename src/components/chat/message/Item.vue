@@ -18,7 +18,7 @@ export default {
         <div
           class="message-item_content"
           v-html="message.content?.rendered"
-        ></div> 
+        ></div>
         <span class="message-item_date">{{ $dateTime(message.date) }}</span>
       </div>
     </li>
@@ -29,7 +29,9 @@ export default {
 .message-item {
   text-align: left;
   line-height: 1;
-  margin-bottom: 15px; 
+  &:not(:first-child) {
+    margin-bottom: 15px;
+  }
   &_wrap {
     display: inline-block;
     background-color: var(--white);
@@ -39,7 +41,7 @@ export default {
   }
   .message-item_content {
     margin-bottom: 8px;
-    p { 
+    p {
       color: var(--black);
     }
   }

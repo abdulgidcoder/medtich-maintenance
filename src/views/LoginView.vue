@@ -42,7 +42,7 @@ export default {
         btnSubmit.forEach((btn) => {
           btn.disabled = true;
           btn.innerHTML =
-            "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> دخول...";
+            "<span class='spinner-border spinner-sm' role='status' aria-hidden='true'></span> دخول...";
         });
         useAuthStore()
           .login(this.mobile, this.password)

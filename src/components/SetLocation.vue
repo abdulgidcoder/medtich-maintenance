@@ -41,7 +41,7 @@ export default {
     <button class="btn btn-primary btn-sm"  @click="addLocation" :disabled="adding">
       <template v-if="!adding">إضافة العنوان</template>
       <template v-else>
-          <Spinner class="spinner-border-sm" />
+          <Spinner class="spinner-sm" />
         إضافة...
       </template>
     </button>

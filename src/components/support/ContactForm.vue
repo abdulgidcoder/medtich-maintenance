@@ -110,7 +110,7 @@ export default {
       >
         <template v-if="!sending">ارسال</template>
         <template v-else>
-        <Spinner class="spinner-border-sm" />
+        <Spinner class="spinner-sm" />
           ارسال...
         </template>
       </button>

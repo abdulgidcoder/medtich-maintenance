@@ -101,7 +101,7 @@ export default {
     <p><strong>قيم العرض: </strong>{{ acceptOfferData.price + " جنية" }}</p>
     <button class="btn btn-sm btn-primary" @click="accept(acceptOfferData)">
       <template v-if="!loading">قبول</template>
-      <template v-else> <Spinner class="spinner-border-sm" />قبول...</template>
+      <template v-else> <Spinner class="spinner-sm" />قبول...</template>
     </button>
     <button class="btn btn-sm btn-secondary" @click="this.acceptModal = false">
       الغاء

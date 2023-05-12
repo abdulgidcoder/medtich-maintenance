@@ -127,7 +127,7 @@ export default {
           <template v-if="!send">تغير</template>
           <template v-else>
             <span
-              class="spinner-border spinner-border-sm"
+              class="spinner-border spinner-sm"
               role="status"
               aria-hidden="true"
             ></span>

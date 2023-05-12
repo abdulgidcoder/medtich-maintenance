@@ -77,7 +77,7 @@ export default {
         <button class="btn btn-primary btn-sm" type="submit" :disabled="adding">
           <template v-if="!adding">إرسال</template>
           <template v-else>
-         <Spinner class="spinner-border-sm" />
+         <Spinner class="spinner-sm" />
             إرسال...
           </template>
         </button>

@@ -19,7 +19,7 @@ export default {
     const chatStore = useChatStore();
     return { chatStore };
   },
-  mounted() {
+  async mounted() {
     document.title = "Chat";
     if (this.$searchInStore(this.chatStore.list, this.chatID)) {
       this.loading = false;
@@ -27,6 +27,10 @@ export default {
     } else {
       this.fetchChat();
     }
+    await this.chatStore.seenMessage(this.chatID);
+  },
+  async beforeUnmount() {
+    await this.chatStore.seenMessage(this.chatID);
   },
   methods: {
     fetchChat() {
@@ -36,10 +40,9 @@ export default {
         this.loading = false;
       });
     },
-    loadOnScroll(ele) {
-      if (ele.scrollTop <= 0) {
-        this.$refs.listMeassages.handleScroll();
-      }
+    updateMessages(message) {
+      let total = Number(this.$refs.listMeassages.total);
+      total += 1;
     },
   },
 };
@@ -47,18 +50,26 @@ export default {
 <template>
   <Page class="app-chat-page">
     <head-page :userInfo="chatData.acf?.technician" :loader="loading" />
-    <Content :isBoxed="true" :bottomBar="true" @onScroll="loadOnScroll">
-      <List :chatID="chatID" ref="listMeassages" />
-      <div class="app-fixed-bottom">
-        <CreateMessage :chatID="chatID" />
+    <Content :isBoxed="false">
+      <div class="chat-massages">
+        <List :chatID="chatID" ref="listMeassages" />
+        <CreateMessage :chatID="chatID" @onSend="updateMessages" />
       </div>
     </Content>
   </Page>
 </template>
 <style lang="scss">
-.app-chat-page { 
-  .app-content-box {
-    background-color: var(--bg-grey-2);
+.app-chat-page {
+  .app-content {
+    background-color: var(--bg-grey);
+    padding: 70px 0 0;
+    &-container {
+    }
+  }
+  .chat-massages {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 }
 </style>

@@ -1,11 +1,15 @@
 .chat-item {
+  position: relative;
   padding: 10px 15px 10px;
   border-bottom: 1px solid var(--grey);
   background-color: var(--white);
   transition: background-color 0.25s ease-out;
   line-height: 1;
-  &:first-child{
+  &:not(.have-messages):first-child {
     padding-top: 0;
+  }
+  &.have-messages {
+    background-color: var(--bg-grey);
   }
   &:active {
     background-color: var(--bg-grey);
@@ -26,5 +30,19 @@
   .app-avatar {
     width: 42px;
     height: 42px;
+  }
+  .chat-item_messages {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    background-color: var(--danger);
+    color: var(--white);
+    width: 15px;
+    height: 15px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
   }
 }

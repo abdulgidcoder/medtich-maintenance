@@ -92,8 +92,6 @@ export default {
 </template>
 <style lang="scss">
 .chats-list {
-  min-height: 74vh;
-  // margin: 20px 0 0;
   ul {
     margin: 0 -15px;
   }

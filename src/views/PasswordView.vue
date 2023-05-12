@@ -118,7 +118,7 @@ export default {
       if (this.mobile.length == this.valid.mobile) {
         this.$refs.submitBtn.disabled = true;
         this.$refs.submitBtn.innerHTML =
-          "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> تحقق من الرقم...";
+          "<span class='spinner-border spinner-sm' role='status' aria-hidden='true'></span> تحقق من الرقم...";
         const response = await axios({
           method: "get",
           url: "wp-json/wp/v2/users",
@@ -171,7 +171,7 @@ export default {
       if (this.password.length >= this.valid.password) {
         this.$refs.setPassBtn.disabled = true;
         this.$refs.setPassBtn.innerHTML =
-          "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> تغير ...";
+          "<span class='spinner-border spinner-sm' role='status' aria-hidden='true'></span> تغير ...";
         const response = await axios({
           method: "post",
           url: "wp-json/wp/v2/users/" + this.user_id,
@@ -211,7 +211,7 @@ export default {
     verifyOtp(ele) {
       ele.disabled = true;
       ele.innerHTML =
-        "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> تاكيد...";
+        "<span class='spinner-border spinner-sm' role='status' aria-hidden='true'></span> تاكيد...";
       const code = this.otpCode;
       confirmationResult
         .confirm(code)
