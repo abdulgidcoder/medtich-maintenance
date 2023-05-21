@@ -1,16 +1,14 @@
 <script>
-import axios from "axios";
 import { useAuthStore } from "@/stores/useAuth";
+import { useMediaStore } from "@/stores/useMedia";
 import { useAlert } from "@/stores/useAlert";
-import Modal from "../components/Modal.vue";
-import UserInfo from "../components/auth/UserInfo.vue";
-import FileBox from "../components/FileBox.vue";
-import Info from "../components/Info.vue";
+
+import UserInfo from "@/layouts/auth/UserInfo.vue";
 
 export default {
-  components: { UserInfo, FileBox, Modal, Info },
+  components: { UserInfo },
   data() {
-    return { 
+    return {
       user: {
         username: "",
         name: "",
@@ -21,14 +19,18 @@ export default {
       citieselected: "",
       spacSelected: "",
       deleteModal: false,
+      uploadig: false,
+      updating: false,
     };
   },
   setup() {
     const authStore = useAuthStore();
-    const error = useAlert();
+    const mediaStore = useMediaStore();
+    const alertStore = useAlert();
     return {
       authStore,
-      error,
+      alertStore,
+      mediaStore,
     };
   },
   mounted() {
@@ -40,66 +42,25 @@ export default {
     this.user.cv = this.$auth.user_data?.acf["cv"];
   },
   methods: {
-    chooseArea(data, indexArr) {
+    chooseArea(data) {
       this.user.area = data[0].id;
     },
-    chooseSpac(data, indexArr) {
+    chooseSpac(data) {
       this.user.specialization = data[0].id;
     },
-    returnFileSize(number) {
-      if (number < 1024) {
-        return `${number} bytes`;
-      } else if (number >= 1024 && number < 1048576) {
-        return `${(number / 1024).toFixed(1)} KB`;
-      } else if (number >= 1048576) {
-        return `${(number / 1048576).toFixed(1)} MB`;
-      }
-    },
     async uploadFiles(input) {
-      input.target.nextSibling.children[1].innerHTML =
-        "<span class='spinner-border spinner-sm'></span>تحديث ...";
+      this.uploadig = true;
       const files = input.target.files;
-      const formData = new FormData();
-      for (let i = 0; i < files.length; i++) {
-        formData.append(`file[${i}]`, files[i]);
-      }
-      const response = await axios({
-        method: "post",
-        url: "wp-json/app/v1/files",
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
-          "Content-Type": "multipart/form-data",
-        },
-        data: formData,
-      })
-        .then((response) => {
-          for (let i = 0; i < response.data.length; i++) {
-            this.user.cv = response.data[i].id;
-          }
-          input.target.nextSibling.children[1].innerHTML =
-            "تحديث السيرة الذاتية";
-          this.error.masg = "تم رفع السيرة الذاتية";
-          this.error.style = "success";
-          this.error.show = true;
-        })
-        .catch((error) => {
-          input.target.nextSibling.children[1].innerHTML =
-            "'رفع السيرة الذاتية";
-          this.error.style = "danger";
-          this.error.show = true;
-          if (error.response) {
-            let mesg = JSON.stringify(error.response.data.message);
-            this.error.masg = mesg;
-          } else {
-            this.error.masg = error;
-          }
-        });
+      await this.mediaStore.upload(files).then((response) => {
+        this.alertStore.masg = "تم رفع السيرة الذاتية";
+        this.alertStore.style = "success";
+        this.alertStore.show = true;
+        this.uploadig = false;
+        this.user.cv = response[0].id;
+      });
     },
     edit_user() {
-      const btnSubmit = document.getElementById("updata-user");
-      btnSubmit.disabled = true;
-      btnSubmit.innerHTML =
-        "<span class='spinner-border spinner-sm' role='status' aria-hidden='true'></span>تحديث...";
+      this.updating = true;
       this.authStore
         .updateUser({
           name: this.user.name,
@@ -111,22 +72,20 @@ export default {
           },
         })
         .then(() => {
-          btnSubmit.disabled = false;
-          this.error.masg = "نجاح تحديث الملف الشخصي";
-          this.error.style = "success";
-          this.error.show = true;
-          btnSubmit.innerHTML = "تحديث";
+          this.alertStore.masg = "نجاح تحديث الملف الشخصي";
+          this.alertStore.style = "success";
+          this.alertStore.show = true;
+          this.updating = false;
         })
         .catch((error) => {
-          btnSubmit.disabled = false;
-          btnSubmit.innerHTML = "تحديث";
-          this.error.style = "danger";
-          this.error.show = true;
+          this.updating = false;
+          this.alertStore.style = "danger";
+          this.alertStore.show = true;
           if (error.response) {
             let mesg = JSON.stringify(error.response.data.message);
-            this.error.masg = mesg;
+            this.alertStore.masg = mesg;
           } else {
-            this.error.masg = error;
+            this.alertStore.masg = error;
           }
         });
     },
@@ -134,16 +93,16 @@ export default {
       this.authStore
         .deleteUser()
         .then(() => {
-          this.error.style = "success";
-          this.error.show = true;
-          this.error.masg = "تم حذف حسابك";
+          this.alertStore.style = "success";
+          this.alertStore.show = true;
+          this.alertStore.masg = "تم حذف حسابك";
           this.deleteModal = false;
           this.$router.push({ name: "logout" });
         })
         .catch((error) => {
-          this.error.style = "danger";
-          this.error.show = true;
-          this.error.masg = "لم يتم حذف حسابك";
+          this.alertStore.style = "danger";
+          this.alertStore.show = true;
+          this.alertStore.masg = "لم يتم حذف حسابك";
           this.deleteModal = false;
         });
     },
@@ -153,7 +112,7 @@ export default {
 <template>
   <Page class="app-profile-page">
     <Head title="تعديل حسابى" goBack="true"></Head>
-    <Content :isBoxed="true">
+    <Content :isBoxed="true" :bottomBar="true">
       <Info
         mode="warning"
         msg="قم برفع  سيرتك الذاتية"
@@ -171,7 +130,7 @@ export default {
           :readonly="true"
           icon="mobile"
         />
-             <!-- Name Field -->
+        <!-- Name Field -->
         <Field
           type="text"
           label="الاسم"
@@ -179,14 +138,19 @@ export default {
           v-model="user.name"
           icon="user"
         />
-             <!-- Area Field -->
+        <!-- Area Field -->
         <div>
           <label>المنطقة</label>
-          <Select :onChange="chooseArea" :data="this.$cities" class="app-select">{{
-            this.user.area ? $nameCity(this.user.area) : "اختار منظقتك"
-          }}</Select>
+          <Select
+            :onChange="chooseArea"
+            :data="this.$cities"
+            class="app-select"
+            >{{
+              this.user.area ? $nameCity(this.user.area) : "اختار منظقتك"
+            }}</Select
+          >
         </div>
-             <!-- Specialization Field -->
+        <!-- Specialization Field -->
         <div v-if="this.$auth.role == 'technician'">
           <label>التخصص</label>
           <Select
@@ -202,6 +166,7 @@ export default {
         </div>
         <!-- Cv Field -->
         <File
+          v-if="this.$auth.role == 'technician'"
           :label="
             this.$auth.user_data?.acf['cv']
               ? 'قم بتحديث سيرتك الذاتية'
@@ -209,13 +174,15 @@ export default {
           "
           accept=".pdf"
           @change="uploadFiles"
-          v-if="this.$auth.role == 'technician'"
+          :uploadig="uploadig"
         />
-        <FileBox 
-          v-if="this.$auth.user_data?.acf['cv'] && this.$auth.role == 'technician'"
+        <FileBox
+          v-if="
+            this.$auth.user_data?.acf['cv'] && this.$auth.role == 'technician'
+          "
           :icon="this.$auth.user_data?.acf['cv'].icon"
           :name="this.$auth.user_data?.acf['cv'].filename"
-          :size="returnFileSize(this.$auth.user_data?.acf['cv'].filesize)"
+          :size="this.$auth.user_data?.acf['cv'].filesize"
         />
         <button
           class="btn btn-outline-danger btn-block delete-modal"
@@ -226,11 +193,14 @@ export default {
         </button>
         <div class="app-fixed-bottom">
           <button
-            class="btn btn-primary  btn-block"
-            id="updata-user"
+            class="btn btn-primary btn-block"
             type="submit"
+            :disabled="updating"
           >
-            تحديث
+            <template v-if="updating">
+              <Spinner class="spinner-sm"></Spinner>تحديث...
+            </template>
+            <template v-else> تحديث </template>
           </button>
         </div>
       </form>
@@ -243,7 +213,9 @@ export default {
     >
       <h2>هل تريد حقاََ حذف حساب؟</h2>
       <p><strong>تحذير:</strong> سوف يتم حذف جميع بياناتك</p>
-      <button class="btn btn-sm btn-danger" @click="delete_account">حذف الحساب</button>
+      <button class="btn btn-sm btn-danger" @click="delete_account">
+        حذف الحساب
+      </button>
       <button
         class="btn btn-sm btn-secondary"
         @click="() => (this.deleteModal = false)"
@@ -256,5 +228,5 @@ export default {
 <style lang="scss">
 .btn.delete-modal {
   margin: 25px 0 20px;
-} 
+}
 </style>

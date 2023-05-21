@@ -1,10 +1,12 @@
 <script>
 export default {
+  inheritAttrs: false,
   props: {
     label: String,
-    required: String,
-    multiple: String,
-    accept: String,
+    uploadig: {
+      type: Boolean,
+      default: false,
+    },
     modelValue: "",
   },
   methods: {
@@ -17,13 +19,13 @@ export default {
 
 <template>
   <div class="app-file">
-    <input
-      type="file"
-      :required="required"
-      :multiple="multiple"
-      :accept="accept"
-      @change="onChange($event)"
-    />
-    <label class="app-label"><Icon name="upload" /><span class="app-label_text">{{ label }}</span></label>
+    <input type="file" @change="onChange($event)" v-bind="$attrs" />
+    <label class="app-label">
+      <Icon name="upload" />
+      <template v-if="uploadig">
+        <Spinner class="spinner-sm" />رفع ...
+      </template>
+      <span class="app-label_text" v-else> {{ label }}</span>
+    </label>
   </div>
 </template>

@@ -5,7 +5,7 @@ export default {
   props: { show: Boolean },
   components: {
     MyOrdersList: defineAsyncComponent(() =>
-      import("@/components/orders/MyList.vue")
+      import("@/layouts/orders/MyList.vue")
     ),
   },
   data() {

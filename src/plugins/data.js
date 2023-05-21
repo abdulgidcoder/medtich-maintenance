@@ -44,6 +44,18 @@ export default {
       { id: "sterilization-endoscopy", value: "التعقيم - المناظير" },
       { id: "sterilization-lab", value: "قسم التعقيم المختبرات" },
     ];
+    config.globalProperties.$paymentGateways = [
+      {
+        label: "فودافون كاش",
+        value: "voda_cache",
+        number: "010123456789",
+      },
+      {
+        label: "تحويل بنكى",
+        value: "bank_transfer",
+        number: "1001215151515",
+      },
+    ];
     config.globalProperties.$searchInStore = (array, val) => {
       let new_object = false;
       if (array) {

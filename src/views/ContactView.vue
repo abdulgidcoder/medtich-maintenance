@@ -3,7 +3,7 @@ import { defineAsyncComponent } from "vue";
 export default {
   components: {
     ContactForm: defineAsyncComponent(() =>
-      import("../components/support/ContactForm.vue")
+      import("@/layouts/support/ContactForm.vue")
     ), 
   },
   created() {

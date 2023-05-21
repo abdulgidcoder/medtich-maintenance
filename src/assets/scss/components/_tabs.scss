@@ -13,7 +13,7 @@
       .app-fixed-bottom {
         position: sticky;
         padding: 10px;
-        bottom: 0;
+        bottom: -21px;
         margin: 0 -15px;
       }
     }
@@ -65,14 +65,18 @@
           overflow: hidden;
           .badge {
             position: absolute;
-            top: 0;
-            right: 8px;
-            color: #fff;
-            background-color: var(--primary);
-            font-size: 10px;
-            height: 20px;
-            width: 20px;
-            border-radius: 8px;
+            top: 8px;
+            left: 15px;
+            background-color: var(--danger);
+            color: var(--white);
+            max-width: 20px;
+            height: 18px;
+            line-height: 18px;
+            text-align: center;
+            border-radius: 50%;
+            border: 1px solid var(--white);
+            font-size: 11px;
+            padding: 0 5px;
           }
           &:active {
             // &:active {

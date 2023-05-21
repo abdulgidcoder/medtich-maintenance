@@ -3,11 +3,7 @@
   "appName": "Medtich Maintenance EG",
   "webDir": "./dist",
   "bundledWebRuntime": true,
-  "hideLogs": true, 
-  "server": {
-    "url": "http://192.168.1.11:5173/",
-    "cleartext": true
-  },
+  "hideLogs": true,  
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 1500,

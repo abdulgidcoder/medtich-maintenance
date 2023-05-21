@@ -3,7 +3,7 @@ import { defineAsyncComponent } from "vue";
 export default {
   props: { show: Boolean },
   components: {
-    MyReportsList: defineAsyncComponent(() => import("@/components/report/List.vue")),
+    MyReportsList: defineAsyncComponent(() => import("@/layouts/report/List.vue")),
   },
   data() {
     return {

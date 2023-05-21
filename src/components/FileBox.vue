@@ -3,7 +3,19 @@ export default {
   props: {
     name: String,
     icon: String,
-    size: String,
+    size: Number,
+  },
+  mounted() {},
+  methods: {
+    returnFileSize(number) {
+      if (number < 1024) {
+        return `${number} bytes`;
+      } else if (number >= 1024 && number < 1048576) {
+        return `${(number / 1024).toFixed(1)} KB`;
+      } else if (number >= 1048576) {
+        return `${(number / 1048576).toFixed(1)} MB`;
+      }
+    },
   },
 };
 </script>
@@ -12,7 +24,7 @@ export default {
     <img :src="icon" :alt="name" />
     <div class="file-info">
       <h5>{{ name }}</h5>
-      <small>Size: {{ size }}</small>
+      <small>الحجم: {{ returnFileSize(this.size) }}</small>
     </div>
   </div>
 </template>

@@ -10,8 +10,8 @@ import { Capacitor } from "@capacitor/core";
 
 export default {
   components: {
-    Error: defineAsyncComponent({
-      loader: () => import("./components/Error.vue"),
+    AlertApp: defineAsyncComponent({
+      loader: () => import("@/layouts/AlertApp.vue"),
     }),
   },
   data() {
@@ -46,8 +46,10 @@ export default {
     // Update User data
     if (localStorage.getItem("token") != undefined) {
       this.$ftechUserData();
+      this.$fetchNewMessages();
     } else {
       clearInterval(this.$ftechUserData);
+      clearInterval(this.$fetchNewMessages);
     }
     /* RTL */
     document.querySelector("html").setAttribute("dir", "rtl");
@@ -88,5 +90,5 @@ export default {
       <component :is="Component" />
     </transition>
   </router-view>
-  <Error />
+  <AlertApp />
 </template>

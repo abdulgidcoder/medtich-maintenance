@@ -1,15 +1,12 @@
 import { defineStore } from "pinia";
 import axios from "axios";
-import { useAlert } from "@/stores/useAlert";
 import { useAuthStore } from "@/stores/useAuth";
-
-const alertStore = useAlert();
-const authStore = useAuthStore();
 
 export const useChatStore = defineStore("chat", {
   state: () => ({
     list: null,
     total: "",
+    messages: null,
     singleChat: null,
   }),
   actions: {
@@ -44,11 +41,10 @@ export const useChatStore = defineStore("chat", {
           fields: {
             technician: technician,
             order: order.id,
-            technician_new_messages: 1,
+            technician_new_messages: 0,
           },
         },
       });
-
       return response;
     },
     async openChat(technician, order) {
@@ -74,7 +70,7 @@ export const useChatStore = defineStore("chat", {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
           params: {
-            _fields: "id,title,acf",
+            _fields: "id,modified,title,acf,last_comment",
             orderby: "modified",
             page: currentPage ? currentPage : 1,
             per_page: per_page ? per_page : 10,
@@ -95,7 +91,8 @@ export const useChatStore = defineStore("chat", {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
           params: {
-            _fields: "id,title,acf",
+            _fields: "id,modified,title,acf,last_comment",
+            orderby: "modified",
             page: currentPage ? currentPage : 1,
             per_page: per_page ? per_page : 10,
             technician: user.user_data.id,
@@ -104,6 +101,45 @@ export const useChatStore = defineStore("chat", {
         if (response.data) {
           this.list = response.data;
           this.total = response.headers["x-wp-totalpages"];
+        }
+      }
+    },
+    async newMessages() {
+      let authStore = useAuthStore();
+      if (authStore.role == "customer") {
+        const response = await axios({
+          method: "get",
+          url: "/wp-json/wp/v2/chat",
+          timeout: this.$timeoutRequest,
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+          params: {
+            _fields: "acf.customer_new_messages,author",
+            author: authStore.user_data.id,
+            customer_messages: true,
+          },
+        });
+        if (response.data) {
+          this.messages = response.headers["x-wp-total"];
+        }
+      }
+      if (authStore.role == "technician") {
+        const response = await axios({
+          method: "get",
+          url: "/wp-json/wp/v2/chat",
+          timeout: this.$timeoutRequest,
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+          params: {
+            _fields: "acf.technician_new_messages,technician",
+            technician: authStore.user_data.id,
+            tech_messages: true,
+          },
+        });
+        if (response.data) {
+          this.messages = response.headers["x-wp-total"];
         }
       }
     },
@@ -140,6 +176,7 @@ export const useChatStore = defineStore("chat", {
       return response;
     },
     async pushMessage(id) {
+      let authStore = useAuthStore();
       let getChatData = await this.getChat(id);
       if (authStore.role == "customer") {
         let newValTechnician =
@@ -201,6 +238,7 @@ export const useChatStore = defineStore("chat", {
       return response;
     },
     async seenMessage(id) {
+      let authStore = useAuthStore();
       if (authStore.role == "customer") {
         const response = await axios({
           method: "post",

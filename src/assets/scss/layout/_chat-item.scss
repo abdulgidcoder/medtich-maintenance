@@ -1,0 +1,65 @@
+.chat-item {
+  position: relative;
+  padding: 10px 15px 10px;
+  border-bottom: 1px solid var(--grey);
+  background-color: var(--white);
+  transition: background-color 0.25s ease-out;
+  line-height: 1;
+  &.have-messages {
+    background-color: var(--bg-grey);
+  }
+  &:active {
+    background-color: var(--bg-grey);
+  }
+  &_wrap {
+    display: flex;
+    align-items: center;
+    &-right {
+      margin-left: 15px;
+    }
+  }
+  &_username {
+    margin-bottom: 2px;
+  }
+  &_meta {
+    display: flex;
+    align-items: center;
+  }
+  &_last-mess {
+    margin-bottom: 0;
+    max-width: 190px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &_date {
+    display: inline-block;
+    padding-right: 5px;
+    &::before {
+      content: "";
+      display: inline-block;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background-color: #000;
+      margin-left: 5px;
+    }
+  }
+  .app-avatar {
+    width: 42px;
+    height: 42px;
+  }
+  .chat-item_messages {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    background-color: var(--danger);
+    color: var(--white);
+    width: 16px;
+    height: 16px;
+    line-height: 18px;
+    text-align: center;
+    border-radius: 50%;
+  }
+}

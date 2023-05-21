@@ -1,5 +1,5 @@
 <script>
-import TopBar from "../components/auth/TopBar.vue";
+import TopBar from "@/layouts/auth/TopBar.vue";
 import { useAuthStore } from "@/stores/useAuth";
 import VOtpInput from "vue3-otp-input";
 import { StatusBar, Style } from "@capacitor/status-bar";
@@ -22,7 +22,6 @@ export default {
       password_confirm: "",
       otpCode: "",
       countryCode: "+2",
-      mailformat: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
       hasFeedback: false,
       feedbackStyle: "",
       feedback: "",
@@ -258,7 +257,7 @@ export default {
         />
         <Radio
           label="نوع الحساب"
-          name="roleUser" 
+          name="roleUser"
           v-model="roleUser"
           :data="[
             { label: 'مستشفى', value: 'customer' },
@@ -277,7 +276,7 @@ export default {
         </div>
         <div id="recaptcha-container"></div>
         <div class="app-field-submit">
-          <button class="btn btn-primary btn-block btn-lg" id="submit-btn">
+          <button class="btn btn-primary btn-block" id="submit-btn">
             تسجيل
           </button>
         </div>

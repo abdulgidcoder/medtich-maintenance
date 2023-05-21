@@ -4,7 +4,7 @@ import { useOrdersStore } from "@/stores/useOrders.js";
 export default {
   components: {
     OrdersList: defineAsyncComponent(() =>
-      import("../components/orders/List.vue")
+      import("@/layouts/orders/List.vue")
     ),
   },
   setup() {

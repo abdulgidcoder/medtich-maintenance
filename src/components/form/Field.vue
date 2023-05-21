@@ -14,6 +14,7 @@ export default {
     readonly: Boolean,
     modelValue: "",
     length: Number,
+    append: String
   },
   setup(props, context) {
     const error = useAlert();
@@ -51,12 +52,16 @@ export default {
     };
     return { updateValue, error };
   },
-  methods: {},
+  methods: {
+    showContextMenu(event) {
+      return true;
+    },
+  },
 };
 </script>
 
 <template>
-  <div class="app-field" :class="[{ 'field-icon': icon }, type]">
+  <div class="app-field" :class="[{ 'field-icon': icon },{'append':append}, type]">
     <label class="app-field_label"
       >{{ label }}<span v-if="required" class="required">*</span></label
     >
@@ -70,6 +75,7 @@ export default {
         :readonly="readonly"
         :pattern="pattern"
         ref="input"
+        @contextmenu="showContextMenu"
       />
       <textarea
         v-if="type == 'textarea'"
@@ -79,6 +85,7 @@ export default {
         @input="updateValue"
         :pattern="pattern"
         ref="input"
+        @contextmenu="showContextMenu"
       >
       </textarea>
       <input
@@ -90,10 +97,12 @@ export default {
         :readonly="readonly"
         :pattern="pattern"
         ref="input"
+        @contextmenu="showContextMenu"
       />
       <div class="app-field_icon" :class="type" v-if="icon">
         <Icon :name="icon" />
-      </div>
+      </div>      
+      <div class="app-field_append" v-if="append">{{append}}</div>
     </div>
   </div>
 </template>

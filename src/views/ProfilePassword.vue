@@ -1,13 +1,10 @@
-<script>
-import axios from "axios";
+<script> 
 import { useAuthStore } from "@/stores/useAuth";
 import { useAlert } from "@/stores/useAlert";
-
-import UserInfo from "../components/auth/UserInfo.vue";
-import FileBox from "../components/FileBox.vue";
+import UserInfo from "@/layouts/auth/UserInfo.vue";
 
 export default {
-  components: { UserInfo, FileBox },
+  components: { UserInfo },
   data() {
     return {
       password: "",
@@ -28,7 +25,7 @@ export default {
   },
   methods: {
     edit_password(ele) {
-      if (this.password.length >= 7) { 
+      if (this.password.length >= 7) {
         if (this.password == this.password_confirm) {
           const btnSubmit = document.getElementById("updata-user");
           btnSubmit.disabled = true;
@@ -44,9 +41,9 @@ export default {
               this.error.show = true;
               btnSubmit.disabled = false;
               btnSubmit.innerHTML = "تغير";
-                   ele.reset(); 
+              ele.reset();
             })
-            .catch((error) => { 
+            .catch((error) => {
               btnSubmit.disabled = false;
               btnSubmit.innerHTML = "تغير";
               this.error.style = "danger";

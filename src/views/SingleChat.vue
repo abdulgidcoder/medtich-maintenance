@@ -1,8 +1,8 @@
 <script>
 import { useChatStore } from "@/stores/useChat.js";
-import HeadPage from "@/components/chat/Single/HeadPage.vue";
-import CreateMessage from "@/components/chat/message/Create.vue";
-import List from "@/components/chat/message/List.vue";
+import HeadPage from "@/layouts/chat/Single/HeadPage.vue";
+import CreateMessage from "@/layouts/chat/message/Create.vue";
+import List from "@/layouts/chat/message/List.vue";
 
 export default {
   components: { HeadPage, CreateMessage, List },
@@ -63,13 +63,12 @@ export default {
   .app-content {
     background-color: var(--bg-grey);
     padding: 70px 0 0;
-    &-container {
-    }
   }
   .chat-massages {
     display: flex;
     flex-direction: column;
     height: 100%;
+    margin: 0 -15px;
   }
 }
 </style>

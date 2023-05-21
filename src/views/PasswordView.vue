@@ -1,5 +1,4 @@
-<script>
-import Modal from "../components/Modal.vue";
+<script> 
 import VOtpInput from "vue3-otp-input";
 import { useAuthStore } from "@/stores/useAuth";
 import { useAlert } from "@/stores/useAlert";
@@ -13,8 +12,7 @@ import {
 import axios from "axios";
 export default {
   components: {
-    VOtpInput,
-    Modal,
+    VOtpInput, 
   },
   data() {
     return {

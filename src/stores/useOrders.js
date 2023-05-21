@@ -7,6 +7,7 @@ const alertStore = useAlert();
 export const useOrdersStore = defineStore("orders", {
   state: () => ({
     lastList: null,
+    ProcessingOrders: null,
     list: null,
     total: "",
     myList: null,
@@ -97,6 +98,48 @@ export const useOrdersStore = defineStore("orders", {
         if (response.data) {
           this.myList = response.data;
           this.myTotal = response.headers["x-wp-totalpages"];
+        }
+      }
+    },
+    async ftechProcessingOrders(user, per_page) {
+      if (user.role == "customer") {
+        const response = await axios({
+          method: "get",
+          url: "/wp-json/wp/v2/orders",
+          timeout: this.$timeoutRequest,
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+          params: {
+            _fields: "id,date,title,content,acf",
+            status_order: "processing",
+            page: 1,
+            per_page: per_page ? per_page : 10,
+            author: user.user_data.id,
+          },
+        });
+        if (response.data) {
+          this.ProcessingOrders = response.data;
+        }
+      }
+      if (user.role == "technician") {
+        const response = await axios({
+          method: "get",
+          url: "/wp-json/wp/v2/orders",
+          timeout: this.$timeoutRequest,
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+          params: {
+            _fields: "id,date,title,content,acf",
+            status_order: "processing",
+            page: 1,
+            per_page: per_page ? per_page : 10,
+            technician: user.user_data.id,
+          },
+        });
+        if (response.data) {
+          this.ProcessingOrders = response.data;
         }
       }
     },
@@ -204,13 +247,13 @@ export const useOrdersStore = defineStore("orders", {
             payment_gateway: order.payment_gateway,
             status: "active",
             technician: false,
-            set_paid: "",
+            payment_date: "",
             offers: false,
           },
         },
       });
     },
-    async acceptOffer(userID, orderId, status) {
+    async acceptOffer(userID, orderId, checkout) {
       const responseOrder = await axios({
         method: "get",
         url: "/wp-json/wp/v2/orders/" + orderId,
@@ -232,11 +275,18 @@ export const useOrdersStore = defineStore("orders", {
             _fields: "acf.technician",
           },
           data: {
-            fields: { technician: userID, status: "processing" },
+            fields: {
+              technician: userID,
+              status: "processing",
+              payment_date: checkout.payment_date,
+              payment_gateway: checkout.payment_gateway,
+              order_price: checkout.order_price,
+              payment_image: checkout.payment_image,
+            },
           },
         });
         if (response.data.acf.technician.ID == userID) {
-          alertStore.masg = "تم قبول العرض";
+          alertStore.masg = "تم قبول العرض انتظر مراجعة التحويل";
           alertStore.style = "success";
           alertStore.show = true;
         } else {
@@ -246,7 +296,7 @@ export const useOrdersStore = defineStore("orders", {
         }
       }
     },
-    async checkout(orderId, date) {
+    async acceptReport(orderId, checkout) {
       const response = await axios({
         method: "post",
         url: "/wp-json/wp/v2/orders/" + orderId,
@@ -254,18 +304,25 @@ export const useOrdersStore = defineStore("orders", {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
         params: {
-          _fields: "acf.set_paid",
+          _fields: "acf.report",
         },
         data: {
-          fields: { set_paid: date },
+          fields: {
+            report: {
+              payment_date: checkout.payment_date,
+              payment_gateway: checkout.payment_gateway,
+              payment_price: checkout.payment_price,
+              payment_image: checkout.payment_image,
+            },
+          },
         },
       });
-      if (response.data.acf.set_paid !== "") {
-        alertStore.masg = "سيتم مراجعة التحويل";
+      if (response.data.acf.report.payment_date) {
+        alertStore.masg = "تم قبول العرض انتظر مراجعة التحويل";
         alertStore.style = "success";
         alertStore.show = true;
       } else {
-        alertStore.masg = "لم يتم الدفع";
+        alertStore.masg = "لم يتم قبول العرض";
         alertStore.style = "danger";
         alertStore.show = true;
       }

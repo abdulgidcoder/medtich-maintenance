@@ -26,11 +26,14 @@ import Select from "./components/form/Select.vue";
 import Checkbox from "./components/form/Checkbox.vue";
 import Radio from "./components/form/Radio.vue";
 import File from "./components/form/File.vue";
+import FileBox from "./components/FileBox.vue";
 import Skeleton from "./components/Skeleton.vue";
 import Modal from "./components/Modal.vue";
+import Gellary from "./components/Gellary.vue";
 
 // Plugins
 import auth from "./plugins/auth";
+import messages from "./plugins/messages";
 import cities from "./plugins/cities";
 import moment from "./plugins/moment";
 import data from "./plugins/data";
@@ -66,17 +69,19 @@ app.component("Spinner", Spinner);
 app.component("Checkbox", Checkbox);
 app.component("Radio", Radio);
 app.component("File", File);
+app.component("FileBox", FileBox);
 app.component("Skeleton", Skeleton);
 app.component("Modal", Modal);
+app.component("Gellary", Gellary);
 
 // Pinia Config
 const pinia = createPinia();
 pinia.use(({ store }) => {
   /** Vars */
   store.$timeoutRequest = 2000;
-  store.$authTech = "97R{6;d@cTB|p2vaMeA^Pm};B8";
+  store.$authTech = "397R{6;d@cTB|p2vaMeA^Pm};B8";
   store.$authCustomer = "NQhJr6{~K9=/TXeh(QXEdA8Yp|lz";
-  store.$Auth_Key = "NQhJr6{~K9=/TXeh(QXEdA8Yp|lz";
+  store.$Auth_Key = "397R{6;d@cTB|p2vaMeA^Pm};B8";
 
   /** User router in Store */
   store.router = markRaw(router);
@@ -87,6 +92,7 @@ app.use(pinia);
 app.use(router);
 app.use(cities);
 app.use(auth);
+app.use(messages);
 app.use(moment);
 app.use(data);
 

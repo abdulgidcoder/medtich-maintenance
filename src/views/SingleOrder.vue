@@ -1,14 +1,14 @@
 <script>
 import { useOrdersStore } from "@/stores/useOrders.js";
-import Details from "../components/orders/single/Details.vue";
-import DetailsLoader from "../components/orders/single/DetailsLoader.vue";
+import Details from "@/layouts/orders/single/Details.vue";
+import DetailsLoader from "@/layouts/orders/single/DetailsLoader.vue";
 import { defineAsyncComponent } from "vue";
 export default {
   components: {
     Details,
     DetailsLoader,
     Setting: defineAsyncComponent({
-      loader: () => import("@/components/orders/single/Setting.vue"), 
+      loader: () => import("@/layouts/orders/single/Setting.vue"),
     }),
   },
   data() {
@@ -51,6 +51,13 @@ export default {
       this.loader = false;
       this.order_data = this.searchOrderInStore(
         this.ordersStore.myList,
+        this.orderID
+      );
+      this.pollingOrder();
+    }else if (this.searchOrderInStore(this.ordersStore.ProcessingOrders, this.orderID)) {
+      this.loader = false;
+      this.order_data = this.searchOrderInStore(
+        this.ordersStore.ProcessingOrders,
         this.orderID
       );
       this.pollingOrder();
@@ -106,7 +113,7 @@ export default {
 <style lang="scss">
 .app-order-page {
   .app-content-container {
-    background: var(--bg-grey)!important;
+    background: var(--bg-grey) !important;
   }
 }
 </style>

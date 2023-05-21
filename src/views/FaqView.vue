@@ -3,7 +3,7 @@ import { defineAsyncComponent } from "vue";
 export default {
   components: {
     FaqList: defineAsyncComponent(() =>
-      import("@/components/support/FaqList.vue")
+      import("@/layouts/support/FaqList.vue")
     ),
   },
   created() {

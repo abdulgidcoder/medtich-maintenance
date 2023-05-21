@@ -8,15 +8,13 @@ export default {
     return {
       mobile: "010327004",
       password: "123456789",
-      hasFeedback: false,
-      feedbackStyle: "",
-      feedback: "",
+      login: false,
     };
   },
   setup() {
-    const auth = useAuthStore(),
-      errorStore = useAlert();
-    return { auth, errorStore };
+    const authStore = useAuthStore(),
+      alertStore = useAlert();
+    return { authStore, alertStore };
   },
   created() {
     document.title = "Login";
@@ -38,53 +36,41 @@ export default {
   methods: {
     handleSubmit(ele) {
       if (this.mobile && this.password) {
-        const btnSubmit = ele.querySelectorAll(".submit-btn");
-        btnSubmit.forEach((btn) => {
-          btn.disabled = true;
-          btn.innerHTML =
-            "<span class='spinner-border spinner-sm' role='status' aria-hidden='true'></span> دخول...";
-        });
-        useAuthStore()
+        this.login = true;
+        this.authStore
           .login(this.mobile, this.password)
           .then((response) => {
-            this.errorStore.show = true;
-            this.errorStore.style = "success";
-            this.errorStore.masg = "تسجيل الدخول بنجاح";
-            btnSubmit.forEach((btn) => {
-              btn.innerHTML = "تسجيل الدخول";
-            });
+            this.alertStore.show = true;
+            this.alertStore.style = "success";
+            this.alertStore.masg = "تسجيل الدخول بنجاح";
+            this.login = false;
             this.$router.push({ name: "home" });
           })
           .catch((error) => {
             ele.reset();
-            (this.mobile = ""),
-              (this.password = ""),
-              btnSubmit.forEach((btn) => {
-                btn.disabled = false;
-                btn.innerHTML = "دخول";
-              });
-            this.errorStore.show = true;
-            this.errorStore.style = "danger";
+            (this.mobile = ""), (this.password = ""), (this.login = false);
+            this.alertStore.show = true;
+            this.alertStore.style = "danger";
             let mesg1 = error.response.data.message;
             let mesg2 = error.response.data.data.message;
             if (mesg1) {
-              this.errorStore.masg = mesg1;
+              this.alertStore.masg = mesg1;
             } else if (mesg2) {
-              this.errorStore.masg = mesg2;
+              this.alertStore.masg = mesg2;
             }
           });
       } else if (!this.mobile && !this.password) {
-        this.errorStore.show = true;
-        this.errorStore.masg = "رقم الجوال وكلمة المرور فارغين!";
-        this.errorStore.style = "danger";
+        this.alertStore.show = true;
+        this.alertStore.masg = "رقم الجوال وكلمة المرور فارغين!";
+        this.alertStore.style = "danger";
       } else if (!this.mobile) {
-        this.errorStore.show = true;
-        this.errorStore.masg = "الجوال فارغ!";
-        this.errorStore.style = "danger";
+        this.alertStore.show = true;
+        this.alertStore.masg = "الجوال فارغ!";
+        this.alertStore.style = "danger";
       } else if (!this.password) {
-        this.errorStore.show = true;
-        this.errorStore.masg = "كلمة المرور فارغة!";
-        this.errorStore.style = "danger";
+        this.alertStore.show = true;
+        this.alertStore.masg = "كلمة المرور فارغة!";
+        this.alertStore.style = "danger";
       }
     },
   },
@@ -99,7 +85,7 @@ export default {
       <form @submit.prevent="handleSubmit($event.target)">
         <Field
           v-model="mobile"
-          type="number"
+          type="tel"
           placeholder="01X XXX XXX XX"
           label="الهاتف"
           icon="mobile"
@@ -115,8 +101,11 @@ export default {
           <RouterLink to="/resetpassword">نسيت كلمة المرور ؟</RouterLink>
         </div>
         <div class="app-field-submit">
-          <button class="btn btn-primary btn-block btn-lg submit-btn">
-            دخول
+          <button class="btn btn-primary btn-block" :disabled="login">
+            <template v-if="login"
+              ><Spinner class="spinner-sm" /> دخول...
+            </template>
+            <template v-else>دخول</template>
           </button>
         </div>
       </form>
@@ -125,8 +114,5 @@ export default {
         <RouterLink to="/register">تسجيل</RouterLink>
       </p>
     </Content>
-    <Teleport to="body">
-      <Alert :show="hasFeedback" :mode="feedbackStyle" :msg="feedback" />
-    </Teleport>
   </Page>
 </template>

@@ -15,16 +15,17 @@ export const useAuthStore = defineStore("auth", {
   getters: {},
   actions: {
     async register(name, username, password, roleUser) {
+      let AUTH_KEY =
+        roleUser == "technician"
+          ? this.$authTech
+          : roleUser == "customer"
+          ? this.$authCustomer
+          : this.$authTech;
       const response = await axios({
         method: "post",
         url: "",
         data: {
-          AUTH_KEY:
-            roleUser == "technician"
-              ? this.$authTech
-              : roleUser == "customer"
-              ? this.$authCustomer
-              : this.$authTech,
+          AUTH_KEY: AUTH_KEY,
           user_login: username,
           email: username + "@medtich-eg.com",
           display_name: name,

@@ -34,32 +34,32 @@ const router = createRouter({
         {
           path: "main",
           name: "main",
-          component: () => import("@/components/tab/Main.vue"),
+          component: () => import("@/layouts/tabs/Main.vue"),
         },
         {
           path: "add-order",
           name: "add-order",
-          component: () => import("@/components/tab/AddOrder.vue"),
+          component: () => import("@/layouts/tabs/AddOrder.vue"),
         },
         {
           path: "orders-tab",
           name: "orders-tab",
-          component: () => import("@/components/tab/Orders.vue"),
+          component: () => import("@/layouts/tabs/Orders.vue"),
         },
         {
           path: "reports-tab",
           name: "reports-tab",
-          component: () => import("@/components/tab/Reports.vue"),
+          component: () => import("@/layouts/tabs/Reports.vue"),
         },
         {
           path: "my-profile",
           name: "my-profile",
-          component: () => import("@/components/tab/Profile.vue"),
+          component: () => import("@/layouts/tabs/Profile.vue"),
         },
         {
           path: "chats",
           name: "chats",
-          component: () => import("@/components/tab/Chats.vue"),
+          component: () => import("@/layouts/tabs/Chats.vue"),
         },
       ],
     },

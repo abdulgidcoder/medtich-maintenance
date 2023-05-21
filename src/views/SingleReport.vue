@@ -1,7 +1,7 @@
 <script>
 import { useReportsStore } from "@/stores/useReports.js";
-import Details from "../components/report/single/Details.vue";
-import DetailsLoader from "../components/report/single/DetailsLoader.vue";
+import Details from "@/layouts/report/single/Details.vue";
+import DetailsLoader from "@/layouts/report/single/DetailsLoader.vue";
 export default {
   components: { Details, DetailsLoader },
   data() {

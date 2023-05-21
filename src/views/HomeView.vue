@@ -3,9 +3,9 @@ import { defineAsyncComponent } from "vue";
 export default {
   components: {
     TabsRouter: defineAsyncComponent(() =>
-      import("@/components/tab/TabsRouter.vue")
+      import("@/layouts/tabs/TabsRouter.vue")
     ),
-    TabsBar: defineAsyncComponent(() => import("@/components/tab/TabsBar.vue")),
+    TabsBar: defineAsyncComponent(() => import("@/layouts/tabs/TabsBar.vue")),
   },
   created() {
     document.title = "Home";
