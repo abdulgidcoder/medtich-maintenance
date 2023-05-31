@@ -12,7 +12,7 @@ export default {
     return {
       isOpened: false,     
       checkout: {
-        payment_date: new Date().toLocaleString(),
+        payment_date: new Date().toUTCString(),
         payment_gateway: "",
         payment_price: "",
         payment_image: "",
@@ -94,7 +94,7 @@ export default {
       class="bottom modal-accept-report"
       :show="isOpened"
       animation="fadeUp"
-      @closeModal="dismissModal"
+      @dismiss="dismissModal"
     >
       <div class="head">
         <h3 class="text-center">

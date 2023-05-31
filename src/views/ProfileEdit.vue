@@ -209,7 +209,7 @@ export default {
       class="modal-delete-account center"
       :show="deleteModal"
       animation="fadeIn"
-      @closeModal="this.deleteModal = false"
+      @dismiss="this.deleteModal = false"
     >
       <h2>هل تريد حقاََ حذف حساب؟</h2>
       <p><strong>تحذير:</strong> سوف يتم حذف جميع بياناتك</p>

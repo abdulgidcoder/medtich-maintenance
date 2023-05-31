@@ -7,7 +7,7 @@ export default {
     isBoxed: Boolean,
     pullToRefresh: Boolean,
     bottomBar: Boolean,
-    disableOffline: Boolean,
+    enableOffline: Boolean,
   },
   data() {
     return {
@@ -80,7 +80,7 @@ export default {
       </div>
       <slot v-else></slot>
     </div>
-    <Offline v-if="!disableOffline" :reconnect="onRefresh" />
+    <Offline v-if="enableOffline" :reconnect="onRefresh" />
   </div>
 </template>
 <style lang="scss">
@@ -96,13 +96,13 @@ export default {
     position: relative;
     height: 100%;
     overflow-x: hidden;
-
     overflow-y: scroll;
     padding: 0 15px;
   }
   &.boxed {
     .app-content-container {
       min-height: 100%;
+      height: auto;
       padding: 20px 15px;
       margin-bottom: -15px;
       background: var(--bg-white);

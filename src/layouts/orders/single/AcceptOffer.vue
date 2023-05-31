@@ -24,7 +24,7 @@ export default {
         },
       ],
       checkout: {
-        payment_date: new Date().toLocaleString(),
+        payment_date: new Date().toUTCString(),
         payment_gateway: "",
         order_price: this.offer.price,
         payment_image: "",
@@ -103,7 +103,7 @@ export default {
     class="bottom modal-accept-offer"
     :show="isOpened"
     animation="fadeUp"
-    @closeModal="dismissModal"
+    @dismiss="dismissModal"
   >
     <div class="head">
       <h3 class="text-center">

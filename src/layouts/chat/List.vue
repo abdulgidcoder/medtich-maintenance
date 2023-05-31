@@ -27,7 +27,7 @@ export default {
     clearInterval(this.polling);
   },
   mounted() {
-    if (!this.chatStore.list) {
+    if (this.chatStore.list) {
       this.fetchChat();
       this.pollingChat();
     } else {
@@ -73,11 +73,11 @@ export default {
         :chat="chat"
       ></Item>
     </ul>
+    <EmptyContent
+      title="لا يوجد اى رسائل"
+      v-if="!loader && this.chatStore.list.length == 0"
+    />
   </div>
-  <EmptyContent
-    title="لا يوجد اى طلبات"
-    v-if="!loader && this.chatStore.list.length == 0"
-  />
   <div
     v-if="this.pagination && this.chatStore.total >= 2"
     :class="this.paginClass"
@@ -91,7 +91,7 @@ export default {
   </div>
 </template>
 <style lang="scss">
-.chats-list { 
+.chats-list {
   ul {
     margin: 0 -15px;
   }

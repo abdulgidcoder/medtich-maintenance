@@ -38,6 +38,7 @@ export default {
       if (this.$auth.role == "technician") {
         this.$refs.LastOrders.fetchOrders();
       }
+      this.$refs.ProcessingList.fetchOrders();
     },
   },
 };
@@ -45,7 +46,7 @@ export default {
 <template>
   <div class="app-tab-view app-home-page">
     <TopbarHome />
-    <Content :pullToRefresh="true" @onRefresh="reloadOrders">
+    <Content :pullToRefresh="true" @onRefresh="reloadOrders" :enableOffline="true">
       <InfoUser />
       <h2 class="app-welcome-back">
         {{ "أهلا بك, " + this.$auth.user_data.name + "!" }}
@@ -73,7 +74,7 @@ export default {
         </div>
         <LastOrders ref="LastOrders" :per_page="6" />
       </section>
-      <section class="app-section app-last-orders">
+      <section class="app-section app-processing-orders">
         <div class="app-section-head">
           <h2 class="h1">طلبات قيد التفيذ</h2>
         </div>
@@ -112,6 +113,16 @@ export default {
         margin-bottom: 0;
       }
     }
+  }
+  .app-section-head {
+    h2 {
+      color: var(--primary);
+    }
+  }
+  .app-last-orders,
+  .app-processing-orders {
+    padding-top: 15px;
+    border-top: 1px solid var(--grey);
   }
 }
 </style>

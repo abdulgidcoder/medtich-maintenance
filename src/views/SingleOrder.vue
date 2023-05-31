@@ -104,7 +104,7 @@ export default {
         </template>
       </template>
     </Head>
-    <Content :isBoxed="true" :pullToRefresh="true" @onRefresh="fetchOrder">
+    <Content :isBoxed="true" :pullToRefresh="true" @onRefresh="fetchOrder" :enableOffline="true">
       <DetailsLoader v-if="loader" />
       <Details v-else :details="order_data"></Details>
     </Content>

@@ -19,8 +19,8 @@ export default {
     const storeSupport = useSupportStore();
     return { storeSupport };
   },
-  mounted() {
-    if (!this.storeSupport.list) {
+  mounted() {    
+    if (this.storeSupport.list) {
       this.fetchFaq();
       this.pollingFaq();
     } else {

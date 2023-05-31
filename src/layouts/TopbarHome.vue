@@ -1,12 +1,13 @@
 <script>
 import { useAuthStore } from "@/stores/useAuth.js";
 import { useOrdersStore } from "@/stores/useOrders.js";
+import Menu from "../components/Menu.vue";
 
 export default {
   props: { show: Boolean },
   data() {
-    return { 
-      auth_user: this.$auth,
+    return {
+      menuOpen: false,
     };
   },
   setup() {
@@ -21,6 +22,7 @@ export default {
       });
     },
   },
+  components: { Menu },
 };
 </script>
 <template>
@@ -33,7 +35,12 @@ export default {
           <strong v-if="this.$auth.user_data?.acf['area']">{{
             $nameCity(this.$auth.user_data?.acf["area"])
           }}</strong>
-          <Select class="btn-link" :data="this.$cities" :onChange="chooseArea" v-else>
+          <Select
+            class="btn-link"
+            :data="this.$cities"
+            :onChange="chooseArea"
+            v-else
+          >
             اختر منطقتك
           </Select>
         </div>

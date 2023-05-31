@@ -65,7 +65,7 @@ export default {
       class="page"
       :show="Modal"
       animation="fadeUp"
-      @closeModal="this.Modal = false"
+      @dismiss="this.Modal = false"
     >
       <Head title="إضافة طلب جديد">
         <template #left>

@@ -78,7 +78,7 @@ app.component("Gellary", Gellary);
 const pinia = createPinia();
 pinia.use(({ store }) => {
   /** Vars */
-  store.$timeoutRequest = 2000;
+  store.$timeoutRequest = 2500;
   store.$authTech = "397R{6;d@cTB|p2vaMeA^Pm};B8";
   store.$authCustomer = "NQhJr6{~K9=/TXeh(QXEdA8Yp|lz";
   store.$Auth_Key = "397R{6;d@cTB|p2vaMeA^Pm};B8";

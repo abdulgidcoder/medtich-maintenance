@@ -11,7 +11,7 @@ export default {
       feedback: "",
       addOfferModal: false,
       offer: {
-        date: new Date().toLocaleString(),
+        date: new Date().toUTCString(),
         technical: this.$auth.user_data.id,
         price: "",
         details: "",
@@ -54,7 +54,7 @@ export default {
     class="bottom add-offer-modal"
     :show="addOfferModal"
     animation="fadeUp"
-    @closeModal="this.addOfferModal = false"
+    @dismiss="this.addOfferModal = false"
   >
     <h2>اضف عرضك</h2>
     <form @submit.prevent="handelSubmit">

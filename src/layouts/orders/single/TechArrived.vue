@@ -14,7 +14,7 @@ export default {
       Modal: false,
       send: false,
       arrived: {
-        date: new Date().toLocaleString(),
+        date: new Date().toUTCString(),
         location: "",
       },
     };
@@ -69,7 +69,7 @@ export default {
       class="bottom modal-chechin-order"
       :show="Modal"
       animation="fadeUp"
-      @closeModal="this.Modal = false"
+      @dismiss="this.Modal = false"
     >
       <h2>تسجيل وصول</h2>
       <p>يجب تسجل وصولك عن العميل</p>

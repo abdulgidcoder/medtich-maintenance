@@ -19,7 +19,7 @@ export default {
 <template>
   <div class="app-tab-view app-my-orders-page">
     <Head title="طلباتى" />
-    <Content :isBoxed="true" :pullToRefresh="true" @onRefresh="reloadMyOrders">
+    <Content :isBoxed="true" :pullToRefresh="true" @onRefresh="reloadMyOrders" :enableOffline="true">
       <MyOrdersList
         ref="MyOrdersList"
         :per_page="10"

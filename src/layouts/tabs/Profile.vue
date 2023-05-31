@@ -14,7 +14,7 @@ export default {
 <template>
   <div class="app-tab-view app-profile-page">
     <Head title="حسابى" />
-    <Content :isBoxed="true" :disableOffline="true">
+    <Content :isBoxed="true">
       <InfoUser />
       <UserInfo />
       <Menu />

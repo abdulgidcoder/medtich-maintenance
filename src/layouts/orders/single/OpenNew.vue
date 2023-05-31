@@ -64,7 +64,7 @@ export default {
       class="bottom modal-chechin-order"
       :show="Modal"
       animation="fadeUp"
-      @closeModal="this.Modal = false"
+      @dismiss="this.Modal = false"
     >
       <div class="text-center">
         <h2 class="text-center">انشاء طلب جديد</h2>

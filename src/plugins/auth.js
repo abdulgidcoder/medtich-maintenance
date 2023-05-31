@@ -6,7 +6,7 @@ export default {
     config.globalProperties.$ftechUserData = () => {
       setInterval(function () {
         useAuthStore().ftechUser();
-      }, 12000);
+      }, 10000);
     };
   
   },

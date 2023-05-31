@@ -49,7 +49,7 @@ export default {
       class="bottom"
       :show="isOpenedModal"
       animation="fadeUp"
-      @closeModal="dismissModal"
+      @dismiss="dismissModal"
     >
       <ul class="app-list-icon">
         <AcceptOffer :order="order" :offer="offer" @onDismiss="dismissModal" />

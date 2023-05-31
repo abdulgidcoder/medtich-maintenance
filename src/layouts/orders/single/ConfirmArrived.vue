@@ -10,7 +10,7 @@ export default {
     return {
       Modal: false,
       send: false,
-      date: new Date().toLocaleString(),
+      date: new Date().toUTCString(),
     };
   },
   setup() {
@@ -52,7 +52,7 @@ export default {
       class="bottom modal-chechin-order"
       :show="Modal"
       animation="fadeUp"
-      @closeModal="this.Modal = false"
+      @dismiss="this.Modal = false"
     >
       <h2>تاكيد وصول الفنى</h2>
       <div class="form-actions">

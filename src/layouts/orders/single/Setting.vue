@@ -105,7 +105,7 @@ export default {
       class="bottom modal-chechin-order"
       :show="Modal"
       animation="fadeUp"
-      @closeModal="this.Modal = false"
+      @dismiss="this.Modal = false"
     >
       <h2 class="text-center">الاعدادت</h2>
 

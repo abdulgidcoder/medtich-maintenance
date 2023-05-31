@@ -1,5 +1,4 @@
-import moment from "moment";
-import { createPinia } from "pinia";
+import moment from "moment"; 
 
 export default {
   install: ({ config }) => {
@@ -25,8 +24,12 @@ export default {
     });
     config.globalProperties.$moment = moment;
     config.globalProperties.$dateTime = (value) => {
-      return moment(value).locale("ar").startOf("minute").fromNow();
+      return moment(value)
+        .locale("ar")
+        .parseZone()
+        .local()
+        .startOf("minute")
+        .fromNow();
     };
-  
   },
 };

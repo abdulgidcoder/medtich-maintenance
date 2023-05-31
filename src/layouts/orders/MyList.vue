@@ -27,8 +27,8 @@ export default {
   beforeUnmount() {
     clearInterval(this.polling);
   },
-  created() {
-    if (!this.ordersStore.myList) {
+  mounted() {
+    if (this.ordersStore.myList) {
       this.fetchOrders();
       this.pollingOrders();
     } else {
@@ -69,7 +69,7 @@ export default {
 };
 </script>
 
-<template>
+<template> 
   <div class="my-orders-list app-list-min">
     <div class="app-fillter">
       <button

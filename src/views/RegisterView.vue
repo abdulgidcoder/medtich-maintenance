@@ -3,7 +3,8 @@ import TopBar from "@/layouts/auth/TopBar.vue";
 import { useAuthStore } from "@/stores/useAuth";
 import VOtpInput from "vue3-otp-input";
 import { StatusBar, Style } from "@capacitor/status-bar";
-import { Capacitor } from "@capacitor/core";
+import { Capacitor } from "@capacitor/core"; 
+
 import {
   getAuth,
   RecaptchaVerifier,
@@ -176,7 +177,7 @@ export default {
           this.feedback = "سجل بنجاح";
           setTimeout(() => {
             this.$router.push({ name: "home" });
-          }, 2000);
+          }, 1500);
         })
         .catch((error) => {
           let btnSubmit = document.getElementById("submit-btn");
@@ -232,7 +233,7 @@ export default {
         />
         <Field
           v-model="mobile"
-          type="number"
+          type="tel"
           placeholder="01X XXX XXX XX"
           label="الهاتف"
           icon="mobile"
@@ -318,7 +319,7 @@ export default {
       class="modal-otp bottom"
       :show="privacyModal"
       animation="fadeUp"
-      @closeModal="this.privacyModal = false"
+      @dismiss="this.privacyModal = false"
     >
       <h2>الشروط والاحكام</h2>
       <p>

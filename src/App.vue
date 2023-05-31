@@ -42,15 +42,9 @@ export default {
       }
     },
   },
-  async created() {
+  async mounted() {
     // Update User data
-    if (localStorage.getItem("token") != undefined) {
-      this.$ftechUserData();
-      this.$fetchNewMessages();
-    } else {
-      clearInterval(this.$ftechUserData);
-      clearInterval(this.$fetchNewMessages);
-    }
+    this.autoUpdateUser();
     /* RTL */
     document.querySelector("html").setAttribute("dir", "rtl");
 
@@ -80,7 +74,17 @@ export default {
       });
     }
   },
-  methods: {},
+  methods: {
+    async autoUpdateUser() {
+      if (localStorage.getItem("token") != undefined) {
+        this.$ftechUserData();
+        this.$fetchNewMessages();
+      } else {
+        clearInterval(this.$ftechUserData);
+        clearInterval(this.$fetchNewMessages);
+      }
+    },
+  },
 };
 </script>
 

@@ -26,8 +26,8 @@ export default {
   beforeUnmount() {
     clearInterval(this.polling);
   },
-  created() {
-    if (!this.ordersStore.list) {
+  mounted() {
+    if (this.ordersStore.list) {
       this.fetchOrders();
       this.pollingOrders();
     } else {
@@ -81,11 +81,11 @@ export default {
         :order="order"
       ></Item>
     </ul>
+    <EmptyContent
+      title="لا يوجد اى طلبات"
+      v-if="!loader && this.ordersStore.list.length == 0"
+    />
   </div>
-  <EmptyContent
-    title="لا يوجد اى طلبات"
-    v-if="!loader && this.ordersStore.list.length == 0"
-  />
   <div
     v-if="this.pagination && this.ordersStore.total >= 2"
     :class="this.paginClass"

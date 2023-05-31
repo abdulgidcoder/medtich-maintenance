@@ -33,7 +33,7 @@ export default {
     class="center"
     :show="Modal"
     animation="fadeIn"
-    @closeModal="this.Modal = false"
+    @dismiss="this.Modal = false"
   >
   <h2>إضافة العنوان الحالى</h2>
   <p>تاكد من فتح تحديد الموقع اولاَ</p>

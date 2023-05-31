@@ -33,7 +33,7 @@ export default {
         mobile: 11,
         password: 8,
       },
-      app_pass: "gD1T vo8s srrE rzJx Bt7N 4IFF",
+      app_pass: "RSlj PvON Patc 5Slv HzNg kFJk",
     };
   },
   setup() {

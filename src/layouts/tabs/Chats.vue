@@ -19,7 +19,7 @@ export default {
 <template>
   <div class="app-tab-view app-notify-page">
     <Head title="الرسائل" />
-    <Content isBoxed pullToRefresh @onRefresh="reloadChats">
+    <Content :isBoxed="true" :pullToRefresh="true" @onRefresh="reloadChats" :enableOffline="true"> 
       <chatList
         ref="chatList"
         :per_page="15"

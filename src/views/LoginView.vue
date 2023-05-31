@@ -6,7 +6,7 @@ import { useAlert } from "@/stores/useAlert";
 export default {
   data() {
     return {
-      mobile: "010327004",
+      mobile: "01032700450",
       password: "123456789",
       login: false,
     };
@@ -79,7 +79,7 @@ export default {
 
 <template>
   <Page class="app-page-auth">
-    <Content :disableOffline="true">
+    <Content>
       <AppLogo />
       <h1>مرحبًا بعودتك</h1>
       <form @submit.prevent="handleSubmit($event.target)">

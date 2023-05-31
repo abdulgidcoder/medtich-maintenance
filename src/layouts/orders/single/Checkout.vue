@@ -7,7 +7,7 @@ export default {
   },
   data() {
     return {
-      date: new Date().toLocaleString(),
+      date: new Date().toUTCString(),
       Modal: false,
       checkouting: false,
     };
@@ -48,7 +48,7 @@ export default {
       class="bottom modal-chechout-order"
       :show="Modal"
       animation="fadeUp"
-      @closeModal="this.Modal = false"
+      @dismiss="this.Modal = false"
     >
       <h2>الدفع</h2>
       <p>

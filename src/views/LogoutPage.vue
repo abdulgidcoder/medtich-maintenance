@@ -47,7 +47,7 @@ onMounted(() =>
 
 <template>
   <Page class="app-logout-page">
-    <Content :disableOffline="true">
+    <Content>
       <div class="logout">
         <div class="spinner-border" role="status"></div>
         <div class="lead">تسجيل خروج ...</div>

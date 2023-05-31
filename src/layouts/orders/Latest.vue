@@ -18,7 +18,7 @@ export default {
     const ordersStore = useOrdersStore();
     return { ordersStore };
   },
-  created() {
+  mounted() {    
     if (!this.ordersStore.lastList) {
       this.fetchOrders();
       this.pollingOrders();
@@ -64,10 +64,10 @@ export default {
         :order="order"
       ></Item>
     </ul>
+    <EmptyContent
+      title="لا يوجد اى طلبات فى هذا المنطقه"
+      :iconsSize="150"
+      v-if="!loader && this.ordersStore.lastList.length == 0"
+    /> 
   </div>
-  <EmptyContent
-    title="لا يوجد اى طلبات فى هذا المنطقه"
-    :iconsSize="250"
-    v-if="!loader && this.ordersStore.lastList.length == 0"
-  />
 </template>

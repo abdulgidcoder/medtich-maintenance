@@ -23,9 +23,9 @@ export default {
 };
 </script>
 <template>
-  <Page class="app-orders-page">
+  <Page class="app-my-orders-page">
     <Head title="طلباتى" goBack="true" />
-    <Content :isBoxed="true" :pullToRefresh="true" @onRefresh="reloadMyOrders">
+    <Content :isBoxed="true" :pullToRefresh="true" @onRefresh="reloadMyOrders" :enableOffline="true">
       <MyOrdersList
         ref="MyOrdersList"
         :per_page="10"
@@ -37,7 +37,7 @@ export default {
 </template>
 
 <style lang="scss">
-.app-orders-page {
+.app-my-orders-page {
   .app-content {
     padding-bottom: 0;
   }

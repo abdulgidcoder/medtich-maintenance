@@ -18,8 +18,8 @@ export default {
     const ordersStore = useOrdersStore();
     return { ordersStore };
   },
-  created() {
-    if (!this.ordersStore.ProcessingOrders) {
+  mounted() {
+    if (this.ordersStore.ProcessingOrders) {
       this.fetchOrders();
       this.pollingOrders();
     } else {
@@ -46,7 +46,7 @@ export default {
           .then(() => {
             this.loader = false;
           });
-      }, 3000);
+      }, this.$pollTimer);
     },
   },
 };
@@ -54,6 +54,7 @@ export default {
 
 <template>
  <div class="my-orders-list">
+ 
         <ul v-if="loader">
       <MyItemLoader v-for="i in this.per_page" :key="i" />
     </ul>

@@ -58,7 +58,7 @@ export default {
 <template>
   <Page class="app-report-page">
     <Head title="تفاصيل التقرير" goBack="true"></Head>
-    <Content :isBoxed="true" :pullToRefresh="true">
+    <Content :isBoxed="true" :pullToRefresh="true" :enableOffline="true">
       <DetailsLoader v-if="loader" />
       <Details v-else :details="report_data"></Details>
     </Content>

@@ -4,7 +4,7 @@ import { useAlert } from "@/stores/useAlert";
 const error = useAlert();
 export const useSupportStore = defineStore("support", {
   state: () => ({
-    list: null,
+    list: [],
     total: "",
   }),
   actions: {
@@ -15,8 +15,8 @@ export const useSupportStore = defineStore("support", {
         url: "wp-json/wp/v2/faq",
         params: {
           _fields: "id,title,content",
+          order: "asc",
           page: currentPage,
-          orderby: "modified",
           per_page: per_page,
         },
         headers: {

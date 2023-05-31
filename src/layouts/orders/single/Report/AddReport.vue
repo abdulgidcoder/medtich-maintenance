@@ -13,7 +13,7 @@ export default {
       uploadig: false,
       report: {
         replacement_parts: false,
-        date: new Date().toLocaleString(),
+        date: new Date().toUTCString(),
         expected_cost: "",
         expected_time: "",
         technical: this.$auth.user_data.id,

@@ -6,10 +6,10 @@ export default {
     show: Boolean,
     animation: String,
   },
-  emits: ["closeModal"],
+  emits: ["dismiss"],
   methods: {
-    closeModal() {
-      this.$emit("closeModal");
+    dismiss() {
+      this.$emit("dismiss");
     },
   },
 };
@@ -25,7 +25,7 @@ export default {
         class="app-modal"
         :class="[{ active: show }, $attrs['class']]"
         v-if="show"
-        @click="closeModal"
+        @click="dismiss"
       >
         <div class="app-modal__container" @click.stop>
           <slot></slot>
