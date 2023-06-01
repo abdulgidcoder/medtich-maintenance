@@ -8,11 +8,16 @@ export default {
   },
 };
 </script>
-<template>
+<template> 
    <Info
     mode="warning"
     msg="اكمل بياناتك لكى يتم تفعيل حسابك"
-    :show="auth_user.user_data?.acf['status'] == null && this.$auth.role == 'technician'" 
+    :show="!auth_user.user_data?.acf.cv && this.$auth.role == 'technician' && auth_user.user_data?.acf['status'] != 'active'" 
+  />
+   <Info
+    mode="info"
+    msg="اختار منطقتك حتى يمكن رؤيته الطلبات"
+    :show="!auth_user.user_data?.acf.area && this.$auth.role == 'technician'" 
   />
   <Info
     mode="warning"

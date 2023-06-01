@@ -1,6 +1,6 @@
 export default {
   install: ({ config }) => {
-    config.globalProperties.$pollTimer = 2600;
+    config.globalProperties.$pollTimer = 2200;
     config.globalProperties.$cities = [
       { id: "cairo", value: "القاهرة" },
       { id: "giza", value: "الجيزة" },

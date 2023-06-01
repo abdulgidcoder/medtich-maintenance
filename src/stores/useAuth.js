@@ -101,7 +101,7 @@ export const useAuthStore = defineStore("auth", {
       let response = await axios({
         method: "get",
         url: "wp-json/wp/v2/users/me",
-        timeout: 5000,
+        timeout: this.$timeoutRequest,
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },

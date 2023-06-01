@@ -66,7 +66,7 @@ export default {
       </section>
       <section
         class="app-section app-last-orders"
-        v-if="this.$auth.role == 'technician'"
+        v-if="this.$auth.role == 'technician' && this.$auth.user_data.acf?.area"
       >
         <div class="app-section-head">
           <h2 class="h1">اخر الطلبات</h2>

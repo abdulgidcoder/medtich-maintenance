@@ -6,8 +6,8 @@ import { useAlert } from "@/stores/useAlert";
 export default {
   data() {
     return {
-      mobile: "01032700450",
-      password: "123456789",
+      mobile: "",
+      password: "",
       login: false,
     };
   },
