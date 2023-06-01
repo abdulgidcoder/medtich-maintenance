@@ -19,7 +19,7 @@ export default {
     return { ordersStore };
   },
   mounted() {
-    if (this.ordersStore.ProcessingOrders) {
+    if (!this.ordersStore.ProcessingOrders) {
       this.fetchOrders();
       this.pollingOrders();
     } else {
@@ -53,9 +53,8 @@ export default {
 </script>
 
 <template>
- <div class="my-orders-list">
- 
-        <ul v-if="loader">
+  <div class="my-orders-list">
+    <ul v-if="loader">
       <MyItemLoader v-for="i in this.per_page" :key="i" />
     </ul>
     <ul v-else>
@@ -64,11 +63,11 @@ export default {
         :key="order.id"
         :order="order"
       ></MyItem>
-    </ul> 
+    </ul>
   </div>
   <EmptyContent
     title="لا يوجد اى طلبات قيد التنفيذ"
-    :iconsSize="250"
+    :iconsSize="150"
     v-if="!loader && this.ordersStore.ProcessingOrders.length == 0"
   />
 </template>

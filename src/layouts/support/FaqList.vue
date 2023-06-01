@@ -20,7 +20,7 @@ export default {
     return { storeSupport };
   },
   mounted() {    
-    if (this.storeSupport.list) {
+    if (!this.storeSupport.list) {
       this.fetchFaq();
       this.pollingFaq();
     } else {

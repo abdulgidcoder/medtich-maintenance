@@ -27,7 +27,7 @@ export default {
     clearInterval(this.polling);
   },
   mounted() {
-    if (this.chatStore.list) {
+    if (!this.chatStore.list) {
       this.fetchChat();
       this.pollingChat();
     } else {

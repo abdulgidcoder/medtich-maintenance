@@ -15,13 +15,13 @@
           ><Icon name="angle-right" class="item-arrow"
         /></RouterLink>
       </li>
-      <li v-if="this.$auth.role == 'technician'">
+      <!-- <li v-if="this.$auth.role == 'technician'">
         <RouterLink :to="{ name: 'my-reports' }"
           ><span class="item-text"
             ><Icon name="file-chart" class="item-icon" />تقاريرى</span
           ><Icon name="angle-right" class="item-arrow"
         /></RouterLink>
-      </li>
+      </li> -->
       <li>
         <RouterLink :to="{ name: 'faq' }"
           ><span class="item-text"

@@ -27,7 +27,7 @@ export default {
     clearInterval(this.polling);
   },
   mounted() {
-    if (this.ordersStore.list) {
+    if (!this.ordersStore.list) {
       this.fetchOrders();
       this.pollingOrders();
     } else {
