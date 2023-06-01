@@ -18,7 +18,10 @@ export default {
   text-align: center;
   img {
     max-width: 330px;
-    margin: 0 auto 15px;
+    margin: 0 auto 0;
+  }
+  h3{
+    color: var(--medium);
   }
 }
 </style>

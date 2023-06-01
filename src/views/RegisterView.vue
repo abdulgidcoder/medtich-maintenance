@@ -3,7 +3,7 @@ import TopBar from "@/layouts/auth/TopBar.vue";
 import { useAuthStore } from "@/stores/useAuth";
 import VOtpInput from "vue3-otp-input";
 import { StatusBar, Style } from "@capacitor/status-bar";
-import { Capacitor } from "@capacitor/core"; 
+import { Capacitor } from "@capacitor/core";
 
 import {
   getAuth,
@@ -316,26 +316,25 @@ export default {
     </Modal>
 
     <Modal
-      class="modal-otp bottom"
+      class="modal-otp page"
       :show="privacyModal"
       animation="fadeUp"
       @dismiss="this.privacyModal = false"
     >
-      <h2>الشروط والاحكام</h2>
-      <p>
-        This text template will help you to create your web site’s privacy
-        policy. The template contains a suggestion of sections you most likely
-        will need. Under each section heading you will find a short summary of
-        what information you should provide, which will help you to get started.
-        Some sections include suggested policy content, others will have to be
-        completed with information from your theme and plugins. Please edit your
-        privacy policy content, making sure to delete the summaries, and adding
-        any information from your theme and plugins. Once you publish your
-        policy page, remember to add it to your navigation menu. It is your
-        responsibility to write a comprehensive privacy policy, to make sure it
-        reflects all national and international legal requirements on privacy,
-        and to keep your policy current and accurate.
-      </p>
+      <Head title="الشروط والاحكام">
+        <template #left>
+          <button
+            @click="this.privacyModal = false"
+            class="app-btn-back"
+            type="button"
+          >
+            <Icon name="times" />
+          </button>
+        </template>
+      </Head>
+      <Content :isBoxed="true">
+        <div v-html="this.$privacy"></div>
+      </Content>
     </Modal>
   </Page>
 </template>

@@ -130,6 +130,12 @@ const router = createRouter({
       beforeEnter: redirectToLoginOnLoggedOut,
     },
     {
+      path: "/privacy",
+      name: "privacy",
+      component: () => import("@/views/PrivacyPolicy.vue"),
+      beforeEnter: redirectToLoginOnLoggedOut,
+    },
+    {
       path: "/chat/:id",
       name: "single-chat",
       component: () => import("@/views/SingleChat.vue"),

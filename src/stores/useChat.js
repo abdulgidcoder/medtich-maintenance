@@ -4,9 +4,9 @@ import { useAuthStore } from "@/stores/useAuth";
 
 export const useChatStore = defineStore("chat", {
   state: () => ({
-    list: [],
+    list: null,
     total: "",
-    messages: [],
+    messages: null,
     singleChat: null,
   }),
   actions: {

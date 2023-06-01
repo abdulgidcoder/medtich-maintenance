@@ -4,7 +4,7 @@ import { useAlert } from "@/stores/useAlert";
 const error = useAlert();
 export const useSupportStore = defineStore("support", {
   state: () => ({
-    list: [],
+    list: null,
     total: "",
   }),
   actions: {

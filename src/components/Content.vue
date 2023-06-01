@@ -100,9 +100,7 @@ export default {
     padding: 0 15px;
   }
   &.boxed {
-    .app-content-container {
-      min-height: 100%;
-      height: auto;
+    .app-content-container { 
       padding: 20px 15px;
       margin-bottom: -15px;
       background: var(--bg-white);

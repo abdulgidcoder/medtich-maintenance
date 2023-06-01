@@ -6,11 +6,11 @@ const alertStore = useAlert();
 
 export const useOrdersStore = defineStore("orders", {
   state: () => ({
-    lastList: [],
-    ProcessingOrders: [],
-    list: [],
+    lastList: null,
+    ProcessingOrders: null,
+    list: null,
     total: "",
-    myList: [],
+    myList: null,
     myTotal: "",
     singleOrder: null,
   }),

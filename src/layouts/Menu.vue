@@ -8,6 +8,13 @@
           ><Icon name="angle-right" class="item-arrow"
         /></RouterLink>
       </li>
+           <li>
+        <RouterLink :to="{ name: 'password' }"
+          ><span class="item-text"
+            ><Icon name="password" class="item-icon" />تغيير كلمة المرور</span
+          ><Icon name="angle-right" class="item-arrow"
+        /></RouterLink>
+      </li>
       <li>
         <RouterLink :to="{ name: 'my-orders' }"
           ><span class="item-text"
@@ -30,6 +37,13 @@
           ><Icon name="angle-right" class="item-arrow"
         /></RouterLink>
       </li>
+           <li>
+        <RouterLink :to="{ name: 'privacy' }"
+          ><span class="item-text"
+            ><Icon name="shield-alt" class="item-icon" />الشروط والاحكام</span
+          ><Icon name="angle-right" class="item-arrow"
+        /></RouterLink>
+      </li>
       <li>
         <RouterLink :to="{ name: 'contact' }"
           ><span class="item-text"
@@ -37,13 +51,7 @@
           ><Icon name="angle-right" class="item-arrow"
         /></RouterLink>
       </li>
-      <li>
-        <RouterLink :to="{ name: 'password' }"
-          ><span class="item-text"
-            ><Icon name="password" class="item-icon" />تغيير كلمة المرور</span
-          ><Icon name="angle-right" class="item-arrow"
-        /></RouterLink>
-      </li>
+ 
       <li>
         <RouterLink :to="{ name: 'logout' }"
           ><span class="item-text"
@@ -74,7 +82,7 @@
       font-weight: 500;
     }
     .item-icon {
-      background-color: var(--primary-tint);
+      background-color:var(--bg-grey);
       color: var(--primary);
       margin-right: 15px;
       border-radius: 5px;
