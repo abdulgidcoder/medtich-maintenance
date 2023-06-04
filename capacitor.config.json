@@ -2,7 +2,7 @@
   "appId": "com.arabcoderz.maintenanceeg",
   "appName": "Medtich Maintenance EG",
   "bundledWebRuntime": false,
-  "webDir": "dist",
+  "webDir": "./dist",
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 1500,
