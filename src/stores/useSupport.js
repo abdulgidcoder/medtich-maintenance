@@ -30,7 +30,7 @@ export const useSupportStore = defineStore("support", {
     async requestContent(request) {
       const response = await axios({
         method: "post",
-        url: "wp-json/contact-form-7/v1/contact-forms/214/feedback",
+        url: "wp-json/contact-form-7/v1/contact-forms/118/feedback",
         headers: {
           "Content-Type": "multipart/form-data",
         },
