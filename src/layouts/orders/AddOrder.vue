@@ -5,9 +5,7 @@ import { defineAsyncComponent } from "vue";
 
 export default {
   components: {
-    AddForm: defineAsyncComponent(() =>
-      import("@/layouts/orders/AddForm.vue")
-    ),
+    AddForm: defineAsyncComponent(() => import("@/layouts/orders/AddForm.vue")),
   },
   props: ["order", "loaded"],
   data() {
@@ -35,7 +33,7 @@ export default {
     const ordersStore = useOrdersStore();
     const errorStore = useAlert();
     return { ordersStore, errorStore };
-  }, 
+  },
   created() {},
   methods: {
     async handleSubmit() {
@@ -56,11 +54,12 @@ export default {
 </script>
 <template>
   <template v-if="this.$auth.role == 'customer'">
-    <div class="app-fab app-fab-main">
-      <button class="app-fab-toogle" @click="this.Modal = true">
+    <button class="app-tab-btn" @click="this.Modal = true">
+      <a>
         <Icon name="cart-pulse" />
-      </button>
-    </div>
+        <span class="title">جديد</span>
+      </a>
+    </button>
     <Modal
       class="page"
       :show="Modal"

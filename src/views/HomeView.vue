@@ -7,8 +7,17 @@ export default {
     ),
     TabsBar: defineAsyncComponent(() => import("@/layouts/tabs/TabsBar.vue")),
   },
-  created() {
+  mounted() {
     document.title = "Home";
+    this.$fetchNewMessages();
+    if (localStorage.getItem("token") != undefined) {
+      this.$pollingNewMessages();
+    } else {
+      clearInterval(this.$pollingNewMessages);
+    }
+  },
+  beforeMount() {
+    clearInterval(this.$pollingNewMessages);
   },
 };
 </script>

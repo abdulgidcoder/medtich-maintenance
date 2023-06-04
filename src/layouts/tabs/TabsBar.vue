@@ -1,7 +1,12 @@
 <script>
+import { defineAsyncComponent } from "vue";
 import { useChatStore } from "@/stores/useChat";
-
 export default {
+  components: {
+    AddOrder: defineAsyncComponent(() =>
+      import("@/layouts/orders/AddOrder.vue")
+    ),
+  },
   setup() {
     const chatStore = useChatStore();
     return { chatStore };
@@ -16,19 +21,14 @@ export default {
           <Icon name="home" />
           <span class="title">الرئيسية</span>
         </RouterLink>
-      </button>
-      <!-- <button class="app-tab-btn" v-if="this.$auth.role == 'customer'">
-        <RouterLink to="/home/add-order">
-          <Icon name="cart-pulse" />
-          <span class="title">طلب جديد</span>
-        </RouterLink>
-      </button> -->
+      </button> 
       <button class="app-tab-btn">
         <RouterLink to="/home/orders-tab">
           <Icon name="cart" />
           <span class="title">طلباتى</span>
         </RouterLink>
       </button>
+      <AddOrder />
       <!-- <button class="app-tab-btn" v-if="this.$auth.role == 'technician'">
         <RouterLink to="/home/reports-tab">
           <Icon name="file-chart" />

@@ -18,21 +18,20 @@ export default {
     const ordersStore = useOrdersStore();
     return { ordersStore };
   },
-  mounted() {    
-    if (!this.ordersStore.lastList) {
-      this.fetchOrders();
-      this.pollingOrders();
-    } else {
-      this.loader = false;
-      this.pollingOrders();
-    }
+  mounted() {
+    this.fetchOrders();
+    this.pollingOrders();
   },
   beforeUnmount() {
     clearInterval(this.polling);
   },
   methods: {
     fetchOrders() {
-      this.loader = true;
+      if (!this.ordersStore.lastList) {
+        this.loader = true;
+      } else {
+        this.loader = false;
+      }
       this.ordersStore
         .ftechLast(this.$auth.user_data?.acf["area"], this.per_page)
         .then(() => {
@@ -68,6 +67,6 @@ export default {
       title="لا يوجد اى طلبات فى هذا المنطقه"
       :iconsSize="150"
       v-if="!loader && this.ordersStore.lastList.length == 0"
-    /> 
+    />
   </div>
 </template>

@@ -2,7 +2,9 @@
 import { useOrdersStore } from "@/stores/useOrders.js";
 import { useAlert } from "@/stores/useAlert";
 import { useMediaStore } from "@/stores/useMedia";
+import PaymentGateway from "@/layouts/PaymentGateway.vue";
 export default {
+  components: { PaymentGateway },
   props: {
     report: Object,
     order: Object,
@@ -10,10 +12,10 @@ export default {
   emits: ["onDismiss"],
   data() {
     return {
-      isOpened: false,     
+      isOpened: false,
       checkout: {
         payment_date: new Date().toUTCString(),
-        payment_gateway: "",
+        payment_gateway: "bank_transfer",
         payment_price: "",
         payment_image: "",
       },
@@ -44,7 +46,7 @@ export default {
     async uploadFiles(input) {
       this.uploadig = true;
       const files = input.target.files;
-      await this.mediaStore.upload(files).then((response) => { 
+      await this.mediaStore.upload(files).then((response) => {
         this.uploadig = false;
         for (let i = 0; i < response.length; i++) {
           this.images.push(response[i].src);
@@ -101,7 +103,7 @@ export default {
           {{ "هل تريد قبول عرض " + order?.acf?.technician.display_name + " ؟" }}
         </h3>
         <p class="text-center">قم بتحويل التكلفة اولاََ حتى يتم تنفذ الطلب</p>
-      </div> 
+      </div>
       <form @submit.prevent="accept">
         <Field
           label="التكلفة"
@@ -118,15 +120,7 @@ export default {
           :required="true"
           :data="this.$paymentGateways"
         />
-        <div class="payment-gateway-info" v-if="checkout.payment_gateway">
-          <div v-for="pay in this.$paymentGateways" :key="pay.value">
-            <Transition name="fade">
-              <template v-if="checkout.payment_gateway == pay.value">{{
-                "رقم " + pay.label + ": " + pay.number
-              }}</template>
-            </Transition>
-          </div>
-        </div>
+        <PaymentGateway :payment_gateway="checkout.payment_gateway" />
         <File
           @change="uploadFiles"
           label="رفع  صور التحويل"

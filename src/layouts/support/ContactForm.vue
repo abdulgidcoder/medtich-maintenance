@@ -63,21 +63,22 @@ export default {
 </script>
 <template>
   <div class="app-contact-info">
+    {{  }}
     <ul>
-      <li style="--icon-bg: var(--danger-tint); --icon-text: var(--danger)">
-        <a href="tel:0551789024">
+      <li style="--icon-bg: var(--danger-tint); --icon-text: var(--danger)" v-if="this.$contactInfo['tel']">
+        <a :href="'tel:'+ this.$contactInfo['tel']">
           <div class="icon"><Icon name="phone" /></div>
           <span class="title">اتصل بنا</span>
         </a>
       </li>
-      <li style="--icon-bg: var(--info-tint); --icon-text: var(--info)">
-        <a href="mailto:info@medtich.com">
+      <li style="--icon-bg: var(--info-tint); --icon-text: var(--info)"  v-if="this.$contactInfo['email']">
+        <a :href="'mailto:' + this.$contactInfo['email']">
           <div class="icon"><Icon name="email" /></div>
           <span class="title">إيميل</span>
         </a>
       </li>
-      <li style="--icon-bg: var(--success-tint); --icon-text: var(--success)">
-        <a href="https://wa.me/966551789024">
+      <li style="--icon-bg: var(--success-tint); --icon-text: var(--success)"  v-if="this.$contactInfo['whatsapp']">
+        <a :href="'https://wa.me/'+ this.$contactInfo['whatsapp']">
           <div class="icon"><Icon name="whatsapp" /></div>
           <span class="title">واتس اب</span>
         </a>

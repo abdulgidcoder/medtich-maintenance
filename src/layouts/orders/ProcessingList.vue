@@ -19,20 +19,17 @@ export default {
     return { ordersStore };
   },
   mounted() {
-    if (!this.ordersStore.ProcessingOrders) {
-      this.fetchOrders();
-      this.pollingOrders();
-    } else {
-      this.loader = false;
-      this.pollingOrders();
-    }
+    this.fetchOrders();
+    this.pollingOrders();
   },
   beforeUnmount() {
     clearInterval(this.polling);
   },
   methods: {
     fetchOrders() {
-      this.loader = true;
+      if (this.ordersStore.ProcessingOrders) {
+        this.loader = false;
+      }
       this.ordersStore
         .ftechProcessingOrders(this.$auth, this.per_page)
         .then(() => {

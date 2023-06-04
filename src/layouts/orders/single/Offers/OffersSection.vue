@@ -2,7 +2,7 @@
 import AddOffer from "./AddOffer.vue";
 import OfferItem from "./OfferItem.vue";
 export default {
-  components: {AddOffer, OfferItem},
+  components: { AddOffer, OfferItem },
   props: ["data", "isMyOrder"],
   data() {
     return {
@@ -20,10 +20,9 @@ export default {
   methods: {
     acceptedOffer(offers) {
       if (offers) {
-        offers.find((offer) => {
-          this.allowAddOffer =
-            offer.technical["ID"] == this.$auth.user_data.id ? false : true;
-        });
+        this.allowAddOffer = offers.some(
+          (item) => item.technical["ID"] === this.$auth.user_data.id
+        );
       } else {
         this.allowAddOffer = true;
       }
@@ -34,9 +33,9 @@ export default {
 <template>
   <Card>
     <template #title>العروض</template>
-    <template #actions> 
+    <template #actions>
       <AddOffer
-        v-if="allowAddOffer && !isMyOrder && this.$auth.role == 'technician'"
+        v-if="!allowAddOffer && !isMyOrder && this.$auth.role == 'technician'"
         :orderID="data.id"
       />
     </template>

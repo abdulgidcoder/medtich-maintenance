@@ -21,7 +21,7 @@ export default {
     const authStore = useAuthStore();
     const errorStore = useAlert();
     const { connection } = storeToRefs(authStore);
-    return { connection, errorStore };
+    return { authStore, connection, errorStore };
   },
   watch: {
     // Watch Connection if is false and Stop update App
@@ -42,11 +42,12 @@ export default {
       }
     },
   },
-  async mounted() {
-    // Update User data
-    this.autoUpdateUser();
+  mounted() {
     /* RTL */
     document.querySelector("html").setAttribute("dir", "rtl");
+    // Update User data
+
+    this.autoUpdateUser();
 
     if (Capacitor.isNativePlatform()) {
       /* Disable Zoom */
@@ -57,13 +58,11 @@ export default {
         },
         false
       );
-
       /* StatusBar */
       StatusBar.setStyle({ style: Style.Light });
       StatusBar.setBackgroundColor({
         color: "#00d9c8",
       });
-
       /* Navigation Back */
       AppCap.addListener("backButton", ({ canGoBack }) => {
         if (canGoBack) {
@@ -77,11 +76,10 @@ export default {
   methods: {
     async autoUpdateUser() {
       if (localStorage.getItem("token") != undefined) {
+        this.authStore.ftechUser();
         this.$ftechUserData();
-        this.$fetchNewMessages();
       } else {
         clearInterval(this.$ftechUserData);
-        clearInterval(this.$fetchNewMessages);
       }
     },
   },

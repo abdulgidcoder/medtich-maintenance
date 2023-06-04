@@ -9,7 +9,7 @@ export default {
     currentPage: Number,
     per_page: Number,
     pagination: Boolean,
-    paginClass: String, 
+    paginClass: String,
   },
   expose: ["fetchOrders"],
   data() {
@@ -27,17 +27,14 @@ export default {
     clearInterval(this.polling);
   },
   mounted() {
-    if (!this.ordersStore.list) {
-      this.fetchOrders();
-      this.pollingOrders();
-    } else {
-      this.loader = false;
-      this.pollingOrders();
-    }
+    this.fetchOrders();
+    this.pollingOrders();
   },
   methods: {
     fetchOrders() {
-      this.loader = true;
+      if (this.ordersStore.list) { 
+        this.loader = false;
+      } 
       this.ordersStore
         .ftechOrders(
           this.$auth.user_data?.acf["area"],
@@ -70,7 +67,7 @@ export default {
 </script>
 
 <template>
-  <div class="orders-list app-list-min"> 
+  <div class="orders-list app-list-min">
     <ul v-if="loader">
       <ItemLoader v-for="n in this.per_page" :key="n" />
     </ul>

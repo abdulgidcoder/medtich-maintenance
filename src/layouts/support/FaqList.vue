@@ -20,20 +20,17 @@ export default {
     return { storeSupport };
   },
   mounted() {    
-    if (!this.storeSupport.list) {
-      this.fetchFaq();
-      this.pollingFaq();
-    } else {
-      this.loader = false;
-      this.pollingFaq();
-    }
+    this.fetchFaq();
+    this.pollingFaq(); 
   },
   beforeUnmount() {
     clearInterval(this.polling);
   },
   methods: {
-    fetchFaq() {
-      this.loader = true;
+    fetchFaq() { 
+      if (this.storeSupport.list) { 
+        this.loader = false;
+      }  
       this.storeSupport.ftechFaq(this.currPage, this.per_page).then(() => {
         this.loader = false;
       });

@@ -78,15 +78,18 @@ app.component("Gellary", Gellary);
 const pinia = createPinia();
 pinia.use(({ store }) => {
   /** Vars */
-  store.$timeoutRequest = 2200;
   store.$authTech = "397R{6;d@cTB|p2vaMeA^Pm};B8";
   store.$authCustomer = "NQhJr6{~K9=/TXeh(QXEdA8Yp|lz";
   store.$Auth_Key = "397R{6;d@cTB|p2vaMeA^Pm};B8";
+  store.$timeoutRequest = 2300;
 
   /** User router in Store */
   store.router = markRaw(router);
 });
 app.use(pinia);
+
+//
+app.config.globalProperties.$pollTimer = 2400;
 
 // Use Plugins
 app.use(router);

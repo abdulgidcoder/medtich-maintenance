@@ -7,7 +7,6 @@ export default {
       setInterval(function () {
         useAuthStore().ftechUser();
       }, 10000);
-    };
-  
+    };  
   },
 };

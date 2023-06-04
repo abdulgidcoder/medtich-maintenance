@@ -27,17 +27,14 @@ export default {
     clearInterval(this.polling);
   },
   mounted() {
-    if (!this.chatStore.list) {
-      this.fetchChat();
-      this.pollingChat();
-    } else {
-      this.loader = false;
-      this.pollingChat();
-    }
+    this.fetchChat();
+    this.pollingChat();
   },
   methods: {
     fetchChat() {
-      this.loader = true;
+      if (this.chatStore.list) {
+        this.loader = false;
+      }
       this.chatStore
         .ftechChats(this.$auth, this.currPage, this.per_page)
         .then(() => {

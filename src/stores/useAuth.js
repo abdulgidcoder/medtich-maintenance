@@ -1,6 +1,8 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 
+import { useChatStore } from "@/stores/useChat";
+
 export const useAuthStore = defineStore("auth", {
   state: () => ({
     connection: true,
@@ -57,9 +59,11 @@ export const useAuthStore = defineStore("auth", {
       });
       if (response && response.data.data.jwt) {
         let token = `${response.data.data.jwt}`;
+        let chatStore = useChatStore();
         localStorage.setItem("token", token);
         axios.defaults.headers.common["Authorization"] = "Bearer " + token;
         await this.ftechUser();
+        chatStore.newMessages();
       }
     },
     async logout() {

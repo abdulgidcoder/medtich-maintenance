@@ -13,9 +13,6 @@ export default {
     ),
     InfoUser: defineAsyncComponent(() => import("@/layouts/InfoUser.vue")),
     TopbarHome: defineAsyncComponent(() => import("@/layouts/TopbarHome.vue")),
-    AddOrder: defineAsyncComponent(() =>
-      import("@/layouts/orders/AddOrder.vue")
-    ),
   },
   mounted() {
     if (Capacitor.isNativePlatform()) {
@@ -46,7 +43,11 @@ export default {
 <template>
   <div class="app-tab-view app-home-page">
     <TopbarHome />
-    <Content :pullToRefresh="true" @onRefresh="reloadOrders" :enableOffline="true">
+    <Content
+      :pullToRefresh="true"
+      @onRefresh="reloadOrders"
+      :enableOffline="true"
+    >
       <InfoUser />
       <h2 class="app-welcome-back">
         {{ "أهلا بك, " + this.$auth.user_data.name + "!" }}
@@ -82,7 +83,14 @@ export default {
       </section>
     </Content>
     <Teleport to="body">
-      <AddOrder />
+      <div class="app-fab app-fab-main">
+        <a
+          class="app-fab-toogle"
+          :href="'https://wa.me/' + this.$contactInfo['whatsapp']"
+        >
+          <Icon name="comment-smile" />
+        </a>
+      </div>
     </Teleport>
   </div>
 </template>

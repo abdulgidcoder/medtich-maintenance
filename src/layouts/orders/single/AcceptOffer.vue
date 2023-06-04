@@ -1,8 +1,10 @@
 <script>
 import { useOrdersStore } from "@/stores/useOrders.js";
 import { useAlert } from "@/stores/useAlert";
-import { useMediaStore } from "@/stores/useMedia";
+import { useMediaStore } from "@/stores/useMedia"; 
+import PaymentGateway from "@/layouts/PaymentGateway.vue";
 export default {
+  components: { PaymentGateway },
   props: {
     offer: Object,
     order: Object,
@@ -10,22 +12,10 @@ export default {
   emits: ["onDismiss"],
   data() {
     return {
-      isOpened: false,
-      gateways: [
-        {
-          label: "فودافون كاش",
-          value: "voda_cache",
-          number: "010123456789",
-        },
-        {
-          label: "تحويل بنكى",
-          value: "bank_transfer",
-          number: "1001215151515",
-        },
-      ],
+      isOpened: false, 
       checkout: {
         payment_date: new Date().toUTCString(),
-        payment_gateway: "",
+        payment_gateway: "bank_transfer",
         order_price: this.offer.price,
         payment_image: "",
       },
@@ -58,7 +48,7 @@ export default {
         this.alertStore.style = "success";
         this.alertStore.show = true;
         this.uploadig = false;
-        for (let i = 0; i < response.length; i++) { 
+        for (let i = 0; i < response.length; i++) {
           this.images.push(response[i].src);
           this.checkout.payment_image = response[i].id;
         }
@@ -76,12 +66,12 @@ export default {
           .then(() => {
             this.loading = false;
             this.isOpened = false;
-             this.$emit("onDismiss");
+            this.$emit("onDismiss");
           })
           .catch(() => {
             this.loading = false;
             this.isOpened = false;
-             this.$emit("onDismiss");
+            this.$emit("onDismiss");
           });
       }
     },
@@ -126,17 +116,9 @@ export default {
         name="payment_gateway"
         v-model="checkout.payment_gateway"
         :required="true"
-        :data="gateways"
+        :data="this.$paymentGateways"
       />
-      <div class="payment-gateway-info" v-if="checkout.payment_gateway">
-        <div v-for="pay in gateways" :key="pay.value">
-          <Transition name="fade">
-            <template v-if="checkout.payment_gateway == pay.value">{{
-              "رقم " + pay.label + ": " + pay.number
-            }}</template>
-          </Transition>
-        </div>
-      </div>
+      <PaymentGateway :payment_gateway="checkout.payment_gateway"/>
       <File
         @change="uploadFiles"
         label="رفع  صور التحويل"
@@ -149,7 +131,11 @@ export default {
           <template v-if="!loading">قبول</template>
           <template v-else> <Spinner class="spinner-sm" />قبول...</template>
         </button>
-        <button class="btn btn-sm btn-secondary" @click="dismissModal" type="button">
+        <button
+          class="btn btn-sm btn-secondary"
+          @click="dismissModal"
+          type="button"
+        >
           الغاء
         </button>
       </div>

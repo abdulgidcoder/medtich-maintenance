@@ -28,17 +28,15 @@ export default {
     clearInterval(this.polling);
   },
   mounted() {
-    if (!this.ordersStore.myList) {
-      this.fetchOrders();
-      this.pollingOrders();
-    } else {
-      this.loader = false;
-      this.pollingOrders();
-    }
+    this.fetchOrders();
+    this.pollingOrders();
+    
   },
   methods: {
     fetchOrders() {
-      this.loader = true;
+    if (this.ordersStore.myList) {
+      this.loader = false;
+    } 
       this.ordersStore
         .ftechMyOrders(this.$auth, this.status, this.currPage, this.per_page)
         .then(() => {
