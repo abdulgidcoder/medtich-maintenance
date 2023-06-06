@@ -47,9 +47,9 @@ export default {
                     ? "انت: " + chat.last_comment?.content
                     : chat.last_comment?.content
                 }}
-              </p>
+              </p> 
               <span class="chat-item_date">
-                {{ $dateTime(chat.modified) }}
+                {{ $dateTime(chat.last_comment?.date) }}
               </span>
             </div>
           </div>

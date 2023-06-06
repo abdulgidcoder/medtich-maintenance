@@ -4,7 +4,7 @@ import { useChatStore } from "@/stores/useChat";
 export default {
   components: {
     AddOrder: defineAsyncComponent(() =>
-      import("@/layouts/orders/AddOrder.vue")
+      import("@/layouts/tabs/AddOrder.vue")
     ),
   },
   setup() {

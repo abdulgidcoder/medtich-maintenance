@@ -54,7 +54,7 @@ export default {
           this.order.location = data.coords;
           this.alertStore.style = "success";
           this.alertStore.show = true;
-          this.alertStore.masg = "تم إضافة موقعك الحالى ";
+          this.alertStore.masg = "تم إضافة موقعك الحالى "; 
         })
         .catch(() => {
           this.alertStore.style = "danger";
@@ -74,17 +74,16 @@ export default {
         !this.order.email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
       ) {
         this.pushAlert("البريد الالكترونى");
-      } else if (this.order.serial_number.length + 1 <= 5) {
-        this.pushAlert("الرقم التسلسلي للجهاز");
-      } else if (this.order.company.length + 1 <= 5) {
-        this.pushAlert("الشركة المصنعة");
       } else if (!this.order.city) {
         this.pushAlert("المدينة");
-      }
-      if (!this.order.region) {
-        this.pushAlert("المنطقة");
-      } else if (!this.order.location) {
+      } else if (!this.order.location.latitude) {
         this.pushAlert("عنوانك الحالى");
+      } else if (!this.order.region) {
+        this.pushAlert("المنطقة");
+      } else if (this.order.company.length + 1 <= 5) {
+        this.pushAlert("الشركة المصنعة");
+      } else if (this.order.serial_number.length + 1 <= 5) {
+        this.pushAlert("الرقم التسلسلي للجهاز");
       } else if (this.order.content.length + 1 <= 5) {
         this.pushAlert("التفاصيل");
       } else {
@@ -159,8 +158,7 @@ export default {
       type="email"
       label="البريد الالكترونى"
       :required="true"
-    />
-
+    /> 
     <div class="field-location">
       <div
         class="app-field text"
@@ -182,7 +180,7 @@ export default {
         @setLocation="setCurrentLocation"
         :location="order.location"
       />
-    </div>
+    </div> 
     <Field
       v-model="order.region"
       type="text"
@@ -229,7 +227,9 @@ export default {
         type="submit"
         :disabled="adding"
       >
-        <template v-if="!adding"><Icon name="plus" />إضافة الطلب</template>
+        <template v-if="!adding"
+          ><Icon name="plus-circle" />إضافة الطلب</template
+        >
         <template v-else>
           <Spinner class="spinner-sm" />
           إضافة...

@@ -58,7 +58,7 @@ export default {
   >
     <Skeleton v-if="loaded" width="34px" height="34px" />
     <button v-else @click="this.Modal = true" class="btn btn-black btn-sm">
-      <Icon name="plus" />طلب جديد
+      <Icon name="plus-circle" />طلب جديد
     </button>
     <Modal
       class="bottom modal-chechin-order"
