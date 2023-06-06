@@ -20,6 +20,9 @@ export default {
   },
   mounted() {
     this.fetchOrders();
+    if (this.ordersStore.lastList) {
+      this.loader = false;
+    }  
     this.pollingOrders();
   },
   beforeUnmount() {
@@ -27,11 +30,7 @@ export default {
   },
   methods: {
     fetchOrders() {
-      if (!this.ordersStore.lastList) {
-        this.loader = true;
-      } else {
-        this.loader = false;
-      }
+      this.loader = true;
       this.ordersStore
         .ftechLast(this.$auth.user_data?.acf["area"], this.per_page)
         .then(() => {

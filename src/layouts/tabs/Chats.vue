@@ -19,10 +19,10 @@ export default {
 <template>
   <div class="app-tab-view app-notify-page">
     <Head title="الرسائل" />
-    <Content :isBoxed="true" :pullToRefresh="true" @onRefresh="reloadChats" :enableOffline="true"> 
+    <Content :isBoxed="true" :pullToRefresh="true" @onRefresh="reloadChats" :enableOffline="true" :bottomBar="true"> 
       <chatList
         ref="chatList"
-        :per_page="15"
+        :per_page="12"
         :pagination="true"
         paginClass="app-fixed-bottom"
       />

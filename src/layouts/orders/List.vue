@@ -28,13 +28,14 @@ export default {
   },
   mounted() {
     this.fetchOrders();
+    if (this.ordersStore.list) {
+      this.loader = false;
+    }
     this.pollingOrders();
   },
   methods: {
     fetchOrders() {
-      if (this.ordersStore.list) { 
-        this.loader = false;
-      } 
+      this.loader = true;
       this.ordersStore
         .ftechOrders(
           this.$auth.user_data?.acf["area"],
@@ -82,16 +83,16 @@ export default {
       title="لا يوجد اى طلبات"
       v-if="!loader && this.ordersStore.list.length == 0"
     />
-  </div>
-  <div
-    v-if="this.pagination && this.ordersStore.total >= 2"
-    :class="this.paginClass"
-  >
-    <Pagination
-      :totalPages="this.ordersStore.total"
-      :perPage="this.per_page"
-      :currentPage="this.currPage"
-      @pagechanged="onPageChange"
-    />
+    <div
+      v-if="this.pagination && this.ordersStore.total >= 2"
+      :class="this.paginClass"
+    >
+      <Pagination
+        :totalPages="this.ordersStore.total"
+        :perPage="this.per_page"
+        :currentPage="this.currPage"
+        @pagechanged="onPageChange"
+      />
+    </div>
   </div>
 </template>

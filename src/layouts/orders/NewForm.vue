@@ -54,7 +54,7 @@ export default {
           this.order.location = data.coords;
           this.alertStore.style = "success";
           this.alertStore.show = true;
-          this.alertStore.masg = "تم إضافة موقعك الحالى "; 
+          this.alertStore.masg = "تم إضافة موقعك الحالى ";
         })
         .catch(() => {
           this.alertStore.style = "danger";
@@ -90,7 +90,7 @@ export default {
         this.adding = true;
         this.ordersStore
           .addOrder(this.order)
-          .then(() => {
+          .then((response) => {
             this.alertStore.masg = "تم إضافة طلبك بنجاح";
             this.alertStore.style = "success";
             this.alertStore.show = true;
@@ -158,7 +158,7 @@ export default {
       type="email"
       label="البريد الالكترونى"
       :required="true"
-    /> 
+    />
     <div class="field-location">
       <div
         class="app-field text"
@@ -180,7 +180,7 @@ export default {
         @setLocation="setCurrentLocation"
         :location="order.location"
       />
-    </div> 
+    </div>
     <Field
       v-model="order.region"
       type="text"

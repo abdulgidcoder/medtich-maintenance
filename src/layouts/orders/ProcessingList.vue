@@ -20,16 +20,17 @@ export default {
   },
   mounted() {
     this.fetchOrders();
+    if (this.ordersStore.ProcessingOrders) {
+      this.loader = false;
+    }
     this.pollingOrders();
   },
   beforeUnmount() {
     clearInterval(this.polling);
   },
   methods: {
-    fetchOrders() {
-      if (this.ordersStore.ProcessingOrders) {
-        this.loader = false;
-      }
+    fetchOrders() {  
+      this.loader = true;
       this.ordersStore
         .ftechProcessingOrders(this.$auth, this.per_page)
         .then(() => {
@@ -50,7 +51,8 @@ export default {
 </script>
 
 <template>
-  <div class="my-orders-list">
+
+  <div class="my-orders-list"> 
     <ul v-if="loader">
       <MyItemLoader v-for="i in this.per_page" :key="i" />
     </ul>
@@ -61,10 +63,10 @@ export default {
         :order="order"
       ></MyItem>
     </ul>
+    <EmptyContent
+      title="لا يوجد اى طلبات قيد التنفيذ"
+      :iconsSize="150"
+      v-if="!loader && this.ordersStore.ProcessingOrders.length == 0"
+    />
   </div>
-  <EmptyContent
-    title="لا يوجد اى طلبات قيد التنفيذ"
-    :iconsSize="150"
-    v-if="!loader && this.ordersStore.ProcessingOrders.length == 0"
-  />
 </template>

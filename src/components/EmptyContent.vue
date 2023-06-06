@@ -2,15 +2,19 @@
 export default {
   props: {
     title: String,
-    iconsSize:Number,
+    iconsSize: Number,
   },
 };
 </script>
 
 <template>
   <div class="app-empty-content">
-    <img src="../assets/images/empty.svg" alt="empty" :style="{ 'max-width': iconsSize + 'px' }" />
-    <h3>{{ title }}</h3>
+    <img
+      src="../assets/images/empty.svg"
+      alt="empty"
+      :style="{ 'max-width': iconsSize + 'px' }"
+    />
+    <h4>{{ title }}</h4>
   </div>
 </template>
 <style lang="scss">
@@ -20,7 +24,7 @@ export default {
     max-width: 330px;
     margin: 0 auto 0;
   }
-  h3{
+  h4 {
     color: var(--medium);
   }
 }

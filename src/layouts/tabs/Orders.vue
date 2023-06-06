@@ -19,10 +19,10 @@ export default {
 <template>
   <div class="app-tab-view app-my-orders-page">
     <Head title="طلباتى" />
-    <Content :isBoxed="true" :pullToRefresh="true" @onRefresh="reloadMyOrders" :enableOffline="true">
+    <Content :isBoxed="true" :pullToRefresh="true" @onRefresh="reloadMyOrders" :enableOffline="true" :bottomBar="true">
       <MyOrdersList
         ref="MyOrdersList"
-        :per_page="10"
+        :per_page="12"
         :pagination="true"
         paginClass="app-fixed-bottom"
       /> 

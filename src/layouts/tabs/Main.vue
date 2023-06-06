@@ -36,6 +36,7 @@ export default {
         this.$refs.LastOrders.fetchOrders();
       }
       this.$refs.ProcessingList.fetchOrders();
+      
     },
   },
 };

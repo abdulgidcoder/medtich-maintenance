@@ -45,11 +45,11 @@ export default {
           instructionsPullToRefresh: " ",
           instructionsReleaseToRefresh: " ",
           instructionsRefreshing: " ",
-          distThreshold: 2,
+          distThreshold: 80,
           distMax: 120,
-          distReload: 80,
+          distReload: 100,
           distIgnore: 0,
-          refreshTimeout: 600,
+          refreshTimeout: 700,
           shouldPullToRefresh: function () {
             return appContentContainer.scrollTop <= 0;
           },

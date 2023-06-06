@@ -9,12 +9,9 @@
     overflow: hidden;
     height: calc(100vh - 65px);
     .app-content {
-      height: 100%;
-      .app-fixed-bottom {
-        position: sticky;
-        padding: 10px;
-        bottom: -21px;
-        margin: 0 -15px;
+      height: 100%; 
+        .app-fixed-bottom { 
+        bottom: 65px; 
       }
     }
   }
@@ -46,11 +43,11 @@
         text-align: center;
         line-height: 1.15;
         position: relative;
-        padding: 0 5px;
         &:active {
           box-shadow: none;
         }
         a {
+          padding: 0 5px;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -90,15 +87,16 @@
           &::before {
             content: "";
             position: absolute;
-            left: 0;
-            top: -3px;
-            width: 80px;
-            height: 70px;
+            left: 50%;
+            top: 0px;
+            width: calc(100% + 10px);
+            height: 62px;
             border-radius: 50px;
             // background-color: var(--grey);
             // transition: opacity 0.4s ease-out, transform 0.4s ease-out;
             // transform: scaleX(0.9);
             // opacity: 0;
+            transform: translateX(-50%);
             transition: box-shadow 0.35s ease-out;
             z-index: -1;
           }

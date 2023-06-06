@@ -24,10 +24,10 @@ export default {
 <template>
   <Page class="app-orders-page">
     <Head title="الطلبات" goBack="true" />
-    <Content isBoxed pullToRefresh bottomBar @onRefresh="reloadAllOrders" :enableOffline="true">
+    <Content :isBoxed="true" :pullToRefresh="true" :bottomBar="true" @onRefresh="reloadAllOrders" :enableOffline="true">
       <OrdersList
         ref="OrdersList"
-        :per_page="10"
+        :per_page="12"
         :pagination="true"
         paginClass="app-fixed-bottom"
       />

@@ -251,7 +251,8 @@ export const useOrdersStore = defineStore("orders", {
             offers: false,
           },
         },
-      });
+      });  
+      this.router.push("/order/" + response.data.id); 
     },
     async acceptOffer(userID, orderId, checkout) {
       const responseOrder = await axios({

@@ -29,20 +29,18 @@ export default {
   },
   mounted() {
     this.fetchOrders();
+    if (this.ordersStore.myList) {
+      this.loader = false;
+    }
     this.pollingOrders();
-    
   },
   methods: {
     fetchOrders() {
-    if (this.ordersStore.myList) {
-      this.loader = false;
-    } 
+      this.loader = true;
       this.ordersStore
         .ftechMyOrders(this.$auth, this.status, this.currPage, this.per_page)
         .then(() => {
-          setTimeout(() => {
-            this.loader = false;
-          }, 400);
+          this.loader = false;
         });
     },
     pollingOrders() {
@@ -67,7 +65,7 @@ export default {
 };
 </script>
 
-<template> 
+<template>
   <div class="my-orders-list app-list-min">
     <div class="app-fillter">
       <button
@@ -126,16 +124,16 @@ export default {
         (!loader && !this.ordersStore.myList) || this.ordersStore.myList == 0
       "
     />
-  </div>
-  <div
-    v-if="this.pagination && this.ordersStore.myTotal >= 2"
-    :class="this.paginClass"
-  >
-    <Pagination
-      :totalPages="this.ordersStore.myTotal"
-      :perPage="this.per_page"
-      :currentPage="this.currPage"
-      @pagechanged="onPageChange"
-    />
+    <div
+      v-if="this.pagination && this.ordersStore.myTotal >= 2"
+      :class="this.paginClass"
+    >
+      <Pagination
+        :totalPages="this.ordersStore.myTotal"
+        :perPage="this.per_page"
+        :currentPage="this.currPage"
+        @pagechanged="onPageChange"
+      />
+    </div>
   </div>
 </template>
