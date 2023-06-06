@@ -76,9 +76,9 @@ const router = createRouter({
       },
     },
     {
-      path: "/resetpassword",
-      name: "resetpassword",
-      component: () => import("@/views/PasswordView.vue"),
+      path: "/reset-password",
+      name: "reset-password",
+      component: () => import("@/views/ResetPassword.vue"),
       beforeEnter: (to, from, next) => {
         if (useAuthStore().loggedIn) {
           next({ name: "home" });
@@ -181,7 +181,7 @@ const router = createRouter({
     {
       path: "/profile/password",
       name: "password",
-      component: () => import("@/views/ProfilePassword.vue"),
+      component: () => import("@/views/ChangePassword.vue"),
       beforeEnter: redirectToLoginOnLoggedOut,
     },
     {

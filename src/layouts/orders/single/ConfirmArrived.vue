@@ -54,7 +54,7 @@ export default {
       animation="fadeUp"
       @dismiss="this.Modal = false"
     >
-      <h2>تاكيد وصول الفنى</h2>
+      <h2>تاكيد وصول المتخصص</h2>
       <div class="form-actions">
         <button
           class="btn btn-primary btn-sm"

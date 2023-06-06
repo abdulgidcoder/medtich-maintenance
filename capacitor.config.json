@@ -1,25 +1,22 @@
 {
-  "appId": "com.arabcoderz.technicianseg",
+  "appId": "com.arabcoderz.maintenanceeg",
   "appName": "Medtich Maintenance EG",
   "webDir": "./dist",
   "bundledWebRuntime": true,
-  "hideLogs": true,  
+  "hideLogs": true,
   "plugins": {
     "SplashScreen": {
-      "launchShowDuration": 1500,
-      "launchAutoHide": true,
-      "launchFadeOutDuration": 1500,
-      "backgroundColor": "#ffffffff",
+      "launchShowDuration": 0,
+      "backgroundColor": "#ffffff",
       "androidSplashResourceName": "splash",
+      "iosSplashResourceName": "splash",
       "androidScaleType": "CENTER",
       "showSpinner": true,
-      "androidSpinnerStyle": "large",
-      "iosSpinnerStyle": "small",
-      "spinnerColor": "#999999",
-      "splashFullScreen": true,
-      "splashImmersive": true,
-      "layoutName": "launch_screen",
-      "useDialog": true
+      "spinnerColor": "#00d9c8",
+      "spinnerLines": 12,
+      "spinnerCircles": 0,
+      "spinnerDots": 0,
+      "spinnerDuration": 1500
     }
-  } 
+  }
 }

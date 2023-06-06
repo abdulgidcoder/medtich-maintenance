@@ -6,7 +6,6 @@ import { StatusBar, Style } from "@capacitor/status-bar";
 import { useAlert } from "@/stores/useAlert";
 import { App as AppCap } from "@capacitor/app";
 import { Capacitor } from "@capacitor/core";
-// import { SplashScreen } from '@capacitor/splash-screen';
 
 export default {
   components: {
@@ -91,6 +90,6 @@ export default {
     <transition name="fadeLeft" mode="out-in">
       <component :is="Component" />
     </transition>
+    <AlertApp />
   </router-view>
-  <AlertApp />
 </template>

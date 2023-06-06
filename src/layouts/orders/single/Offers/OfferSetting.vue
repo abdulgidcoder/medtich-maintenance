@@ -54,7 +54,7 @@ export default {
       <ul class="app-list-icon">
         <AcceptOffer :order="order" :offer="offer" @onDismiss="dismissModal" />
         <li @click="openNewChat()">
-          <Icon name="comment-plus" /> فتح دردشه مع الفنى
+          <Icon name="comment-plus" /> فتح دردشه مع المتخصص
         </li>
       </ul>
     </Modal>

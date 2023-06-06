@@ -24,7 +24,7 @@ export default {
           (item) => item.technical["ID"] === this.$auth.user_data.id
         );
       } else {
-        this.allowAddOffer = true;
+        this.allowAddOffer = false;
       }
     },
   },

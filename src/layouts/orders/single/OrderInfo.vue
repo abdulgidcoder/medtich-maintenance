@@ -21,7 +21,7 @@ export default {
             <p>{{ data.acf?.company }}</p>
           </li>
           <li v-if="data.acf?.technician.ID">
-            <strong>وصول الفنى</strong>
+            <strong>وصول المتخصص</strong>
             <p>
               <span
                 class="app-badge"
@@ -40,7 +40,7 @@ export default {
             </p>
           </li>
           <li v-if="data.acf?.technician?.ID">
-            <strong>تاكيد وصول الفنى</strong>
+            <strong>تاكيد وصول المتخصص</strong>
             <p>
               <span
                 class="app-badge"

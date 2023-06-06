@@ -139,7 +139,7 @@ export default {
           btnSubmit.innerHTML = "متابعه";
         });
     },
-    handleSubmit(ele) {
+    handleSubmit(ele) { 
       if (this.name.length >= this.valid.name) {
         if (this.mobile.length == this.valid.mobile) {
           if (this.password.length >= this.valid.password) {
@@ -262,19 +262,19 @@ export default {
           v-model="roleUser"
           :data="[
             { label: 'مستشفى', value: 'customer' },
-            { label: 'فنى صيانة', value: 'technician' },
+            { label: 'متخصص صيانة', value: 'technician' },
           ]"
         />
         <div style="display: flex; align-items: center">
           <Checkbox
-            v-model:checked="privacyPolicy"
+            v-model="privacyPolicy"
             name="privacyPolicy"
             label="هل توافق على "
           />
           <div class="btn-link privacy-btn" @click="this.privacyModal = true">
             الشروط والاحكام
           </div>
-        </div>
+        </div> 
         <div id="recaptcha-container"></div>
         <div class="app-field-submit">
           <button class="btn btn-primary btn-block" id="submit-btn">
@@ -308,7 +308,7 @@ export default {
       />
       <button
         id="verify-btn"
-        class="btn btn-primary btn-block btn-lg"
+        class="btn btn-primary btn-block"
         @click="verifyOtp($event.target)"
       >
         تحقق من الرقم

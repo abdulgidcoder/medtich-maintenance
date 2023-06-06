@@ -1,4 +1,4 @@
-package com.arabcoderz.technicianseg;
+package com.arabcoderz.maintenanceeg;
 
 import com.getcapacitor.BridgeActivity;
 

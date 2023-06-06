@@ -5,7 +5,7 @@ export default {
 </script>
 <template> 
     <Card v-if="data.technician.ID && data.payment_confirm">
-      <template #title>بيانات الفنى</template>
+      <template #title>بيانات المتخصص</template>
       <template #body>
         <ul class="order-details">
           <li>

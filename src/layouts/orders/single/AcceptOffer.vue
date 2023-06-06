@@ -1,7 +1,7 @@
 <script>
 import { useOrdersStore } from "@/stores/useOrders.js";
 import { useAlert } from "@/stores/useAlert";
-import { useMediaStore } from "@/stores/useMedia"; 
+import { useMediaStore } from "@/stores/useMedia";
 import PaymentGateway from "@/layouts/PaymentGateway.vue";
 export default {
   components: { PaymentGateway },
@@ -12,7 +12,7 @@ export default {
   emits: ["onDismiss"],
   data() {
     return {
-      isOpened: false, 
+      isOpened: false,
       checkout: {
         payment_date: new Date().toUTCString(),
         payment_gateway: "bank_transfer",
@@ -80,67 +80,71 @@ export default {
 </script>
 
 <template>
-  <li
-    @click="
-      () => {
-        this.isOpened = true;
-      }
-    "
-  >
-    <Icon name="check-circle-alt" /> قبول عرض الفنى
-  </li>
-  <Modal
-    class="bottom modal-accept-offer"
-    :show="isOpened"
-    animation="fadeUp"
-    @dismiss="dismissModal"
-  >
-    <div class="head">
-      <h3 class="text-center">
-        {{ "هل تريد قبول عرض " + offer.technical.display_name + " ؟" }}
-      </h3>
-      <p class="text-center">قم بتحويل قيمة العرض اولاََ حتى يتم تنفذ الطلب</p>
-    </div>
-    <!-- <div dir="ltr">{{ checkout }}</div> -->
-    <form @submit.prevent="accept">
-      <Field
-        label="قيم العرض"
-        v-model="checkout.order_price"
-        type="number"
-        append="جنية"
-        required
-        readonly
-      />
-      <Radio
-        label="وسيلة الدفع"
-        name="payment_gateway"
-        v-model="checkout.payment_gateway"
-        :required="true"
-        :data="this.$paymentGateways"
-      />
-      <PaymentGateway :payment_gateway="checkout.payment_gateway"/>
-      <File
-        @change="uploadFiles"
-        label="رفع  صور التحويل"
-        accept="image/png, image/jpeg"
-        :uploadig="uploadig"
-      />
-      <Gellary :images="images" />
-      <div class="form-actions">
-        <button class="btn btn-sm btn-primary" type="submit">
-          <template v-if="!loading">قبول</template>
-          <template v-else> <Spinner class="spinner-sm" />قبول...</template>
-        </button>
-        <button
-          class="btn btn-sm btn-secondary"
-          @click="dismissModal"
-          type="button"
-        >
-          الغاء
-        </button>
+  <div>
+    <li
+      @click="
+        () => {
+          this.isOpened = true;
+        }
+      "
+    >
+      <Icon name="check-circle-alt" /> قبول عرض المتخصص
+    </li>
+    <Modal
+      class="bottom modal-accept-offer"
+      :show="isOpened"
+      animation="fadeUp"
+      @dismiss="dismissModal"
+    >
+      <div class="head">
+        <h3 class="text-center">
+          {{ "هل تريد قبول عرض " + offer.technical.display_name + " ؟" }}
+        </h3>
+        <p class="text-center">
+          قم بتحويل قيمة العرض اولاََ حتى يتم تنفذ الطلب
+        </p>
       </div>
-    </form>
-  </Modal>
+      <!-- <div dir="ltr">{{ checkout }}</div> -->
+      <form @submit.prevent="accept">
+        <Field
+          label="قيم العرض"
+          v-model="checkout.order_price"
+          type="number"
+          append="جنية"
+          required
+          readonly
+        />
+        <Radio
+          label="وسيلة الدفع"
+          name="payment_gateway"
+          v-model="checkout.payment_gateway"
+          :required="true"
+          :data="this.$paymentGateways"
+        />
+        <PaymentGateway :payment_gateway="checkout.payment_gateway" />
+        <File
+          @change="uploadFiles"
+          label="رفع  صور التحويل"
+          accept="image/png, image/jpeg"
+          :uploadig="uploadig"
+        />
+        <Gellary :images="images" />
+        <div class="form-actions">
+          <button class="btn btn-sm btn-primary" type="submit">
+            <template v-if="!loading">قبول</template>
+            <template v-else> <Spinner class="spinner-sm" />قبول...</template>
+          </button>
+          <button
+            class="btn btn-sm btn-secondary"
+            @click="dismissModal"
+            type="button"
+          >
+            الغاء
+          </button>
+        </div>
+      </form>
+    </Modal>
+  </div>
 </template>
 <style lang="scss">
 .modal-accept-offer {

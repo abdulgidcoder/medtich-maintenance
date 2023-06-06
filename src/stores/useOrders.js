@@ -376,7 +376,7 @@ export const useOrdersStore = defineStore("orders", {
         },
       });
       if (response.data.acf.confirm_arrived !== "") {
-        alertStore.masg = "تم تاكيد وصول الفنى";
+        alertStore.masg = "تم تاكيد وصول المتخصص";
         alertStore.style = "success";
         alertStore.show = true;
       } else {

@@ -90,7 +90,7 @@ export default {
     "
   >
     <button class="btn btn-primary btn-sm" @click="this.isOpened = true">
-      قبول عرض الفنى
+      قبول عرض المتخصص
     </button>
     <Modal
       class="bottom modal-accept-report"

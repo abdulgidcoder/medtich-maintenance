@@ -104,7 +104,7 @@ The following files and folders do not follow the standard naming convention:
 - \views\OrdersView.vue
 - \views\PasswordView.vue
 - \views\ProfileEdit.vue
-- \views\ProfilePassword.vue
+- \views\ChangePassword.vue
 - \views\RegisterView.vue
 - \views\SingleOrder.vue
 - \views\SingleReport.vue

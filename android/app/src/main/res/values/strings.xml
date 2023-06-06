@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Medtich Technicians EG</string>
-    <string name="title_activity_main">Medtich Technicians EG</string>
-    <string name="package_name">com.arabcoderz.technicianseg</string>
-    <string name="custom_url_scheme">com.arabcoderz.technicianseg</string>
+    <string name="app_name">Medtich Maintenance EG</string>
+    <string name="title_activity_main">Medtich Maintenance EG</string>
+    <string name="package_name">com.arabcoderz.maintenanceeg</string>
+    <string name="custom_url_scheme">com.arabcoderz.maintenanceeg</string>
 </resources>

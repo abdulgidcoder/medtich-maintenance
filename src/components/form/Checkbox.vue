@@ -1,5 +1,6 @@
 <script>
 export default {
+   inheritAttrs: false,
   props: {
     label: String,
     name: String,
@@ -25,7 +26,7 @@ export default {
       type="checkbox"
       :id="name"
       :checked="checked"
-      @input="(event) => $emit('update:checked', event.target.checked)"
+      @input="(event) => $emit('update:modelValue', event.target.checked)"
       :required="required"
     />
     <label class="app-label" :for="name">{{ label }}</label>

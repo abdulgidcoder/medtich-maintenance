@@ -3,6 +3,7 @@ import { createPinia } from "pinia";
 
 import App from "./App.vue";
 import router from "./router";
+import { SplashScreen } from "@capacitor/splash-screen";
 
 // import Components
 import AppLogo from "./components/AppLogo.vue";
@@ -100,3 +101,10 @@ app.use(moment);
 app.use(data);
 
 app.mount("#app");
+
+SplashScreen.show({
+  launchShowDuration: 3000,
+  showDuration: 3000,
+  autoHide: true,
+  showSpinner: true,
+});

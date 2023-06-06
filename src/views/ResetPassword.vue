@@ -38,10 +38,10 @@ export default {
   },
   setup() {
     const auth = useAuthStore();
-    const error = useAlert();
+    const alertStore = useAlert();
     return {
       auth,
-      error,
+      alertStore,
     };
   },
   created() {
@@ -76,26 +76,26 @@ export default {
     },
     passwordValid(ele) {
       if (this.password.length >= this.valid.password) {
-        this.error.show = false;
+        this.alertStore.show = false;
         ele.classList.remove("is-invalid");
         ele.classList.add("is-valid");
       } else {
-        this.error.show = true;
-        this.error.style = "warning";
-        this.error.masg = "كلمة مرور أقل من 8";
+        this.alertStore.show = true;
+        this.alertStore.style = "warning";
+        this.alertStore.masg = "كلمة مرور أقل من 8";
         ele.classList.remove("is-valid");
         ele.classList.add("is-invalid");
       }
     },
     passwordConfirmValid(ele) {
       if (this.password != this.password_confirm) {
-        this.error.show = true;
-        this.error.masg = "كلمة السر غير متطابقة";
-        this.error.style = "warning";
+        this.alertStore.show = true;
+        this.alertStore.masg = "كلمة السر غير متطابقة";
+        this.alertStore.style = "warning";
         ele.classList.remove("is-valid");
         ele.classList.add("is-invalid");
       } else {
-        this.error.show = false;
+        this.alertStore.show = false;
         ele.classList.remove("is-invalid");
         ele.classList.add("is-valid");
       }
@@ -127,10 +127,10 @@ export default {
           params: {
             search: this.mobile,
           },
-        });
+        }); 
         if (this.mobile == response.data[0]?.username) {
           this.user_id = response.data[0]?.id;
-          this.error.show = false;
+          this.alertStore.show = false;
           this.$refs.submitBtn.disabled = false;
           this.$refs.submitBtn.innerHTML = "إعادة تعيين كلمة المرور";
           this.sendOtp();
@@ -138,14 +138,14 @@ export default {
           ele.reset();
           this.$refs.submitBtn.disabled = false;
           this.$refs.submitBtn.innerHTML = "إعادة تعيين كلمة المرور";
-          this.error.show = true;
-          this.error.style = "danger";
-          this.error.masg = "لا يوجد حساب بهذا الرقم";
+          this.alertStore.show = true;
+          this.alertStore.style = "danger";
+          this.alertStore.masg = "لا يوجد حساب بهذا الرقم";
         }
       } else {
-        this.error.show = true;
-        this.error.style = "warning";
-        this.error.masg = "رقم الهاتف غير صالح";
+        this.alertStore.show = true;
+        this.alertStore.style = "warning";
+        this.alertStore.masg = "رقم الهاتف غير صالح";
       }
     },
     sendOtp() {
@@ -230,7 +230,7 @@ export default {
 </script>
 
 <template>
-  <Page class="app-page-auth resetpassword">
+  <Page class="app-page-auth reset-password">
     <TopBar>
       <template #left>
         <button @click="this.$router.push('/login')" class="app-btn-back">
@@ -245,7 +245,7 @@ export default {
       <form @submit.prevent="handleSubmit($event.target)">
         <Field
           v-model="mobile"
-          type="number"
+          type="tel"
           placeholder="01X XXX XXX XX"
           label="الهاتف"
           icon="mobile"
@@ -254,7 +254,7 @@ export default {
         <div id="recaptcha-container"></div>
         <div class="app-field-submit">
           <button
-            class="btn btn-primary btn-block btn-lg"
+            class="btn btn-primary btn-block"
             id="submit-btn"
             ref="submitBtn"
           >
@@ -262,10 +262,7 @@ export default {
           </button>
         </div>
       </form>
-    </Content>
-    <Teleport to="body">
-      <Alert :show="hasFeedback" :mode="feedbackStyle" :msg="feedback" />
-    </Teleport>
+    </Content> 
     <Modal class="modal-otp bottom" animation="fadeUp" :show="modalOtp">
       <h2>قم بتاكيد رقمك</h2>
       <p>
@@ -287,14 +284,14 @@ export default {
 
       <button
         id="verify-btn"
-        class="btn btn-primary btn-block btn-lg"
+        class="btn btn-primary btn-block"
         @click="verifyOtp($event.target)"
       >
         تحقق من الرقم
       </button>
     </Modal>
     <Modal
-      class="modal-resetpassword"
+      class="modal-reset-password"
       animation="fadeUp"
       :show="modalSetPassword"
     >
@@ -333,7 +330,7 @@ export default {
               @keyup="passwordConfirmValid($event.target)"
             />
             <div class="app-field-submit">
-              <button class="btn btn-primary btn-block btn-lg" ref="setPassBtn">
+              <button class="btn btn-primary btn-block" ref="setPassBtn">
                 تغير
               </button>
             </div>
@@ -351,7 +348,7 @@ export default {
     margin-bottom: 25px;
   }
 }
-.app-page-auth.resetpassword {
+.app-page-auth.reset-password {
   .app-content {
     padding-top: 60px;
     padding-bottom: 0;

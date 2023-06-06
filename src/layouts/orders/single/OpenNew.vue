@@ -68,7 +68,7 @@ export default {
     >
       <div class="text-center">
         <h2 class="text-center">انشاء طلب جديد</h2>
-        <p class="text-center">يمكنك انشاء طلب صيانة جديد مع نفس الفنى</p>
+        <p class="text-center">يمكنك انشاء طلب صيانة جديد مع نفس المتخصص</p>
         <div
           class="app-avatar"
           v-html="order.acf?.technician?.user_avatar"
