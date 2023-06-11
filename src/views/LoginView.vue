@@ -8,7 +8,7 @@ export default {
     return {
       mobile: "",
       password: "",
-      login: false,
+      login: false, 
     };
   },
   setup() {
@@ -16,7 +16,7 @@ export default {
       alertStore = useAlert();
     return { authStore, alertStore };
   },
-  created() {
+  mounted() {
     document.title = "Login";
     if (Capacitor.isNativePlatform()) {
       StatusBar.setStyle({ style: Style.Light });
@@ -39,7 +39,7 @@ export default {
         this.login = true;
         this.authStore
           .login(this.mobile, this.password)
-          .then((response) => {
+          .then(() => {
             this.alertStore.show = true;
             this.alertStore.style = "success";
             this.alertStore.masg = "تسجيل الدخول بنجاح";
@@ -53,6 +53,7 @@ export default {
             this.alertStore.style = "danger";
             let mesg1 = error.response.data.message;
             let mesg2 = error.response.data.data.message;
+
             if (mesg1) {
               this.alertStore.masg = mesg1;
             } else if (mesg2) {

@@ -34,7 +34,7 @@ export default {
     const ordersStore = useOrdersStore();
     return { ordersStore };
   },
-  created() {
+  mounted() {
     document.title = this.details.title?.rendered;
   },
 };

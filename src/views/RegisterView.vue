@@ -44,7 +44,7 @@ export default {
       auth,
     };
   },
-  created() {
+  mounted() {
     document.title = "Register";
     if (Capacitor.isNativePlatform()) {
       StatusBar.setStyle({ style: Style.Light });

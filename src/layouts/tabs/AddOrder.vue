@@ -7,14 +7,14 @@ export default {
   },
   data() {
     return {
-      Modal: false,
+      isOpened: false,
     };
   },
 };
 </script>
 <template>
-  <template v-if="this.$auth.role == 'customer'">
-    <button class="app-tab-btn" @click="this.Modal = true">
+  <div v-if="this.$auth.role == 'customer'">
+    <button class="app-tab-btn" @click="this.isOpened = true">
       <a>
         <Icon name="plus-circle" />
         <span class="title">طلب جديد</span>
@@ -22,14 +22,14 @@ export default {
     </button>
     <Modal
       class="page"
-      :show="Modal"
+      :show="isOpened"
       animation="fadeUp"
-      @dismiss="this.Modal = false"
+      @dismiss="this.isOpened = false"
     >
       <Head title="إضافة طلب جديد">
         <template #left>
           <button
-            @click="this.Modal = false"
+            @click="this.isOpened = false"
             class="app-btn-back"
             type="button"
           >
@@ -41,5 +41,5 @@ export default {
         <NewForm />
       </Content>
     </Modal>
-  </template>
+  </div>
 </template>

@@ -70,7 +70,7 @@ export const useChatStore = defineStore("chat", {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
           params: {
-            _fields: "id,modified,title,acf,last_comment",
+            _fields: "id,modified,title,acf,last_comment,author_chat",
             orderby: "modified",
             page: currentPage ? currentPage : 1,
             per_page: per_page ? per_page : 10,
@@ -91,7 +91,7 @@ export const useChatStore = defineStore("chat", {
             Authorization: "Bearer " + localStorage.getItem("token"),
           },
           params: {
-            _fields: "id,modified,title,acf,last_comment",
+            _fields: "id,modified,title,acf,last_comment,author_chat",
             orderby: "modified",
             page: currentPage ? currentPage : 1,
             per_page: per_page ? per_page : 10,
@@ -151,7 +151,7 @@ export const useChatStore = defineStore("chat", {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
         params: {
-          _fields: "id,date,title,content,acf",
+          _fields: "id,date,title,content,acf,author_chat",
         },
       });
       if (response.data) {

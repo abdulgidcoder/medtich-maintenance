@@ -26,7 +26,7 @@ export default {
   beforeUnmount() {
     clearInterval(this.polling);
   },
-  created() {
+  mounted() {
     if (!this.reportStore.list) {
       this.fetchReports();
       this.pollingReports();
@@ -81,7 +81,7 @@ export default {
 </script>
 
 <template>
-  <div class="reports-list">
+<div>  <div class="reports-list">
     <div class="app-fillter">
       <button
         :class="{ active: status == '' }"
@@ -133,5 +133,5 @@ export default {
       :currentPage="this.currPage"
       @pagechanged="onPageChange"
     />
-  </div>
+  </div></div>
 </template>

@@ -6,7 +6,7 @@ export default {
       import("@/layouts/support/FaqList.vue")
     ),
   },
-  created() {
+  mounted() {
     document.title = "Faq";
   },
 };
@@ -16,7 +16,7 @@ export default {
     <Head title="الأسئلة الشائعة" goBack="true" />
     <Content :pullToRefresh="false" :isBoxed="true" :bottomBar="true">
       <FaqList
-        :per_page="10"
+        :per_page="15"
         :pagination="true"
         paginClass="app-fixed-bottom"
       />

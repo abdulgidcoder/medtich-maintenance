@@ -32,6 +32,13 @@ export default {
   async beforeUnmount() {
     await this.chatStore.seenMessage(this.chatID);
   },
+  computed: {
+    chatUser() {
+      return this.$auth.role == "technician"
+        ? this.chatData.author_chat
+        : this.chatData.acf?.technician;
+    },
+  },
   methods: {
     fetchChat() {
       this.loading = true;
@@ -49,7 +56,7 @@ export default {
 </script>
 <template>
   <Page class="app-chat-page">
-    <head-page :userInfo="chatData.acf?.technician" :loader="loading" />
+    <head-page :userInfo="chatUser" :loader="loading" />
     <Content :isBoxed="false">
       <div class="chat-massages">
         <List :chatID="chatID" ref="listMeassages" />

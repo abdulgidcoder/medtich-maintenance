@@ -6,7 +6,7 @@ export default {
       import("@/layouts/support/ContactForm.vue")
     ), 
   },
-  created() {
+  mounted() {
     document.title = "Contact us";
   },
 };

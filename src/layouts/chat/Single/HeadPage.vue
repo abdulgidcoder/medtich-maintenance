@@ -4,15 +4,8 @@ export default {
 };
 </script>
 <template>
-  <Head class="head-chat"  goBack="true">
-    <template #left>
-      <!-- <button
-        @click="this.$router.push('/home/chats')"
-        class="app-btn-back"
-        type="button"
-      >
-        <Icon name="arrow-left" />
-      </button> -->
+  <Head class="head-chat" goBack="true">
+    <template #left> 
       <template v-if="loader">
         <div class="app-avatar">
           <Skeleton width="35px" height="35px" borderRadius="50%" />

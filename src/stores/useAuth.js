@@ -43,6 +43,7 @@ export const useAuthStore = defineStore("auth", {
         axios.defaults.headers.common["Authorization"] = "Bearer " + token;
         await this.ftechUser();
       }
+      return response;
     },
     async login(mobile, password) {
       const response = await axios({

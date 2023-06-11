@@ -6,50 +6,62 @@ export default {
   emits: ["setLocation"],
   data() {
     return {
-      Modal: false,
+      isOpend: false,
       adding: false,
     };
   },
   setup() {},
   methods: {
-    addLocation(){
-      this.Modal = false;
-      this.$emit('setLocation');
-    }
+    addLocation() {
+      this.isOpend = false;
+      this.$emit("setLocation");
+    },
   },
 };
 </script>
-<template> 
-  <button
-    class="btn"
-    :class="{ 'btn-primary': location.latitude && location.longitude }"
-    type="button"
-    @click="!location.latitude &&  !location.longitud ? this.Modal = true : false"
-  >
-    <Icon name="location" />
-    {{ location.latitude && location.longitude ? "تم إضافة عنوانك" : "إضافة العنوان الحالى" }}
-  </button> 
-  <Modal
-    class="center"
-    :show="Modal"
-    animation="fadeIn"
-    @dismiss="this.Modal = false"
-  >
-  <h2>إضافة العنوان الحالى</h2>
-  <p>تاكد من فتح تحديد الموقع اولاَ</p>
-  <div class="form-actions">
-    <button class="btn btn-primary btn-sm"  @click="addLocation" :disabled="adding">
-      <template v-if="!adding">إضافة العنوان</template>
-      <template v-else>
-          <Spinner class="spinner-sm" />
-        إضافة...
-      </template>
+<template>
+  <div>
+    <button
+      class="btn"
+      :class="{ 'btn-primary': location.latitude && location.longitude }"
+      type="button"
+      @click="
+        !location.latitude && !location.longitud ? (this.isOpend = true) : false
+      "
+    >
+      <Icon name="location" />
+      {{
+        location.latitude && location.longitude
+          ? "تم إضافة عنوانك"
+          : "إضافة العنوان الحالى"
+      }}
     </button>
-    <button class="btn btn-sm" type="button" @click="this.Modal = false">
-      إلغاء
-    </button>
-  </div> 
-  </Modal>
+    <Modal
+      class="center"
+      :show="isOpend"
+      animation="fadeIn"
+      @dismiss="this.isOpend = false"
+    >
+      <h2>إضافة العنوان الحالى</h2>
+      <p>تاكد من فتح تحديد الموقع اولاَ</p>
+      <div class="form-actions">
+        <button
+          class="btn btn-primary btn-sm"
+          @click="addLocation"
+          :disabled="adding"
+        >
+          <template v-if="!adding">إضافة العنوان</template>
+          <template v-else>
+            <Spinner class="spinner-sm" />
+            إضافة...
+          </template>
+        </button>
+        <button class="btn btn-sm" type="button" @click="this.isOpend = false">
+          إلغاء
+        </button>
+      </div>
+    </Modal>
+  </div>
 </template>
 <style scoped lang="scss">
 .add-offer-modal {

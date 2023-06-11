@@ -7,6 +7,9 @@
   line-height: 1;
   &.have-messages {
     background-color: var(--bg-grey);
+    .chat-item_date {
+      color: var(--danger);
+    }
   }
   &:active {
     background-color: var(--bg-grey);
@@ -14,9 +17,18 @@
   &_wrap {
     display: flex;
     align-items: center;
+    width: 100%;
     &-right {
       margin-left: 15px;
     }
+    &-left {
+      flex-grow: 1;
+    }
+  }
+  &-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
   &_username {
     margin-bottom: 2px;
@@ -27,23 +39,24 @@
   }
   &_last-mess {
     margin-bottom: 0;
-    max-width: 190px;
+    max-width: 220px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   &_date {
     display: inline-block;
-    padding-right: 5px;
-    &::before {
-      content: "";
-      display: inline-block;
-      width: 2px;
-      height: 2px;
-      border-radius: 50%;
-      background-color: #000;
-      margin-left: 5px;
-    }
+    padding-right: 10px;
+     color: var(--medium);
+    // &::before {
+    //   content: "";
+    //   display: inline-block;
+    //   width: 2px;
+    //   height: 2px;
+    //   border-radius: 50%;
+    //   background-color: #000;
+    //   margin-left: 5px;
+    // }
   }
   .app-avatar {
     width: 42px;
@@ -53,7 +66,6 @@
     position: absolute;
     top: 50%;
     left: 15px;
-    transform: translateY(-50%);
     background-color: var(--danger);
     color: var(--white);
     width: 16px;

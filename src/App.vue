@@ -13,9 +13,6 @@ export default {
       loader: () => import("@/layouts/AlertApp.vue"),
     }),
   },
-  data() {
-    return {};
-  },
   setup() {
     const authStore = useAuthStore();
     const errorStore = useAlert();
@@ -42,10 +39,10 @@ export default {
     },
   },
   mounted() {
-    /* RTL */
+    // RTL
     document.querySelector("html").setAttribute("dir", "rtl");
-    // Update User data
 
+    // Update User data
     this.autoUpdateUser();
 
     if (Capacitor.isNativePlatform()) {
@@ -57,11 +54,13 @@ export default {
         },
         false
       );
-      /* StatusBar */
+
+      /* Status Bar */
       StatusBar.setStyle({ style: Style.Light });
       StatusBar.setBackgroundColor({
         color: "#00d9c8",
       });
+
       /* Navigation Back */
       AppCap.addListener("backButton", ({ canGoBack }) => {
         if (canGoBack) {

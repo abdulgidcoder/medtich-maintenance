@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-        <string>technical-app</string>
+	<string>Medtich Maintenance EG</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -45,5 +45,21 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>WKAppBoundDomains</key>
+<array>
+	<string>maintenance.medtich-eg.com</string>
+</array>
+<key>NSAppTransportSecurity</key>
+<dict>
+    <key>NSAllowsArbitraryLoads</key>
+    <true/>
+		<key>NSAllowsLocalNetworking</key>
+  <true/>
+</dict>
+<key>LSApplicationQueriesSchemes</key>
+<array>
+  <string>googlechrome</string>
+  <string>https</string>
+</array>
 </dict>
 </plist>

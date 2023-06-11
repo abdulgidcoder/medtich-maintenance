@@ -59,32 +59,34 @@ export default {
 </script>
 
 <template>
-  <div class="chats-list app-list-min">
-    <ul v-if="loader">
-      <ItemLoader v-for="n in this.per_page" :key="n" />
-    </ul>
-    <ul v-else>
-      <Item
-        v-for="chat in this.chatStore.list"
-        :key="chat.id"
-        :chat="chat"
-      ></Item>
-    </ul>
-    <EmptyContent
-      title="لا يوجد اى رسائل"
-      v-if="!loader && this.chatStore.list.length == 0"
-    />
-  </div>
-  <div
-    v-if="this.pagination && this.chatStore.total >= 2"
-    :class="this.paginClass"
-  >
-    <Pagination
-      :totalPages="this.chatStore.total"
-      :perPage="this.per_page"
-      :currentPage="this.currPage"
-      @pagechanged="onPageChange"
-    />
+  <div>
+    <div class="chats-list app-list-min">
+      <ul v-if="loader">
+        <ItemLoader v-for="n in this.per_page" :key="n" />
+      </ul>
+      <ul v-else>
+        <Item
+          v-for="chat in this.chatStore.list"
+          :key="chat.id"
+          :chat="chat"
+        ></Item>
+      </ul>
+      <EmptyContent
+        title="لا يوجد اى رسائل"
+        v-if="!loader && this.chatStore.list.length == 0"
+      />
+    </div>
+    <div
+      v-if="this.pagination && this.chatStore.total >= 2"
+      :class="this.paginClass"
+    >
+      <Pagination
+        :totalPages="this.chatStore.total"
+        :perPage="this.per_page"
+        :currentPage="this.currPage"
+        @pagechanged="onPageChange"
+      />
+    </div>
   </div>
 </template>
 <style lang="scss">

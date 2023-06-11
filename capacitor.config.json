@@ -2,8 +2,8 @@
   "appId": "com.arabcoderz.maintenanceeg",
   "appName": "Medtich Maintenance EG",
   "webDir": "./dist",
-  "bundledWebRuntime": true,
-  "hideLogs": true,
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 0,
@@ -18,5 +18,18 @@
       "spinnerDots": 0,
       "spinnerDuration": 1500
     }
+  },
+  "android": {
+    "buildOptions": {
+      "keystorePath": "./maint-keyStore.jks",
+      "keystorePassword": "WE#$%434e4v",
+      "keystoreAlias": "key0",
+      "keystoreAliasPassword": "WE#$%434e4v",
+      "releaseType": "AAB"
+    }
+  },
+  "ios": {
+    "limitsNavigationsToAppBoundDomains": true,
+    "webContentsDebuggingEnabled": true
   }
 }

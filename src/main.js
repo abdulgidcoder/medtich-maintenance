@@ -36,9 +36,8 @@ import Gellary from "./components/Gellary.vue";
 import auth from "./plugins/auth";
 import messages from "./plugins/messages";
 import cities from "./plugins/cities";
-import moment from "./plugins/moment";
+import datefns from "./plugins/date-fns";
 import data from "./plugins/data";
-
 import "./plugins/axios";
 import "./plugins/firebase";
 
@@ -89,7 +88,7 @@ pinia.use(({ store }) => {
 });
 app.use(pinia);
 
-//
+// Updata Time
 app.config.globalProperties.$pollTimer = 2400;
 
 // Use Plugins
@@ -97,11 +96,12 @@ app.use(router);
 app.use(cities);
 app.use(auth);
 app.use(messages);
-app.use(moment);
+app.use(datefns);
 app.use(data);
 
 app.mount("#app");
 
+// Splash Screen
 SplashScreen.show({
   launchShowDuration: 3000,
   showDuration: 3000,

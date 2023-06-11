@@ -14,7 +14,7 @@ export default {
       this.acceptedOffer(this.data.acf?.offers);
     },
   },
-  created() {
+  mounted() {
     this.acceptedOffer(this.data.acf?.offers);
   },
   methods: {

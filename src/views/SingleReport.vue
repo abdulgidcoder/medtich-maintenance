@@ -22,7 +22,7 @@ export default {
       singleReport: null,
     });
   },
-  created() {
+  mounted() {
     document.title = "Report";
     if (this.reportStore.list == null) {
       this.fetchReport();

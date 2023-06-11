@@ -30,38 +30,36 @@ export default {
   text-align: left;
   line-height: 1;
   &:not(:first-child) {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
   &_wrap {
     display: inline-block;
-    background-color: var(--white);
+  }
+  .message-item_content {
     padding: 10px;
     border-radius: 10px;
     border-bottom-left-radius: 2px;
-  }
-  .message-item_content {
-    margin-bottom: 8px;
+    background-color: var(--white);
+    margin-bottom: 6px;
     p {
       color: var(--black);
+      margin-bottom: 0;
     }
   }
   .message-item_date {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--medium);
   }
   &.my-mess {
     text-align: right;
-    .message-item_wrap {
+    .message-item_content {
       background-color: var(--primary);
       border-bottom-left-radius: 10px;
       border-bottom-right-radius: 2px;
     }
     .message-item_content p {
       color: var(--white);
-    }
-    .message-item_date {
-      color: var(--white);
-    }
+    } 
   }
 }
 </style>

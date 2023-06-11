@@ -30,7 +30,7 @@ export default {
       this.setStatuses();
     },
   },
-  created() {
+  mounted() {
     this.setStatuses();
     setTimeout(() => {
       this.status = this.details.acf?.status;

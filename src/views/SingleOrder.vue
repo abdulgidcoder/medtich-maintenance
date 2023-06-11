@@ -31,7 +31,7 @@ export default {
   beforeUnmount() {
     clearInterval(this.polling);
   },
-  created() {
+  mounted() {
     document.title = "Order";
     if (this.searchOrderInStore(this.ordersStore.lastList, this.orderID)) {
       this.loader = false;

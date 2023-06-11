@@ -44,7 +44,7 @@ export default {
       alertStore,
     };
   },
-  created() {
+  mounted() {
     document.title = "Reset Password";
     if (Capacitor.isNativePlatform()) {
       StatusBar.setStyle({ style: Style.Light });
@@ -184,9 +184,9 @@ export default {
           .then((response) => {
             if (response) {
               this.$refs.setPassBtn.innerHTML = "تغير";
-              this.error.show = true;
-              this.error.style = "success";
-              this.error.masg = "تم التغير بنجاح";
+              this.alertStore.show = true;
+              this.alertStore.style = "success";
+              this.alertStore.masg = "تم التغير بنجاح";
               setTimeout(() => {
                 this.$router.push({ name: "login" });
               }, 2000);
@@ -196,14 +196,14 @@ export default {
             ele.reset();
             this.$refs.setPassBtn.disabled = false;
             this.$refs.setPassBtn.innerHTML = "تغير";
-            this.error.show = true;
-            this.error.style = "danger";
-            this.error.masg = "كلمة المرور غير صالحة";
+            this.alertStore.show = true;
+            this.alertStore.style = "danger";
+            this.alertStore.masg = "كلمة المرور غير صالحة";
           });
       } else {
-        this.error.show = true;
-        this.error.style = "warning";
-        this.error.masg = "كلمة المرور غير صالحة";
+        this.alertStore.show = true;
+        this.alertStore.style = "warning";
+        this.alertStore.masg = "كلمة المرور غير صالحة";
       }
     },
     verifyOtp(ele) {
@@ -218,9 +218,9 @@ export default {
           this.modalSetPassword = true;
         })
         .catch((error) => {
-          this.error.show = true;
-          this.error.style = "danger";
-          this.error.masg = "رمز التحقق غير صالح";
+          this.alertStore.show = true;
+          this.alertStore.style = "danger";
+          this.alertStore.masg = "رمز التحقق غير صالح";
           ele.disabled = false;
           ele.innerHTML = "تحقق من الرقم";
         });

@@ -28,9 +28,7 @@ export default {
     const ordersStore = useOrdersStore();
     const errorStore = useAlert();
     return { ordersStore, errorStore };
-  },
-  watch: {},
-  created() {},
+  }, 
   methods: {
     async handleSubmit() {
       this.send = true;

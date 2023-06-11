@@ -1,6 +1,6 @@
 <script> 
 export default { 
-  created() {
+  mounted() {
     document.title = "Privacy Policy";
   },
 };
