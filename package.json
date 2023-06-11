@@ -5,10 +5,14 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
+<<<<<<< HEAD
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "ionic:build": "npm run build",
     "ionic:serve": "npm run dev"
+=======
+    "preview": "vite preview"
+>>>>>>> 0e64566 (Fix Issues)
   },
   "dependencies": {
     "@capacitor/android": "5.0.5",
