@@ -102,7 +102,7 @@ export default {
           <RouterLink to="/reset-password">نسيت كلمة المرور ؟</RouterLink>
         </div>
         <div class="app-field-submit">
-          <button class="btn btn-primary btn-block" :disabled="login">
+          <button class="btn btn-primary btn-block" :disabled="login" type="submit">
             <template v-if="login"
               ><Spinner class="spinner-sm" /> دخول...
             </template>

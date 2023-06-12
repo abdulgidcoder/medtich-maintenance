@@ -30,5 +30,10 @@
   "ios": {
     "limitsNavigationsToAppBoundDomains": true,
     "webContentsDebuggingEnabled": true
+  },
+  "server": {
+    "allowNavigation": [
+      "maintenance.medtich-eg.com"
+    ]
   }
 }
