@@ -16,13 +16,12 @@
     align-items: center;
     height: 45px;
     padding: 15px;
-    svg {
-      width: auto;
-      height: 16px;
+    .app-icon {
+      width: 16px;
       margin-right: 15px;
     }
   }
-  .spinner-border{
+  .spinner-border {
     margin-right: 5px;
   }
 }

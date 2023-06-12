@@ -1,7 +1,7 @@
 {
   "appId": "com.arabcoderz.maintenanceeg",
   "appName": "Medtich Maintenance EG",
-  "webDir": "./dist",  
+  "webDir": "./dist",
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 0,
@@ -19,10 +19,11 @@
   },
   "android": {
     "buildOptions": {
-      "keystorePath": "./maint-keyStore.jks",
+      "keystorePath": "./myapp.keystore",
       "keystorePassword": "WE#$%434e4v",
       "keystoreAlias": "key0",
       "keystoreAliasPassword": "WE#$%434e4v",
+      "package": "com.arabcoderz.maintenanceeg",
       "releaseType": "AAB"
     }
   },

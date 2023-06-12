@@ -73,7 +73,7 @@ export default {
 };
 </script>
 <template>
-  <template
+  <div
     v-if="
       order.acf['status'] == 'processing' &&
       this.$auth.role == 'technician' &&
@@ -117,7 +117,7 @@ export default {
         </Head>
         <Content :isBoxed="true">
           <Checkbox
-            v-model:checked="report.replacement_parts"
+            v-model="report.replacement_parts"
             name="replacement_parts"
             label="يحتاج إلى قطع غيار"
           />
@@ -159,5 +159,5 @@ export default {
         </Content>
       </form>
     </Modal>
-  </template>
+  </div>
 </template>
