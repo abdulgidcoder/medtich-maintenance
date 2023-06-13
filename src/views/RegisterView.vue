@@ -29,7 +29,6 @@ export default {
       modalOtp: false,
       privacyModal: false,
       privacyPolicy: false,
-      appVerifier: "",
       roleUser: "technician",
       valid: {
         name: 5,
@@ -119,7 +118,9 @@ export default {
         },
         authFirebase
       );
-      recaptchaVerifier.render();
+      window.recaptchaVerifier.render().then((widgetId) => {
+        window.recaptchaWidgetId = widgetId;
+      });
     },
     sendOtp() {
       const authFirebase = getAuth();
@@ -139,7 +140,7 @@ export default {
           btnSubmit.innerHTML = "متابعه";
         });
     },
-    handleSubmit(ele) { 
+    handleSubmit(ele) {
       if (this.name.length >= this.valid.name) {
         if (this.mobile.length == this.valid.mobile) {
           if (this.password.length >= this.valid.password) {
@@ -274,7 +275,7 @@ export default {
           <div class="btn-link privacy-btn" @click="this.privacyModal = true">
             الشروط والاحكام
           </div>
-        </div> 
+        </div>
         <div id="recaptcha-container"></div>
         <div class="app-field-submit">
           <button class="btn btn-primary btn-block" id="submit-btn">
