@@ -2,6 +2,8 @@
   "appId": "com.arabcoderz.maintenanceeg",
   "appName": "Medtich Maintenance EG",
   "webDir": "./dist",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 0,
@@ -32,6 +34,8 @@
     "webContentsDebuggingEnabled": true
   },
   "server": {
+    "hostname": "localhost",
+    "cleartext": true,
     "allowNavigation": [
       "maintenance.medtich-eg.com"
     ]
