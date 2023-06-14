@@ -1,9 +1,10 @@
 <script>
 import { useAuthStore } from "@/stores/useAuth.js";
 import { useOrdersStore } from "@/stores/useOrders.js";
-import Menu from "../components/Menu.vue";
+import Menu from "@/layouts/Menu.vue";
 
 export default {
+  components: { Menu },
   props: { show: Boolean },
   data() {
     return {
@@ -16,13 +17,12 @@ export default {
     return { authStore, ordersStore };
   },
   methods: {
-    chooseArea(data, indexArr) {
+    chooseArea(data) {
       this.authStore.updateUser({ fields: { area: data[0].id } }).then(() => {
         this.ordersStore.ftechLast(this.$auth.user_data?.acf["area"], 6);
       });
     },
   },
-  components: { Menu },
 };
 </script>
 <template>
@@ -47,14 +47,7 @@ export default {
       </div>
     </template>
     <template #right>
-      <div class="app-avatar">
-        <RouterLink to="/home/my-profile">
-          <img
-            :src="this.$auth.user_data?.avatar_urls['96']"
-            :alt="this.$auth.user_data?.name"
-          />
-        </RouterLink>
-      </div>
+     <Menu/>
     </template>
   </TopBar>
 </template>

@@ -30,6 +30,7 @@ import File from "./components/form/File.vue";
 import FileBox from "./components/FileBox.vue";
 import Skeleton from "./components/Skeleton.vue";
 import Modal from "./components/Modal.vue";
+import Menu from "./components/Menu.vue";
 import Gellary from "./components/Gellary.vue";
 
 // Plugins
@@ -72,6 +73,7 @@ app.component("File", File);
 app.component("FileBox", FileBox);
 app.component("Skeleton", Skeleton);
 app.component("Modal", Modal);
+app.component("Menu", Menu);
 app.component("Gellary", Gellary);
 
 // Pinia Config

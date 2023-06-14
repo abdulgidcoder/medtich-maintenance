@@ -1,9 +1,9 @@
 <script>
-import UserInfo from "@/layouts/auth/UserInfo.vue";
 import InfoUser from "@/layouts/InfoUser.vue";
-import Menu from "@/layouts/Menu.vue";
+import UserInfo from "@/layouts/auth/UserInfo.vue";
+import Nav from "@/layouts/Nav.vue";
 export default { 
-  components: { Menu, UserInfo, InfoUser },
+  components: { Nav, UserInfo, InfoUser },
   data() {
     return {
       auth_user: this.$auth,
@@ -17,7 +17,7 @@ export default {
     <Content :isBoxed="true">
       <InfoUser />
       <UserInfo />
-      <Menu />
+      <Nav />
     </Content>
   </div>
 </template>

@@ -1,7 +1,6 @@
 <script>
 export default {
   inheritAttrs: false,
-
   props: {
     show: Boolean,
     animation: String,

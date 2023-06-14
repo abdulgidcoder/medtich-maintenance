@@ -1,91 +1,80 @@
 <script>
+import MobileSwipeMenu from "mobile-swipe-menu";
+
 export default {
   data() {
     return {
-      startX: null,
-      currentX: null,
-      lastX: null,
-      menuWidth: null,
-      maxDragX: null,
-      showMenu: false,
-      showOverlay: false,
+      mobileMenu: null,
+      isOpend: false,
+      isdrag: false,
     };
   },
   mounted() {
-    // Get the width of the swipe menu and calculate the maximum dragdistance
-    this.menuWidth = this.$refs.swipeMenu.offsetWidth;
-    this.maxDragX = this.menuWidth * 0.8;
-    document.addEventListener("touchstart", (event) => {
-      this.handleTouchStart(event);
-    });
-    document.addEventListener("touchmove", (event) => {
-      this.handleTouchMove(event);
-    });
-    document.addEventListener("touchend", (event) => {
-      this.handleTouchEnd(event);
-    });
+    this.initMenu();
   },
   methods: {
-  handleTouchStart(e) {
-      this.startX = e.touches[0].clientX;
-      this.lastX = this.startX;
-  
-      // Reset the transition duration to 0 to prevent jerky movement
-      this.$refs.swipeMenu.style.transitionDuration = '0s';
+    initMenu() {
+      let meneELe = this.$refs.menuContainer;
+      this.mobileMenu = new MobileSwipeMenu(meneELe, {
+        mode: "right",
+        width: window.innerWidth / 1.5,
+        enableBodyHook: true,
+        events: {
+          drag: (swipe) => {
+            let swipeX = swipe.xCurrent - swipe.xStart,
+              opacity = (swipeX / window.innerWidth) * -1;
+            if (this.$refs.menuOverlay) {
+              this.$refs.menuOverlay.style.opacity = opacity;
+            }
+          },
+          start: () => {
+            this.isdrag = true;
+          },
+          stop: () => {
+            this.isdrag = false;
+          },
+          opened: () => {
+            this.isOpend = true;
+          },
+          closed: () => {
+            this.isOpend = false;
+          },
+        },
+      });
     },
-    handleTouchMove(e) {
-      this.currentX = e.touches[0].clientX;
-  
-      // Calculate the distance dragged and update the position of the swipe menu
-      var dragX = this.currentX + this.lastX;
-      
-      if (dragX < -50) {
-        // Dragging right, hide the swipe menu
-        this.$refs.swipeMenu.style.transform = 'translateX(' + (dragX + this.menuWidth) + 'px)';
-        this.$refs.swipeMenu.style.color="red";
-      } else {
-        // Dragging left, show the swipe menu
-        this.$refs.swipeMenu.style.transform = 'translateX(' + (dragX - this.maxDragX) + 'px)';
-        this.$refs.swipeMenu.style.color="white";
-      }
-      
-      // Update the last X position for the next touchmove event
-      this.lastX = this.currentX;
+    dismiss() {
+      this.mobileMenu.closeMenu();
     },
-    handleTouchEnd(e) {
-      var endX = e.changedTouches[0].clientX;
-  
-      // Calculate the distance dragged
-      var dragX = endX + this.startX;
-  
-      if (dragX < 0) {
-        // Swipe right, hide the swipe menu
-        this.$refs.swipeMenu.style.transform = 'translateX(-100%)';
-        this.$refs.swipeMenu.style.transitionDuration = '0.3s';
-        this.$refs.swipeMenu.style.color="black"
-        this.showMenu = false;
-      } else {
-        // Swipe left, show the swipe menu
-        this.$refs.swipeMenu.style.transform = 'translateX(0%)';
-        this.$refs.swipeMenu.style.transitionDuration = '0.3s';
-        this.$refs.swipeMenu.style.color="green"
-        this.showMenu = true;
-      }
-    }
+    open() {
+      this.mobileMenu.openMenu();
+    },
   },
 };
 </script>
 <template>
-  <Teleport to="body">
-    <Transition name="fade">
-      <div v-if="showMenu" class="app-menu_overlay"></div>
-    </Transition>
-    <div
-      class="app-menu"
-      :class="[{ active: showMenu }, $attrs['class']]"
-      ref="swipeMenu"
-    ></div>
-  </Teleport>
+  <button @click="open" class="btn-link">
+    <slot name="toggle"></slot>
+    <Teleport to="body">
+      <div
+        v-if="isdrag || isOpend"
+        class="app-menu_overlay"
+        :class="[{ opened: isOpend }]"
+        @click="dismiss"
+        ref="menuOverlay"
+      ></div>
+
+      <div
+        class="app-menu"
+        @click.prevent
+        :class="[$attrs['class'], { opened: isOpend }]"
+        ref="menuContainer"
+      >
+        <div class="app-menu_wrapper">
+          <slot name="content"></slot>
+        </div>
+      </div>
+    </Teleport>
+  </button>
 </template>
 <style lang="scss">
 .app-menu_overlay {
@@ -97,20 +86,13 @@ export default {
   height: 100%;
   z-index: 99;
   background-color: rgba(17, 24, 39, 0.502);
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+  &.opened {
+    opacity: 1 !important;
+  }
 }
 .app-menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 80%;
-  height: 100%;
   background-color: white;
-  transition: transform 0.3s ease-in-out;
-  z-index: 99; /* Make sure the menu is on top of other elements */
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Add a drop shadow to the menu */
-  transform: translateX(-100%);
-  &.active {
-    transform: translateX(0);
-  }
 }
 </style>
