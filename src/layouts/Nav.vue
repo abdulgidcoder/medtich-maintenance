@@ -14,51 +14,14 @@
             ><Icon name="password" class="item-icon" />تغيير كلمة المرور</span
           ><Icon name="angle-right" class="item-arrow"
         /></RouterLink>
-      </li>
-      <li>
-        <RouterLink :to="{ name: 'my-orders' }"
-          ><span class="item-text"
-            ><Icon name="cart" class="item-icon" />طلباتى</span
-          ><Icon name="angle-right" class="item-arrow"
-        /></RouterLink>
-      </li>
+      </li>   
       <!-- <li v-if="this.$auth.role == 'technician'">
         <RouterLink :to="{ name: 'my-reports' }"
           ><span class="item-text"
             ><Icon name="file-chart" class="item-icon" />تقاريرى</span
           ><Icon name="angle-right" class="item-arrow"
         /></RouterLink>
-      </li> -->
-      <li>
-        <RouterLink :to="{ name: 'faq' }"
-          ><span class="item-text"
-            ><Icon name="exclamation-circle-alt" class="item-icon" />الأسئلة
-            الشائعة</span
-          ><Icon name="angle-right" class="item-arrow"
-        /></RouterLink>
-      </li>
-           <li>
-        <RouterLink :to="{ name: 'privacy' }"
-          ><span class="item-text"
-            ><Icon name="shield-alt" class="item-icon" />الشروط والاحكام</span
-          ><Icon name="angle-right" class="item-arrow"
-        /></RouterLink>
-      </li>
-      <li>
-        <RouterLink :to="{ name: 'contact' }"
-          ><span class="item-text"
-            ><Icon name="phone-volume" class="item-icon" />تواصل معنا</span
-          ><Icon name="angle-right" class="item-arrow"
-        /></RouterLink>
-      </li>
- 
-      <li>
-        <RouterLink :to="{ name: 'logout' }"
-          ><span class="item-text"
-            ><Icon name="sign-out" class="item-icon" />تسجيل خروج</span
-          >
-        </RouterLink>
-      </li>
+      </li> --> 
     </ul>
   </nav>
 </template>
@@ -67,6 +30,7 @@
   li {
     &:not(:last-child) {
       padding-bottom: 10px;
+
       margin-bottom: 10px;
       border-bottom: 1px solid var(--grey);
     }

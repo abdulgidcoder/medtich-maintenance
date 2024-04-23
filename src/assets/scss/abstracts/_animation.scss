@@ -97,15 +97,17 @@
 }
 
 /* Menu Left */
-.menu-left-enter-active {
+.slideright-enter-active {
   transition: transform 0.25s ease-out,opacity 0.25s ease-out;
+    opacity: 1;
 }
-.menu-left-leave-active {
+.slideright-leave-active {
   transition: transform 0.25s cubic-bezier(1, 0.5, 0.8, 1),opacity 0.25s cubic-bezier(1, 0.5, 0.8, 1);
+    opacity: 1;
 }
-.menu-left-enter-from,
-.menu-left-leave-to {
-  transform: translatex(-100%);
+.slideright-enter-from,
+.slideright-leave-to {
+  transform: translatex(100%);
   opacity: 0;
 }
 

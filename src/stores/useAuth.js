@@ -48,10 +48,7 @@ export const useAuthStore = defineStore("auth", {
     async login(mobile, password) {
       const response = await axios({
         method: "post",
-        url: "",
-        params: {
-          rest_route: "/auth/auth",
-        },
+        url: "/?rest_route=/auth/auth",
         data: {
           AUTH_KEY: this.$Auth_Key,
           username: mobile,

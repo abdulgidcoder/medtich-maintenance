@@ -22,10 +22,6 @@ watch(
 </script>
 <template>
   <Teleport to="body">
-    <Alert
-      :show="alertStore.show"
-      :mode="alertStore.style"
-      :msg="alertStore.masg"
-    />
+    <Alert :show="alertStore.show" :mode="alertStore.style" :msg="alertStore.masg" />
   </Teleport>
 </template>

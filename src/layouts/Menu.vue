@@ -2,8 +2,9 @@
 import InfoUser from "@/layouts/InfoUser.vue";
 import UserInfo from "@/layouts/auth/UserInfo.vue";
 import Nav from "@/layouts/Nav.vue";
+import Menu from "@/components/Menu.vue";
 export default {
-  components: { Nav, UserInfo, InfoUser },
+  components: { Nav, UserInfo, InfoUser,Menu },
   data() {
     return {
       itemsNav: [
@@ -66,8 +67,8 @@ export default {
   }
   .app-user-info {
     .app-avatar {
-      width: 35px;
-      height: 35px;
+      width: 42px;
+      height: 42px;
     }
     .app-user-content {
       h3 {

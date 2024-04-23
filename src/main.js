@@ -30,7 +30,7 @@ import File from "./components/form/File.vue";
 import FileBox from "./components/FileBox.vue";
 import Skeleton from "./components/Skeleton.vue";
 import Modal from "./components/Modal.vue";
-import Menu from "./components/Menu.vue";
+
 import Gellary from "./components/Gellary.vue";
 
 // Plugins
@@ -73,16 +73,15 @@ app.component("File", File);
 app.component("FileBox", FileBox);
 app.component("Skeleton", Skeleton);
 app.component("Modal", Modal);
-app.component("Menu", Menu);
 app.component("Gellary", Gellary);
 
 // Pinia Config
 const pinia = createPinia();
 pinia.use(({ store }) => {
   /** Vars */
-  store.$authTech = "397R{6;d@cTB|p2vaMeA^Pm};B8";
+  store.$authTech = "cT!z+m%qM2xH+k}D9XtqHUT^K7VCVj-Rw8:";
   store.$authCustomer = "NQhJr6{~K9=/TXeh(QXEdA8Yp|lz";
-  store.$Auth_Key = "397R{6;d@cTB|p2vaMeA^Pm};B8";
+  store.$Auth_Key = "cT!z+m%qM2xH+k}D9XtqHUT^K7VCVj-Rw8:";
   store.$timeoutRequest = 2300;
 
   /** User router in Store */

@@ -22,7 +22,6 @@
     "capacitor-native-settings": "^4.0.3",
     "firebase": "^9.17.1",
     "mobile-select": "^1.3.3",
-    "mobile-swipe-menu": "^2.2.3",
     "moment": "^2.29.4",
     "normalize.css": "^8.0.1",
     "pinia": "^2.0.28",

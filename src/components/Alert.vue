@@ -1,4 +1,5 @@
 <script>
+import { useAlert } from "@/stores/useAlert";
 import Icon from "./Icon.vue";
 export default {
   components: { Icon },
@@ -16,49 +17,57 @@ export default {
       required: true,
     },
   },
+  setup() {
+    const alertStore = useAlert();
+    return { alertStore };
+  },
   data() {
     return {
       color:
         this.mode == "success"
           ? "var(--success)"
           : this.mode == "warning"
-          ? "var(--warning)"
-          : this.mode == "danger"
-          ? "var(--danger)"
-          : this.mode == "info"
-          ? "var(--info)"
-          : null,
+            ? "var(--warning)"
+            : this.mode == "danger"
+              ? "var(--danger)"
+              : this.mode == "info"
+                ? "var(--info)"
+                : null,
     };
+
   },
+  methods: {
+    dismiss() {
+      this.alertStore.show = false;
+    }
+  }
 };
 </script>
 <template>
   <div class="app-alert-container">
     <Transition name="fadeUp">
-      <div
-        v-if="show"
-        class="app-alert"
-        :class="{
-          warning: mode == 'warning',
-          info: mode == 'info',
-          success: mode == 'success',
-          danger: mode == 'danger',
-        }"
-      >
-        <icon
-          :name="
-            this.mode == 'success'
-              ? 'check-circle'
-              : this.mode == 'warning'
+      <div v-if="show" class="app-alert" :class="{
+        warning: mode == 'warning',
+        info: mode == 'info',
+        success: mode == 'success',
+        danger: mode == 'danger',
+      }">
+        <button class="app-alert_dismiss" type="button" @click="dismiss">
+          <Icon name="times" />
+        </button>
+        <div class="app-alert_wrapper">
+          <icon :name="this.mode == 'success'
+            ? 'check-circle'
+            : this.mode == 'warning'
               ? 'exclamation-circle'
               : this.mode == 'danger'
-              ? 'exclamation-triangle'
-              : this.mode == 'info'
-              ? 'password'
-              : null
-          "
-        />
-        {{ msg }}
+                ? 'exclamation-triangle'
+                : this.mode == 'info'
+                  ? 'password'
+                  : null
+            " />
+          {{ msg }}
+        </div>
       </div>
     </Transition>
   </div>
@@ -72,55 +81,74 @@ export default {
   transform: translateX(-50%);
   z-index: 999;
 }
+
 .app-alert {
+  position: relative;
   width: 95vw;
-  // max-width: 320px;
   background: var(--white) !important;
   padding: 10px;
   text-align: center;
   font-size: 0.875rem;
   box-shadow: 0 0px 6px #8f8686;
   border-radius: 6px;
+
+  &_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 18px;
+
+    >.app-icon {
+      margin-left: 5px;
+
+      svg {
+        width: 15px;
+      }
+    }
+  }
+
+  &_dismiss {
+    background: none;
+    border: none;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    .app-icon {
+      color: #000;
+      width: 11px;
+    }
+  }
+
   &.success {
     color: var(--success);
-    svg {
-      fill: var(--success);
-    }
+
     a,
     mark {
       color: var(--success-shade);
     }
   }
+
   &.warning {
     color: var(--warning);
-    svg {
-      fill: var(--warning);
-    }
+
     a,
     mark {
       color: var(--warning-shade);
     }
   }
+
   &.info {
     color: var(--info);
-    svg {
-      fill: var(--info);
-    }
   }
+
   &.danger {
     color: var(--danger);
-    svg {
-      fill: var(--danger);
-    }
+
     a,
     mark {
       color: var(--danger-shade);
-    }
-  }
-  .app-icon {
-    margin-left: 5px;
-    svg {
-      width: 15px;
     }
   }
 }

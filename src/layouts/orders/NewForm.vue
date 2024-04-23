@@ -30,8 +30,7 @@ export default {
     const alertStore = useAlert();
     return { ordersStore, alertStore };
   },
-  mounted() {
-    document.title = "Add Order";
+  mounted() { 
     this.order.city = this.$auth.user_data.acf?.area;
     this.order.name = this.$auth.user_data.name;
     this.order.mobile = this.$auth.user_data.username;

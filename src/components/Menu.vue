@@ -1,5 +1,4 @@
 <script>
-import MobileSwipeMenu from "mobile-swipe-menu";
 
 export default {
   data() {
@@ -12,41 +11,18 @@ export default {
   mounted() {
     this.initMenu();
   },
+  beforeUnmount() {
+    this.mobileMenu = null;
+  },
   methods: {
     initMenu() {
-      let meneELe = this.$refs.menuContainer;
-      this.mobileMenu = new MobileSwipeMenu(meneELe, {
-        mode: "right",
-        width: window.innerWidth / 1.5,
-        enableBodyHook: true,
-        events: {
-          drag: (swipe) => {
-            let swipeX = swipe.xCurrent - swipe.xStart,
-              opacity = (swipeX / window.innerWidth) * -1;
-            if (this.$refs.menuOverlay) {
-              this.$refs.menuOverlay.style.opacity = opacity;
-            }
-          },
-          start: () => {
-            this.isdrag = true;
-          },
-          stop: () => {
-            this.isdrag = false;
-          },
-          opened: () => {
-            this.isOpend = true;
-          },
-          closed: () => {
-            this.isOpend = false;
-          },
-        },
-      });
+      let menuELe = this.$refs.menuContainer;
     },
     dismiss() {
-      this.mobileMenu.closeMenu();
+      this.isOpend = false;
     },
     open() {
-      this.mobileMenu.openMenu();
+      this.isOpend = true;
     },
   },
 };
@@ -55,23 +31,14 @@ export default {
   <button @click="open" class="btn-link">
     <slot name="toggle"></slot>
     <Teleport to="body">
-      <div
-        v-if="isdrag || isOpend"
-        class="app-menu_overlay"
-        :class="[{ opened: isOpend }]"
-        @click="dismiss"
-        ref="menuOverlay"
-      ></div>
-
-      <div
-        class="app-menu"
-        @click.prevent
-        :class="[$attrs['class'], { opened: isOpend }]"
-        ref="menuContainer"
-      >
-        <div class="app-menu_wrapper">
-          <slot name="content"></slot>
-        </div>
+      <div v-if="isdrag || isOpend" class="app-menu_overlay" :class="[{ opened: isOpend }]" @click="dismiss"
+        ref="menuOverlay"></div>
+      <div class="app-menu" @click.prevent :class="[$attrs['class'], { opened: isOpend }]" ref="menuContainer">
+        <Transition name="slideright">
+          <div class="app-menu_wrapper"  v-if="isOpend">
+            <slot name="content"></slot>
+          </div>
+        </Transition>
       </div>
     </Teleport>
   </button>
@@ -88,11 +55,26 @@ export default {
   background-color: rgba(17, 24, 39, 0.502);
   transition: opacity 0.3s ease-in-out;
   opacity: 0;
+
   &.opened {
     opacity: 1 !important;
   }
 }
+
 .app-menu {
-  background-color: white;
+  &_wrapper {
+    background-color: white;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 255px;
+    height: 100vh;
+    z-index: 999; 
+  }
+
+  // &.opened {
+  //   opacity: 1 !important;
+  //   transform: translateX(0);
+  // }
 }
 </style>

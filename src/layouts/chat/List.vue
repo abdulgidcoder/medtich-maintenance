@@ -28,13 +28,14 @@ export default {
   },
   mounted() {
     this.fetchChat();
+     if (this.chatStore.list) {
+      this.loader = false;
+    }
     this.pollingChat();
   },
   methods: {
-    fetchChat() {
-      if (this.chatStore.list) {
-        this.loader = false;
-      }
+    fetchChat() { 
+      this.loader = true;
       this.chatStore
         .ftechChats(this.$auth, this.currPage, this.per_page)
         .then(() => {

@@ -1,7 +1,0 @@
-{
-  "name": "medtich-maintenance",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "custom"
-}
