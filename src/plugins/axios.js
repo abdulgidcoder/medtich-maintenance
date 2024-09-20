@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useAuthStore } from "@/stores/useAuth";
 import router from "../router";
-axios.defaults.baseURL = "http://localhost:8080/medtich/backend";
+axios.defaults.baseURL = "https://medtich.dev/backend";
 axios.interceptors.response.use(
   function (response) {
     const authStore = useAuthStore();
